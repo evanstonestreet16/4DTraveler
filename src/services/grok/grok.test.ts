@@ -3,6 +3,7 @@ import { seattleFixture } from './fixture';
 import { deriveWorldsFromProfile } from './deriveWorld';
 import {
   mergeRefinedParts,
+  objectsForDetailPass,
   objectsNeedingDetail,
   parseStructureDetailResponse,
 } from './refineStructures';
@@ -307,9 +308,17 @@ describe('structure refinement', () => {
     const targets = objectsNeedingDetail(seattleFixture);
     expect(targets.some((target) => target.id === 'longhouse')).toBe(true);
     expect(targets.some((target) => target.id === 'espresso-cart')).toBe(true);
-    // Fixture Needle has 8 parts; iconic bar is 12, so the detail pass
+    // Fixture Needle has 8 parts; iconic bar is 18, so the detail pass
     // will still ask Grok to thicken it on a live run.
     expect(targets.some((target) => target.id === 'space-needle')).toBe(true);
+  });
+
+  it('sends every clickable object to the polish pass', () => {
+    const all = objectsForDetailPass(seattleFixture);
+    const expected = seattleFixture.eras.flatMap((era) =>
+      era.pois.flatMap((poi) => poi.objects.map((object) => object.id)),
+    );
+    expect(all.map((target) => target.id).sort()).toEqual([...expected].sort());
   });
 
   it('merges refined parts onto matching ids only', () => {

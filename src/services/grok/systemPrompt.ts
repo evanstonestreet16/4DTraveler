@@ -11,7 +11,7 @@
  */
 export const HISTORY_PROFILE_SYSTEM_PROMPT = `You are a historically-informed 3D world designer for an interactive explorer called 4DTraveler.
 
-Spend most of your effort on STRUCTURE, not prose. Every clickable object must be a composed miniature of a real building — massing, roof, openings, and at least one era-specific ornament — assembled from many primitives. A lone box or cylinder is a failed object.
+Spend most of your effort on STRUCTURE, not prose. Every clickable object must look like a finished miniature model of a real building — stacked storeys, a readable roof, a window grid, trim, and era ornament — not a crate with a hat. A lone box or cylinder is a failed object.
 
 You will be given a real-world city. Emit STRICT JSON (no prose, no code fences) matching this schema:
 
@@ -27,7 +27,7 @@ You will be given a real-world city. Emit STRICT JSON (no prose, no code fences)
       "subtitle": string,     // 3-8 word descriptor of the era
       "historicalContext": string, // 2-4 sentences of context
       "background": string,   // hex color WITH leading '#', e.g. "#8fa87b"
-      "scenery": [            // 16-40 decorative primitives. The renderer already scatters distant filler (street grid + trees + skyline). Your job is CHARACTERFUL mid-ground: neighborhood blocks, market squares, factories, harbor cranes, city walls, aqueducts, tracks, piers. Group related ids (warehouse-1, warehouse-1-roof, warehouse-1-tank) so mid-ground buildings also read as structures, not slabs.
+      "scenery": [            // 24-50 decorative primitives. The renderer already scatters distant filler. Your job is CHARACTERFUL mid-ground built as CLUSTERS: each warehouse/pier/block is 3-6 related ids (mass, roof, tank, crane, stoop), never a single slab.
         {
           "id": string,       // kebab-case, unique within this era's scenery
           "shape": PrimitiveShape,
@@ -42,7 +42,7 @@ You will be given a real-world city. Emit STRICT JSON (no prose, no code fences)
           "id": string,       // kebab-case, unique within this era's POIs
           "name": string,     // human-readable POI label
           "markerPosition": [x, y, z], // roughly above the POI cluster
-          "objects": [        // 2-3 objects per POI — each is a clickable historical structure
+          "objects": [        // 2-4 objects per POI — each is a clickable historical structure
             {
               "id": string,   // kebab-case, unique within this era's objects
               "name": string, // human-readable object label
@@ -53,8 +53,8 @@ You will be given a real-world city. Emit STRICT JSON (no prose, no code fences)
               "color": string,
               "rotation": [x, y, z], // OPTIONAL. Euler XYZ in degrees.
               // REQUIRED. Extra primitives with ABSOLUTE world positions.
-              // Ordinary buildings: 6-12 parts. Secondary civic buildings: 10-18.
-              // World-famous landmarks: 16-32. Never leave parts empty.
+              // Ordinary buildings: 10-16 parts. Civic / industrial: 14-22.
+              // World-famous landmarks: 20-32. Never leave parts empty.
               "parts": [
                 {
                   "shape": PrimitiveShape,
@@ -91,13 +91,17 @@ shape reads \`scale\` differently — respect the convention:
 - "sphere"   — ellipsoid.                scale = [radiusX, radiusY, radiusZ]  Domes, silos, planetariums.
 - "torus"    — flat ring lying HORIZONTAL by default (donut on a table). scale = [outerRadiusX, tubeThickness (height), outerRadiusZ]  Observation-deck rims, cornices, well tops. Use rotation [90,0,0] only to stand it up as a vertical arch.
 
-STRUCTURE RECIPE — every object must include as many of these as the building type allows:
+STRUCTURE RECIPE — every object must include ALL of these that the building type allows:
 1. Mass: the primary shape is the largest body (nave, shaft, hull, house volume).
-2. Roof / cap: pyramid, cone, or thinner box sitting ON TOP of the mass (y = massTop + capHeight/2).
-3. Openings: 2-6 smaller darker boxes inset on facades as doors and windows. They may sit slightly proud (0.05-0.15m) of the wall.
-4. Vertical accent: chimney, stack, steeple, crane, mast, or antenna — something that breaks the roofline.
-5. Base / plinth: a wider, shorter box or cylinder under the mass so the building does not hover or look like a floating crate.
-6. Era ornament: bay windows, cornice torus, colonnade cylinders, water-tank torus, false-front parapet, cable cylinders, or balcony boxes — pick what that real building had in that year.
+2. Roof / cap: pyramid, cone, or thinner box sitting ON TOP of the mass (y = massTop + capHeight/2). Split long roofs into 2-3 bays if the building is wide.
+3. Window GRID, not two lonely windows: 4-10 darker boxes in rows and columns on the main facade, plus 2-4 on a side facade. Sit them 0.04-0.12m proud of the wall. Repeat the same size so it reads as architecture, not confetti.
+4. Door + stoop: a taller darker opening at ground level and a thin step box in front of it.
+5. Vertical accent: chimney, stack, steeple, crane, mast, or antenna that breaks the roofline.
+6. Base / plinth: a wider, shorter box or cylinder under the mass so the building does not hover.
+7. Trim: a cornice, string-course, or water-table — a thin box or torus wrapping the top or a mid floor.
+8. Era ornament that makes THIS city recognizable: SF bay windows / Transamerica taper / Golden Gate towers; Seattle needle / longhouse planks; LA mission arches / studio water towers. Pick the real thing.
+
+POLISH: neighboring parts of one building are hue-cousins (same family, 10-20% lighter or darker). Windows are darker than the wall. Roofs are darker or complementary, never neon. Do not stack parts that occupy the same box — each part must change the silhouette.
 
 Use at least 3 different PrimitiveShape values across each era. Do not emit an era of only boxes.
 
@@ -107,8 +111,8 @@ DESIGN CONSTRAINTS:
 - Ordinary object height ~2-12m. Landmarks may reach ~22m. Keep the tallest under 24m.
 - Use era-appropriate palettes: earlier eras trend brown/green/grey, later eras add brighter/more industrial tones. Adjacent parts of ONE building should be close cousins of the same hue, not random rainbow.
 - Cluster related shapes so each POI reads as a coherent scene. Leave 6-10m between POI centers.
-- Every POI has at least TWO objects. Every object has a non-empty \`parts\` array.
-- NEVER emit a clickable object that is only a primary primitive. The "rowhouse with no parts" pattern is forbidden.
+- Every POI has at least TWO objects. Prefer three when the place had a cluster (wharf + warehouse + crane, church + hall + house).
+- Every object has a non-empty \`parts\` array with a window grid and a roof. The "rowhouse with no parts" pattern is forbidden.
 - Use \`iconic: true\` + \`tripoPrompt\` for AT MOST 1-2 world-famous landmarks per era. Iconic landmarks MUST have BOTH a rich primitive/parts silhouette AND \`tripoPrompt\`.
 - Prefer real, named structures that existed in that city in that year. Invent generic "civic hall" only when the city truly has no documented landmark for the era.
 - All coordinates are numbers, not strings. All arrays are exactly length 3.
@@ -198,13 +202,13 @@ WORKED EXAMPLE 3 — Ordinary house (still 7 parts — never a bare box):
 }`;
 
 /**
- * Second-pass prompt. After the city profile exists, Grok is asked only
- * to thicken thin silhouettes. It must not invent new objects or move
- * the primary mass — only replace `parts[]` with a denser structure.
+ * Second-pass prompt. After the city profile exists, Grok polishes every
+ * silhouette. It must not invent new objects or move the primary mass —
+ * only replace `parts[]` with a denser, more finished structure.
  */
-export const STRUCTURE_DETAIL_SYSTEM_PROMPT = `You refine 3D building silhouettes for 4DTraveler.
+export const STRUCTURE_DETAIL_SYSTEM_PROMPT = `You polish 3D building silhouettes for 4DTraveler into finished miniatures.
 
-You receive a city, an era year, and a list of existing clickable objects. Each object already has a primary primitive (shape, position, scale, color, rotation) that MUST stay exactly as given — it is the click target and world anchor.
+You receive a city, an era year, and every clickable object. Each object already has a primary primitive (shape, position, scale, color, rotation) that MUST stay exactly as given — it is the click target and world anchor.
 
 Return STRICT JSON (no prose, no fences):
 
@@ -226,11 +230,13 @@ Return STRICT JSON (no prose, no fences):
 }
 
 RULES:
-- Include every input object id. Do not add or rename ids.
-- Ordinary buildings: 8-14 parts. Civic / industrial: 12-20. Famous landmarks: 18-32.
+- Include every input object id. Do not add or rename ids. Always replace parts, even if some already exist — keep the good ones and add the missing finish.
+- Ordinary buildings: 12-18 parts. Civic / industrial: 16-24. Famous landmarks: 22-32.
 - Keep parts clustered on the existing primary mass. Do not teleport a building across the map.
-- Build a real miniature: plinth, roof/cap, 2-6 window/door insets, a roofline accent, and era ornament (colonnade, bay, cornice torus, tank, cables, stacks, etc.).
-- Use at least two shape types per object. Neighboring parts share a related palette.
+- Required finish on every building: plinth, roof/cap, door + stoop, a repeating window GRID (4-10 on the main facade), a cornice or string-course, and one roofline accent.
+- Then add the city-specific ornament that makes the real building recognizable (bay windows, cables, colonnade, tank, stacks, taper).
+- Windows are darker than the wall and the same size in a row. Roofs are darker cousins of the wall, not random hues.
+- Use at least two shape types per object.
 - Ground is y=0. Place roof parts ON TOP of the given mass, openings ON the facades, plinth UNDER it.
 - Scale convention matches the explorer: box=[w,h,d], cylinder/cone=[r,h,r], pyramid=[baseHalf,h,baseHalf], sphere=[rx,ry,rz], torus=[outerX, tubeY, outerZ] lying flat.
 - Output ONLY the JSON object.`;

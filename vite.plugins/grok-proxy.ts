@@ -3,7 +3,7 @@ import type { Plugin } from 'vite';
 import type { GeneratedHistoryProfile } from '../src/types/world';
 import {
   mergeRefinedParts,
-  objectsNeedingDetail,
+  objectsForDetailPass,
   parseStructureDetailResponse,
   structureDetailUserPrompt,
 } from '../src/services/grok/refineStructures';
@@ -60,7 +60,7 @@ function respondJson(res: ServerResponse, status: number, body: unknown) {
 }
 
 const PROFILE_MAX_TOKENS = 16384;
-const DETAIL_MAX_TOKENS = 12288;
+const DETAIL_MAX_TOKENS = 16384;
 
 interface GrokChatOptions {
   system: string;
@@ -146,15 +146,15 @@ async function completeGrokJson(
 }
 
 /**
- * Second Grok pass: if the first profile still has thin silhouettes,
- * ask for denser `parts[]` and merge them. A failed detail pass keeps
- * the already-valid first profile so generation still succeeds.
+ * Second Grok pass: polish every clickable silhouette so the first
+ * draft is never the final model. A failed detail pass keeps the
+ * already-valid first profile so generation still succeeds.
  */
 async function thickenThinStructures(
   options: GrokProxyOptions,
   profile: GeneratedHistoryProfile,
 ): Promise<GeneratedHistoryProfile> {
-  const targets = objectsNeedingDetail(profile);
+  const targets = objectsForDetailPass(profile);
   if (targets.length === 0) return profile;
   try {
     const parsed = await completeGrokJson(options, {
@@ -213,7 +213,7 @@ export function grokProxyPlugin(options: GrokProxyOptions): Plugin {
             latitude !== undefined && longitude !== undefined
               ? ` (approx. ${latitude.toFixed(2)}, ${longitude.toFixed(2)})`
               : '';
-          const userPrompt = `Generate the history profile for ${cityName}${coords}. Prefer real named buildings from that city. Every clickable object must be a multi-part miniature — roofs, openings, plinths, and an era ornament — not a lone box. Follow every rule in the system prompt.`;
+          const userPrompt = `Generate the history profile for ${cityName}${coords}. Prefer real named buildings from that city. Every clickable object must look like a finished miniature: roof, window grid, door, plinth, trim, and a city-specific ornament — not a lone box. Follow every rule in the system prompt.`;
           try {
             const parsed = await completeGrokJson(options, {
               system: HISTORY_PROFILE_SYSTEM_PROMPT,

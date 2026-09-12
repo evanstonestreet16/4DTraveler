@@ -86,20 +86,20 @@ function environmentFor(
   background: string,
 ): HistoricalWorld['scene']['environment'] {
   return {
-    ambientIntensity: 0.85,
+    ambientIntensity: 0.72,
     skyColor: background,
-    groundColor: '#4a4638',
+    groundColor: '#3f3b32',
     keyLight: {
-      position: [18, 30, 14],
-      color: '#ffe8c8',
-      intensity: 2.4,
+      position: [16, 28, 12],
+      color: '#ffe3bf',
+      intensity: 2.85,
     },
     fog: {
       color: background,
-      near: 40,
-      far: 140,
+      near: 36,
+      far: 120,
     },
-    exposure: 1.05,
+    exposure: 1.08,
   };
 }
 

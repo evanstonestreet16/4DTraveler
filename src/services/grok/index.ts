@@ -21,6 +21,7 @@ export {
 } from './systemPrompt';
 export {
   mergeRefinedParts,
+  objectsForDetailPass,
   objectsNeedingDetail,
   MIN_ICONIC_PARTS,
   MIN_ORDINARY_PARTS,

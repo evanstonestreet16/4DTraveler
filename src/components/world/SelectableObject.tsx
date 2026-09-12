@@ -20,7 +20,7 @@ import type {
  */
 function useHorizontalTorusGeometry(): THREE.TorusGeometry {
   return useMemo(() => {
-    const g = new THREE.TorusGeometry(0.4, 0.12, 12, 24);
+    const g = new THREE.TorusGeometry(0.4, 0.12, 16, 32);
     g.rotateX(Math.PI / 2);
     return g;
   }, []);
@@ -41,14 +41,14 @@ function PrimitiveGeometry({ shape }: { shape: PrimitiveShape }) {
     case 'box':
       return <boxGeometry args={[1, 1, 1]} />;
     case 'cylinder':
-      return <cylinderGeometry args={[0.5, 0.5, 1, 20]} />;
+      return <cylinderGeometry args={[0.5, 0.5, 1, 28]} />;
     case 'cone':
-      return <coneGeometry args={[0.5, 1, 20]} />;
+      return <coneGeometry args={[0.5, 1, 24]} />;
     case 'pyramid':
       // A cone with 4 radial segments is a square-base pyramid.
       return <coneGeometry args={[0.5, 1, 4]} />;
     case 'sphere':
-      return <sphereGeometry args={[0.5, 24, 16]} />;
+      return <sphereGeometry args={[0.5, 32, 20]} />;
     case 'torus':
       // Pre-rotated in useHorizontalTorusGeometry so scale.x/z read as
       // ring outer radius and scale.y reads as tube-diameter height.
@@ -60,6 +60,28 @@ function PrimitiveGeometry({ shape }: { shape: PrimitiveShape }) {
       return <boxGeometry args={[1, 1, 1]} />;
     }
   }
+}
+
+/**
+ * Give painted primitives a slightly more modeled finish: cool/light
+ * hues read as metal or glass, warm earth hues stay matte stone/wood.
+ */
+export function materialFinish(hex: string): {
+  roughness: number;
+  metalness: number;
+} {
+  const match = hex.trim().match(/^#?([0-9a-fA-F]{6})$/);
+  if (!match) return { roughness: 0.68, metalness: 0.06 };
+  const value = parseInt(match[1], 16);
+  const r = (value >> 16) & 255;
+  const g = (value >> 8) & 255;
+  const b = value & 255;
+  const chroma = Math.max(r, g, b) - Math.min(r, g, b);
+  const average = (r + g + b) / 3;
+  if (b > r + 10 && average > 140) return { roughness: 0.26, metalness: 0.42 };
+  if (b > r + 8) return { roughness: 0.38, metalness: 0.28 };
+  if (chroma < 22 && average > 150) return { roughness: 0.36, metalness: 0.2 };
+  return { roughness: 0.68, metalness: 0.05 };
 }
 
 /** Convert an optional degree tuple to a three.js radian tuple. */
@@ -117,8 +139,8 @@ export function SelectableObject({
       <meshStandardMaterial
         color={selected ? '#efb759' : primitive.color}
         emissive={selected ? '#d88617' : hovered ? '#646f50' : '#000000'}
-        emissiveIntensity={selected ? 0.42 : 0.15}
-        roughness={0.85}
+        emissiveIntensity={selected ? 0.42 : hovered ? 0.12 : 0.04}
+        {...materialFinish(primitive.color)}
         transparent={hidden}
         opacity={hidden ? 0 : 1}
         depthWrite={!hidden}

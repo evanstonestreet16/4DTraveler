@@ -52,9 +52,9 @@ describe('procedural cityFill', () => {
       outerRadius: 30,
     });
     for (const b of buildings) {
-      // Skip roof caps — they share the parent's X/Z so the base row
-      // already proves the invariant.
-      if (b.id.endsWith('-roof')) continue;
+      // Skip roofs, windows, and stacks — only the mass sits in the
+      // scatter ring.
+      if (!/^fill-building-\d+$/.test(b.id)) continue;
       const [x, , z] = b.position;
       expect(Math.max(Math.abs(x), Math.abs(z))).toBeGreaterThanOrEqual(
         inner - 0.01,
@@ -71,6 +71,7 @@ describe('procedural cityFill', () => {
       outerRadius: outer,
     });
     for (const b of buildings) {
+      if (!/^fill-building-\d+$/.test(b.id)) continue;
       const [x, , z] = b.position;
       expect(Math.max(Math.abs(x), Math.abs(z))).toBeLessThanOrEqual(outer);
     }
@@ -84,11 +85,28 @@ describe('procedural cityFill', () => {
   });
 
   it('emits only supported primitive shapes', () => {
-    const allowed = new Set(['box', 'cylinder', 'cone', 'sphere', 'pyramid']);
+    const allowed = new Set([
+      'box',
+      'cylinder',
+      'cone',
+      'sphere',
+      'pyramid',
+      'torus',
+    ]);
     const all = cityFillAsPrimitives({ seed: 's', year: 1780 });
     for (const p of all) {
       expect(allowed.has(p.shape)).toBe(true);
     }
+  });
+
+  it('adds window bands so filler blocks read as buildings', () => {
+    const { buildings } = generateCityFill({ seed: 'x', year: 2005 });
+    expect(buildings.some((building) => building.id.includes('-win-'))).toBe(
+      true,
+    );
+    expect(buildings.some((building) => building.id.endsWith('-roof'))).toBe(
+      true,
+    );
   });
 
   it('all colors are canonical hex form', () => {

@@ -5,8 +5,8 @@ import type {
 } from '../../types/world';
 import { MAX_OBJECT_PARTS } from './validate';
 
-export const MIN_ORDINARY_PARTS = 6;
-export const MIN_ICONIC_PARTS = 12;
+export const MIN_ORDINARY_PARTS = 10;
+export const MIN_ICONIC_PARTS = 18;
 
 export interface StructureDetailTarget {
   id: string;
@@ -35,7 +35,25 @@ function needsMoreParts(object: GeneratedObject): boolean {
   return partCount(object) < minimum;
 }
 
-/** Objects whose silhouettes are too thin for the current detail bar. */
+function toTarget(
+  object: GeneratedObject,
+  year: number,
+): StructureDetailTarget {
+  return {
+    id: object.id,
+    name: object.name,
+    year,
+    iconic: object.iconic,
+    shape: object.shape,
+    position: object.position,
+    scale: object.scale,
+    color: object.color,
+    rotation: object.rotation,
+    parts: object.parts ?? [],
+  };
+}
+
+/** Objects whose silhouettes are still below the current detail bar. */
 export function objectsNeedingDetail(
   profile: GeneratedHistoryProfile,
 ): StructureDetailTarget[] {
@@ -44,18 +62,26 @@ export function objectsNeedingDetail(
     for (const poi of era.pois) {
       for (const object of poi.objects) {
         if (!needsMoreParts(object)) continue;
-        targets.push({
-          id: object.id,
-          name: object.name,
-          year: era.year,
-          iconic: object.iconic,
-          shape: object.shape,
-          position: object.position,
-          scale: object.scale,
-          color: object.color,
-          rotation: object.rotation,
-          parts: object.parts ?? [],
-        });
+        targets.push(toTarget(object, era.year));
+      }
+    }
+  }
+  return targets;
+}
+
+/**
+ * Every clickable object, for the polish pass. Even a "good enough"
+ * first draft gets a second Grok pass so roofs, window grids, and
+ * trim are finished.
+ */
+export function objectsForDetailPass(
+  profile: GeneratedHistoryProfile,
+): StructureDetailTarget[] {
+  const targets: StructureDetailTarget[] = [];
+  for (const era of profile.eras) {
+    for (const poi of era.pois) {
+      for (const object of poi.objects) {
+        targets.push(toTarget(object, era.year));
       }
     }
   }
@@ -99,8 +125,8 @@ export function structureDetailUserPrompt(
 ): string {
   return [
     `City: ${cityName}`,
-    'Thicken these existing structures. Each object includes its era year.',
-    'Keep each primary primitive unchanged.',
+    'Polish every structure into a finished miniature. Each object includes its era year.',
+    'Keep each primary primitive unchanged. Replace parts with a denser window grid, roof, trim, and city-specific ornament.',
     JSON.stringify({ objects: targets }),
   ].join('\n');
 }

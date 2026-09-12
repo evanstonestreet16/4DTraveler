@@ -257,38 +257,57 @@ function generateBuildings(ctx: Context): ScenePrimitive[] {
       scale: [w, h, d],
       color,
     });
-    // Roof cap on a share of buildings — cone for pitched (rural /
-    // preindustrial) or a flat box hat for modern rooftops.
-    const roofChance = ctx.era === 'modern' ? 0.25 : 0.65;
-    if (ctx.rand() < roofChance) {
-      const roofColor = mixHex(
-        pick(ctx.rand, ctx.palette.roof),
-        ctx.background,
-        0.1,
-      );
-      if (ctx.era === 'rural' || ctx.era === 'preindustrial') {
-        // Pitched pyramid roof, sized to overhang slightly.
+    const roofColor = mixHex(
+      pick(ctx.rand, ctx.palette.roof),
+      ctx.background,
+      0.1,
+    );
+    if (ctx.era === 'rural' || ctx.era === 'preindustrial') {
+      buildings.push({
+        id: `fill-building-${i}-roof`,
+        shape: 'pyramid',
+        position: [x, h + Math.min(w, d) * 0.35, z],
+        scale: [
+          Math.max(w, d) * 0.55,
+          Math.min(w, d) * 0.6,
+          Math.max(w, d) * 0.55,
+        ],
+        color: roofColor,
+      });
+    } else {
+      buildings.push({
+        id: `fill-building-${i}-roof`,
+        shape: 'box',
+        position: [x, h + 0.18, z],
+        scale: [w * 0.92, 0.36, d * 0.92],
+        color: roofColor,
+      });
+    }
+    const windowColor = mixHex('#1a1410', color, 0.28);
+    const stories = Math.min(3, Math.max(1, Math.floor(h / 2.4)));
+    const cols = w > 2.8 ? 2 : 1;
+    for (let story = 0; story < stories; story += 1) {
+      const wy = 0.7 + story * Math.min(1.8, h / (stories + 0.5));
+      if (wy > h - 0.4) continue;
+      for (let col = 0; col < cols; col += 1) {
+        const wx = cols === 1 ? x : x - w * 0.18 + col * w * 0.36;
         buildings.push({
-          id: `fill-building-${i}-roof`,
-          shape: 'pyramid',
-          position: [x, h + Math.min(w, d) * 0.35, z],
-          scale: [
-            Math.max(w, d) * 0.55,
-            Math.min(w, d) * 0.6,
-            Math.max(w, d) * 0.55,
-          ],
-          color: roofColor,
-        });
-      } else {
-        // Modern parapet / rooftop equipment as a low flat box.
-        buildings.push({
-          id: `fill-building-${i}-roof`,
+          id: `fill-building-${i}-win-${story}-${col}`,
           shape: 'box',
-          position: [x, h + 0.25, z],
-          scale: [w * 0.5, 0.5, d * 0.5],
-          color: roofColor,
+          position: [wx, wy, z + d / 2 + 0.03],
+          scale: [Math.min(0.42, w * 0.22), 0.4, 0.06],
+          color: windowColor,
         });
       }
+    }
+    if (ctx.era !== 'rural' && ctx.rand() < 0.35) {
+      buildings.push({
+        id: `fill-building-${i}-stack`,
+        shape: 'cylinder',
+        position: [x + w * 0.28, h + 0.55, z - d * 0.2],
+        scale: [0.12, 0.9, 0.12],
+        color: mixHex('#3d3126', roofColor, 0.3),
+      });
     }
   }
   return buildings;

@@ -60,7 +60,7 @@ MongoDB, authentication, multiplayer, WASD, physics, NPCs, character interaction
 
 <!-- Newest first. Format: `- YYYY-MM-DD — summary (link to PR/issue if available)` -->
 
-- 2026-09-12 — Generative cities now ask Grok for multi-part building silhouettes, then run a second detail pass on any thin structures.
+- 2026-09-12 — Generative cities now ask Grok for finished miniature buildings (window grids, trim, city-specific ornament), then polish every silhouette in a second pass.
 
 - 2026-09-12 — Added a Nishiki covered-arcade street view from the supplied 360, with nearby-view arrows back to the Blender market street.
 
