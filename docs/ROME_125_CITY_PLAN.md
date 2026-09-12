@@ -1,10 +1,10 @@
 # Rome / 125 CE — immersive city generation plan
 
-**Status:** P0 and P1 implemented; P2 remains an ordered follow-up\
+**Status:** P0–P2 implemented in three dependency-ordered PRs\
 **Consumes:** [`IMMERSIVE_CITY_PLAN.md`](./IMMERSIVE_CITY_PLAN.md)  
 **World ID:** `rome-125`  
 **Historical frame:** Rome during the reign of Hadrian, in 125 CE  
-**Delivery priority:** Overview plus one polished Forum of Trajan POV; Pantheon and Colosseum POVs are ordered stretch work
+**Delivery priority:** Overview and Forum first, followed by Pantheon and Colosseum; all three are implemented
 
 ## 1. Experience thesis
 

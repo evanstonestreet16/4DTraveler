@@ -11,7 +11,7 @@ from pathlib import Path
 import bpy
 from mathutils import Vector
 sys.path.insert(0,str(Path(__file__).parent/'lib'))
-from rome_kit import Kit, forum, pantheon
+from rome_kit import Kit, forum, pantheon, colosseum
 ROOT=Path(__file__).resolve().parents[2]
 
 def overview(k):
@@ -75,7 +75,8 @@ def build(name):
     kit=Kit()
     if name=='overview': overview(kit); eye=(-1450,1250,1650); target=(50,40,180)
     elif name=='forum-trajan': forum(kit); eye=(0,1.65,30); target=(0,12,-40)
-    else: pantheon(kit); eye=(0,1.65,-42); target=(0,13,0)
+    elif name=='pantheon-forecourt': pantheon(kit); eye=(0,1.65,-42); target=(0,13,0)
+    else: colosseum(kit); eye=(0,1.65,0); target=(80,18,0)
     groups=kit.export_objects()
     scene=bpy.context.scene
     scene.world.color=(.65,.69,.71)
@@ -105,6 +106,6 @@ def build(name):
         scene.render.filepath=str(source/f'{name}-review.png'); bpy.ops.render.render(write_still=True)
 
 args=sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else []
-parser=argparse.ArgumentParser(); parser.add_argument('--scene',choices=['overview','forum-trajan','pantheon-forecourt','all'],default='all'); parser.add_argument('--render',action='store_true')
+parser=argparse.ArgumentParser(); parser.add_argument('--scene',choices=['overview','forum-trajan','pantheon-forecourt','colosseum-valley','all'],default='all'); parser.add_argument('--render',action='store_true')
 opts=parser.parse_args(args)
-for name in (['overview','forum-trajan','pantheon-forecourt'] if opts.scene=='all' else [opts.scene]): build(name)
+for name in (['overview','forum-trajan','pantheon-forecourt','colosseum-valley'] if opts.scene=='all' else [opts.scene]): build(name)

@@ -23,24 +23,17 @@ export function SelectableObject({
       scale={primitive.scale}
       castShadow
       receiveShadow
-      onClick={
-        object
-          ? (event) => {
-              event.stopPropagation();
-              if (shouldSuppressSceneClick(canvas)) return;
-              onSelect(object.id);
-            }
-          : undefined
-      }
-      onPointerOver={
-        object
-          ? (event) => {
-              event.stopPropagation();
-              if (shouldSuppressSceneClick(canvas)) return;
-              setHovered(true);
-            }
-          : undefined
-      }
+      onClick={(event) => {
+        event.stopPropagation();
+        if (!object || shouldSuppressSceneClick(canvas)) return;
+        onSelect(object.id);
+      }}
+      onPointerMove={(event) => {
+        event.stopPropagation();
+        setHovered(
+          !!object && !(event.buttons && shouldSuppressSceneClick(canvas)),
+        );
+      }}
       onPointerOut={object ? () => setHovered(false) : undefined}
     >
       {primitive.shape === 'box' ? (

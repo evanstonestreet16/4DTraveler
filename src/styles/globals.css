@@ -1110,3 +1110,15 @@ h1 {
     width: 180px;
   }
 }
+.city-narration .ambient-controls button {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  .city-experience:has(.ambient-controls) .city-information {
+    bottom: 220px;
+  }
+  .city-experience:has(.ambient-controls) .city-look-hint {
+    bottom: 260px;
+  }
+}

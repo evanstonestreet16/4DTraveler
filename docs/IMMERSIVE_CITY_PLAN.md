@@ -1,6 +1,6 @@
 # Immersive Historical City Plan
 
-**Status:** Shared runtime and Rome P0 implemented; Kyoto remains planned  
+**Status:** Shared runtime and Rome P0–P2 implemented; Kyoto remains planned\
 **Initial cities:** Rome, 125 CE (Imperial Rome); Kyoto, circa 1700 (Edo period)  
 **Architecture:** City-agnostic React Three Fiber runtime with offline Blender-authored assets
 

@@ -100,8 +100,14 @@ test('a real Forum mesh opens its sources and visibly highlights without moving 
   // The modeled horse body is visible above its plinth at the center of the piazza.
   const point = await project(page, [0, 5.25, 0]);
   const clip = { x: point.x - 70, y: point.y - 70, width: 140, height: 140 };
+  const paving = await project(page, [8, 0.05, 12]);
+  await page.mouse.move(paving.x, paving.y);
+  const unhovered = await page.screenshot({ clip });
   await page.mouse.move(point.x, point.y);
   const before = await page.screenshot({ clip });
+  // Both surfaces belong to one GLB root; moving across its child meshes must
+  // refresh hover rather than waiting to leave and re-enter the entire scene.
+  expect(await changedPixels(page, unhovered, before)).toBeGreaterThan(100);
   await page.mouse.click(point.x, point.y);
   await expect(
     page.getByRole('heading', {
@@ -136,6 +142,41 @@ test('a real Forum mesh opens its sources and visibly highlights without moving 
   await page.getByRole('button', { name: 'Close object information' }).click();
   await expect(page.locator('.object-info')).toHaveCount(0);
   expect((await snapshot(page)).camera).toEqual(camera);
+});
+
+test('opaque Forum scenery blocks selection of the basilica behind it', async ({
+  page,
+}) => {
+  await enterRome(page);
+  await enterForum(page);
+  // Turn toward the east end of the basilica using the ordinary look gesture.
+  // Its lower façade is hidden here by the nearer portico's marble cornice.
+  await page.mouse.move(700, 500);
+  await page.mouse.down();
+  await page.mouse.move(860, 500, { steps: 8 });
+  await page.mouse.up();
+  const yaw = -0.6215926535897909;
+  const pitch = 0.005;
+  const distance = 86.79;
+  const direction = new Vector3(
+    -Math.sin(yaw) * Math.cos(pitch),
+    Math.sin(pitch),
+    -Math.cos(yaw) * Math.cos(pitch),
+  );
+  const hiddenFacade = direction
+    .multiplyScalar(distance)
+    .add(new Vector3(...forum.camera.position));
+  const point = await project(page, hiddenFacade.toArray());
+  // A fresh pointer down ends click suppression, so this exercises occlusion.
+  await page.mouse.click(point.x, point.y);
+  await expect(page.locator('.object-info')).toHaveCount(0);
+  // The same nearby landmark remains available through its keyboard equivalent.
+  await page
+    .getByRole('button', { name: 'Basilica Ulpia', exact: true })
+    .click();
+  await expect(
+    page.getByRole('heading', { name: 'Basilica Ulpia', exact: true }),
+  ).toBeVisible();
 });
 
 test('repeated overview and Forum loads retain bounded GPU resources and a single canvas', async ({
