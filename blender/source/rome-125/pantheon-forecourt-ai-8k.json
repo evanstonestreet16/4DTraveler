@@ -1,0 +1,23 @@
+{
+  "source": "public/images/rome-125/pantheon-forecourt-360.webp",
+  "sourceSha256": "3d985d410061002c2f91afc6e1b551c32a33113e8eb9e9692d929acda2081b5c",
+  "sourceDimensions": [
+    1440,
+    720
+  ],
+  "model": "RealESRGAN_x4plus",
+  "modelUrl": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
+  "modelSha256": "4fa0d38905f75ac06eb49a7951b426670021be3018265fd191d2125df9d682f1",
+  "device": "mps",
+  "neuralDimensions": [
+    5760,
+    2880
+  ],
+  "outputDimensions": [
+    8192,
+    4096
+  ],
+  "outputSha256": "894d67f4df08110b75fdbacadec42a87ba9a001cb5c737406cc1e46b637ce5b4",
+  "method": "Native 4x neural super-resolution, overlapping context with horizontal wrap, then Lanczos sizing to exactly 8192x4096. Reconstructed detail is inferred, not recovered historical evidence.",
+  "elapsedSeconds": 299.2
+}

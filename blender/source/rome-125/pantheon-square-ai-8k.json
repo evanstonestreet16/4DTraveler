@@ -1,0 +1,23 @@
+{
+  "source": "public/images/rome-125/pantheon-square-360.webp",
+  "sourceSha256": "af1c623e940f7b5fe3466f093edbf76a8fab4b1c18c4b00c8c43186457e04204",
+  "sourceDimensions": [
+    1440,
+    720
+  ],
+  "model": "RealESRGAN_x4plus",
+  "modelUrl": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
+  "modelSha256": "4fa0d38905f75ac06eb49a7951b426670021be3018265fd191d2125df9d682f1",
+  "device": "mps",
+  "neuralDimensions": [
+    5760,
+    2880
+  ],
+  "outputDimensions": [
+    8192,
+    4096
+  ],
+  "outputSha256": "3d4ea746729135ca3f330dd8f76b31f020322b83d66f854b9502e35509a1749c",
+  "method": "Native 4x neural super-resolution, overlapping context with horizontal wrap, then Lanczos sizing to exactly 8192x4096. Reconstructed detail is inferred, not recovered historical evidence.",
+  "elapsedSeconds": 261.9
+}

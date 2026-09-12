@@ -27,7 +27,7 @@ async function checkImage(image: RenderedImageAsset, budgetMB: number) {
 }
 
 describe('Rome rendered asset delivery', () => {
-  it('ships all ten nearby views with lossless native-resolution images and stable POI entry frames', async () => {
+  it('ships all ten desktop views at 8K with stable POI entry frames', async () => {
     let total = 0;
     for (const poi of rome125.pois) {
       const panorama = poi.immersive!.panorama!;
@@ -39,8 +39,7 @@ describe('Rome rendered asset delivery', () => {
       expect(views[0].hotspots).toEqual(panorama.hotspots);
       for (const view of views) {
         total++;
-        await checkImage(view.desktop, 3);
-        await checkImage(view.mobile!, 3);
+        await checkImage(view.desktop, 6);
         await checkImage(view.fallback, 0.5);
         const bytes = await readFile(
           new URL(
@@ -48,9 +47,13 @@ describe('Rome rendered asset delivery', () => {
             import.meta.url,
           ),
         );
-        // VP8L is WebP's lossless bitstream, unlike the former lossy VP8 files.
-        expect(bytes.toString('ascii', 12, 16)).toBe('VP8L');
-        expect([view.desktop.width, view.desktop.height]).toEqual([1440, 720]);
+        // High-quality lossy WebP bounds each 8K panorama's download size.
+        expect(bytes.toString('ascii', 12, 16)).toBe('VP8 ');
+        expect([
+          bytes.readUInt16LE(26) & 0x3fff,
+          bytes.readUInt16LE(28) & 0x3fff,
+        ]).toEqual([8192, 4096]);
+        expect([view.desktop.width, view.desktop.height]).toEqual([8192, 4096]);
         expect(view.label.length).toBeGreaterThan(0);
         for (const hotspot of view.hotspots)
           expect(poi.objectIds).toContain(hotspot.objectId);
@@ -59,8 +62,12 @@ describe('Rome rendered asset delivery', () => {
     expect(total).toBe(10);
   });
 
-  it('fingerprints the supplied street views used by each POI', async () => {
-    for (const panorama of Object.values(renderedManifest.panoramas)) {
+  it('fingerprints all ten original and AI-upscaled panorama sources', async () => {
+    const views = Object.values(renderedManifest.panoramas)
+      .map((panorama) => panorama.viewpoints)
+      .flat();
+    for (const panorama of views) {
+      expect(panorama).toHaveProperty('enhancement');
       const source = panorama.source;
       expect(source.path).toMatch(
         /^pano-explorer\/public\/images\/citystreetviews\/rome\/(trajan|pantheon|colosseum)\/.+\.jpg$/,
@@ -71,24 +78,36 @@ describe('Rome rendered asset delivery', () => {
       expect(createHash('sha256').update(bytes).digest('hex')).toBe(
         source.sha256,
       );
-      expect(panorama.desktop.width).toBe(source.width);
-      expect(panorama.desktop.height).toBe(source.height);
+      const enhancement =
+        'enhancement' in panorama ? panorama.enhancement : undefined;
+      if (!enhancement) throw new Error(`Missing 8K source: ${panorama.id}`);
+      const enhancedBytes = await readFile(
+        new URL(`../../../${enhancement.path}`, import.meta.url),
+      );
+      expect(createHash('sha256').update(enhancedBytes).digest('hex')).toBe(
+        enhancement.sha256,
+      );
+      // Read the PNG IHDR, so a small generated image cannot be labeled 8K.
+      expect([
+        enhancedBytes.readUInt32BE(16),
+        enhancedBytes.readUInt32BE(20),
+      ]).toEqual([8192, 4096]);
+      expect(panorama.desktop.width).toBe(enhancement.width);
+      expect(panorama.desktop.height).toBe(enhancement.height);
     }
   });
 
-  it('ships a budgeted overview with authored desktop and portrait markers', async () => {
+  it('ships a budgeted overview with authored desktop markers', async () => {
     const overview = rome125.scene.overviewImage!;
     expect(overview).toBeDefined();
     await checkImage(overview.desktop, 1.5);
-    await checkImage(overview.mobile!, 1.5);
     await checkImage(overview.fallback, 0.5);
     expect(overview.desktop.width).toBeGreaterThan(overview.desktop.height);
-    expect(overview.mobile!.height).toBeGreaterThan(overview.mobile!.width);
     expect(Object.keys(overview.markers).sort()).toEqual(
       rome125.pois.map((poi) => poi.id).sort(),
     );
     for (const marker of Object.values(overview.markers)) {
-      for (const point of [marker.desktop, marker.mobile!]) {
+      for (const point of [marker.desktop]) {
         expect(point).toHaveLength(2);
         for (const coordinate of point) {
           expect(coordinate).toBeGreaterThan(0);
@@ -120,14 +139,10 @@ describe('Rome rendered asset delivery', () => {
       expect(panorama).toBeDefined();
       expect(poi.preview).not.toBe(true);
       await checkImage(panorama.desktop, 6);
-      await checkImage(panorama.mobile!, 3);
       await checkImage(panorama.fallback, 0.5);
       expect(panorama.desktop.width).toBeGreaterThanOrEqual(1440);
       expect(panorama.desktop.width).toBeLessThanOrEqual(8192);
-      expect(panorama.mobile!.width).toBeGreaterThanOrEqual(1440);
-      expect(panorama.mobile!.width).toBeLessThanOrEqual(4096);
-      for (const image of [panorama.desktop, panorama.mobile!])
-        expect(image.width / image.height).toBe(2);
+      expect(panorama.desktop.width / panorama.desktop.height).toBe(2);
       const source = authored[poi.id].source;
       expect(panorama.hotspots.map((hotspot) => hotspot.objectId)).toEqual(
         Object.keys(source.hotspotPixels),

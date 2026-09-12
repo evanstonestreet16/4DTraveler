@@ -192,7 +192,6 @@ export function RenderedCityViewer({
     () => resolvePresentation(world, state.cameraMode, state.activePOIId),
     [world, state.cameraMode, state.activePOIId],
   );
-  const mobile = size.width < 900 || quality !== 'high';
   useEffect(() => {
     const element = container.current;
     if (!element) return;
@@ -207,9 +206,7 @@ export function RenderedCityViewer({
     return () => observer.disconnect();
   }, []);
   const panorama = presentation.scene.panorama;
-  const asset =
-    panorama &&
-    (mobile ? (panorama.mobile ?? panorama.desktop) : panorama.desktop);
+  const asset = panorama?.desktop;
   const label =
     world.pois.find((poi) => poi.id === state.activePOIId)?.name ??
     world.locationName;
@@ -225,11 +222,10 @@ export function RenderedCityViewer({
           key={state.activePOIId}
           presentation={presentation}
           label={label}
-          mobile={mobile}
           maximumDpr={settings.dpr}
         />
       ) : (
-        <OverviewView world={world} size={size} mobile={mobile} />
+        <OverviewView world={world} size={size} mobile={false} />
       )}
     </div>
   );

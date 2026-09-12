@@ -18,6 +18,8 @@ For contributor rules, workstream ownership, and verification steps, see [AGENTS
 
 ## Current Scope
 
+Desktop browsers are the only supported product and demo target (owner decision, 2026-09-12). Mobile/tablet support, layouts, asset variants, optimization and testing are out of scope. Existing mobile assets and behavior may remain, but do not drive implementation or acceptance. Earlier desktop/mobile delivery records below are historical and do not establish current support requirements.
+
 Rome's timeline now includes **Circa 500 BCE → 125 CE → Present**, with the existing 2.2-second reveal in both directions. The older overview uses its delivered desktop/portrait/fallback images and three display-only Preview POIs: Capitoline Temple, Roman Forum and Circus Valley. These markers and list entries do not open viewpoints or object panels. Image registration remains approximate.
 
 Pittsburgh is legacy code pending deletion. It is outside active development, documentation, and verification scope unless the project owner explicitly reactivates it.
@@ -36,6 +38,8 @@ Kyoto / circa 1700 provides desktop and portrait overviews plus three original B
 
 Kyoto's era picker and overview slider now offer **circa 1700 ↔ Present**, using Rome's 2.2-second bidirectional reveal with destination decoding, Skip, reduced motion and image recovery. Present is overview-only; returning to circa 1700 restores the three historical POIs and their object paths. Modern desktop, phone and fallback BEVs preserve the historical compositions approximately while adding modern urban fabric. Prompts, references and source PNGs are in [the asset delivery](blender/source/kyoto-present/README.md).
 
+All ten Rome street views now use 8192 × 4096 panoramas produced for free with local RealESRGAN_x4plus: four Flavian Amphitheatre, three Forum of Trajan and three Pantheon views. The Flavian entry restores the earlier 1774 × 887 enhancement at native 4× (7096 × 3548); the other nine restore the original 1440 × 720 images at native 4× (5760 × 2880). Lanczos sizing produces exactly 8K, with budgeted high-quality WebP and matching still fallbacks. This supersedes native-source/lossless desktop delivery for all ten views. Original images, stable IDs, cameras and angular hotspots remain; restored detail is inferred rather than native 8K capture. Source PNGs and provenance are in `blender/source/rome-125/*-ai-8k.{png,json}`. The viewer always selects desktop panoramas, including in narrow desktop panels.
+
 ## Planned Scope
 
 The Rome Present accuracy correction landed on 2026-09-12. The replacement desktop and portrait compositions now distinguish the modern city with the Vittoriano/Piazza Venezia, the Via dei Fori Imperiali axis, excavated fora, ruined Colosseum, green Circus Maximus and post-antique urban blocks. Official Rome references and review criteria are recorded with the source assets. The endpoint remains a reference-grounded visual reconstruction, not surveyed imagery; fine-grained geometry and building placement remain approximate.
@@ -53,6 +57,16 @@ MongoDB, authentication, multiplayer, WASD, physics, NPCs, character interaction
 ## Recent Updates
 
 <!-- Newest first. Format: `- YYYY-MM-DD — summary (link to PR/issue if available)` -->
+
+- 2026-09-12 — Fixed the beige flash between nearby panoramas: reuse the canvas, retain the current image through destination decode/GPU drawing, and release it after the replacement frame. Initial loading retains the still until first draw; rapid requests and exit clean up their resources. Frame/decode regression tests, Rome asset/look tests, typecheck/lint/build and desktop loading/rapid-switch/hotspot/return checks passed.
+
+- 2026-09-12 — Extended free local AI upscaling to all ten Rome panoramas (four Flavian, three Forum, three Pantheon), with versioned 8192 × 4096 WebPs, matching fallbacks and preserved originals. Five asset tests, typecheck/lint/build and desktop loading/navigation across all ten views passed. The separate live-summary service reported unavailable during hotspot checks; panorama delivery was unaffected.
+
+- 2026-09-12 — Delivered the free, locally AI-upscaled 8192 × 4096 Flavian entry panorama (5.90 MB WebP). Desktop panorama selection no longer switches to mobile assets. Verified exact source/runtime dimensions, GPU texture limit 16384, five desktop asset checks, typecheck/build, and globe → Rome → overview → 8K POI → object → nearby view → return navigation. Earlier images remain available.
+
+- 2026-09-12 — Established desktop-only product scope, beyond testing alone. Investigated Flavian Amphitheatre blur: the AI source and shipped WebP are 1774 × 887, both image variants resolve to the same file, and the 1440 × 900 desktop canvas renders at full viewport resolution on High. The attempted generation did not deliver 4K; its opening view spans roughly 501 × 370 source pixels.
+
+- 2026-09-12 — Added a 1774 × 887 AI-enhanced Flavian Amphitheatre entry panorama for visual testing, retaining the original and all nearby images. Five panorama checks, production build and desktop hotspot/return navigation passed. Owner testing priority is desktop only; mobile testing is deferred.
 
 - 2026-09-12 — Integrated Rome street-view navigation, Rome’s 500 BCE era and Kyoto Present with the latest globe-navigation and ambience changes. Preserved both sides of the status-log conflict; production build, 100 active/generic unit checks, and Rome/Kyoto globe → overview → POI → object → return browser smoke paths passed. Existing browser-test entry helpers still target the former city-list buttons.
 

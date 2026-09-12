@@ -5,6 +5,7 @@ Rules for anyone (human or agent) contributing to 4DTraveler. For the project's 
 ## Active Scope and Deadline
 
 - Active product work is Rome / 125 CE and Kyoto / circa 1700.
+- Desktop browsers are the only supported product and demo target. Do not design, optimize, generate assets, or run tests for mobile/tablet layouts unless the project owner explicitly reopens that scope. Existing mobile code/assets are legacy compatibility, not acceptance requirements. Responsive work should serve desktop window sizes.
 - Pittsburgh is legacy code pending deletion. Do not edit, extend, document, or test Pittsburgh unless the project owner explicitly asks for it.
 - Optimize for a convincing, reliable demo under a tight deadline. Prefer rendered overview images and equirectangular 360° POI panoramas with hotspots when they produce better visuals faster than browser-rendered geometry.
 - Do not add process artifacts, broad abstractions, speculative features, or exhaustive evidence that does not directly improve the active demo.

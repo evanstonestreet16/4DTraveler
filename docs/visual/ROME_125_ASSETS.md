@@ -2,15 +2,69 @@
 
 ## Current street-view delivery (2026-09-12)
 
+The supported target is desktop only. Mobile/tablet layouts, asset generation,
+optimization and testing are out of scope; existing variants below describe retained
+implementation, not current requirements.
+
 All three Rome POI buttons open the supplied street-view illustrations. The existing
 panorama viewer, fixed camera presets, overview and stable IDs are preserved.
-Desktop/mobile WebPs preserve the sources’ native 1440 × 720 pixels losslessly;
+All ten desktop panoramas use 8192 × 4096 AI-upscaled WebPs; matching
 fallback stills are projected from those same images. The viewer uses the original
 street-view module’s 75° field of view instead of the previous 62°. The input
 resolution still limits sharpness when a small portion fills the screen. These AI illustrations contain
 interpretive and anachronistic details and are not verified 125 CE reconstructions.
 
-Entry-view sources under `pano-explorer/public/images/citystreetviews/rome/`:
+Free, local [Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN) restored all four
+Colosseum, three Forum and three Pantheon views. The Colosseum opening view uses
+the previous 1774 × 887 ImageGen result at native 4× (7096 × 3548); the other nine
+use their original, already-oriented 1440 × 720 runtime images at native 4×
+(5760 × 2880). Lanczos sizing then produces exactly 8192 × 4096. The packager starts
+at WebP quality 94 and reduces quality only as needed to meet the 6 MB per-view
+budget; each manifest enhancement records the selected quality. This is neural
+restoration with inferred detail, not a native 8K capture. Original sources, earlier enhancement and angular hotspots
+are retained. Tiled inference uses overlapping, horizontally wrapped context;
+it preserves any pre-existing scene discontinuities rather than reauthoring them.
+
+The earlier 1774 × 887 attempt supplied only about 501 × 370 source pixels across
+the 1440 × 900 opening viewport. Both image variants then used the same file, so
+mobile selection was not the cause of its blur. The viewer now always selects
+desktop panoramas, even in a narrow desktop window or on a lower quality tier.
+Panorama DOM attributes expose the asset URL and dimensions, and the canvas reports
+the GPU's maximum texture size for loading verification. An 8K RGBA texture uses
+128 MiB before mipmaps (about 171 MiB with the full chain). Nearby switches reuse
+one canvas and retain the visible texture while its replacement decodes/uploads.
+The old texture is released after the new sphere draws (normally two textures
+briefly overlap during handoff, one remains afterward). Rapid requests cancel
+superseded downloads; leaving releases both visible and pending images. Initial
+entry keeps its still fallback until the first rendered frame, not merely decode.
+
+The ten 8K source PNGs and model/source hashes are in
+`blender/source/rome-125/*-ai-8k.{png,json}`. The original ImageGen
+prompt remains in `colosseum-valley-ai-upscale-prompt.txt`. Reproduce in an isolated
+authoring environment with `torch`, `spandrel`, `numpy`, and `pillow` installed:
+
+```sh
+python scripts/upscale-flavian-panorama.py --model /absolute/path/RealESRGAN_x4plus.pth --tile 192 --source public/images/rome-125/forum-overlook-360.webp --output blender/source/rome-125/forum-overlook-ai-8k.png
+python scripts/package-rome-streetviews.py --ai-only
+```
+
+The official weight download URL is recorded in the source JSON; no API key or paid
+service is used. These dependencies and weights are offline authoring tools, not
+frontend dependencies. Repeat the first command for the desired source/output;
+the second packages all completed outputs and preserves already verified packages.
+Running the upscaler without source/output arguments reproduces the Colosseum entry.
+The table below lists the original entry illustration inputs under
+`pano-explorer/public/images/citystreetviews/rome/`.
+
+8K validation: five desktop asset tests verify all ten encoded WebP dimensions,
+PNG dimensions, hashes, budgets and stable mappings; strict typecheck, lint and
+production build passed. The refreshed 1440 × 900 desktop browser loaded all ten
+8192 × 4096 views, with a GPU maximum texture size of 16384. All three POI paths,
+nearby arrows, hotspot selection/selection clearing and return to overview passed.
+The separate live-summary service reported unavailable; image loading was unaffected.
+Downloads range from 3.71 to 5.94 MB: quality 94 except Colosseum southwest (92)
+and Pantheon interior (90). Original stitching/lighting discontinuities and imperfect
+people remain. No mobile testing or asset generation was performed for this upgrade.
 
 | POI                | Source                                               |
 | ------------------ | ---------------------------------------------------- |
@@ -35,13 +89,14 @@ Repackage with `python3 scripts/package-rome-streetviews.py` (Pillow and NumPy).
 The script preserves `manifest.overview`, records source hashes and pixel anchors,
 and wraps each image horizontally to match the original opening direction. The
 packager decodes each lossless WebP and checks pixel equality against the wrapped
-source, so the runtime panorama introduces no additional compression loss.
+source, then applies available desktop 8K enhancements using budgeted lossy WebP.
 Five hotspots mark visible illustrative features: the Forum basilica façade,
 Pantheon inscription/columns/colonnade, and Colosseum arcade. Objects absent from
 the new images remain available in the object list without a misleading marker.
 The supplied image edges may contain visible discontinuities when looking around.
 
-Validation: source-pixel equality, focused unit tests, TypeScript, lint and production
+Original street-view delivery validation (before the desktop-only scope and 8K upgrade):
+source-pixel equality, focused unit tests, TypeScript, lint and production
 build passed. Rome desktop/mobile smoke checks and the all-ten-view navigation,
 keyboard, selection-clearing, failed-image retry and re-entry test passed. Browser
 review checked the visible arrows. Kyoto's broader browser checks timed out during

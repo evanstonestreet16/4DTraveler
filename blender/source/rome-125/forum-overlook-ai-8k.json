@@ -1,0 +1,23 @@
+{
+  "source": "public/images/rome-125/forum-overlook-360.webp",
+  "sourceSha256": "b0b0f88acf1403370b1a9730a6db16416960dbcaa8c9b370676bd4ded6b7acf2",
+  "sourceDimensions": [
+    1440,
+    720
+  ],
+  "model": "RealESRGAN_x4plus",
+  "modelUrl": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
+  "modelSha256": "4fa0d38905f75ac06eb49a7951b426670021be3018265fd191d2125df9d682f1",
+  "device": "mps",
+  "neuralDimensions": [
+    5760,
+    2880
+  ],
+  "outputDimensions": [
+    8192,
+    4096
+  ],
+  "outputSha256": "7b55e9be50acfb1763ddddaa27d53d1823d69f8a8705353d8786a864c95e75ff",
+  "method": "Native 4x neural super-resolution, overlapping context with horizontal wrap, then Lanczos sizing to exactly 8192x4096. Reconstructed detail is inferred, not recovered historical evidence.",
+  "elapsedSeconds": 325.1
+}

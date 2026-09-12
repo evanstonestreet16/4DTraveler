@@ -1,0 +1,23 @@
+{
+  "source": "public/images/rome-125/colosseum-southwest-360.webp",
+  "sourceSha256": "7e962b066f26f941c6749f94c87c962ef44c224494feb9d5ab6be5095a1d9599",
+  "sourceDimensions": [
+    1440,
+    720
+  ],
+  "model": "RealESRGAN_x4plus",
+  "modelUrl": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
+  "modelSha256": "4fa0d38905f75ac06eb49a7951b426670021be3018265fd191d2125df9d682f1",
+  "device": "mps",
+  "neuralDimensions": [
+    5760,
+    2880
+  ],
+  "outputDimensions": [
+    8192,
+    4096
+  ],
+  "outputSha256": "d7cca7d8f1164778fe53b5922fcee54272a45eea5ac5f0ea7b52c1f15b4232cd",
+  "method": "Native 4x neural super-resolution, overlapping context with horizontal wrap, then Lanczos sizing to exactly 8192x4096. Reconstructed detail is inferred, not recovered historical evidence.",
+  "elapsedSeconds": 297.9
+}

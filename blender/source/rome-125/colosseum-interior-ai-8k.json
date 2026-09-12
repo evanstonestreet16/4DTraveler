@@ -1,0 +1,23 @@
+{
+  "source": "public/images/rome-125/colosseum-interior-360.webp",
+  "sourceSha256": "8b274cfb5ba0efa2026ef4a908c1f558f0a43e8a5b8109eee1815f4333a8bb39",
+  "sourceDimensions": [
+    1440,
+    720
+  ],
+  "model": "RealESRGAN_x4plus",
+  "modelUrl": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
+  "modelSha256": "4fa0d38905f75ac06eb49a7951b426670021be3018265fd191d2125df9d682f1",
+  "device": "mps",
+  "neuralDimensions": [
+    5760,
+    2880
+  ],
+  "outputDimensions": [
+    8192,
+    4096
+  ],
+  "outputSha256": "787f8b3c4bcfa249a390017b26d6f13767a48026414fb2cc290d96584ce8fa9b",
+  "method": "Native 4x neural super-resolution, overlapping context with horizontal wrap, then Lanczos sizing to exactly 8192x4096. Reconstructed detail is inferred, not recovered historical evidence.",
+  "elapsedSeconds": 325.1
+}

@@ -1,0 +1,23 @@
+{
+  "source": "blender/source/rome-125/colosseum-valley-ai-upscale.png",
+  "sourceSha256": "d88e3d546d17fa2631bc3dc126651eea90a40a48f61eedb63ade8870c97899b9",
+  "sourceDimensions": [
+    1774,
+    887
+  ],
+  "model": "RealESRGAN_x4plus",
+  "modelUrl": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
+  "modelSha256": "4fa0d38905f75ac06eb49a7951b426670021be3018265fd191d2125df9d682f1",
+  "device": "mps",
+  "neuralDimensions": [
+    7096,
+    3548
+  ],
+  "outputDimensions": [
+    8192,
+    4096
+  ],
+  "outputSha256": "7a21b3baddd06f2e578f1e0314e25ba15ddff3309993f5631db9b193cc8ec9d1",
+  "method": "Native 4x neural super-resolution, overlapping context with horizontal wrap, then Lanczos sizing to exactly 8192x4096. Reconstructed detail is inferred, not recovered historical evidence.",
+  "elapsedSeconds": 152.1
+}

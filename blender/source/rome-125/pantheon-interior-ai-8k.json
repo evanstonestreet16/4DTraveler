@@ -1,0 +1,23 @@
+{
+  "source": "public/images/rome-125/pantheon-interior-360.webp",
+  "sourceSha256": "187c0d936df4a25c8cf322db130542d54a2ef0ee799d022c56174fe78f4b21de",
+  "sourceDimensions": [
+    1440,
+    720
+  ],
+  "model": "RealESRGAN_x4plus",
+  "modelUrl": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
+  "modelSha256": "4fa0d38905f75ac06eb49a7951b426670021be3018265fd191d2125df9d682f1",
+  "device": "mps",
+  "neuralDimensions": [
+    5760,
+    2880
+  ],
+  "outputDimensions": [
+    8192,
+    4096
+  ],
+  "outputSha256": "68dd7196b260cca71eb63815a7a8fffb61da3cd0ab4596c94dcd9dfa4b04d36d",
+  "method": "Native 4x neural super-resolution, overlapping context with horizontal wrap, then Lanczos sizing to exactly 8192x4096. Reconstructed detail is inferred, not recovered historical evidence.",
+  "elapsedSeconds": 223.6
+}

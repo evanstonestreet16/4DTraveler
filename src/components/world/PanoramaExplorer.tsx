@@ -7,24 +7,21 @@ import { PanoramaView } from './PanoramaView';
 export function PanoramaExplorer({
   presentation,
   label,
-  mobile,
   maximumDpr,
 }: {
   presentation: ReturnType<typeof resolvePresentation>;
   label: string;
-  mobile: boolean;
   maximumDpr: number;
 }) {
   const { dispatch } = useApp();
-  // Keep the image variant stable across viewport changes during a visit.
-  const [useMobile] = useState(mobile);
   const [index, setIndex] = useState(0);
   const [hasMoved, setHasMoved] = useState(false);
   const panorama = presentation.scene.panorama!;
   const views = panorama.viewpoints;
   const current = views?.[index];
   const image = current ?? panorama;
-  const asset = useMobile ? (image.mobile ?? image.desktop) : image.desktop;
+  // Desktop-only demo: a narrow desktop panel must still get the full panorama.
+  const asset = image.desktop;
   const count = views?.length ?? 0;
   const previousIndex = (index + count - 1) % count;
   const nextIndex = (index + 1) % count;
@@ -37,7 +34,6 @@ export function PanoramaExplorer({
   return (
     <>
       <PanoramaView
-        key={current?.id ?? 'entry'}
         presentation={
           current
             ? {

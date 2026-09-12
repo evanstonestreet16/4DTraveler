@@ -22,6 +22,7 @@ import { PanoramaHotspots } from './PanoramaHotspots';
 import { SceneDiagnostics } from './SceneDiagnostics';
 import { ViewportDpr } from './ViewportDpr';
 import { loadRenderedImage } from './renderedImageAsset';
+import { PanoramaFrameBuffer, type PanoramaFrame } from './panoramaFrameBuffer';
 
 type Presentation = ReturnType<typeof resolvePresentation>;
 
@@ -93,39 +94,73 @@ export function PanoramaView({
 }) {
   const { state, dispatch } = useApp();
   const panorama = presentation.scene.panorama!;
-  // Choose once per visit: rotating/resizing must not reset a visitor's gaze or decode another panorama.
-  const [activeAsset] = useState(asset);
   const entryFocus = useRef(document.activeElement);
-  const [texture, setTexture] = useState<Texture | null>(null);
-  const [failure, setFailure] = useState<'image' | 'graphics' | null>(null);
+  const [buffer] = useState(() => new PanoramaFrameBuffer());
+  const [frame, setFrame] = useState<PanoramaFrame | null>(null);
+  const [presented, setPresented] = useState<PanoramaFrame | null>(null);
+  const [loadFailure, setLoadFailure] = useState<{
+    url: string;
+    kind: 'image' | 'graphics';
+  } | null>(null);
+  const failure = loadFailure?.url === asset.url ? loadFailure.kind : null;
   const [attempt, setAttempt] = useState(0);
-  const graphicsFailed = useCallback(() => setFailure('graphics'), []);
+  const graphicsChecked = useRef(false);
+  const renderedFrame = useRef<PanoramaFrame | null>(null);
+  const paintCallback = useRef<number | null>(null);
+  const graphicsFailed = useCallback(
+    () => setLoadFailure({ url: asset.url, kind: 'graphics' }),
+    [asset.url],
+  );
   const retry = () => {
-    setTexture(null);
-    setFailure(null);
+    setLoadFailure(null);
+    setPresented(null);
+    renderedFrame.current = null;
+    graphicsChecked.current = false;
     setAttempt((value) => value + 1);
   };
 
   useEffect(() => {
-    if (failure) return;
+    return () => {
+      if (paintCallback.current !== null)
+        cancelAnimationFrame(paintCallback.current);
+      buffer.dispose();
+    };
+  }, [buffer]);
+
+  const didRender = useCallback(() => {
+    if (!frame || renderedFrame.current === frame) return;
+    renderedFrame.current = frame;
+    if (paintCallback.current !== null)
+      cancelAnimationFrame(paintCallback.current);
+    // onAfterRender fires after the sphere's draw call; leave the still/previous
+    // frame in place through that paint before reporting the destination ready.
+    paintCallback.current = requestAnimationFrame(() => {
+      paintCallback.current = null;
+      if (buffer.present(frame)) setPresented(frame);
+    });
+  }, [buffer, frame]);
+
+  useEffect(() => {
     // R3F initializes its renderer asynchronously, outside a React error boundary.
     // Detect unavailable WebGL before entering that path or decoding the panorama.
-    const probe = document.createElement('canvas');
-    try {
-      const context = probe.getContext('webgl2');
-      if (!context) {
-        setFailure('graphics');
+    if (!graphicsChecked.current) {
+      const probe = document.createElement('canvas');
+      try {
+        const context = probe.getContext('webgl2');
+        if (!context) {
+          setLoadFailure({ url: asset.url, kind: 'graphics' });
+          return;
+        }
+        context.getExtension('WEBGL_lose_context')?.loseContext();
+        graphicsChecked.current = true;
+      } catch {
+        setLoadFailure({ url: asset.url, kind: 'graphics' });
         return;
       }
-      context.getExtension('WEBGL_lose_context')?.loseContext();
-    } catch {
-      setFailure('graphics');
-      return;
     }
     const controller = new AbortController();
-    let release: (() => void) | undefined;
     const timeout = window.setTimeout(() => controller.abort(), 25000);
-    void loadRenderedImage(activeAsset, controller.signal)
+    void loadRenderedImage(asset, controller.signal)
       .then((loaded) => {
         if (controller.signal.aborted) {
           loaded.dispose();
@@ -138,12 +173,22 @@ export function PanoramaView({
         next.repeat.x = -1;
         next.offset.x = 1;
         next.needsUpdate = true;
-        release = () => {
-          next.dispose();
-          next.image = null;
-          loaded.dispose();
+        const nextFrame: PanoramaFrame = {
+          asset,
+          texture: next,
+          dispose: () => {
+            next.dispose();
+            next.image = null;
+            loaded.dispose();
+          },
         };
-        setTexture(next);
+        buffer.stage(nextFrame);
+        setFrame(nextFrame);
+        setLoadFailure((previous) =>
+          previous?.url === asset.url && previous.kind === 'image'
+            ? null
+            : previous,
+        );
       })
       .catch(() => {
         // Timeout is a visible recoverable failure; navigation cancellation is silent.
@@ -151,30 +196,36 @@ export function PanoramaView({
           !controller.signal.aborted ||
           controller.signal.reason?.name === 'AbortError'
         )
-          setFailure('image');
+          setLoadFailure({ url: asset.url, kind: 'image' });
       })
       .finally(() => window.clearTimeout(timeout));
     return () => {
       window.clearTimeout(timeout);
       controller.abort(new DOMException('View changed', 'ViewChanged'));
-      release?.();
     };
-  }, [activeAsset, attempt, failure]);
+  }, [asset, attempt, buffer]);
 
-  const ready = !!texture && !failure;
+  const ready =
+    !!frame && presented === frame && frame.asset.url === asset.url && !failure;
+  const activeAsset = frame?.asset ?? asset;
   return (
     <div
       className="rendered-view"
       data-rendered-view={failure ? 'fallback' : 'panorama'}
       data-image-status={failure ? 'fallback' : ready ? 'ready' : 'loading'}
+      data-asset-url={activeAsset.url}
+      data-image-width={activeAsset.width}
+      data-image-height={activeAsset.height}
+      data-requested-asset-url={asset.url}
     >
-      {!ready && (
+      {(!presented || failure === 'graphics') && (
         <StillImage
+          key={panorama.fallback.url}
           asset={panorama.fallback}
           label={`Still reconstruction of ${label}.`}
         />
       )}
-      {!failure && texture && (
+      {failure !== 'graphics' && frame && (
         <PanoramaBoundary key={attempt} onError={graphicsFailed}>
           <Canvas
             frameloop="demand"
@@ -189,6 +240,9 @@ export function PanoramaView({
             onCreated={({ camera, gl }) => {
               camera.lookAt(...presentation.camera.target);
               gl.domElement.setAttribute('role', 'img');
+              gl.domElement.dataset.maxTextureSize = String(
+                gl.capabilities.maxTextureSize,
+              );
               gl.domElement.tabIndex = 0;
               if (
                 focusOnLoad &&
@@ -204,29 +258,33 @@ export function PanoramaView({
             <ViewportDpr maximum={maximumDpr} />
             <SceneDiagnostics />
             <CameraController
+              key={frame.asset.url}
               view={presentation.camera}
               initialView={presentation.camera}
               fixedLook={presentation.look}
               hotspotInput
             />
             <mesh
+              onAfterRender={didRender}
               position={presentation.camera.position}
               rotation={[0, Math.PI / 2, 0]}
             >
               <sphereGeometry args={[50, 64, 32]} />
               <meshBasicMaterial
-                map={texture}
+                map={frame.texture}
                 side={BackSide}
                 toneMapped={false}
               />
             </mesh>
-            <PanoramaHotspots
-              hotspots={panorama.hotspots}
-              objects={presentation.objects}
-              selectedId={state.selectedObjectId}
-              onSelect={(id) => dispatch({ type: 'object', id })}
-              cameraPosition={presentation.camera.position}
-            />
+            {ready && (
+              <PanoramaHotspots
+                hotspots={panorama.hotspots}
+                objects={presentation.objects}
+                selectedId={state.selectedObjectId}
+                onSelect={(id) => dispatch({ type: 'object', id })}
+                cameraPosition={presentation.camera.position}
+              />
+            )}
           </Canvas>
         </PanoramaBoundary>
       )}
@@ -236,7 +294,9 @@ export function PanoramaView({
             {failure === 'graphics'
               ? 'The 360° view is unavailable. Explore the still and object list.'
               : failure === 'image'
-                ? 'The panorama could not load. Explore the still and object list.'
+                ? presented
+                  ? 'The next panorama could not load. The previous view remains visible.'
+                  : 'The panorama could not load. Explore the still and object list.'
                 : 'Loading the 360° view…'}
           </span>
           {failure && (

@@ -1,12 +1,16 @@
 # 4DTraveler
 
+Desktop browsers are the only supported target. Mobile/tablet design, optimization, asset generation and testing are out of scope. Existing mobile variants are retained compatibility assets, not a supported experience; see [contributor scope](AGENTS.md).
+
 Explore a place through time: choose a city and era, visit points of interest, inspect objects, and hear or read narration. Active development is focused on Rome / 125 CE and Kyoto / circa 1700. Pittsburgh remains in the repository as legacy code pending deletion and is outside current development and testing scope.
 
 **Rome / 125 CE** presents an offline-rendered city overview and eye-level 360° panoramas of the Forum of Trajan, Pantheon forecourt and Flavian Amphitheatre valley. Drag or use arrow keys on the focused view to look around, inspect three sourced objects at each place through numbered hotspots or the object list, read the narration transcript, and return to the same overview. The valley includes optional, manually started construction and water ambience. See the [Rome asset delivery](docs/visual/ROME_125_ASSETS.md) for Blender sources, budgets and reconstruction limits.
 
 **Kyoto / circa 1700** presents desktop and portrait overviews plus original Blender-rendered panoramas of Nijō Castle, Kiyomizu-dera and Nishiki Fish Market. Each place includes three sourced objects, responsive hotspots, an accessible object list and a reviewed narration transcript. See the [Kyoto asset delivery](docs/visual/KYOTO_1700_ASSETS.md) for authoring details and reconstruction limits.
 
-These scenes are illustrative composites, not surveyed city reconstructions. Lighting, materials and architectural detail are rendered in Blender; the browser displays the images with interactive hotspots. Desktop and mobile receive separate image sizes, and portrait screens have a separately composed overview.
+All ten Rome street views (four Flavian Amphitheatre, three Forum and three Pantheon) use free local AI upscaling to 8192 × 4096. Original images are retained; the added detail is inferred, not native 8K capture.
+
+These scenes are illustrative composites, not surveyed city reconstructions. Visual assets come from offline Blender rendering and AI illustration/enhancement; the browser displays the images with interactive hotspots. The current demo and visual quality work target desktop browsers.
 
 ## Run locally
 

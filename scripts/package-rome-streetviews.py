@@ -1,7 +1,9 @@
 """Package the selected repository street views for the existing Rome POIs.
 
-Run with Python 3, Pillow and NumPy. Preserve source pixels with lossless WebP and keep the overview.
+Run with Python 3, Pillow and NumPy. Preserve original views losslessly; desktop
+8K enhancements use budgeted high-quality WebP. Keep the overview unchanged.
 """
+import argparse
 import hashlib
 import importlib.util
 import json
@@ -116,9 +118,75 @@ def package_view(poi_id, filename, shift, pixels, camera, entry):
     return data
 
 
-def main():
+def apply_enhancements(manifest, only_stem=None):
+    """Inputs are already wrapped into runtime orientation; preserve angular anchors."""
+    manifest["provenance"] = (
+        "POI panoramas use supplied AI street-view illustrations, not verified 125 CE "
+        "reconstructions or surveyed imagery. Original native-resolution lossless assets "
+        "are retained. Available desktop enhancements use free local RealESRGAN_x4plus "
+        "restoration and Lanczos sizing to 8192x4096 with budgeted high-quality WebP; "
+        "added detail is inferred. Per-view enhancement metadata records provenance. "
+        "Nearby arrows switch supplied images, not a surveyed walking route. "
+        "Hotspots mark visible illustrative features; other objects remain in the object list. "
+        "See overview.provenance for the separate overview workflow."
+    )
+    for poi_id, panorama in manifest["panoramas"].items():
+        for index, frame in enumerate(panorama["viewpoints"]):
+            stem = poi_id if index == 0 else frame["id"]
+            if only_stem and stem != only_stem:
+                continue
+            path = ROOT / f"blender/source/rome-125/{stem}-ai-8k.png"
+            metadata_path = path.with_suffix(".json")
+            # A worker writes provenance only after the PNG is complete.
+            if not path.exists() or not metadata_path.exists():
+                continue
+            metadata = json.loads(metadata_path.read_text())
+            digest = hashlib.sha256(path.read_bytes()).hexdigest()
+            assert digest == metadata["outputSha256"]
+            # Keep previously verified packages, avoiding unnecessary recompression.
+            previous = frame.get("enhancement", {})
+            previous_path = packaging.DEST / Path(frame["desktop"]["url"].split("?")[0]).name
+            if (previous.get("sha256") == digest and previous_path.exists()
+                    and hashlib.sha256(previous_path.read_bytes()).hexdigest() == frame["desktop"].get("sha256")):
+                continue
+            image = Image.open(path).convert("RGB")
+            assert image.size == (8192, 4096)
+            asset = None
+            for quality in (94, 92, 90, 88, 86):
+                try:
+                    asset = packaging.save_asset(image, f"{stem}-ai-8k-360.webp", quality, 6_000_000)
+                    break
+                except AssertionError:
+                    pass
+            assert asset is not None, f"{stem} cannot meet the 6 MB image budget"
+            delta = [b - a for a, b in zip(panorama["eye"], panorama["initialTarget"])]
+            fallback = packaging.save_asset(
+                packaging.perspective(image, math.atan2(-delta[0], -delta[2]),
+                                      math.atan2(delta[1], math.hypot(delta[0], delta[2])), 960, 600, 75),
+                f"{stem}-ai-8k-fallback.webp", 94, 500_000,
+            )
+            enhancement = {
+                "path": str(path.relative_to(ROOT)), "sha256": digest,
+                "width": image.width, "height": image.height,
+                "generator": "Free local RealESRGAN_x4plus super-resolution",
+                "note": f"Native 4x neural restoration to {metadata['neuralDimensions']}, then Lanczos sizing to 8192x4096; WebP quality {quality}. Inferred detail, not native 8K capture. Original source and angular hotspots retained.",
+                "metadataPath": str(metadata_path.relative_to(ROOT)),
+            }
+            if stem == "colosseum-valley":
+                enhancement["promptPath"] = "blender/source/rome-125/colosseum-valley-ai-upscale-prompt.txt"
+            frame.update(desktop=asset, fallback=fallback, enhancement=enhancement)
+            if index == 0:
+                panorama.update(desktop=asset, fallback=fallback, enhancement=enhancement)
+            print(stem, "desktop 8K", asset["bytes"], "bytes; quality", quality, flush=True)
+
+
+def main(ai_only=False, only_stem=None):
     manifest_path = packaging.DEST / "manifest.json"
     manifest = json.loads(manifest_path.read_text())
+    if ai_only:
+        apply_enhancements(manifest, only_stem)
+        manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
+        return
     manifest["generator"] = "scripts/package-rome-streetviews.py"
     manifest["projection"] = (
         "equirectangular; runtime center -Z, +yaw -X, +pitch up; radians. "
@@ -151,8 +219,13 @@ def main():
         data["viewpoints"] = frames
         manifest["panoramas"][poi_id] = data
         print(poi_id, len(frames), "lossless views")
+    apply_enhancements(manifest)
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--colosseum-ai-only", action="store_true", help="Package only the Colosseum entry enhancement, preserving other assets.")
+    parser.add_argument("--ai-only", action="store_true", help="Package all available 8K enhancements without regenerating the original assets.")
+    args = parser.parse_args()
+    main(args.ai_only or args.colosseum_ai_only, "colosseum-valley" if args.colosseum_ai_only else None)

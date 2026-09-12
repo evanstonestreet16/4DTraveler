@@ -1,0 +1,23 @@
+{
+  "source": "public/images/rome-125/forum-trajan-360.webp",
+  "sourceSha256": "e6206871237b7afaa22e572ab141c4c1783eed6be1cb56d8f3c891a869f36300",
+  "sourceDimensions": [
+    1440,
+    720
+  ],
+  "model": "RealESRGAN_x4plus",
+  "modelUrl": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
+  "modelSha256": "4fa0d38905f75ac06eb49a7951b426670021be3018265fd191d2125df9d682f1",
+  "device": "mps",
+  "neuralDimensions": [
+    5760,
+    2880
+  ],
+  "outputDimensions": [
+    8192,
+    4096
+  ],
+  "outputSha256": "d8897f5ac87bc73494f0e16163e56a415b39254f751e0a68ec0397044bb7623d",
+  "method": "Native 4x neural super-resolution, overlapping context with horizontal wrap, then Lanczos sizing to exactly 8192x4096. Reconstructed detail is inferred, not recovered historical evidence.",
+  "elapsedSeconds": 338.7
+}

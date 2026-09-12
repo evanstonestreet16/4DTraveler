@@ -1,7 +1,7 @@
 {
   "generator": "scripts/package-rome-streetviews.py",
   "projection": "equirectangular; runtime center -Z, +yaw -X, +pitch up; radians. Supplied views are visually aligned, not geographically registered.",
-  "provenance": "POI panoramas use the repository's supplied AI street-view illustrations. They are visual interpretations, not verified 125 CE reconstructions or surveyed imagery. Each source is packaged at native resolution with lossless WebP and horizontally wrapped to fit the existing opening camera direction. Nearby arrows switch among supplied images within each POI; they do not represent a surveyed walking route. Hotspots mark visible illustrative features; other objects remain in the object list. See overview.provenance for the separate overview workflow.",
+  "provenance": "POI panoramas use supplied AI street-view illustrations, not verified 125 CE reconstructions or surveyed imagery. Original native-resolution lossless assets are retained. Available desktop enhancements use free local RealESRGAN_x4plus restoration and Lanczos sizing to 8192x4096 with budgeted high-quality WebP; added detail is inferred. Per-view enhancement metadata records provenance. Nearby arrows switch supplied images, not a surveyed walking route. Hotspots mark visible illustrative features; other objects remain in the object list. See overview.provenance for the separate overview workflow.",
   "overview": {
     "desktop": {
       "url": "/images/rome-125/overview.webp?v=488694b9e61a",
@@ -26,29 +26,63 @@
     },
     "markers": {
       "forum-trajan": {
-        "desktop": [0.416, 0.422],
-        "mobile": [0.572, 0.466]
+        "desktop": [
+          0.416,
+          0.422
+        ],
+        "mobile": [
+          0.572,
+          0.466
+        ]
       },
       "pantheon-forecourt": {
-        "desktop": [0.113, 0.51],
-        "mobile": [0.462, 0.324]
+        "desktop": [
+          0.113,
+          0.51
+        ],
+        "mobile": [
+          0.462,
+          0.324
+        ]
       },
       "colosseum-valley": {
-        "desktop": [0.85, 0.398],
-        "mobile": [0.613, 0.685]
+        "desktop": [
+          0.85,
+          0.398
+        ],
+        "mobile": [
+          0.613,
+          0.685
+        ]
       }
     },
     "cameras": {
       "desktop": {
-        "eye": [-1450.0, 1250.0, 1650.0],
-        "target": [50, 40, 180],
+        "eye": [
+          -1450.0,
+          1250.0,
+          1650.0
+        ],
+        "target": [
+          50,
+          40,
+          180
+        ],
         "projection": "PERSP",
         "lensMm": 42.0,
         "orthoScale": null
       },
       "mobile": {
-        "eye": [1450.0, 3300.0, 1650.0],
-        "target": [0, 0, 180],
+        "eye": [
+          1450.0,
+          3300.0,
+          1650.0
+        ],
+        "target": [
+          0,
+          0,
+          180
+        ],
         "projection": "ORTHO",
         "lensMm": 36.0,
         "orthoScale": 2250.0
@@ -56,16 +90,34 @@
     },
     "sourceProjectedMarkers": {
       "forum-trajan": {
-        "desktop": [0.423707, 0.465071],
-        "mobile": [0.55618, 0.462181]
+        "desktop": [
+          0.423707,
+          0.465071
+        ],
+        "mobile": [
+          0.55618,
+          0.462181
+        ]
       },
       "pantheon-forecourt": {
-        "desktop": [0.101117, 0.540411],
-        "mobile": [0.463128, 0.306874]
+        "desktop": [
+          0.101117,
+          0.540411
+        ],
+        "mobile": [
+          0.463128,
+          0.306874
+        ]
       },
       "colosseum-valley": {
-        "desktop": [0.851987, 0.432296],
-        "mobile": [0.574713, 0.684986]
+        "desktop": [
+          0.851987,
+          0.432296
+        ],
+        "mobile": [
+          0.574713,
+          0.684986
+        ]
       }
     },
     "generator": "Original Blender layout plus Codex built-in image generation; package_rome_overview_detail.py",
@@ -80,11 +132,11 @@
   "panoramas": {
     "forum-trajan": {
       "desktop": {
-        "url": "/images/rome-125/forum-trajan-360.webp?v=e6206871237b",
-        "width": 1440,
-        "height": 720,
-        "bytes": 1150798,
-        "sha256": "e6206871237b7afaa22e572ab141c4c1783eed6be1cb56d8f3c891a869f36300"
+        "url": "/images/rome-125/forum-trajan-ai-8k-360.webp?v=30561cc44cc1",
+        "width": 8192,
+        "height": 4096,
+        "bytes": 5935480,
+        "sha256": "30561cc44cc1f46cbd3e9ed1a6cc37c44958b2696d118960d142f539c876708f"
       },
       "mobile": {
         "url": "/images/rome-125/forum-trajan-360-mobile.webp?v=e6206871237b",
@@ -94,11 +146,11 @@
         "sha256": "e6206871237b7afaa22e572ab141c4c1783eed6be1cb56d8f3c891a869f36300"
       },
       "fallback": {
-        "url": "/images/rome-125/forum-trajan-fallback.webp?v=86cbdeab28a0",
+        "url": "/images/rome-125/forum-trajan-ai-8k-fallback.webp?v=ed377ac0c95c",
         "width": 960,
         "height": 600,
-        "bytes": 114894,
-        "sha256": "86cbdeab28a0e3f429f0195e4f625f498b9bd345468d88f915cfcfb5f7435338"
+        "bytes": 216818,
+        "sha256": "ed377ac0c95c2368ee1ed481bb69a4d4f35bfcef82a2483305f75a5aa3b89c62"
       },
       "hotspots": [
         {
@@ -114,23 +166,34 @@
         "height": 720,
         "horizontalShiftPixels": 0,
         "hotspotPixels": {
-          "basilica-ulpia-facade": [724, 330]
+          "basilica-ulpia-facade": [
+            724,
+            330
+          ]
         },
         "encoding": "lossless WebP; decoded source pixels preserved"
       },
-      "eye": [0, 1.65, 30],
-      "initialTarget": [0, 12, -40],
+      "eye": [
+        0,
+        1.65,
+        30
+      ],
+      "initialTarget": [
+        0,
+        12,
+        -40
+      ],
       "fieldOfView": 75,
       "viewpoints": [
         {
           "id": "forum-square",
           "label": "Forum square",
           "desktop": {
-            "url": "/images/rome-125/forum-trajan-360.webp?v=e6206871237b",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1150798,
-            "sha256": "e6206871237b7afaa22e572ab141c4c1783eed6be1cb56d8f3c891a869f36300"
+            "url": "/images/rome-125/forum-trajan-ai-8k-360.webp?v=30561cc44cc1",
+            "width": 8192,
+            "height": 4096,
+            "bytes": 5935480,
+            "sha256": "30561cc44cc1f46cbd3e9ed1a6cc37c44958b2696d118960d142f539c876708f"
           },
           "mobile": {
             "url": "/images/rome-125/forum-trajan-360-mobile.webp?v=e6206871237b",
@@ -140,11 +203,11 @@
             "sha256": "e6206871237b7afaa22e572ab141c4c1783eed6be1cb56d8f3c891a869f36300"
           },
           "fallback": {
-            "url": "/images/rome-125/forum-trajan-fallback.webp?v=86cbdeab28a0",
+            "url": "/images/rome-125/forum-trajan-ai-8k-fallback.webp?v=ed377ac0c95c",
             "width": 960,
             "height": 600,
-            "bytes": 114894,
-            "sha256": "86cbdeab28a0e3f429f0195e4f625f498b9bd345468d88f915cfcfb5f7435338"
+            "bytes": 216818,
+            "sha256": "ed377ac0c95c2368ee1ed481bb69a4d4f35bfcef82a2483305f75a5aa3b89c62"
           },
           "hotspots": [
             {
@@ -160,20 +223,32 @@
             "height": 720,
             "horizontalShiftPixels": 0,
             "hotspotPixels": {
-              "basilica-ulpia-facade": [724, 330]
+              "basilica-ulpia-facade": [
+                724,
+                330
+              ]
             },
             "encoding": "lossless WebP; decoded source pixels preserved"
+          },
+          "enhancement": {
+            "path": "blender/source/rome-125/forum-trajan-ai-8k.png",
+            "sha256": "d8897f5ac87bc73494f0e16163e56a415b39254f751e0a68ec0397044bb7623d",
+            "width": 8192,
+            "height": 4096,
+            "generator": "Free local RealESRGAN_x4plus super-resolution",
+            "note": "Native 4x neural restoration to [5760, 2880], then Lanczos sizing to 8192x4096; WebP quality 94. Inferred detail, not native 8K capture. Original source and angular hotspots retained.",
+            "metadataPath": "blender/source/rome-125/forum-trajan-ai-8k.json"
           }
         },
         {
           "id": "forum-overlook",
           "label": "Market overlook",
           "desktop": {
-            "url": "/images/rome-125/forum-overlook-360.webp?v=b0b0f88acf14",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1088090,
-            "sha256": "b0b0f88acf1403370b1a9730a6db16416960dbcaa8c9b370676bd4ded6b7acf2"
+            "url": "/images/rome-125/forum-overlook-ai-8k-360.webp?v=10582d8ebf93",
+            "width": 8192,
+            "height": 4096,
+            "bytes": 5399780,
+            "sha256": "10582d8ebf9307209d2e9f27987d0c57bcb13eea56adc9bfdd02435d9acf6f39"
           },
           "mobile": {
             "url": "/images/rome-125/forum-overlook-360.webp?v=b0b0f88acf14",
@@ -183,11 +258,11 @@
             "sha256": "b0b0f88acf1403370b1a9730a6db16416960dbcaa8c9b370676bd4ded6b7acf2"
           },
           "fallback": {
-            "url": "/images/rome-125/forum-overlook-fallback.webp?v=91a3a15a15f0",
+            "url": "/images/rome-125/forum-overlook-ai-8k-fallback.webp?v=515778d7a59a",
             "width": 960,
             "height": 600,
-            "bytes": 105684,
-            "sha256": "91a3a15a15f00bd3d1773c0db23d131682cb3e2da6db8ae8b5e807f812f1ae8e"
+            "bytes": 195800,
+            "sha256": "515778d7a59a3a98272f135aac61b63dc1a80d076f3f59638e4c879c2f72ac8a"
           },
           "hotspots": [],
           "source": {
@@ -198,17 +273,26 @@
             "horizontalShiftPixels": 0,
             "hotspotPixels": {},
             "encoding": "lossless WebP; decoded source pixels preserved"
+          },
+          "enhancement": {
+            "path": "blender/source/rome-125/forum-overlook-ai-8k.png",
+            "sha256": "7b55e9be50acfb1763ddddaa27d53d1823d69f8a8705353d8786a864c95e75ff",
+            "width": 8192,
+            "height": 4096,
+            "generator": "Free local RealESRGAN_x4plus super-resolution",
+            "note": "Native 4x neural restoration to [5760, 2880], then Lanczos sizing to 8192x4096; WebP quality 94. Inferred detail, not native 8K capture. Original source and angular hotspots retained.",
+            "metadataPath": "blender/source/rome-125/forum-overlook-ai-8k.json"
           }
         },
         {
           "id": "forum-market",
           "label": "Market street",
           "desktop": {
-            "url": "/images/rome-125/forum-market-360.webp?v=5a5e059e3645",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1056810,
-            "sha256": "5a5e059e3645164304216e9a6bbd39fb0953ce89dd5e7d7d8a6e3cb413821cd9"
+            "url": "/images/rome-125/forum-market-ai-8k-360.webp?v=57113ccc7934",
+            "width": 8192,
+            "height": 4096,
+            "bytes": 4342042,
+            "sha256": "57113ccc7934d7f7d4913d135c55d2dc63f9716d751c58291b8ffbda653476fa"
           },
           "mobile": {
             "url": "/images/rome-125/forum-market-360.webp?v=5a5e059e3645",
@@ -218,11 +302,11 @@
             "sha256": "5a5e059e3645164304216e9a6bbd39fb0953ce89dd5e7d7d8a6e3cb413821cd9"
           },
           "fallback": {
-            "url": "/images/rome-125/forum-market-fallback.webp?v=67357820a7a6",
+            "url": "/images/rome-125/forum-market-ai-8k-fallback.webp?v=ba61b0474949",
             "width": 960,
             "height": 600,
-            "bytes": 98044,
-            "sha256": "67357820a7a6bee2ee87c8ca833631ab68aa3a4fa3db6252e99f4e9607482f17"
+            "bytes": 179324,
+            "sha256": "ba61b047494989e0965bb7061a93f47bb391f2dee6073c2bb8a60ef8a5d6a95d"
           },
           "hotspots": [],
           "source": {
@@ -233,17 +317,35 @@
             "horizontalShiftPixels": 0,
             "hotspotPixels": {},
             "encoding": "lossless WebP; decoded source pixels preserved"
+          },
+          "enhancement": {
+            "path": "blender/source/rome-125/forum-market-ai-8k.png",
+            "sha256": "7ecbd4215c3691eb0bbf0465f283aa5c17e096e8a10075078f0ef5b4b07cc819",
+            "width": 8192,
+            "height": 4096,
+            "generator": "Free local RealESRGAN_x4plus super-resolution",
+            "note": "Native 4x neural restoration to [5760, 2880], then Lanczos sizing to 8192x4096; WebP quality 94. Inferred detail, not native 8K capture. Original source and angular hotspots retained.",
+            "metadataPath": "blender/source/rome-125/forum-market-ai-8k.json"
           }
         }
-      ]
+      ],
+      "enhancement": {
+        "path": "blender/source/rome-125/forum-trajan-ai-8k.png",
+        "sha256": "d8897f5ac87bc73494f0e16163e56a415b39254f751e0a68ec0397044bb7623d",
+        "width": 8192,
+        "height": 4096,
+        "generator": "Free local RealESRGAN_x4plus super-resolution",
+        "note": "Native 4x neural restoration to [5760, 2880], then Lanczos sizing to 8192x4096; WebP quality 94. Inferred detail, not native 8K capture. Original source and angular hotspots retained.",
+        "metadataPath": "blender/source/rome-125/forum-trajan-ai-8k.json"
+      }
     },
     "pantheon-forecourt": {
       "desktop": {
-        "url": "/images/rome-125/pantheon-forecourt-360.webp?v=3d985d410061",
-        "width": 1440,
-        "height": 720,
-        "bytes": 1038524,
-        "sha256": "3d985d410061002c2f91afc6e1b551c32a33113e8eb9e9692d929acda2081b5c"
+        "url": "/images/rome-125/pantheon-forecourt-ai-8k-360.webp?v=404ea6baffe4",
+        "width": 8192,
+        "height": 4096,
+        "bytes": 3714130,
+        "sha256": "404ea6baffe43c281e5ce7d80d370da237d9ab96403dd5afce40466a405b11d3"
       },
       "mobile": {
         "url": "/images/rome-125/pantheon-forecourt-360-mobile.webp?v=3d985d410061",
@@ -253,11 +355,11 @@
         "sha256": "3d985d410061002c2f91afc6e1b551c32a33113e8eb9e9692d929acda2081b5c"
       },
       "fallback": {
-        "url": "/images/rome-125/pantheon-forecourt-fallback.webp?v=0ea265875568",
+        "url": "/images/rome-125/pantheon-forecourt-ai-8k-fallback.webp?v=14569a068179",
         "width": 960,
         "height": 600,
-        "bytes": 95062,
-        "sha256": "0ea265875568dc66e2370c876ff6c93c5da5ebce0c9a4b722557b72c57dd50fa"
+        "bytes": 149662,
+        "sha256": "14569a068179beb5b42c40206f3a2ae73e95d689df977853be3f7b090d918284"
       },
       "hotspots": [
         {
@@ -283,25 +385,42 @@
         "height": 720,
         "horizontalShiftPixels": 720,
         "hotspotPixels": {
-          "pantheon-agrippa-inscription": [720, 173],
-          "pantheon-granite-columns": [615, 290],
-          "pantheon-forecourt-colonnade": [174, 375]
+          "pantheon-agrippa-inscription": [
+            720,
+            173
+          ],
+          "pantheon-granite-columns": [
+            615,
+            290
+          ],
+          "pantheon-forecourt-colonnade": [
+            174,
+            375
+          ]
         },
         "encoding": "lossless WebP; decoded source pixels preserved"
       },
-      "eye": [0, 1.65, -42],
-      "initialTarget": [0, 13, 0],
+      "eye": [
+        0,
+        1.65,
+        -42
+      ],
+      "initialTarget": [
+        0,
+        13,
+        0
+      ],
       "fieldOfView": 75,
       "viewpoints": [
         {
           "id": "pantheon-front",
           "label": "Pantheon forecourt",
           "desktop": {
-            "url": "/images/rome-125/pantheon-forecourt-360.webp?v=3d985d410061",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1038524,
-            "sha256": "3d985d410061002c2f91afc6e1b551c32a33113e8eb9e9692d929acda2081b5c"
+            "url": "/images/rome-125/pantheon-forecourt-ai-8k-360.webp?v=404ea6baffe4",
+            "width": 8192,
+            "height": 4096,
+            "bytes": 3714130,
+            "sha256": "404ea6baffe43c281e5ce7d80d370da237d9ab96403dd5afce40466a405b11d3"
           },
           "mobile": {
             "url": "/images/rome-125/pantheon-forecourt-360-mobile.webp?v=3d985d410061",
@@ -311,11 +430,11 @@
             "sha256": "3d985d410061002c2f91afc6e1b551c32a33113e8eb9e9692d929acda2081b5c"
           },
           "fallback": {
-            "url": "/images/rome-125/pantheon-forecourt-fallback.webp?v=0ea265875568",
+            "url": "/images/rome-125/pantheon-forecourt-ai-8k-fallback.webp?v=14569a068179",
             "width": 960,
             "height": 600,
-            "bytes": 95062,
-            "sha256": "0ea265875568dc66e2370c876ff6c93c5da5ebce0c9a4b722557b72c57dd50fa"
+            "bytes": 149662,
+            "sha256": "14569a068179beb5b42c40206f3a2ae73e95d689df977853be3f7b090d918284"
           },
           "hotspots": [
             {
@@ -341,22 +460,40 @@
             "height": 720,
             "horizontalShiftPixels": 720,
             "hotspotPixels": {
-              "pantheon-agrippa-inscription": [720, 173],
-              "pantheon-granite-columns": [615, 290],
-              "pantheon-forecourt-colonnade": [174, 375]
+              "pantheon-agrippa-inscription": [
+                720,
+                173
+              ],
+              "pantheon-granite-columns": [
+                615,
+                290
+              ],
+              "pantheon-forecourt-colonnade": [
+                174,
+                375
+              ]
             },
             "encoding": "lossless WebP; decoded source pixels preserved"
+          },
+          "enhancement": {
+            "path": "blender/source/rome-125/pantheon-forecourt-ai-8k.png",
+            "sha256": "894d67f4df08110b75fdbacadec42a87ba9a001cb5c737406cc1e46b637ce5b4",
+            "width": 8192,
+            "height": 4096,
+            "generator": "Free local RealESRGAN_x4plus super-resolution",
+            "note": "Native 4x neural restoration to [5760, 2880], then Lanczos sizing to 8192x4096; WebP quality 94. Inferred detail, not native 8K capture. Original source and angular hotspots retained.",
+            "metadataPath": "blender/source/rome-125/pantheon-forecourt-ai-8k.json"
           }
         },
         {
           "id": "pantheon-square",
           "label": "Across the square",
           "desktop": {
-            "url": "/images/rome-125/pantheon-square-360.webp?v=af1c623e940f",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1082234,
-            "sha256": "af1c623e940f7b5fe3466f093edbf76a8fab4b1c18c4b00c8c43186457e04204"
+            "url": "/images/rome-125/pantheon-square-ai-8k-360.webp?v=5775f821535c",
+            "width": 8192,
+            "height": 4096,
+            "bytes": 4643116,
+            "sha256": "5775f821535ceaecb03f6a127ea609a347bc00f2cca098d5592c6dce620852d3"
           },
           "mobile": {
             "url": "/images/rome-125/pantheon-square-360.webp?v=af1c623e940f",
@@ -366,11 +503,11 @@
             "sha256": "af1c623e940f7b5fe3466f093edbf76a8fab4b1c18c4b00c8c43186457e04204"
           },
           "fallback": {
-            "url": "/images/rome-125/pantheon-square-fallback.webp?v=6c11f1ada1b1",
+            "url": "/images/rome-125/pantheon-square-ai-8k-fallback.webp?v=0b123b7f9542",
             "width": 960,
             "height": 600,
-            "bytes": 91332,
-            "sha256": "6c11f1ada1b1ec6727ae0ba6639e5881d24803266f8a019f88d7cedd7f2c0e98"
+            "bytes": 154860,
+            "sha256": "0b123b7f954241335c745bb8c6f5cbd4a245fc5004bbc8dcced563c64f58af49"
           },
           "hotspots": [],
           "source": {
@@ -381,17 +518,26 @@
             "horizontalShiftPixels": 720,
             "hotspotPixels": {},
             "encoding": "lossless WebP; decoded source pixels preserved"
+          },
+          "enhancement": {
+            "path": "blender/source/rome-125/pantheon-square-ai-8k.png",
+            "sha256": "3d4ea746729135ca3f330dd8f76b31f020322b83d66f854b9502e35509a1749c",
+            "width": 8192,
+            "height": 4096,
+            "generator": "Free local RealESRGAN_x4plus super-resolution",
+            "note": "Native 4x neural restoration to [5760, 2880], then Lanczos sizing to 8192x4096; WebP quality 94. Inferred detail, not native 8K capture. Original source and angular hotspots retained.",
+            "metadataPath": "blender/source/rome-125/pantheon-square-ai-8k.json"
           }
         },
         {
           "id": "pantheon-interior",
           "label": "Inside the Pantheon",
           "desktop": {
-            "url": "/images/rome-125/pantheon-interior-360.webp?v=187c0d936df4",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1183104,
-            "sha256": "187c0d936df4a25c8cf322db130542d54a2ef0ee799d022c56174fe78f4b21de"
+            "url": "/images/rome-125/pantheon-interior-ai-8k-360.webp?v=9d0e5195fa4f",
+            "width": 8192,
+            "height": 4096,
+            "bytes": 5195468,
+            "sha256": "9d0e5195fa4fdce11e61ed65a263e43695754f2f4bdd029dd7297fc0750381e4"
           },
           "mobile": {
             "url": "/images/rome-125/pantheon-interior-360.webp?v=187c0d936df4",
@@ -401,11 +547,11 @@
             "sha256": "187c0d936df4a25c8cf322db130542d54a2ef0ee799d022c56174fe78f4b21de"
           },
           "fallback": {
-            "url": "/images/rome-125/pantheon-interior-fallback.webp?v=0a2e32c8b7ea",
+            "url": "/images/rome-125/pantheon-interior-ai-8k-fallback.webp?v=2ad44410510c",
             "width": 960,
             "height": 600,
-            "bytes": 121766,
-            "sha256": "0a2e32c8b7ea856eaea6661bdf6c7df4c249715619e68054869cb3caef5679b7"
+            "bytes": 242566,
+            "sha256": "2ad44410510c72fa42526d75ca993aa44c40497c5d5f23af9ad39180658f44cf"
           },
           "hotspots": [],
           "source": {
@@ -416,31 +562,49 @@
             "horizontalShiftPixels": 720,
             "hotspotPixels": {},
             "encoding": "lossless WebP; decoded source pixels preserved"
+          },
+          "enhancement": {
+            "path": "blender/source/rome-125/pantheon-interior-ai-8k.png",
+            "sha256": "68dd7196b260cca71eb63815a7a8fffb61da3cd0ab4596c94dcd9dfa4b04d36d",
+            "width": 8192,
+            "height": 4096,
+            "generator": "Free local RealESRGAN_x4plus super-resolution",
+            "note": "Native 4x neural restoration to [5760, 2880], then Lanczos sizing to 8192x4096; WebP quality 90. Inferred detail, not native 8K capture. Original source and angular hotspots retained.",
+            "metadataPath": "blender/source/rome-125/pantheon-interior-ai-8k.json"
           }
         }
-      ]
+      ],
+      "enhancement": {
+        "path": "blender/source/rome-125/pantheon-forecourt-ai-8k.png",
+        "sha256": "894d67f4df08110b75fdbacadec42a87ba9a001cb5c737406cc1e46b637ce5b4",
+        "width": 8192,
+        "height": 4096,
+        "generator": "Free local RealESRGAN_x4plus super-resolution",
+        "note": "Native 4x neural restoration to [5760, 2880], then Lanczos sizing to 8192x4096; WebP quality 94. Inferred detail, not native 8K capture. Original source and angular hotspots retained.",
+        "metadataPath": "blender/source/rome-125/pantheon-forecourt-ai-8k.json"
+      }
     },
     "colosseum-valley": {
       "desktop": {
-        "url": "/images/rome-125/colosseum-valley-360.webp?v=bc3e67ee4c97",
-        "width": 1440,
-        "height": 720,
-        "bytes": 1084918,
-        "sha256": "bc3e67ee4c9754ba98c75c36ec06d41b2f136cee982bb5ab09c9832e2ed8b6af"
+        "url": "/images/rome-125/colosseum-valley-ai-8k-360.webp?v=c6759fccac5b",
+        "width": 8192,
+        "height": 4096,
+        "bytes": 5895140,
+        "sha256": "c6759fccac5b96711bba4db9ec787b776bbf5cd65037936ae0a88025e3625c8d"
       },
       "mobile": {
-        "url": "/images/rome-125/colosseum-valley-360-mobile.webp?v=bc3e67ee4c97",
-        "width": 1440,
-        "height": 720,
-        "bytes": 1084918,
-        "sha256": "bc3e67ee4c9754ba98c75c36ec06d41b2f136cee982bb5ab09c9832e2ed8b6af"
+        "url": "/images/rome-125/colosseum-valley-ai-upscale-360.webp?v=501ad94ebb6f",
+        "width": 1774,
+        "height": 887,
+        "bytes": 2036896,
+        "sha256": "501ad94ebb6fa7b1449440f7c12418a40c54784b40c03c37fc98dd1caed01afe"
       },
       "fallback": {
-        "url": "/images/rome-125/colosseum-valley-fallback.webp?v=c4f5bbed75ee",
+        "url": "/images/rome-125/colosseum-valley-ai-8k-fallback.webp?v=4161651f276a",
         "width": 960,
         "height": 600,
-        "bytes": 97134,
-        "sha256": "c4f5bbed75eefe7a51d6d6cf43706cd0b847fb3126f678f820212a1a4df3f55a"
+        "bytes": 203206,
+        "sha256": "4161651f276aca7ae8d1d3eb9971c25f6ab773ae798c99b0be1386187d1262a9"
       },
       "hotspots": [
         {
@@ -456,37 +620,48 @@
         "height": 720,
         "horizontalShiftPixels": 240,
         "hotspotPixels": {
-          "colosseum-outer-arcade": [840, 307]
+          "colosseum-outer-arcade": [
+            840,
+            307
+          ]
         },
         "encoding": "lossless WebP; decoded source pixels preserved"
       },
-      "eye": [0, 1.65, 0],
-      "initialTarget": [80, 18, 0],
+      "eye": [
+        0,
+        1.65,
+        0
+      ],
+      "initialTarget": [
+        80,
+        18,
+        0
+      ],
       "fieldOfView": 75,
       "viewpoints": [
         {
           "id": "colosseum-front",
           "label": "Colosseum forecourt",
           "desktop": {
-            "url": "/images/rome-125/colosseum-valley-360.webp?v=bc3e67ee4c97",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1084918,
-            "sha256": "bc3e67ee4c9754ba98c75c36ec06d41b2f136cee982bb5ab09c9832e2ed8b6af"
+            "url": "/images/rome-125/colosseum-valley-ai-8k-360.webp?v=c6759fccac5b",
+            "width": 8192,
+            "height": 4096,
+            "bytes": 5895140,
+            "sha256": "c6759fccac5b96711bba4db9ec787b776bbf5cd65037936ae0a88025e3625c8d"
           },
           "mobile": {
-            "url": "/images/rome-125/colosseum-valley-360-mobile.webp?v=bc3e67ee4c97",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1084918,
-            "sha256": "bc3e67ee4c9754ba98c75c36ec06d41b2f136cee982bb5ab09c9832e2ed8b6af"
+            "url": "/images/rome-125/colosseum-valley-ai-upscale-360.webp?v=501ad94ebb6f",
+            "width": 1774,
+            "height": 887,
+            "bytes": 2036896,
+            "sha256": "501ad94ebb6fa7b1449440f7c12418a40c54784b40c03c37fc98dd1caed01afe"
           },
           "fallback": {
-            "url": "/images/rome-125/colosseum-valley-fallback.webp?v=c4f5bbed75ee",
+            "url": "/images/rome-125/colosseum-valley-ai-8k-fallback.webp?v=4161651f276a",
             "width": 960,
             "height": 600,
-            "bytes": 97134,
-            "sha256": "c4f5bbed75eefe7a51d6d6cf43706cd0b847fb3126f678f820212a1a4df3f55a"
+            "bytes": 203206,
+            "sha256": "4161651f276aca7ae8d1d3eb9971c25f6ab773ae798c99b0be1386187d1262a9"
           },
           "hotspots": [
             {
@@ -502,20 +677,33 @@
             "height": 720,
             "horizontalShiftPixels": 240,
             "hotspotPixels": {
-              "colosseum-outer-arcade": [840, 307]
+              "colosseum-outer-arcade": [
+                840,
+                307
+              ]
             },
             "encoding": "lossless WebP; decoded source pixels preserved"
+          },
+          "enhancement": {
+            "path": "blender/source/rome-125/colosseum-valley-ai-8k.png",
+            "sha256": "7a21b3baddd06f2e578f1e0314e25ba15ddff3309993f5631db9b193cc8ec9d1",
+            "width": 8192,
+            "height": 4096,
+            "generator": "Local RealESRGAN_x4plus super-resolution of the built-in ImageGen enhancement",
+            "note": "Verified 8192x4096 output: native 4x neural restoration to 7096x3548 followed by Lanczos sizing to 8192x4096; WebP quality 94. Inferred detail, not native 8K capture. Original source and angular hotspots retained.",
+            "promptPath": "blender/source/rome-125/colosseum-valley-ai-upscale-prompt.txt",
+            "metadataPath": "blender/source/rome-125/colosseum-valley-ai-8k.json"
           }
         },
         {
           "id": "colosseum-approach",
           "label": "Colosseum approach",
           "desktop": {
-            "url": "/images/rome-125/colosseum-approach-360.webp?v=8ae824510a72",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1077988,
-            "sha256": "8ae824510a728de70f86dc8b738ba2f82a3518f98e0d13e35cc069cae07ff9f4"
+            "url": "/images/rome-125/colosseum-approach-ai-8k-360.webp?v=5ae985a5318e",
+            "width": 8192,
+            "height": 4096,
+            "bytes": 4948728,
+            "sha256": "5ae985a5318e06d8ff14b5efe744463069b2d49bab0fc2bbdf06f9be8ce50041"
           },
           "mobile": {
             "url": "/images/rome-125/colosseum-approach-360.webp?v=8ae824510a72",
@@ -525,11 +713,11 @@
             "sha256": "8ae824510a728de70f86dc8b738ba2f82a3518f98e0d13e35cc069cae07ff9f4"
           },
           "fallback": {
-            "url": "/images/rome-125/colosseum-approach-fallback.webp?v=6704bc8e11b1",
+            "url": "/images/rome-125/colosseum-approach-ai-8k-fallback.webp?v=42b4a2be42a3",
             "width": 960,
             "height": 600,
-            "bytes": 123338,
-            "sha256": "6704bc8e11b1c666f2435c37ee4cfc08390d2f0c0272669a35fc8543dfba6abb"
+            "bytes": 229570,
+            "sha256": "42b4a2be42a38cce9f229134ed7944712f3cfc9480645ff3241587eabdb787bd"
           },
           "hotspots": [],
           "source": {
@@ -540,17 +728,26 @@
             "horizontalShiftPixels": 680,
             "hotspotPixels": {},
             "encoding": "lossless WebP; decoded source pixels preserved"
+          },
+          "enhancement": {
+            "path": "blender/source/rome-125/colosseum-approach-ai-8k.png",
+            "sha256": "c329c0e9e3abb957c85ba5dd047e38c7439183e18f9a2641e21a0aa156b15159",
+            "width": 8192,
+            "height": 4096,
+            "generator": "Free local RealESRGAN_x4plus super-resolution",
+            "note": "Native 4x neural restoration to [5760, 2880], then Lanczos sizing to 8192x4096; WebP quality 94. Inferred detail, not native 8K capture. Original source and angular hotspots retained.",
+            "metadataPath": "blender/source/rome-125/colosseum-approach-ai-8k.json"
           }
         },
         {
           "id": "colosseum-interior",
           "label": "Inside the Colosseum",
           "desktop": {
-            "url": "/images/rome-125/colosseum-interior-360.webp?v=8b274cfb5ba0",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1013894,
-            "sha256": "8b274cfb5ba0efa2026ef4a908c1f558f0a43e8a5b8109eee1815f4333a8bb39"
+            "url": "/images/rome-125/colosseum-interior-ai-8k-360.webp?v=477dbd953225",
+            "width": 8192,
+            "height": 4096,
+            "bytes": 4029808,
+            "sha256": "477dbd953225ed81526dc2d5cddbdd447b5890d34e27be0360ec691e2b781dae"
           },
           "mobile": {
             "url": "/images/rome-125/colosseum-interior-360.webp?v=8b274cfb5ba0",
@@ -560,11 +757,11 @@
             "sha256": "8b274cfb5ba0efa2026ef4a908c1f558f0a43e8a5b8109eee1815f4333a8bb39"
           },
           "fallback": {
-            "url": "/images/rome-125/colosseum-interior-fallback.webp?v=b830385353ad",
+            "url": "/images/rome-125/colosseum-interior-ai-8k-fallback.webp?v=3a2a219879be",
             "width": 960,
             "height": 600,
-            "bytes": 89038,
-            "sha256": "b830385353ad99f62af118a7fa56ffffd459848c70573c4060013048d3512bde"
+            "bytes": 161888,
+            "sha256": "3a2a219879be3bdb975c4cd470d91985214107777ebdfa9155eb21ce296b98bf"
           },
           "hotspots": [],
           "source": {
@@ -575,17 +772,26 @@
             "horizontalShiftPixels": 360,
             "hotspotPixels": {},
             "encoding": "lossless WebP; decoded source pixels preserved"
+          },
+          "enhancement": {
+            "path": "blender/source/rome-125/colosseum-interior-ai-8k.png",
+            "sha256": "787f8b3c4bcfa249a390017b26d6f13767a48026414fb2cc290d96584ce8fa9b",
+            "width": 8192,
+            "height": 4096,
+            "generator": "Free local RealESRGAN_x4plus super-resolution",
+            "note": "Native 4x neural restoration to [5760, 2880], then Lanczos sizing to 8192x4096; WebP quality 94. Inferred detail, not native 8K capture. Original source and angular hotspots retained.",
+            "metadataPath": "blender/source/rome-125/colosseum-interior-ai-8k.json"
           }
         },
         {
           "id": "colosseum-southwest",
           "label": "Southwest square",
           "desktop": {
-            "url": "/images/rome-125/colosseum-southwest-360.webp?v=7e962b066f26",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1176428,
-            "sha256": "7e962b066f26f941c6749f94c87c962ef44c224494feb9d5ab6be5095a1d9599"
+            "url": "/images/rome-125/colosseum-southwest-ai-8k-360.webp?v=6f8967bf476d",
+            "width": 8192,
+            "height": 4096,
+            "bytes": 5329894,
+            "sha256": "6f8967bf476de6c0c14b3607e939ab844418e6192c0fb136d3f171bb16155c87"
           },
           "mobile": {
             "url": "/images/rome-125/colosseum-southwest-360.webp?v=7e962b066f26",
@@ -595,11 +801,11 @@
             "sha256": "7e962b066f26f941c6749f94c87c962ef44c224494feb9d5ab6be5095a1d9599"
           },
           "fallback": {
-            "url": "/images/rome-125/colosseum-southwest-fallback.webp?v=665967d07de2",
+            "url": "/images/rome-125/colosseum-southwest-ai-8k-fallback.webp?v=d8065ba44a39",
             "width": 960,
             "height": 600,
-            "bytes": 96286,
-            "sha256": "665967d07de2c7fee937b8f4a980639c087db61d6877ad57f0420cb97b2cea6c"
+            "bytes": 179348,
+            "sha256": "d8065ba44a394e64adb91146fc8248e3a743cd8988e88c8bab488edbdfe624fe"
           },
           "hotspots": [],
           "source": {
@@ -610,9 +816,28 @@
             "horizontalShiftPixels": 1150,
             "hotspotPixels": {},
             "encoding": "lossless WebP; decoded source pixels preserved"
+          },
+          "enhancement": {
+            "path": "blender/source/rome-125/colosseum-southwest-ai-8k.png",
+            "sha256": "d7cca7d8f1164778fe53b5922fcee54272a45eea5ac5f0ea7b52c1f15b4232cd",
+            "width": 8192,
+            "height": 4096,
+            "generator": "Free local RealESRGAN_x4plus super-resolution",
+            "note": "Native 4x neural restoration to [5760, 2880], then Lanczos sizing to 8192x4096; WebP quality 92. Inferred detail, not native 8K capture. Original source and angular hotspots retained.",
+            "metadataPath": "blender/source/rome-125/colosseum-southwest-ai-8k.json"
           }
         }
-      ]
+      ],
+      "enhancement": {
+        "path": "blender/source/rome-125/colosseum-valley-ai-8k.png",
+        "sha256": "7a21b3baddd06f2e578f1e0314e25ba15ddff3309993f5631db9b193cc8ec9d1",
+        "width": 8192,
+        "height": 4096,
+        "generator": "Local RealESRGAN_x4plus super-resolution of the built-in ImageGen enhancement",
+        "note": "Verified 8192x4096 output: native 4x neural restoration to 7096x3548 followed by Lanczos sizing to 8192x4096; WebP quality 94. Inferred detail, not native 8K capture. Original source and angular hotspots retained.",
+        "promptPath": "blender/source/rome-125/colosseum-valley-ai-upscale-prompt.txt",
+        "metadataPath": "blender/source/rome-125/colosseum-valley-ai-8k.json"
+      }
     }
   },
   "references": [

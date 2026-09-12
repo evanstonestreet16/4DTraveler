@@ -1,0 +1,23 @@
+{
+  "source": "public/images/rome-125/colosseum-approach-360.webp",
+  "sourceSha256": "8ae824510a728de70f86dc8b738ba2f82a3518f98e0d13e35cc069cae07ff9f4",
+  "sourceDimensions": [
+    1440,
+    720
+  ],
+  "model": "RealESRGAN_x4plus",
+  "modelUrl": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
+  "modelSha256": "4fa0d38905f75ac06eb49a7951b426670021be3018265fd191d2125df9d682f1",
+  "device": "mps",
+  "neuralDimensions": [
+    5760,
+    2880
+  ],
+  "outputDimensions": [
+    8192,
+    4096
+  ],
+  "outputSha256": "c329c0e9e3abb957c85ba5dd047e38c7439183e18f9a2641e21a0aa156b15159",
+  "method": "Native 4x neural super-resolution, overlapping context with horizontal wrap, then Lanczos sizing to exactly 8192x4096. Reconstructed detail is inferred, not recovered historical evidence.",
+  "elapsedSeconds": 324.9
+}
