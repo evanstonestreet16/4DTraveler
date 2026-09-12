@@ -59,6 +59,24 @@ export interface HistoricalObject {
   whyItMatters: string;
 }
 
+/** Scene-owned atmosphere and audio authoring locations; no playback policy. */
+export interface WorldEnvironment {
+  ambientIntensity: number;
+  skyColor: string;
+  groundColor: string;
+  keyLight: { position: Vec3; color: string; intensity: number };
+  fog: { color: string; near: number; far: number };
+  exposure: number;
+  smokeSources?: Vec3[];
+  water?: { position: Vec3; size: [number, number] };
+  ambientAudioZones?: {
+    id: string;
+    position: Vec3;
+    radius: number;
+    cue: string;
+  }[];
+}
+
 export interface HistoricalWorld {
   id: string;
   locationId: string;
@@ -71,6 +89,7 @@ export interface HistoricalWorld {
     narrationTranscript?: string;
     primitives: ScenePrimitive[];
     model?: SceneModel;
+    environment?: WorldEnvironment;
   };
   pois: PointOfInterest[];
   objects: HistoricalObject[];

@@ -1,3 +1,4 @@
+import { EnvironmentEffects } from './EnvironmentEffects';
 import { useApp } from '../../app/AppContext';
 import type { HistoricalWorld } from '../../types/world';
 import { CameraController } from './CameraController';
@@ -9,11 +10,16 @@ import type { ModelAssetState } from './modelAsset';
 export function WorldScene({
   world,
   onAssetState,
+  animated = false,
+  effectsReady = false,
 }: {
   world: HistoricalWorld;
   onAssetState: (state: ModelAssetState) => void;
+  animated?: boolean;
+  effectsReady?: boolean;
 }) {
   const { state, dispatch } = useApp();
+  const environment = world.scene.environment;
   const poi = world.pois.find((poi) => poi.id === state.activePOIId);
   const view =
     state.cameraMode === 'POI' && poi ? poi.camera : world.scene.overviewCamera;
@@ -34,10 +40,29 @@ export function WorldScene({
   return (
     <>
       <color attach="background" args={[world.scene.background]} />
-      <ambientLight intensity={1.4} />
+      <ambientLight intensity={environment?.ambientIntensity ?? 1.4} />
+      {environment && (
+        <>
+          <hemisphereLight
+            args={[environment.skyColor, environment.groundColor, 0.8]}
+          />
+          <fog
+            attach="fog"
+            args={[
+              environment.fog.color,
+              environment.fog.near,
+              environment.fog.far,
+            ]}
+          />
+          {effectsReady && (
+            <EnvironmentEffects environment={environment} animated={animated} />
+          )}
+        </>
+      )}
       <directionalLight
-        position={[12, 30, 14]}
-        intensity={2.2}
+        position={environment?.keyLight.position ?? [12, 30, 14]}
+        color={environment?.keyLight.color ?? '#ffffff'}
+        intensity={environment?.keyLight.intensity ?? 2.2}
         castShadow
         shadow-mapSize={[1024, 1024]}
         shadow-camera-left={-25}

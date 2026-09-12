@@ -18,7 +18,31 @@ export const pittsburgh1892Scene = {
     position: [30, 32, 38],
     target: [0, 0, 0],
   },
-  background: '#e5e1d6',
+  background: '#dcd9cc',
+  environment: {
+    ambientIntensity: 0.75,
+    skyColor: '#d9e5e4',
+    groundColor: '#80795f',
+    keyLight: { position: [-16, 25, 14], color: '#ffe4bf', intensity: 2.6 },
+    fog: { color: '#dcd9cc', near: 42, far: 120 },
+    exposure: 1.08,
+    smokeSources: [[-8, 8.1, -6]],
+    water: { position: [0, 0.1, 9], size: [43.8, 6.8] },
+    ambientAudioZones: [
+      {
+        id: 'mill-yard-ambience',
+        position: [-10, 1, -3],
+        radius: 9,
+        cue: 'distant industrial work',
+      },
+      {
+        id: 'river-ambience',
+        position: [7, 0.2, 9],
+        radius: 10,
+        cue: 'river and distant transport',
+      },
+    ],
+  },
   primitives: [
     {
       id: 'ground',

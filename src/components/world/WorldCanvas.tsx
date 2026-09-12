@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
 import type { HistoricalWorld } from '../../types/world';
 import { WorldScene } from './WorldScene';
 import { SceneErrorBoundary } from './SceneErrorBoundary';
+import { useSceneActivity } from './useSceneActivity';
 import type { ModelAssetState } from './modelAsset';
 
 function ContextGuard({ onLost }: { onLost: () => void }) {
@@ -21,9 +22,16 @@ function ContextGuard({ onLost }: { onLost: () => void }) {
 
 export function WorldCanvas({ world }: { world: HistoricalWorld }) {
   const [lost, setLost] = useState(false);
+  const container = useRef<HTMLDivElement>(null);
+  const active = useSceneActivity(container);
   const [assetState, setAssetState] = useState<ModelAssetState | null>(null);
   return (
-    <div className="world-canvas" aria-label="Interactive historical world">
+    <div
+      ref={container}
+      className="world-canvas"
+      aria-label="Interactive historical world"
+      data-environment-motion={active ? 'active' : 'paused'}
+    >
       <SceneErrorBoundary>
         {lost ? (
           <div className="scene-fallback" role="alert">
@@ -45,6 +53,7 @@ export function WorldCanvas({ world }: { world: HistoricalWorld }) {
               far: 400,
             }}
             onCreated={({ camera, gl }) => {
+              gl.toneMappingExposure = world.scene.environment?.exposure ?? 1;
               camera.lookAt(...world.scene.overviewCamera.target);
               gl.domElement.setAttribute('role', 'img');
               gl.domElement.setAttribute(
@@ -60,7 +69,14 @@ export function WorldCanvas({ world }: { world: HistoricalWorld }) {
             }
           >
             <ContextGuard onLost={() => setLost(true)} />
-            <WorldScene world={world} onAssetState={setAssetState} />
+            <WorldScene
+              world={world}
+              onAssetState={setAssetState}
+              animated={active}
+              effectsReady={
+                !world.scene.model || assetState?.status === 'ready'
+              }
+            />
           </Canvas>
         )}
       </SceneErrorBoundary>
