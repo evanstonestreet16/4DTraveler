@@ -2,6 +2,11 @@ import { lazy, Suspense } from 'react';
 import { useApp } from './AppContext';
 import { locations } from '../data/locations';
 import { LocationSelector } from '../components/location/LocationSelector';
+<<<<<<< HEAD
+=======
+import { GlobeLogo } from '../components/location/globe/GlobeLogo';
+import { EraSelector } from '../components/timeline/EraSelector';
+>>>>>>> 83f3c2b (pins update)
 import { SceneErrorBoundary } from '../components/world/SceneErrorBoundary';
 
 const WorldExperience = lazy(
@@ -27,14 +32,20 @@ export function App() {
     <div className={`app-shell${isLandingGlobe ? ' is-landing' : ''}`}>
       <header className={`site-header${isLandingGlobe ? ' is-overlay' : ''}`}>
         <button
-          className="wordmark"
-          aria-label="4DTraveler home"
+          className={`wordmark${isLandingGlobe ? ' wordmark-logo' : ''}`}
+          aria-label="4D Traveler home"
           onClick={() => dispatch({ type: 'mode', mode: 'catalog' })}
         >
-          4D<span>Traveler</span>
-          <span className="brand-dot" aria-hidden="true">
-            ✳
-          </span>
+          {isLandingGlobe ? (
+            <GlobeLogo compact />
+          ) : (
+            <>
+              4D<span>Traveler</span>
+              <span className="brand-dot" aria-hidden="true">
+                ✳
+              </span>
+            </>
+          )}
         </button>
         {!isLandingGlobe && (
           <span className="version-label">

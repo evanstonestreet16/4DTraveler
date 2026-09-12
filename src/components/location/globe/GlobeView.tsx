@@ -2,7 +2,12 @@ import { useCallback, useRef, useState } from 'react';
 import Globe, { type GlobeMethods } from 'react-globe.gl';
 import { MeshPhongMaterial } from 'three';
 import { countries, type CountryFeature } from '../../../data/geo/countries';
-import { citiesFor, findCity, type City } from '../../../data/geo/cities';
+import {
+  citiesFor,
+  countryHoverLabel,
+  findCity,
+  type City,
+} from '../../../data/geo/cities';
 import { findOpeningWorld, locations } from '../../../data/locations';
 import { useApp } from '../../../app/AppContext';
 import { useElementSize } from './useElementSize';
@@ -60,14 +65,17 @@ export function GlobeView({ interactive }: { interactive: boolean }) {
 
   const makePin = (city: City) => {
     const location = locationByCity.get(`${city.isoA3}:${city.name}`);
+    const label = countryHoverLabel(city.isoA3, city.name);
     const pin = document.createElement('button');
     pin.className = 'globe-pin';
     pin.type = 'button';
-    pin.title = city.name;
-    pin.setAttribute(
-      'aria-label',
-      location ? `Explore ${city.name}` : city.name,
-    );
+    pin.dataset.label = label;
+    pin.setAttribute('aria-label', location ? `Explore ${label}` : label);
+    const markPinHover = (hovering: boolean) => {
+      viewportNode.current?.classList.toggle('is-pin-hover', hovering);
+    };
+    pin.addEventListener('pointerenter', () => markPinHover(true));
+    pin.addEventListener('pointerleave', () => markPinHover(false));
     // Every pin looks and behaves the same; one without a world is simply inert.
     if (location) {
       pin.addEventListener('click', () => {
@@ -124,7 +132,10 @@ export function GlobeView({ interactive }: { interactive: boolean }) {
             if (!interactive) return;
             const country = polygon as CountryFeature | null;
             setHovered(country);
-            if (country) setPinnedIso(country.properties.isoA3);
+            if (country) {
+              setPinnedIso(country.properties.isoA3);
+              viewportNode.current?.classList.remove('is-pin-hover');
+            }
           }}
           // Pins are DOM elements rather than `pointsData` so the dot can stay small
           // while the button around it keeps a finger-sized hit area — a degrees-based
