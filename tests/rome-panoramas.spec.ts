@@ -93,7 +93,7 @@ async function assertObjectContent(page: Page, object: HistoricalObject) {
   await expect(panel.getByRole('heading', { name: /Grok tour/ })).toBeVisible();
 }
 
-test('Rome opens a static overview and all three street views and nine objects preserve stories, transcripts, and return', async ({
+test('Rome opens a static overview and all three street views and nine objects preserve stories and return', async ({
   page,
 }) => {
   test.setTimeout(90000);
@@ -127,11 +127,16 @@ test('Rome opens a static overview and all three street views and nine objects p
   await page.keyboard.press('ArrowRight');
   expect(await overview(page).boundingBox()).toEqual(initialBounds);
   await expect(page.locator('canvas')).toHaveCount(0);
-  await page.getByText('Read narration transcript', { exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Choose era' })).toHaveCount(0);
+  await expect(page.getByText('View controls', { exact: true })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: /ambience/i })).toHaveCount(0);
   await expect(
-    page.getByText(world.scene.narrationTranscript!, { exact: true }),
+    page.getByText('Read narration transcript', { exact: true }),
+  ).toHaveCount(0);
+  await expect(page.locator('.city-places summary')).toHaveCount(0);
+  await expect(
+    page.getByRole('navigation', { name: 'Points of interest' }),
   ).toBeVisible();
-  await page.getByText('Read narration transcript', { exact: true }).click();
 
   for (const poi of world.pois) {
     await enterPOI(page, poi);
@@ -182,14 +187,12 @@ test('Rome opens a static overview and all three street views and nine objects p
         .getByRole('button', { name: 'Close object information' })
         .click();
     }
-    await page.getByText('Read narration transcript', { exact: true }).click();
     await expect(
-      page.getByText(poi.immersive!.narrationTranscript!, { exact: true }),
-    ).toBeVisible();
+      page.getByText('Read narration transcript', { exact: true }),
+    ).toHaveCount(0);
     await expect(
       page.getByRole('button', { name: 'Play Narration', exact: true }),
     ).toHaveCount(0);
-    await page.getByText('Read narration transcript', { exact: true }).click();
     await returnToOverview(page);
     expect(await overview(page).getAttribute('data-asset-url')).toBe(
       initialImage,

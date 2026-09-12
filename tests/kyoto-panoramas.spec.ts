@@ -85,7 +85,7 @@ async function returnToOverview(page: Page) {
   await expect(page.locator('[data-panorama-hotspot], canvas')).toHaveCount(0);
 }
 
-test('Kyoto → Nijō → objects → transcript → overview', async ({ page }) => {
+test('Kyoto → Nijō → objects → overview', async ({ page }) => {
   await enterKyoto(page);
   const overview = page.locator('.rendered-overview-image');
   const initialSource = await overview.getAttribute('data-asset-url');
@@ -100,6 +100,12 @@ test('Kyoto → Nijō → objects → transcript → overview', async ({ page })
     )
     .toBe(expectedOverview.width);
   await expect(page.locator('audio[autoplay]')).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Choose era' })).toHaveCount(0);
+  await expect(page.getByText('View controls', { exact: true })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: /ambience/i })).toHaveCount(0);
+  await expect(
+    page.getByText('Read narration transcript', { exact: true }),
+  ).toHaveCount(0);
   await enterPOI(page, hero);
   expect(
     await page
@@ -109,10 +115,9 @@ test('Kyoto → Nijō → objects → transcript → overview', async ({ page })
       ),
   ).toBe(true);
   await inspectObjects(page, hero);
-  await page.getByText('Read narration transcript', { exact: true }).click();
   await expect(
-    page.getByText(hero.immersive!.narrationTranscript!, { exact: true }),
-  ).toBeVisible();
+    page.getByText('Read narration transcript', { exact: true }),
+  ).toHaveCount(0);
   const viewportWidth = page.viewportSize()!.width;
   expect(
     await page.evaluate(() => document.documentElement.scrollWidth),
@@ -130,14 +135,9 @@ test('Kiyomizu and Nishiki keep their hotspots, stories, and selection isolated'
     await expect(page.locator('[data-panorama-hotspot]')).toHaveCount(3);
     await expect(page.locator('.object-info')).toHaveCount(0);
     await inspectObjects(page, poi);
-    // Expanded transcripts persist across views; do not toggle an open story shut.
-    if ((await page.locator('.transcript').getAttribute('open')) === null)
-      await page
-        .getByText('Read narration transcript', { exact: true })
-        .click();
     await expect(
-      page.getByText(poi.immersive!.narrationTranscript!, { exact: true }),
-    ).toBeVisible();
+      page.getByText('Read narration transcript', { exact: true }),
+    ).toHaveCount(0);
     await returnToOverview(page);
   }
 });

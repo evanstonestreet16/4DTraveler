@@ -70,23 +70,6 @@
 .time-slider-stops button[aria-pressed='true'] {
   font-weight: 750;
 }
-.city-overview-story {
-  margin: 0;
-  padding: 8px 16px;
-  border-radius: 10px;
-  background: #faf7eef2;
-  color: #334537;
-  box-shadow: 0 3px 18px #261c2820;
-  font-size: 11px;
-}
-.city-overview-story summary {
-  cursor: pointer;
-}
-.city-overview-story p {
-  line-height: 1.6;
-  max-height: 24dvh;
-  overflow: auto;
-}
 .city-overview-caption {
   margin: 0;
   text-align: center;
