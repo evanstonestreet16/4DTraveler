@@ -1,3 +1,4 @@
+import { findOpeningWorld } from '../data/locations';
 import type { AudioState, CameraMode, HistoricalWorld } from '../types/world';
 
 /**
@@ -53,12 +54,23 @@ export function appReducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
     case 'mode':
       return { ...initialState, mode: action.mode };
-    case 'location':
-      return {
-        ...initialState,
-        mode: state.mode,
-        selectedLocationId: action.id,
-      };
+    case 'location': {
+      if (!action.id) return { ...initialState, mode: state.mode };
+      const world = findOpeningWorld(action.id);
+      return world
+        ? {
+            ...initialState,
+            mode: state.mode,
+            selectedLocationId: world.locationId,
+            selectedEraId: world.era.id,
+            activeWorld: world,
+          }
+        : {
+            ...initialState,
+            mode: state.mode,
+            selectedLocationId: action.id,
+          };
+    }
     case 'enterWorld':
       return {
         ...initialState,

@@ -5,8 +5,8 @@ Rules for anyone (human or agent) contributing to 4DTraveler. For the project's 
 ## Active Scope and Deadline
 
 - Active product work is Rome / 125 CE and Kyoto / circa 1700.
-- Desktop browsers are the only supported product and demo target. Do not design, optimize, generate assets, or run tests for mobile/tablet layouts unless the project owner explicitly reopens that scope. Existing mobile code/assets are legacy compatibility, not acceptance requirements. Responsive work should serve desktop window sizes.
 - Pittsburgh is legacy code pending deletion. Do not edit, extend, document, or test Pittsburgh unless the project owner explicitly asks for it.
+- The product is desktop only. There will be no mobile version. Assume a normal maximized desktop window and do not add mobile or portrait support.
 - Optimize for a convincing, reliable demo under a tight deadline. Prefer rendered overview images and equirectangular 360° POI panoramas with hotspots when they produce better visuals faster than browser-rendered geometry.
 - Do not add process artifacts, broad abstractions, speculative features, or exhaustive evidence that does not directly improve the active demo.
 
@@ -23,6 +23,7 @@ Rules for anyone (human or agent) contributing to 4DTraveler. For the project's 
 ## Development Rules
 
 - Keep TypeScript strict; avoid `any` unless unavoidable and documented.
+- Do not add viewport media queries, portrait layouts, touch-only affordances, or per-viewport asset variants. Only preference queries such as `prefers-reduced-motion` belong in CSS.
 - Run the smallest checks that directly cover the changed code. For documentation-only changes, check formatting only when needed. Run the production build and one primary-path browser smoke test at release time or after a runtime integration change.
 - Do not silently change the world contract or scatter camera mutation across components.
 - Never commit secrets. Use `.env` and `.env.example` if environment configuration becomes necessary.
@@ -55,7 +56,7 @@ Use four workstreams after Dummy v0 is merged. Each workstream owns its listed f
 - `src/components/location/`, `src/components/timeline/`, and world-loading UI.
 - Globe/location selection, era timeline, navigation hierarchy, loading/progress states, and route or deep-link behavior if introduced.
 - `CameraController` behavior: easing, duration, interruption, reduced motion, return-to-overview, and repeated POI transitions.
-- Responsive layout and transitions around the world canvas, excluding object information and narration content.
+- Desktop layout and transitions around the world canvas, excluding object information and narration content.
 - User-facing recovery when a world or model cannot load.
 
 **Boundary:** consume camera presets from world data; do not place city-specific camera coordinates in UI code. Do not edit visual asset composition. Selecting a POI may update shared state, but object selection and information behavior belong to Workstream 3.
@@ -114,4 +115,4 @@ Keep changes scoped to one milestone. Create a PR only when requested or when co
 
 ## Verification
 
-For ordinary code changes, run the relevant focused test plus `npm run typecheck`; add lint or build when the changed surface warrants it. For asset/content changes, manually check the affected Rome/Kyoto path and asset loading. Before a demo or merge of a runtime integration, run one smoke path covering city selection → overview → POI → object → return. Run the full suite only after shared runtime changes, before a release, or when a failure suggests broader impact. Do not run Pittsburgh-specific checks.
+For ordinary code changes, run the relevant focused test plus `npm run typecheck`; add lint or build when the changed surface warrants it. For asset/content changes, manually check the affected Rome/Kyoto path and asset loading. Before a demo or merge of a runtime integration, run one smoke path covering city selection → overview → POI → object → return. Run the full suite only after shared runtime changes, before a release, or when a failure suggests broader impact. Verify at a normal desktop window; do not run Pittsburgh-specific checks or mobile and portrait viewport checks.

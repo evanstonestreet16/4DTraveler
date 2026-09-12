@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { locations } from '../locations';
-import { citiesFor, findCity, pinnedCountries } from './cities';
+import {
+  citiesFor,
+  countryHoverLabel,
+  findCity,
+  pinnedCountries,
+} from './cities';
 import { countries } from './countries';
 
 /** Matches PIN_COUNTRIES in scripts/build-geo.mjs. */
@@ -52,6 +57,13 @@ describe('baked city pins', () => {
     expect(citiesFor('FRA')).toHaveLength(0);
     expect(citiesFor(null)).toBe(citiesFor('FRA'));
     expect(citiesFor('USA')).toBe(citiesFor('USA'));
+  });
+
+  it('names each pin as city, country', () => {
+    expect(countryHoverLabel('ITA', 'Rome')).toBe('Rome, Italy');
+    expect(countryHoverLabel('ITA', 'Milan')).toBe('Milan, Italy');
+    expect(countryHoverLabel('JPN', 'Kyoto')).toBe('Kyoto, Japan');
+    expect(countryHoverLabel('FRA')).toBe('France');
   });
 
   it('backs every curated location with a real pin', () => {

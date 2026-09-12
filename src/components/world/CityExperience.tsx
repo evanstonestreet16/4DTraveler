@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useApp } from '../../app/AppContext';
 import type { HistoricalWorld } from '../../types/world';
 import type { QualityPreference } from '../../utils/quality';
-import { AmbientControls } from '../audio/AmbientControls';
 import { ObjectInfoPanel } from '../info/ObjectInfoPanel';
 import { WorldCanvas } from './WorldCanvas';
 import { RenderedCityViewer } from './RenderedCityViewer';
@@ -14,9 +13,6 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
   const { state, dispatch } = useApp();
   const transitioning = !!state.eraTransition;
   const [quality, setQuality] = useState<QualityPreference>('auto');
-  const [compactPortrait, setCompactPortrait] = useState(
-    () => matchMedia('(max-width: 700px) and (orientation: portrait)').matches,
-  );
   const container = useRef<HTMLElement>(null);
   const returnButton = useRef<HTMLButtonElement>(null);
   const poi = world.pois.find((item) => item.id === state.activePOIId);
@@ -36,13 +32,6 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
   const objects = world.objects.filter((object) =>
     poi?.objectIds.includes(object.id),
   );
-
-  useEffect(() => {
-    const media = matchMedia('(max-width: 700px) and (orientation: portrait)');
-    const update = () => setCompactPortrait(media.matches);
-    media.addEventListener('change', update);
-    return () => media.removeEventListener('change', update);
-  }, []);
 
   useEffect(() => {
     const element = container.current;
@@ -146,6 +135,7 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
         <nav className="city-navigation" aria-label="World navigation">
           {poi ? (
             <button
+              ref={returnButton}
               className="small-button"
               onClick={() => dispatch({ type: 'overview' })}
             >
@@ -153,6 +143,7 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
             </button>
           ) : (
             <button
+              ref={returnButton}
               className="small-button"
               onClick={() =>
                 dispatch({
@@ -164,13 +155,6 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
               ← Back to globe
             </button>
           )}
-          <button
-            ref={returnButton}
-            className="small-button"
-            onClick={() => dispatch({ type: 'location', id: world.locationId })}
-          >
-            Choose era
-          </button>
         </nav>
       </header>
       {world.pois.length > 0 && (
@@ -182,7 +166,7 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
           <details
             key={poi?.id ?? 'overview'}
             className="city-places"
-            open={!poi && !compactPortrait}
+            open={!poi}
           >
             <summary>Places in this world</summary>
             <nav className="poi-list" aria-label="Points of interest">
@@ -279,29 +263,15 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
             <summary>Read narration transcript</summary>
             <p>{presentation.narrationTranscript}</p>
           </details>
-          <AmbientControls
-            city={world.locationName}
-            place={world.locationName}
-            year={world.era.year}
-            hint={world.era.subtitle}
-          />
         </div>
-      ) : (
+      ) : presentation.narrationTranscript ? (
         <div className="city-narration" key={world.id}>
-          {presentation.narrationTranscript && (
-            <details className="transcript">
-              <summary>Read narration transcript</summary>
-              <p>{presentation.narrationTranscript}</p>
-            </details>
-          )}
-          <AmbientControls
-            city={world.locationName}
-            place={poi?.name ?? world.locationName}
-            year={world.era.year}
-            hint={world.era.subtitle}
-          />
+          <details className="transcript">
+            <summary>Read narration transcript</summary>
+            <p>{presentation.narrationTranscript}</p>
+          </details>
         </div>
-      )}
+      ) : null}
     </section>
   );
 }

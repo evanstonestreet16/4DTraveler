@@ -1,7 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import { PerspectiveCamera, Vector3 } from 'three';
 import { pittsburgh1892 as world } from '../src/data/worlds/pittsburgh-1892';
-import { fitCameraPosition } from '../src/utils/camera';
 
 async function enterWorld(page: Page) {
   await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -45,9 +44,7 @@ async function expectAnchoredCamera(page: Page) {
         0.1,
         400,
       );
-      camera.position.set(
-        ...fitCameraPosition(world.pois[0].camera, camera.aspect),
-      );
+      camera.position.set(...world.pois[0].camera.position);
       camera.lookAt(...world.pois[0].camera.target);
       camera.updateMatrixWorld();
       const point = new Vector3(...world.pois[0].markerPosition).project(
@@ -184,88 +181,6 @@ test('native fullscreen browser exit and rejected fullscreen requests are gracef
     page.getByRole('heading', { name: 'Blast Furnace', exact: true }),
   ).toBeVisible();
 });
-
-test.describe('mobile touch exploration', () => {
-  test.use({ hasTouch: true, isMobile: true });
-  test('portrait and landscape immersive views keep touch controls reachable and the scene unobstructed', async ({
-    page,
-  }, testInfo) => {
-    await page.setViewportSize({ width: 390, height: 844 });
-    await page.addInitScript(() => {
-      Object.defineProperty(HTMLElement.prototype, 'requestFullscreen', {
-        configurable: true,
-        value: undefined,
-      });
-    });
-    await enterWorld(page);
-    await page.getByRole('button', { name: 'Enter immersive view' }).tap();
-    await selectFurnace(page);
-    for (const viewport of [
-      { width: 390, height: 844 },
-      { width: 844, height: 390 },
-    ]) {
-      await page.setViewportSize(viewport);
-      await expectAnchoredCamera(page);
-      await expectReservedCanvas(page);
-      const markerStates = await page
-        .locator('.poi-marker')
-        .evaluateAll((markers) =>
-          markers.map((marker) => ({
-            hidden: marker.getAttribute('aria-hidden') === 'true',
-            tabIndex: (marker as HTMLButtonElement).tabIndex,
-            visible: getComputedStyle(marker).visibility === 'visible',
-          })),
-        );
-      for (const marker of markerStates) {
-        expect(marker.tabIndex).toBe(marker.hidden ? -1 : 0);
-        expect(marker.visible).toBe(!marker.hidden);
-      }
-      await page.getByRole('button', { name: 'Return to overview' }).focus();
-      await page.keyboard.press('Tab');
-      const visibleMarkers = page.locator('.poi-marker[aria-hidden="false"]');
-      const nextControl = (await visibleMarkers.count())
-        ? visibleMarkers.first()
-        : page
-            .getByRole('navigation', { name: 'Points of interest' })
-            .getByRole('button')
-            .first();
-      await expect(nextControl).toBeFocused();
-      await expect(nextControl).toBeInViewport();
-      await expect(
-        page.locator('.poi-marker[aria-hidden="true"]:focus'),
-      ).toHaveCount(0);
-      const close = page.getByRole('button', {
-        name: 'Close object information',
-      });
-      await close.scrollIntoViewIfNeeded();
-      await expect(close).toBeInViewport();
-      const closeBox = (await close.boundingBox())!;
-      expect(closeBox.height).toBeGreaterThanOrEqual(44);
-      await page.screenshot({
-        path: testInfo.outputPath(`immersive-${viewport.width}.png`),
-      });
-      await close.tap();
-      await selectFurnace(page);
-      await expect(
-        page.getByRole('button', { name: 'Play Narration', exact: true }),
-      ).toHaveCount(0);
-      expect(
-        await page.evaluate(
-          () => document.documentElement.scrollWidth <= innerWidth,
-        ),
-      ).toBe(true);
-    }
-    await page.getByRole('button', { name: 'Return to overview' }).tap();
-    await expect(
-      page.getByText('Bird’s-eye overview', { exact: true }),
-    ).toBeVisible();
-    await page.getByRole('button', { name: 'Exit immersive view' }).tap();
-    await expect(
-      page.getByRole('button', { name: 'Enter immersive view' }),
-    ).toBeFocused();
-  });
-});
-
 test('immersive graphics recovery and navigation clean up the presentation', async ({
   page,
 }) => {

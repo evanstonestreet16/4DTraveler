@@ -64,7 +64,7 @@ npm run test:e2e
 
 For a replacement asset, add its path and metadata to `modelAsset.test.ts` (or a focused sibling test) and parse it with `GLTFLoader.parseAsync`, then run `validateModelNodes` against the world's descriptor and objects. Verify the self-contained container with `validateGlbContainer`. Use the [Khronos glTF Validator](https://github.khronos.org/glTF-Validator/) for an independent format check. Review triangles, draw calls, textures, download size, and license/source; the later performance issue sets the hero budgets.
 
-In the browser, verify overview, all three POI transitions repeatedly, clicks on every selectable object (including more than one child mesh of a group), gold selection, clearing selection, narration play/pause, and return to overview at desktop and mobile sizes. The existing exploration test performs real raycasting into the GLB. `tests/model-loading.spec.ts` injects HTTP 404, invalid bytes, and a missing required node; each must show a useful message and usable primitives. Also leave while loading and re-enter to exercise cancellation.
+In the browser, verify overview, all three POI transitions repeatedly, clicks on every selectable object (including more than one child mesh of a group), gold selection, clearing selection, narration play/pause, and return to overview at the desktop size. The existing exploration test performs real raycasting into the GLB. `tests/model-loading.spec.ts` injects HTTP 404, invalid bytes, and a missing required node; each must show a useful message and usable primitives. Also leave while loading and re-enter to exercise cancellation.
 
 ## Runtime behavior and ownership
 

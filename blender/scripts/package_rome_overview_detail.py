@@ -28,17 +28,16 @@ def main():
     STAGE.mkdir(parents=True, exist_ok=True)
     base = json.loads((STAGE / 'overview.json').read_text())
     desktop = Image.open(SOURCE / 'overview-detail-desktop.png').convert('RGB')
-    mobile = Image.open(SOURCE / 'overview-detail-mobile.png').convert('RGB')
     fallback = desktop.copy()
     fallback.thumbnail((1280, 800), Image.Resampling.LANCZOS)
     overview = {
         'desktop': asset(desktop, 'overview.webp', 88, 1_500_000),
-        'mobile': asset(mobile, 'overview-mobile.webp', 88, 1_500_000),
         'fallback': asset(fallback, 'overview-fallback.webp', 79, 500_000),
+        # The app is desktop only; markers are normalized points in the desktop image.
         'markers': {
-            'forum-trajan': {'desktop': [.416, .422], 'mobile': [.572, .466]},
-            'pantheon-forecourt': {'desktop': [.113, .510], 'mobile': [.462, .324]},
-            'colosseum-valley': {'desktop': [.850, .398], 'mobile': [.613, .685]},
+            'forum-trajan': [.416, .422],
+            'pantheon-forecourt': [.113, .510],
+            'colosseum-valley': [.850, .398],
         },
         'cameras': base['cameras'],
         'sourceProjectedMarkers': base['markers'],
@@ -46,7 +45,7 @@ def main():
         'provenance': (
             'Illustrative reconstruction of Rome in 125 CE. Editable Blender source '
             'retains geographic layout, ten procedural building families and authored '
-            'landmarks. Final desktop and portrait images use AI-generated architectural '
+            'landmarks. The final desktop image uses AI-generated architectural '
             'surface and environment detail guided by that layout; those fine details '
             'are illustrative and are not fully represented by the Blender meshes. '
             'Cameras and sourceProjectedMarkers describe the authored layouts; markers '
@@ -55,7 +54,6 @@ def main():
         ),
         'illustrationSources': [
             'blender/source/rome-125/overview-detail-desktop.png',
-            'blender/source/rome-125/overview-detail-mobile.png',
         ],
         'layoutSource': 'blender/source/rome-125/overview.blend',
         'promptSource': 'blender/source/rome-125/overview-detail-prompts.json',

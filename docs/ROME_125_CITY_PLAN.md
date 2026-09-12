@@ -6,7 +6,7 @@
 **Historical frame:** Rome during the reign of Hadrian, in 125 CE  
 **Delivery priority:** Overview and Forum first, followed by Pantheon and Colosseum; all three are implemented
 
-**Rendered delivery:** Rome now uses desktop/portrait overview stills and three 6K equirectangular panoramas, with 4K mobile variants, nine camera-authored hotspots and compressed still fallbacks. Navigation, content, IDs, fixed viewpoints, written narration and object lists are preserved. See [asset delivery](./visual/ROME_125_ASSETS.md) for rebuilding and budgets. These are detailed stylized interpretations; photorealism and specialist reconstruction certification are not claimed.
+**Rendered delivery:** Rome now uses a desktop overview still and three 6K equirectangular panoramas, with nine camera-authored hotspots and compressed still fallbacks. Navigation, content, IDs, fixed viewpoints, written narration and object lists are preserved. See [asset delivery](./visual/ROME_125_ASSETS.md) for rebuilding and budgets. These are detailed stylized interpretations; photorealism and specialist reconstruction certification are not claimed.
 
 ## 1. Experience thesis
 
@@ -85,7 +85,7 @@ The city remains at 1:1 scale. Compression happens through reduced architectural
 
 ### Camera and marker blockout
 
-These are the retained GLB blockout values. Desktop and portrait source-camera poses are recorded in `public/images/rome-125/manifest.json`; `sourceProjectedMarkers` retains their projections and `markers` records reviewed positions on the enhanced overview images. The portrait image uses a separate composition to keep all three markers visible after phone cropping. Ground-level eye anchors remain in Rome world data.
+These are the retained GLB blockout values. Both authored source-camera poses are recorded in `public/images/rome-125/manifest.json`; `sourceProjectedMarkers` retains their projections and `markers` records reviewed positions on the enhanced desktop overview. Only the desktop composition ships. Ground-level eye anchors remain in Rome world data.
 
 | Element                     | Proposed position     | Target / purpose                                                                 |
 | --------------------------- | --------------------- | -------------------------------------------------------------------------------- |
@@ -100,7 +100,7 @@ Composition rules:
 - Make the Capitoline a central elevation break, with the Imperial Fora reading as a pale ordered axis.
 - Preserve the Pantheon dome, Colosseum ellipse, Circus Maximus trough, and Palatine ridge as the four fastest orientation silhouettes.
 - Use haze and progressively simpler massing beyond the POIs; do not model thousands of unique buildings.
-- Keep POI markers clear of roofs and one another at 390 px portrait, 844 px portrait, and 1440 × 900 desktop.
+- Keep POI markers clear of roofs and one another at 1440 × 900 desktop and in a short landscape window.
 - Do not let the static camera see the rectangular terrain edge, a void behind the skyline, or the underside of the Tiber plane.
 
 ### Overview layers
@@ -274,7 +274,7 @@ All audio waits for an explicit visitor action. Ambience should loop quietly und
 3. Keep named object anchors matching the stable object IDs.
 4. Render north, east, south, and west from the exact runtime camera and pitch limits.
 5. Correct exposed backs, intersections, scale cues, and repetitive modules.
-6. Render one equirectangular 360° panorama per POI, then compress it for desktop and mobile.
+6. Render one equirectangular 360° panorama per POI, then compress it for the desktop viewer.
 7. Record each object anchor as yaw/pitch hotspot data and verify it in the browser viewer.
 
 ### Proposed source and runtime paths
@@ -317,8 +317,7 @@ Add the smallest shared panorama/hotspot fields needed by Rome and Kyoto. Keep t
 | Asset                    | Target                                                   |
 | ------------------------ | -------------------------------------------------------- |
 | Overview                 | WebP/AVIF, 1.5 MB or less                                |
-| Desktop POI panorama     | 4K–8K equirectangular, 6 MB or less after visual testing |
-| Mobile POI panorama      | 2K–4K equirectangular, 3 MB or less                      |
+| POI panorama             | 4K–8K equirectangular, 6 MB or less after visual testing |
 | Decoded detailed visuals | Overview plus one active panorama                        |
 
 Spend offline render complexity where it improves the image. At runtime keep only the overview and active panorama decoded by default. If a deadline cut is needed, reduce panorama resolution or number of POVs before cutting the hero composition, historical objects, or complete 360° closure.
@@ -362,18 +361,18 @@ Before modeling fine architectural details, add plan/elevation references for ea
 
 #### Next milestone — dedicated Rome bird's-eye detail agent
 
-**Status (2026-09-12): completed and integrated by the dedicated overview agent and integration owner.** The new desktop/portrait images were reviewed against Kyoto's delivered overview and add denser architecture, surface detail, vegetation and riverfront life. Editable Blender layout and exact image-enhancement prompts are retained. All overview variants meet image budgets; build, focused asset validation and desktop/mobile smoke tests passed. See [delivery and regeneration](./visual/ROME_125_ASSETS.md).
+**Status (2026-09-12): completed and integrated by the dedicated overview agent and integration owner.** The new desktop imagery was reviewed against Kyoto's delivered overview and adds denser architecture, surface detail, vegetation and riverfront life. Editable Blender layout and exact image-enhancement prompts are retained. Both shipped overview images meet their budgets; build, focused asset validation and desktop smoke tests passed. See [delivery and regeneration](./visual/ROME_125_ASSETS.md).
 
 - **Independent assignment:** a dedicated overview agent within Workstream 1 runs alongside the Forum/POI realism pass, Kyoto work, and runtime work; it does not depend on completing the Forum reference frame.
-- **Visual scope:** compare both overviews at matching desktop and portrait sizes, then improve Rome's urban density, varied roofs and blocks, street/courtyard definition, landmark detail, terrain and riverbanks, vegetation, material variation, lighting, and atmospheric depth. Preserve geographic scale and the historical exclusions in section 3. Kyoto sets the detail benchmark, not Rome's architectural style.
+- **Visual scope:** compare both overviews at matching desktop sizes, then improve Rome's urban density, varied roofs and blocks, street/courtyard definition, landmark detail, terrain and riverbanks, vegetation, material variation, lighting, and atmospheric depth. Preserve geographic scale and the historical exclusions in section 3. Kyoto sets the detail benchmark, not Rome's architectural style.
 - **Exclusive ownership:** `blender/source/rome-125/overview.blend`, overview-only render outputs, and `public/images/rome-125/overview*` assets. Use overview-specific helper files if needed; leave shared renderer/packager scripts, shared texture inputs, POI scenes/panoramas, Kyoto assets, viewer code, prose, and audio to their existing owners.
 - **Integration boundary:** preserve current overview camera framing, stable IDs, asset paths, and marker positions where practical. Hand any necessary camera/marker or image-metadata changes to the integration owner as exact values; that owner alone updates `src/data/worlds/rome-125.scene.ts` and the shared image manifest. No shared contract changes are expected. Stage overview outputs separately so a POI render/package run cannot overwrite them.
-- **Deliverable and acceptance:** editable overview source plus compressed desktop, portrait, and fallback images within existing budgets. Review Rome and Kyoto side by side for comparable visible detail and finish; all three Rome landmarks and markers must remain clear, with no exposed scene edges. On integration, verify asset loading at desktop and mobile sizes and one Rome path: city selection → overview → POI → object → return. The integration owner runs the production build and smoke test if runtime/data integration changes are required.
+- **Deliverable and acceptance:** editable overview source plus compressed desktop and fallback images within existing budgets. Review Rome and Kyoto side by side for comparable visible detail and finish; all three Rome landmarks and markers must remain clear, with no exposed scene edges. On integration, verify desktop asset loading and one Rome path: city selection → overview → POI → object → return. The integration owner runs the production build and smoke test if runtime/data integration changes are required.
 
 ### Workstream 2 — navigation
 
 - Use the data-owned overview and POV cameras; do not duplicate Rome coordinates in components.
-- Confirm static overview input lock, fixed-position look, reduced motion, mobile marker separation, and return behavior.
+- Confirm static overview input lock, fixed-position look, reduced motion, marker separation, and return behavior.
 - Ensure unavailable stretch POIs are communicated without a dead-end transition.
 
 ### Workstream 3 — objects
@@ -386,7 +385,7 @@ Before modeling fine architectural details, add plan/elevation references for ea
 
 - Review claim wording and confidence labels before audio recording.
 - Add source references to visitor-facing content and checked-in transcripts.
-- Verify pronunciation, audio failure, mobile layout, and the offline demo path.
+- Verify pronunciation, audio failure, desktop layout, and the offline demo path.
 
 ## 15. Rome-specific acceptance criteria
 

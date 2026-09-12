@@ -26,16 +26,13 @@ const forumEnvironment: WorldEnvironment = {
   exposure: 1.1,
 };
 
-/** Coordinates follow each delivered overview image before responsive cover cropping. */
+/** Coordinates follow the delivered overview image before CSS cover cropping. */
 const renderedOverview: OverviewImage = {
   ...renderedImages.overview,
   markers: Object.fromEntries(
     Object.entries(renderedImages.overview.markers).map(([id, marker]) => [
       id,
-      {
-        desktop: [marker.desktop[0], marker.desktop[1]] as [number, number],
-        mobile: [marker.mobile[0], marker.mobile[1]] as [number, number],
-      },
+      [marker[0], marker[1]] as [number, number],
     ]),
   ),
 };

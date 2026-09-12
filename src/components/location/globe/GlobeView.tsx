@@ -1,9 +1,14 @@
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import Globe, { type GlobeMethods } from 'react-globe.gl';
 import { MeshPhongMaterial } from 'three';
 import { countries, type CountryFeature } from '../../../data/geo/countries';
-import { citiesFor, findCity, type City } from '../../../data/geo/cities';
-import { locations } from '../../../data/locations';
+import {
+  citiesFor,
+  countryHoverLabel,
+  findCity,
+  type City,
+} from '../../../data/geo/cities';
+import { findOpeningWorld, locations } from '../../../data/locations';
 import { useApp } from '../../../app/AppContext';
 import { useElementSize } from './useElementSize';
 
@@ -25,6 +30,18 @@ const locationByCity = new Map(
 
 const heroGlobe = locations.find((location) => location.globe)?.globe;
 const heroCity = heroGlobe && findCity(heroGlobe.countryIsoA3, heroGlobe.city);
+const START_ALTITUDE = 1.8;
+const MIN_ALTITUDE = 0.35;
+const MAX_ALTITUDE = 3.6;
+
+function configureGlobeControls(globe: GlobeMethods) {
+  const controls = globe.controls();
+  const radius = globe.getGlobeRadius();
+  controls.enableZoom = true;
+  controls.zoomSpeed = 0.85;
+  controls.minDistance = radius * (1 + MIN_ALTITUDE);
+  controls.maxDistance = radius * (1 + MAX_ALTITUDE);
+}
 
 export function GlobeView({ interactive }: { interactive: boolean }) {
   const { dispatch } = useApp();
@@ -35,24 +52,37 @@ export function GlobeView({ interactive }: { interactive: boolean }) {
   // the pin from under the cursor. Pins persist until a different country is hovered.
   const [pinnedIso, setPinnedIso] = useState<string | null>(null);
 
-  const [containerRef, size] = useElementSize<HTMLDivElement>();
+  const viewportNode = useRef<HTMLDivElement | null>(null);
+  const [sizeRef, size] = useElementSize<HTMLDivElement>();
+  const containerRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      viewportNode.current = node;
+      return sizeRef(node);
+    },
+    [sizeRef],
+  );
   const hoveredIso = hovered?.properties.isoA3 ?? null;
 
   const makePin = (city: City) => {
     const location = locationByCity.get(`${city.isoA3}:${city.name}`);
+    const label = countryHoverLabel(city.isoA3, city.name);
     const pin = document.createElement('button');
     pin.className = 'globe-pin';
     pin.type = 'button';
-    pin.title = city.name;
-    pin.setAttribute(
-      'aria-label',
-      location ? `Explore ${city.name}` : city.name,
-    );
+    pin.dataset.label = label;
+    pin.setAttribute('aria-label', location ? `Explore ${label}` : label);
+    const markPinHover = (hovering: boolean) => {
+      viewportNode.current?.classList.toggle('is-pin-hover', hovering);
+    };
+    pin.addEventListener('pointerenter', () => markPinHover(true));
+    pin.addEventListener('pointerleave', () => markPinHover(false));
     // Every pin looks and behaves the same; one without a world is simply inert.
     if (location) {
-      pin.addEventListener('click', () =>
-        dispatch({ type: 'location', id: location.id }),
-      );
+      pin.addEventListener('click', () => {
+        const world = findOpeningWorld(location.id);
+        if (world) dispatch({ type: 'enterWorld', world });
+        else dispatch({ type: 'location', id: location.id });
+      });
     }
     return pin;
   };
@@ -63,7 +93,8 @@ export function GlobeView({ interactive }: { interactive: boolean }) {
       className="globe-viewport"
       ref={containerRef}
       role="group"
-      aria-label="Interactive globe. Hover a country to see its name, and its cities where available."
+      aria-label="Interactive globe. Hover a country to see its name, and its cities where available. Scroll to zoom."
+      onWheel={(event) => event.preventDefault()}
     >
       {size.width > 0 && (
         <Globe
@@ -101,7 +132,10 @@ export function GlobeView({ interactive }: { interactive: boolean }) {
             if (!interactive) return;
             const country = polygon as CountryFeature | null;
             setHovered(country);
-            if (country) setPinnedIso(country.properties.isoA3);
+            if (country) {
+              setPinnedIso(country.properties.isoA3);
+              viewportNode.current?.classList.remove('is-pin-hover');
+            }
           }}
           // Pins are DOM elements rather than `pointsData` so the dot can stay small
           // while the button around it keeps a finger-sized hit area — a degrees-based
@@ -118,11 +152,28 @@ export function GlobeView({ interactive }: { interactive: boolean }) {
             element.style.pointerEvents = isVisible ? 'auto' : 'none';
           }}
           enablePointerInteraction={interactive}
+          onZoom={(pov) => {
+            viewportNode.current?.setAttribute(
+              'data-altitude',
+              pov.altitude.toFixed(2),
+            );
+          }}
           onGlobeReady={() => {
+            const globe = globeRef.current;
+            if (!globe) return;
+            configureGlobeControls(globe);
             if (!heroCity) return;
-            globeRef.current?.pointOfView(
-              { lat: heroCity.lat, lng: heroCity.lng, altitude: 1.8 },
+            globe.pointOfView(
+              {
+                lat: heroCity.lat,
+                lng: heroCity.lng,
+                altitude: START_ALTITUDE,
+              },
               0,
+            );
+            viewportNode.current?.setAttribute(
+              'data-altitude',
+              String(START_ALTITUDE),
             );
           }}
         />

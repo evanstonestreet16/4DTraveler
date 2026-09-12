@@ -1,4 +1,4 @@
-import { expect, test, type Locator, type Page } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { Euler, Quaternion } from 'three';
 import { rome125 as world } from '../src/data/worlds/rome-125';
 import type { ProfileCanvas } from '../src/components/world/SceneDiagnostics';
@@ -9,7 +9,6 @@ import type {
 } from '../src/types/world';
 
 const forum = world.pois.find((poi) => poi.id === 'forum-trajan')!;
-const valley = world.pois.find((poi) => poi.id === 'colosseum-valley')!;
 const view = (page: Page) => page.locator('[data-rendered-view]');
 const overview = (page: Page) => page.locator('.rendered-overview-image');
 const assetPath = (url: string) => new URL(url, 'http://localhost').pathname;
@@ -92,20 +91,6 @@ async function assertObjectContent(page: Page, object: HistoricalObject) {
     panel.getByRole('heading', { name: object.name, exact: true }),
   ).toBeVisible();
   await expect(panel.getByRole('heading', { name: /Grok tour/ })).toBeVisible();
-}
-
-async function visibleAndInViewport(
-  control: Locator,
-  width: number,
-  height: number,
-) {
-  await expect(control).toBeVisible();
-  const box = (await control.boundingBox())!;
-  expect(box.x).toBeGreaterThanOrEqual(0);
-  expect(box.y).toBeGreaterThanOrEqual(0);
-  expect(box.x + box.width).toBeLessThanOrEqual(width);
-  expect(box.y + box.height).toBeLessThanOrEqual(height);
-  return box;
 }
 
 test('Rome opens a static overview and all three street views and nine objects preserve stories, transcripts, and return', async ({
@@ -349,129 +334,11 @@ test('dragging a hotspot looks in place without selecting; keyboard pitch limits
   await expect(view(page)).toHaveAttribute('data-rendered-view', 'overview');
 });
 
-test('portrait uses mobile images, touch look, separated markers, and reachable object and audio controls', async ({
-  page,
-}) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  const imageRequests: string[] = [];
-  page.on('request', (request) => {
-    const url = new URL(request.url());
-    if (url.pathname.startsWith('/images/rome-125/'))
-      imageRequests.push(url.pathname);
-  });
-  await enterRome(page);
-  await expect(overview(page)).toHaveAttribute(
-    'data-asset-url',
-    world.scene.overviewImage!.mobile!.url,
-  );
-  const markers = [];
-  for (const poi of world.pois)
-    markers.push(
-      await visibleAndInViewport(
-        page.getByRole('button', { name: `Visit ${poi.name}`, exact: true }),
-        390,
-        844,
-      ),
-    );
-  for (let left = 0; left < markers.length; left++)
-    for (const right of markers.slice(left + 1)) {
-      const a = markers[left];
-      expect(
-        a.x + a.width <= right.x ||
-          right.x + right.width <= a.x ||
-          a.y + a.height <= right.y ||
-          right.y + right.height <= a.y,
-      ).toBe(true);
-    }
-  await enterPOI(page, valley);
-  expect(imageRequests).toContain(
-    assetPath(valley.immersive!.panorama!.mobile!.url),
-  );
-  expect(imageRequests).not.toContain(
-    assetPath(valley.immersive!.panorama!.desktop.url),
-  );
-  const initial = (await snapshot(page)).camera;
-  const touch = await page.context().newCDPSession(page);
-  await touch.send('Input.dispatchTouchEvent', {
-    type: 'touchStart',
-    touchPoints: [{ x: 310, y: 440 }],
-  });
-  for (let step = 1; step <= 5; step++)
-    await touch.send('Input.dispatchTouchEvent', {
-      type: 'touchMove',
-      touchPoints: [{ x: 310 - step * 15, y: 440 }],
-    });
-  await touch.send('Input.dispatchTouchEvent', {
-    type: 'touchEnd',
-    touchPoints: [],
-  });
-  await touch.detach();
-  const looked = (await snapshot(page)).camera;
-  expect(looked.position).toEqual(initial.position);
-  expect(looked.quaternion).not.toEqual(initial.quaternion);
-  await expect(page.locator('.object-info')).toHaveCount(0);
-  const nearby = valley.immersive!.panorama!.viewpoints!;
-  const arrow = page.getByRole('button', {
-    name: `Move to ${nearby[1].label}`,
-    exact: true,
-  });
-  await visibleAndInViewport(arrow, 390, 844);
-  await arrow.click();
-  await expect(
-    page.getByRole('navigation', { name: 'Nearby street views' }),
-  ).toHaveAttribute('data-street-view', nearby[1].id);
-  await expect(view(page)).toHaveAttribute('data-image-status', 'ready');
-  await page
-    .getByRole('button', { name: `Move to ${nearby[0].label}`, exact: true })
-    .click();
-  await expect(view(page)).toHaveAttribute('data-image-status', 'ready');
-  await expect(page.locator('canvas')).toHaveAttribute(
-    'data-fixed-look',
-    'true',
-  );
-  const returnedLook = (await snapshot(page)).camera;
-  await page.locator('[data-city-object]').first().click();
-  expect((await snapshot(page)).camera).toEqual(returnedLook);
-  const information = (await page.locator('.city-information').boundingBox())!;
-  const narration = (await page.locator('.city-narration').boundingBox())!;
-  expect(information.y + information.height).toBeLessThanOrEqual(narration.y);
-  await visibleAndInViewport(
-    page.getByRole('button', { name: 'Close object information' }),
-    390,
-    844,
-  );
-  await visibleAndInViewport(
-    page.getByRole('button', { name: 'Play ambience', exact: true }),
-    390,
-    844,
-  );
-  await visibleAndInViewport(
-    page.getByRole('button', { name: 'Return to overview' }),
-    390,
-    844,
-  );
-  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
-    390,
-  );
-  await page.getByRole('button', { name: 'Close object information' }).click();
-  await page.setViewportSize({ width: 844, height: 390 });
-  await visibleAndInViewport(
-    page.getByRole('button', { name: 'Return to overview' }),
-    844,
-    390,
-  );
-  expect((await snapshot(page)).camera).toEqual(returnedLook);
-  await returnToOverview(page);
-});
-
 test('missing overview and panorama images retain source content and recover through an actual retry', async ({
   page,
 }) => {
   const overviewUrl = world.scene.overviewImage!.desktop.url;
-  const panoramaUrls = [
-    forum.immersive!.panorama!.desktop.url,
-    forum.immersive!.panorama!.mobile!.url,
-  ];
+  const panoramaUrls = [forum.immersive!.panorama!.desktop.url];
   await page.route(`**${overviewUrl}*`, (route) =>
     route.fulfill({ status: 404, body: '' }),
   );

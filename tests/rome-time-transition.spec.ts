@@ -35,104 +35,82 @@ async function landed(page: Page, present: boolean) {
     ).toHaveCount(0);
 }
 
-for (const viewport of [
-  { width: 1440, height: 1000 },
-  { width: 390, height: 844 },
-]) {
-  test(`Rome time travel and exploration at ${viewport.width}px`, async ({
-    page,
-  }, testInfo) => {
-    // Four era reveals plus the full panorama/object path on software-rendered CI.
-    test.setTimeout(60000);
-    await page.setViewportSize(viewport);
-    const errors: string[] = [];
-    page.on('pageerror', (error) => errors.push(error.message));
-    await enter(page);
-    const timelineBefore = (await slider(page).boundingBox())!;
-    await page
-      .getByRole('button', { name: 'Circa 500 BCE', exact: true })
-      .click();
-    await expect(view(page)).toHaveAttribute(
-      'data-transition-phase',
-      'playing',
-    );
-    await expect(page.locator('[data-overview-poi]')).toHaveCount(0);
-    await expect(city(page)).toHaveAttribute('data-world-id', 'rome-500bce');
-    await expect(view(page)).toHaveAttribute('data-transition-phase', 'idle');
-    await expect(slider(page)).toHaveValue('0');
-    await expect(still(page)).toHaveCount(1);
-    await expect(still(page)).toHaveAttribute(
-      'data-asset-url',
-      viewport.width < viewport.height
-        ? /rome-500bce\/overview-mobile/
-        : /rome-500bce\/overview.webp/,
-    );
-    const previews = page.locator('[data-overview-poi]');
-    await expect(previews).toHaveCount(3);
-    for (const marker of await previews.all()) {
-      await expect(marker).toBeVisible();
-      await expect(marker).toBeDisabled();
-      // A real pointer click on the disabled marker must leave the overview intact.
-      await marker.click({ force: true });
-    }
-    await expect(city(page)).toHaveAttribute('data-city-mode', 'overview');
-    await expect(page.locator('.object-info')).toHaveCount(0);
-    await page.screenshot({ path: testInfo.outputPath('early-rome.png') });
-    await slider(page).focus();
-    await slider(page).press('ArrowRight');
-    await expect(view(page)).toHaveAttribute(
-      'data-transition-phase',
-      'playing',
-    );
-    await landed(page, false);
-    await page.screenshot({ path: testInfo.outputPath('historical.png') });
-    await page.getByRole('button', { name: 'Present', exact: true }).click();
-    await expect(view(page)).toHaveAttribute(
-      'data-transition-phase',
-      'playing',
-    );
-    await expect(slider(page)).toBeDisabled();
-    expect((await slider(page).boundingBox())!.y).toBeCloseTo(
-      timelineBefore.y,
-      0,
-    );
-    await expect(city(page)).toHaveAttribute('data-world-id', 'rome-125');
-    await page.waitForTimeout(800);
-    await page.screenshot({ path: testInfo.outputPath('transition.png') });
-    await landed(page, true);
-    await expect(slider(page)).toBeFocused();
-    await expect(still(page)).toHaveAttribute(
-      'data-asset-url',
-      viewport.width < viewport.height ? /overview-mobile/ : /overview.webp/,
-    );
-    await page.screenshot({ path: testInfo.outputPath('present.png') });
-    const bounds = (await slider(page).boundingBox())!;
-    expect(bounds.y).toBeCloseTo(timelineBefore.y, 0);
-    expect(bounds.x).toBeGreaterThanOrEqual(0);
-    expect(bounds.y + bounds.height).toBeLessThan(viewport.height);
-    await slider(page).press('ArrowLeft');
-    await expect(
-      page.getByRole('button', { name: 'Skip transition' }),
-    ).toBeVisible();
-    await page.getByRole('button', { name: 'Skip transition' }).click();
-    await landed(page, false);
-    await page
-      .getByRole('button', { name: 'Visit Forum of Trajan', exact: true })
-      .click();
-    await expect(
-      page.locator('[data-rendered-view="panorama"]'),
-    ).toHaveAttribute('data-image-status', 'ready');
-    await expect(slider(page)).toHaveCount(0);
-    await page.locator('[data-city-object]').first().click();
-    await expect(page.locator('.object-info')).toBeVisible();
-    await page
-      .getByRole('button', { name: 'Close object information' })
-      .click();
-    await page.getByRole('button', { name: 'Return to overview' }).click();
-    await landed(page, false);
-    expect(errors).toEqual([]);
-  });
-}
+const VIEWPORT = { width: 1440, height: 1000 };
+
+test('Rome time travel and exploration', async ({ page }, testInfo) => {
+  // Four era reveals plus the full panorama/object path on software-rendered CI.
+  test.setTimeout(60000);
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await enter(page);
+  const timelineBefore = (await slider(page).boundingBox())!;
+  await page
+    .getByRole('button', { name: 'Circa 500 BCE', exact: true })
+    .click();
+  await expect(view(page)).toHaveAttribute('data-transition-phase', 'playing');
+  await expect(page.locator('[data-overview-poi]')).toHaveCount(0);
+  await expect(city(page)).toHaveAttribute('data-world-id', 'rome-500bce');
+  await expect(view(page)).toHaveAttribute('data-transition-phase', 'idle');
+  await expect(slider(page)).toHaveValue('0');
+  await expect(still(page)).toHaveCount(1);
+  await expect(still(page)).toHaveAttribute(
+    'data-asset-url',
+    /rome-500bce\/overview.webp/,
+  );
+  const previews = page.locator('[data-overview-poi]');
+  await expect(previews).toHaveCount(3);
+  for (const marker of await previews.all()) {
+    await expect(marker).toBeVisible();
+    await expect(marker).toBeDisabled();
+    await marker.click({ force: true });
+  }
+  await expect(city(page)).toHaveAttribute('data-city-mode', 'overview');
+  await expect(page.locator('.object-info')).toHaveCount(0);
+  await page.screenshot({ path: testInfo.outputPath('early-rome.png') });
+  await slider(page).focus();
+  await slider(page).press('ArrowRight');
+  await expect(view(page)).toHaveAttribute('data-transition-phase', 'playing');
+  await landed(page, false);
+  await page.screenshot({ path: testInfo.outputPath('historical.png') });
+  await page.getByRole('button', { name: 'Present', exact: true }).click();
+  await expect(view(page)).toHaveAttribute('data-transition-phase', 'playing');
+  await expect(slider(page)).toBeDisabled();
+  expect((await slider(page).boundingBox())!.y).toBeCloseTo(
+    timelineBefore.y,
+    0,
+  );
+  await expect(city(page)).toHaveAttribute('data-world-id', 'rome-125');
+  await page.waitForTimeout(800);
+  await page.screenshot({ path: testInfo.outputPath('transition.png') });
+  await landed(page, true);
+  await expect(slider(page)).toBeFocused();
+  await expect(still(page)).toHaveAttribute('data-asset-url', /overview.webp/);
+  await page.screenshot({ path: testInfo.outputPath('present.png') });
+  const bounds = (await slider(page).boundingBox())!;
+  expect(bounds.y).toBeCloseTo(timelineBefore.y, 0);
+  expect(bounds.x).toBeGreaterThanOrEqual(0);
+  expect(bounds.y + bounds.height).toBeLessThan(VIEWPORT.height);
+  await slider(page).press('ArrowLeft');
+  await expect(
+    page.getByRole('button', { name: 'Skip transition' }),
+  ).toBeVisible();
+  await page.getByRole('button', { name: 'Skip transition' }).click();
+  await landed(page, false);
+  await page
+    .getByRole('button', { name: 'Visit Forum of Trajan', exact: true })
+    .click();
+  await expect(page.locator('[data-rendered-view="panorama"]')).toHaveAttribute(
+    'data-image-status',
+    'ready',
+  );
+  await expect(slider(page)).toHaveCount(0);
+  await page.locator('[data-city-object]').first().click();
+  await expect(page.locator('.object-info')).toBeVisible();
+  await page.getByRole('button', { name: 'Close object information' }).click();
+  await page.getByRole('button', { name: 'Return to overview' }).click();
+  await landed(page, false);
+  expect(errors).toEqual([]);
+});
 
 test('direct early Rome entry and failed transition recovery keep preview places inert', async ({
   page,
@@ -242,7 +220,9 @@ test('reduced motion, direct Present entry and repeated visits release decoded i
       await page.evaluate(() => Reflect.get(window, '__activeImageUrls')),
     ).toBe(1);
   }
-  await page.getByRole('button', { name: 'Choose era', exact: true }).click();
+  await page
+    .getByRole('button', { name: '← Back to globe', exact: true })
+    .click();
   await expect
     .poll(() => page.evaluate(() => Reflect.get(window, '__activeImageUrls')))
     .toBe(0);
@@ -258,12 +238,8 @@ test('Escape and orientation change land on a ready endpoint', async ({
   await landed(page, true);
   await page.getByRole('button', { name: '125 CE', exact: true }).click();
   await expect(view(page)).toHaveAttribute('data-transition-phase', 'playing');
-  await page.setViewportSize({ width: 390, height: 844 });
   await landed(page, false);
-  await expect(still(page)).toHaveAttribute(
-    'data-asset-url',
-    /overview-mobile/,
-  );
+  await expect(still(page)).toHaveAttribute('data-asset-url', /overview.webp/);
   await page.getByRole('button', { name: 'Present', exact: true }).click();
   await expect(view(page)).toHaveAttribute('data-transition-phase', 'playing');
   await page.evaluate(() => {

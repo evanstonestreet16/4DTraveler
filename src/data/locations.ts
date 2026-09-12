@@ -53,3 +53,14 @@ export function findWorld(locationId: string | null, eraId: string | null) {
     ) ?? null
   );
 }
+
+/** City pins open the present-day world when one exists, else the latest year. */
+export function findOpeningWorld(locationId: string | null) {
+  const location = locations.find((item) => item.id === locationId);
+  if (!location) return null;
+  const present = location.eras.find((era) => era.id === 'present');
+  const era =
+    present ??
+    [...location.eras].sort((left, right) => right.year - left.year)[0];
+  return era ? findWorld(location.id, era.id) : null;
+}

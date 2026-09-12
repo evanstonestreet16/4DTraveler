@@ -38,10 +38,3 @@
   box-shadow: 0 6px 28px #261c2840;
   font-size: 13px;
 }
-@media (max-width: 700px) {
-  .era-travel-status {
-    top: 29%;
-    padding: 8px 12px;
-    gap: 8px;
-  }
-}

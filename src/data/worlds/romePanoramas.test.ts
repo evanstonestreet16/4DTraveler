@@ -106,13 +106,11 @@ describe('Rome rendered asset delivery', () => {
     expect(Object.keys(overview.markers).sort()).toEqual(
       rome125.pois.map((poi) => poi.id).sort(),
     );
-    for (const marker of Object.values(overview.markers)) {
-      for (const point of [marker.desktop]) {
-        expect(point).toHaveLength(2);
-        for (const coordinate of point) {
-          expect(coordinate).toBeGreaterThan(0);
-          expect(coordinate).toBeLessThan(1);
-        }
+    for (const point of Object.values(overview.markers)) {
+      expect(point).toHaveLength(2);
+      for (const coordinate of point) {
+        expect(coordinate).toBeGreaterThan(0);
+        expect(coordinate).toBeLessThan(1);
       }
     }
   });

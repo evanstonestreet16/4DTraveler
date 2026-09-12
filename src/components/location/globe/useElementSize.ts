@@ -5,9 +5,17 @@ export function useElementSize<T extends HTMLElement>() {
   const [size, setSize] = useState({ width: 0, height: 0 });
   const ref = useCallback((node: T | null) => {
     if (!node) return;
+    const apply = (width: number, height: number) => {
+      if (!width || !height) return;
+      setSize((current) =>
+        current.width === width && current.height === height
+          ? current
+          : { width, height },
+      );
+    };
+    apply(node.clientWidth, node.clientHeight);
     const observer = new ResizeObserver(([entry]) => {
-      const { width, height } = entry.contentRect;
-      setSize({ width, height });
+      apply(entry.contentRect.width, entry.contentRect.height);
     });
     observer.observe(node);
     return () => observer.disconnect();

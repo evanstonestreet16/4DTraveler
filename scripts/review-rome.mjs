@@ -99,13 +99,6 @@ try {
   await page.getByRole('button', { name: /125/ }).click();
   await page.locator('[data-image-status="ready"]').waitFor();
   await capture('overview-desktop');
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.waitForFunction(
-    () =>
-      document.querySelector('[data-rendered-view]')?.getBoundingClientRect()
-        .width === 390 && document.querySelector('[data-image-status="ready"]'),
-  );
-  await capture('overview-portrait');
   await page.setViewportSize({ width: 844, height: 390 });
   await page.waitForFunction(
     () =>
@@ -137,9 +130,8 @@ try {
     await faceCardinal(yaw);
     await capture(`${poiId}-${direction}`);
   }
-  await page.setViewportSize({ width: 390, height: 844 });
   await page.locator('[data-city-object]').first().click();
-  await capture(`${poiId}-object-portrait`);
+  await capture(`${poiId}-object`);
   await writeFile(
     path.join(destination, 'review.json'),
     await format(JSON.stringify(evidence), { parser: 'json' }),

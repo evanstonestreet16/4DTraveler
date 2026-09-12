@@ -99,23 +99,18 @@ describe('active panorama decode ownership', () => {
 it('positions overview markers using the same centered crop as the image', () => {
   expect(
     overviewMarkerPosition(
-      [0.5, 0.5],
-      { width: 1600, height: 900 },
-      { width: 390, height: 844 },
-    ),
-  ).toEqual({ left: 195, top: 422 });
-  expect(
-    overviewMarkerPosition(
       [0.25, 0.75],
       { width: 1600, height: 900 },
       { width: 1600, height: 900 },
     ),
   ).toEqual({ left: 400, top: 675 });
+  // A window narrower than the image's aspect crops the sides, so a left edge
+  // marker projects outside the viewport.
   expect(
     overviewMarkerPosition(
-      [0, 0],
-      { width: 900, height: 1600 },
-      { width: 390, height: 844 },
+      [0, 0.5],
+      { width: 1600, height: 900 },
+      { width: 1200, height: 900 },
     ).left,
-  ).toBeCloseTo(-42.375);
+  ).toBeCloseTo(-200);
 });

@@ -107,7 +107,7 @@ The POV is full-screen and game-like, but the visitor remains at a fixed positio
 - Narration and transcript for each polished POV.
 - Transition from overview to POV and back without losing the selected city.
 - Loading, image/panorama-failure, audio-failure, and viewer-failure recovery.
-- Desktop and mobile-responsive presentation.
+- Desktop-only presentation.
 
 ### Stretch scope
 
@@ -182,9 +182,9 @@ The exact names may change during the contract review. The required separation i
 - Loading and fallback information
 
 The Rome rendered milestone implements this additively in `src/types/world.ts`:
-`ScenePresentation.overviewImage` carries desktop/mobile images, a small fallback,
-and normalized marker coordinates for each composition. `ScenePresentation.panorama`
-carries desktop/mobile 2:1 images, an initial-view fallback still, and stable
+`ScenePresentation.overviewImage` carries one desktop image, a small fallback,
+and normalized marker coordinates. `ScenePresentation.panorama`
+carries one desktop 2:1 image, an initial-view fallback still, and stable
 `objectId` hotspots. Every image records its URL and encoded width/height. Hotspot
 angles are radians: yaw zero faces north (`-Z`), positive yaw turns west (`-X`),
 and positive pitch looks up. Panorama centers face north. Existing cameras, object
@@ -227,7 +227,7 @@ Do not store continuously changing camera yaw and pitch in global React state. K
 - Load the overview image first.
 - Load each POI panorama separately so the overview is not blocked by every large image.
 - Prefetch the hero panorama after the overview becomes interactive.
-- Use responsive image formats and resolutions; avoid decoding every panorama at once on mobile.
+- Keep one panorama decoded at a time rather than decoding every POI image.
 - Release inactive panorama textures and listeners when leaving a city.
 - Retain a compressed fallback image with accessible object-list selection for the required demo path.
 
@@ -250,7 +250,7 @@ The visual viewer always owns the full viewport. UI appears in overlay layers:
 - Bottom: narration controls
 - Side or bottom sheet: object information
 
-On small screens, the information panel becomes a dismissible bottom sheet. It must not permanently divide the viewport into canvas and sidebar columns.
+The information panel is a dismissible overlay. It must not permanently divide the viewport into canvas and sidebar columns.
 
 ## 7. Blender Authoring Pipeline
 
@@ -327,7 +327,7 @@ For every POV, Astra should:
 5. Correct the scene and repeat the four-view review.
 6. Render and compress the final equirectangular panorama.
 7. Record hotspot yaw/pitch values and verify their alignment.
-8. Inspect the panorama inside the browser at desktop and one mobile viewport.
+8. Inspect the panorama inside the browser at the desktop viewport.
 
 The browser panorama is the deliverable; the Blender scene remains editable source.
 
@@ -338,15 +338,13 @@ Initial budgets should be tested on the actual demo hardware and revised only wi
 | Asset                       | Target budget                          |
 | --------------------------- | -------------------------------------- |
 | Overview image              | 1.5 MB or less                         |
-| Desktop 360° panorama       | 4K–8K wide, 6 MB or less after testing |
-| Mobile 360° panorama        | 2K–4K wide, 3 MB or less               |
+| 360° panorama               | 4K–8K wide, 6 MB or less after testing |
 | Simultaneously decoded POIs | One by default                         |
 | Fallback                    | Small compressed image + object list   |
 
 Performance targets:
 
 - Smooth look-around on the designated hackathon laptop.
-- Usable look-around on one mobile viewport.
 - No visible panorama seam, blank pole, or unreadable hotspot.
 - No permanent blank canvas while assets load or fail.
 - No accumulation of decoded panorama textures after changing POIs.
@@ -380,8 +378,8 @@ The Blender scene may reference existing IDs but must not invent or rename conte
 - Produce overview renders and equirectangular POI panoramas from city-specific briefs.
 - Establish cameras, scale, materials, lighting, atmosphere, and image budgets.
 - Record stable hotspot positions for inspectable objects.
-- Completed addition (2026-09-12): a dedicated agent upgraded Rome's bird's-eye views against Kyoto's delivered density and finish benchmark, in parallel with the POI work. Detailed desktop/portrait images, editable layout and reviewed image markers are integrated; image budgets, build and desktop/mobile smoke tests passed. Overview-only ownership and the integration handoff are defined in [Rome's delivery plan](./ROME_125_CITY_PLAN.md#next-milestone--dedicated-rome-birds-eye-detail-agent).
-- Completed addition (2026-09-12): Kyoto ships responsive overview compositions and three original Blender-rendered panoramas for Nijō Castle, Kiyomizu-dera and Nishiki Fish Market, with reviewed markers, stable hotspots and bounded image loading. See [Kyoto's delivery record](./visual/KYOTO_1700_ASSETS.md).
+- Completed addition (2026-09-12): a dedicated agent upgraded Rome's bird's-eye views against Kyoto's delivered density and finish benchmark, in parallel with the POI work. Detailed desktop imagery, editable layout and reviewed image markers are integrated; image budgets, build and desktop smoke tests passed. Overview-only ownership and the integration handoff are defined in [Rome's delivery plan](./ROME_125_CITY_PLAN.md#next-milestone--dedicated-rome-birds-eye-detail-agent).
+- Completed addition (2026-09-12): Kyoto ships a rendered overview composition and three original Blender-rendered panoramas for Nijō Castle, Kiyomizu-dera and Nishiki Fish Market, with reviewed markers, stable hotspots and bounded image loading. See [Kyoto's delivery record](./visual/KYOTO_1700_ASSETS.md).
 
 ### Core experience and navigation
 
@@ -389,7 +387,7 @@ The Blender scene may reference existing IDs but must not invent or rename conte
 - Keep the overview camera static.
 - Implement overview-to-POV transitions and recovery states.
 - Implement fixed-position 360-degree mouse/touch look.
-- Provide responsive overlay navigation and return behavior.
+- Provide overlay navigation and return behavior.
 
 ### Objects and intelligence
 
@@ -402,7 +400,7 @@ The Blender scene may reference existing IDs but must not invent or rename conte
 
 - Research and verify historical framing for each city plan.
 - Produce narration scripts, recordings, transcripts, and playback states.
-- Test the affected desktop/mobile view and the complete release demo path.
+- Test the affected desktop view and the complete release demo path.
 - Maintain a short offline demo runbook.
 
 ## 11. 24-Hour Delivery Sequence
@@ -440,14 +438,13 @@ This schedule assumes the city-specific visual briefs and references are ready w
 ### Hours 16–20: visual and performance pass
 
 - Correct scale, framing, lighting, fog, and exposed boundaries.
-- Tune image resolution, compression, hotspot alignment, and mobile memory.
+- Tune image resolution, compression, hotspot alignment, and decoded-texture memory.
 - Fix accidental hotspot selection during camera dragging.
 
 ### Hours 20–24: verification and demo lock
 
 - Run typecheck, build, and one focused smoke test for the active integration.
 - Test the primary Rome and Kyoto paths on the demo laptop.
-- Check one mobile viewport.
 - Verify one object selection, narration/ambience, and return to overview per city.
 - Stop adding features and rehearse the demo.
 

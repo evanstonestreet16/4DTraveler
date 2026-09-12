@@ -86,13 +86,9 @@ export interface OverviewImage {
   /** Visible editorial label, also used as the image's accessible description. */
   description?: string;
   desktop: RenderedImageAsset;
-  mobile?: RenderedImageAsset;
   fallback: RenderedImageAsset;
-  /** Normalized coordinates in each authored image, before CSS cover cropping. */
-  markers: Record<
-    string,
-    { desktop: [number, number]; mobile?: [number, number] }
-  >;
+  /** Normalized coordinates in the authored image, before CSS cover cropping. */
+  markers: Record<string, [number, number]>;
 }
 
 export interface PanoramaHotspot {
@@ -106,7 +102,6 @@ export interface PanoramaHotspot {
 /** A 2:1 equirectangular image centered on north, with a composed still fallback. */
 export interface PanoramaImage {
   desktop: RenderedImageAsset;
-  mobile?: RenderedImageAsset;
   fallback: RenderedImageAsset;
   hotspots: PanoramaHotspot[];
 }

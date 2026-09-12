@@ -50,12 +50,6 @@ function LegacyWorldExperience({ world }: { world: HistoricalWorld }) {
               ← Back to globe
             </button>
           )}
-          <button
-            className="text-button"
-            onClick={() => dispatch({ type: 'location', id: world.locationId })}
-          >
-            ← Choose era
-          </button>
           <h1 id="world-heading">
             {world.locationName} <span>/ {world.era.label}</span>
           </h1>

@@ -26,11 +26,10 @@ if __name__ == '__main__':
     DEST.mkdir(parents=True, exist_ok=True)
     overview = {
         'desktop': encode(SOURCE / 'overview-desktop.png', 'overview.webp', 87, 1500000),
-        'mobile': encode(SOURCE / 'overview-mobile.png', 'overview-mobile.webp', 87, 1500000),
         'fallback': encode(SOURCE / 'overview-desktop.png', 'overview-fallback.webp', 45, 500000),
     }
     inputs = [dict(path=str(p.relative_to(ROOT)), sha256=digest(p)) for p in
-              [SOURCE / 'overview-desktop.png', SOURCE / 'overview-mobile.png', SOURCE / 'prompts.json']]
+              [SOURCE / 'overview-desktop.png', SOURCE / 'prompts.json']]
     reference = ROOT / 'public/images/rome-125/manifest.json'
     manifest = dict(worldId='rome-present', snapshotYear=2026, overview=overview,
                     inputs=inputs, generator='Codex built-in image generation',

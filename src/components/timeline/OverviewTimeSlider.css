@@ -100,15 +100,3 @@
   opacity: 0;
   pointer-events: none;
 }
-@media (max-height: 500px) {
-  .city-overview-footer {
-    width: min(360px, calc(100% - 28px));
-    bottom: 8px;
-  }
-  .city-overview-story {
-    display: none;
-  }
-  .overview-time-slider {
-    padding-top: 8px;
-  }
-}

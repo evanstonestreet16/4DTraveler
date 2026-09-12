@@ -160,35 +160,6 @@
 .city-experience:has(.panorama-navigation) .city-narration > * {
   pointer-events: auto;
 }
-@media (max-width: 700px) {
-  .panorama-navigation {
-    bottom: 154px;
-    gap: 8px;
-  }
-  .city-experience:has(.panorama-navigation) .city-look-hint {
-    bottom: 238px;
-  }
-  .city-experience:has(.panorama-navigation) .city-information {
-    bottom: 230px;
-  }
-  .rendered-poi-marker {
-    gap: 5px;
-    max-width: min(135px, calc(100% - 16px));
-    padding: 7px 9px;
-    font-size: 11px;
-  }
-  .rendered-poi-number {
-    flex-basis: 21px;
-    height: 21px;
-    font-size: 9px;
-  }
-  .rendered-image-status {
-    top: auto;
-    bottom: 170px;
-    max-width: calc(100% - 24px);
-    padding: 10px 12px;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
   .rendered-poi-marker {
     transition: none;

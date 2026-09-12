@@ -8,8 +8,8 @@ export function createPanoramaPrefetchSession(world: HistoricalWorld) {
     ?.immersive?.panorama;
   const completed = new Set<string>();
   return {
-    async run(mobile: boolean, signal: AbortSignal) {
-      const asset = mobile ? (hero?.mobile ?? hero?.desktop) : hero?.desktop;
+    async run(signal: AbortSignal) {
+      const asset = hero?.desktop;
       if (!asset || completed.has(asset.url) || signal.aborted) return;
       try {
         const response = await fetch(asset.url, {

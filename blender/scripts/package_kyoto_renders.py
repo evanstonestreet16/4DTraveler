@@ -39,13 +39,11 @@ def asset(image,name,quality,budget):
 def package():
     DEST.mkdir(parents=True,exist_ok=True)
     manifest={'generator':'Blender Cycles panoramas; built-in ImageGen overview illustrations from Blender layouts; package_kyoto_renders.py','projection':'equirectangular; center north (-Z); positive yaw west; positive pitch up; radians','provenance':'Panoramas use original Blender geometry, shaders and static figures. Overview illustrations use built-in ImageGen with original Blender layout references. No third-party visual media copied. All fine architecture/staging is inferred or illustrative; see docs/visual/KYOTO_1700_CONTENT_REVIEW.md and KYOTO_1700_ASSETS.md.','overview':{},'panoramas':{}}
-    illustrated=(SOURCE.parent/'overview-illustration.png').exists() and (SOURCE.parent/'overview-mobile-illustration.png').exists()
-    overview_paths={variant: SOURCE.parent/f'overview{"-mobile" if variant=="mobile" else ""}-illustration.png' if illustrated else SOURCE/f'overview-{variant}.png' for variant in ['desktop','mobile']}
+    illustrated=(SOURCE.parent/'overview-illustration.png').exists()
+    overview_desktop=SOURCE.parent/'overview-illustration.png' if illustrated else SOURCE/'overview-desktop.png'
     if (SOURCE/'overview.json').exists():
-        for variant in ['desktop','mobile']:
-            src=Image.open(overview_paths[variant]).convert('RGB')
-            manifest['overview'][variant]=asset(src,f'overview{"-mobile" if variant=="mobile" else ""}.webp',88,1_500_000)
-        small=Image.open(overview_paths['desktop']).convert('RGB'); small.thumbnail((1280,800),Image.Resampling.LANCZOS)
+        manifest['overview']['desktop']=asset(Image.open(overview_desktop).convert('RGB'),'overview.webp',88,1_500_000)
+        small=Image.open(overview_desktop).convert('RGB'); small.thumbnail((1280,800),Image.Resampling.LANCZOS)
         manifest['overview']['fallback']=asset(small,'overview-fallback.webp',78,500_000)
         manifest['overview']['markers']=json.loads((SOURCE.parent/'overview-illustration.markers.json').read_text()) if illustrated else json.loads((SOURCE/'overview.json').read_text())['markers']
     for name in ['nijo-ninomaru','kiyomizu-hillside','nishiki-fish-market']:
@@ -53,7 +51,6 @@ def package():
         meta=json.loads((SOURCE/f'{name}.json').read_text()); src=Image.open(SOURCE/f'{name}-360.png').convert('RGB')
         assert src.width==2*src.height
         data={'desktop':asset(src,f'{name}-360.webp',90,6_000_000)}
-        data['mobile']=asset(src.resize((2048,1024),Image.Resampling.LANCZOS),f'{name}-360-mobile.webp',88,3_000_000)
         d=[meta['initialTarget'][i]-meta['eye'][i] for i in range(3)]
         fallback=perspective(src,math.atan2(-d[0],-d[2]),math.atan2(d[1],math.hypot(d[0],d[2])),1600,1000,50)
         data['fallback']=asset(fallback,f'{name}-fallback.webp',85,500_000)
@@ -66,6 +63,6 @@ def package():
         sheet.save(SOURCE/f'{name}-cardinal-review.jpg',quality=91)
         manifest['panoramas'][name]=data
     (DEST/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
-    print(json.dumps({name:{'desktop':v['desktop']['bytes'],'mobile':v['mobile']['bytes'],'seam':v['seamMeanRGBDifference']} for name,v in manifest['panoramas'].items()},indent=2))
+    print(json.dumps({name:{'desktop':v['desktop']['bytes'],'seam':v['seamMeanRGBDifference']} for name,v in manifest['panoramas'].items()},indent=2))
 
 if __name__=='__main__': package()

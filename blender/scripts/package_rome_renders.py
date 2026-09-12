@@ -62,9 +62,8 @@ def package(panoramas_only=False):
         manifest['overview']=json.loads((DEST/'manifest.json').read_text())['overview']
     else:
         meta=json.loads((SOURCE/'overview.json').read_text())
-        for variant in ['desktop','mobile']:
-            src=Image.open(SOURCE/f'overview-{variant}.png').convert('RGB')
-            manifest['overview'][variant]=save_asset(src,f'overview{"-mobile" if variant=="mobile" else ""}.webp',88,1_500_000)
+        src=Image.open(SOURCE/'overview-desktop.png').convert('RGB')
+        manifest['overview']['desktop']=save_asset(src,'overview.webp',88,1_500_000)
         overview=Image.open(SOURCE/'overview-desktop.png').convert('RGB'); overview.thumbnail((1280,800),Image.Resampling.LANCZOS)
         manifest['overview']['fallback']=save_asset(overview,'overview-fallback.webp',76,500_000)
         manifest['overview']['markers']=meta['markers']
@@ -75,9 +74,6 @@ def package(panoramas_only=False):
         assert src.width==2*src.height
         data={'desktop':save_asset(src,f'{name}-360.webp',90,6_000_000)}
         src=Image.open(DEST/f'{name}-360.webp').convert('RGB')
-        # A narrow portrait view magnifies a small part of the sphere: retain 4K detail.
-        mobile=src.resize((4096,2048),Image.Resampling.LANCZOS)
-        data['mobile']=save_asset(mobile,f'{name}-360-mobile.webp',88,3_000_000)
         delta=[meta['initialTarget'][i]-meta['eye'][i] for i in range(3)]
         yaw=math.atan2(-delta[0],-delta[2]); pitch=math.atan2(delta[1],math.hypot(delta[0],delta[2]))
         fallback=perspective(src,yaw,pitch,1600,1000,50)
@@ -97,7 +93,7 @@ def package(panoramas_only=False):
     if panoramas_only:
         manifest['overview']=json.loads((DEST/'manifest.json').read_text())['overview']
     (DEST/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
-    print(json.dumps({'overview':manifest['overview'],'panoramas':{k:{'desktop':v['desktop'],'mobile':v['mobile'],'seam':v['seamMeanRGBDifference']} for k,v in manifest['panoramas'].items()}},indent=2))
+    print(json.dumps({'overview':manifest['overview'],'panoramas':{k:{'desktop':v['desktop'],'seam':v['seamMeanRGBDifference']} for k,v in manifest['panoramas'].items()}},indent=2))
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)

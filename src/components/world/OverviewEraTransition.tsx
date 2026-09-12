@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useApp } from '../../app/AppContext';
-import type {
-  HistoricalWorld,
-  OverviewImage,
-  RenderedImageAsset,
-} from '../../types/world';
+import type { HistoricalWorld, RenderedImageAsset } from '../../types/world';
 import {
   loadRenderedImage,
   type LoadedRenderedImage,
@@ -14,26 +10,21 @@ import './OverviewEraTransition.css';
 
 type Frame = { worldId: string; asset: RenderedImageAsset; fallback: boolean };
 type OwnedFrame = Frame & LoadedRenderedImage;
-export function overviewAsset(overview: OverviewImage, portrait: boolean) {
-  return portrait ? (overview.mobile ?? overview.desktop) : overview.desktop;
-}
 
 /** Owns at most two decoded stills. The incoming DOM image becomes the final
  * overview, so committing the world never replaces it with an undecoded image. */
 export function OverviewEraTransition({
   world,
-  portrait,
   children,
 }: {
   world: HistoricalWorld;
-  portrait: boolean;
   children: (frame: Frame | null, ready: boolean) => ReactNode;
 }) {
   const { state, dispatch } = useApp();
   const transition = state.eraTransition;
   const destination = transition?.world ?? world;
   const overview = destination.scene.overviewImage!;
-  const preferred = overviewAsset(overview, portrait);
+  const preferred = overview.desktop;
   const host = useRef<HTMLDivElement>(null);
   const atmosphere = useRef<HTMLDivElement>(null);
   const current = useRef<OwnedFrame | null>(null);
@@ -261,27 +252,19 @@ export function OverviewEraTransition({
     const hidden = () => {
       if (document.hidden) skip();
     };
-    // A changed crop restarts decoding first. The next frame lands without motion.
-    const resized = () => {
-      skipNext.current = true;
-      if (window.innerHeight > window.innerWidth === portrait)
-        finish.current?.();
-    };
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
     const changedMotion = () => {
       if (motion.matches) skip();
     };
     document.addEventListener('keydown', escape);
     document.addEventListener('visibilitychange', hidden);
-    window.addEventListener('resize', resized);
     motion.addEventListener('change', changedMotion);
     return () => {
       document.removeEventListener('keydown', escape);
       document.removeEventListener('visibilitychange', hidden);
-      window.removeEventListener('resize', resized);
       motion.removeEventListener('change', changedMotion);
     };
-  }, [transition, dispatch, portrait]);
+  }, [transition, dispatch]);
 
   useEffect(
     () => () => {

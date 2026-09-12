@@ -106,22 +106,18 @@ function OverviewMarker({
 function OverviewView({
   world,
   size,
-  mobile,
 }: {
   world: HistoricalWorld;
   size: Viewport;
-  mobile: boolean;
 }) {
   return (
-    <OverviewEraTransition world={world} portrait={size.height > size.width}>
+    <OverviewEraTransition world={world}>
       {(frame, ready) => (
         <OverviewMarkers
           world={world}
           size={size}
-          mobile={mobile}
           ready={ready}
           asset={frame?.asset}
-          fallback={frame?.fallback ?? false}
         />
       )}
     </OverviewEraTransition>
@@ -131,22 +127,17 @@ function OverviewView({
 function OverviewMarkers({
   world,
   size,
-  mobile,
   ready,
   asset,
-  fallback,
 }: {
   world: HistoricalWorld;
   size: Viewport;
-  mobile: boolean;
   ready: boolean;
   asset?: RenderedImageAsset;
-  fallback: boolean;
 }) {
   const { dispatch } = useApp();
   const overview = world.scene.overviewImage!;
-  const portrait = size.height > size.width && !!overview.mobile;
-  usePanoramaPrefetch(world, ready, mobile);
+  usePanoramaPrefetch(world, ready);
   return (
     <>
       {ready &&
@@ -154,16 +145,12 @@ function OverviewMarkers({
         world.pois.map((poi, index) => {
           const marker = overview.markers[poi.id];
           if (!marker) return null;
-          const point =
-            portrait && !fallback
-              ? (marker.mobile ?? marker.desktop)
-              : marker.desktop;
           return (
             <OverviewMarker
               key={poi.id}
               poi={poi}
               index={index}
-              anchor={overviewMarkerPosition(point, asset, size)}
+              anchor={overviewMarkerPosition(marker, asset, size)}
               viewport={size}
               onSelect={() => dispatch({ type: 'poi', id: poi.id })}
             />
@@ -225,7 +212,7 @@ export function RenderedCityViewer({
           maximumDpr={settings.dpr}
         />
       ) : (
-        <OverviewView world={world} size={size} mobile={false} />
+        <OverviewView world={world} size={size} />
       )}
     </div>
   );

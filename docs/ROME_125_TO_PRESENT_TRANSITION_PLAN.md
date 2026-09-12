@@ -11,7 +11,7 @@
 
 **Visual review correction (2026-09-12):** the provisional Present illustration
 was replaced after owner review found it too similar to 125 CE. The corrected
-desktop and portrait compositions now establish the recognizable
+desktop composition now establishes the recognizable
 [Vittoriano/Piazza Venezia](https://www.turismoroma.it/it/luoghi/monumento-vittorio-emanuele-ii-vittoriano),
 the straight [Via dei Fori Imperiali](https://www.turismoroma.it/en/places/dei-fori-imperiali)
 axis to the Colosseum, open excavated fora, a ruined Colosseum, green Circus
@@ -27,14 +27,14 @@ Present; the older era's three markers are display-only previews. Its scene and
 content composition is `src/data/worlds/rome-500bce.ts`, with delivered assets
 documented in `blender/source/rome-500bce/README.md`.
 
-Rome has a `rome-present` world and an overview slider. Desktop and
-portrait present-day illustrations were generated from project-owned endpoint
-frames with the built-in image tool. They are explicitly labeled as
-reference-grounded reconstructions: broad registration and defining modern
-geography are retained, but architectural detail is not surveyed. The selected sources and exact
-prompts are in `blender/source/rome-present/`; the runtime image set and manifest
-are in `public/images/rome-present/`. Encoded sizes are approximately 685 / 684 /
-324 kB for desktop / portrait / fallback.
+Rome has a `rome-present` world and an overview slider. The desktop present-day
+illustration was generated from project-owned endpoint frames with the built-in
+image tool. It is explicitly labeled as a reference-grounded reconstruction:
+broad registration and defining modern geography are retained, but architectural
+detail is not surveyed. The selected sources and exact prompts are in
+`blender/source/rome-present/`; the runtime image set and manifest are in
+`public/images/rome-present/`. Encoded sizes are approximately 614 kB for the
+desktop overview and 283 kB for the fallback.
 
 The implemented contract is the optional `scene.overviewTransition` field with
 `group` and `durationMs`; existing world IDs and era years supply endpoint
@@ -45,16 +45,15 @@ and suspends panorama prefetch during travel. It needs no video or extra runtime
 dependency. The optional AI video milestone remains deferred.
 
 Escape/Cancel during preparation preserves the source. Once the destination is
-ready, Skip/Escape finishes at that destination. A changed orientation keeps the
-source visible until the new composition is decoded, then finishes without
-motion. Reduced motion skips animation. The overview transcript is collapsed
-below the timeline; panorama narration controls retain their existing layout.
+ready, Skip/Escape finishes at that destination. Reduced motion skips animation.
+The overview transcript is collapsed below the timeline; panorama narration
+controls retain their existing layout.
 
 Verification covers the production build, typecheck, focused lint and unit
-tests, desktop/portrait travel followed by POI/object exploration, all nine
-historical panorama hotspots, image failure and retry, cancellation, reduced
-motion, orientation changes, and resource release on repeated visits. See
-`tests/rome-time-transition.spec.ts` and `tests/rome-panoramas.spec.ts`.
+tests, desktop travel followed by POI/object exploration, all nine historical
+panorama hotspots, image failure and retry, cancellation, reduced motion, and
+resource release on repeated visits. See `tests/rome-time-transition.spec.ts`
+and `tests/rome-panoramas.spec.ts`.
 
 The sections below retain the implementation brief and optional stretch scope;
 the decisions above describe the shipped cut line.
@@ -91,8 +90,8 @@ POI are outside this milestone.
 1. A visitor selects the other endpoint with the slider, endpoint label, or
    keyboard.
 2. POI markers and nonessential overview controls fade out and become inert.
-3. The destination desktop or portrait image is fetched and decoded while the
-   source remains fully visible. A small `Preparing Present…` or
+3. The destination desktop image is fetched and decoded while the source
+   remains fully visible. A small `Preparing Present…` or
    `Preparing 125 CE…` status appears only if loading is perceptible.
 4. A 1.8–2.4 second transition plays.
 5. The last displayed frame is the exact destination overview image, not a
@@ -128,13 +127,12 @@ atmosphere. Use an immediate endpoint change or a crossfade no longer than
 
 ### Present-day endpoint
 
-Author three present-day images matching the existing overview delivery:
+Author two present-day images matching the existing overview delivery:
 
-| Asset             | Composition                                                                                    | Initial budget |
-| ----------------- | ---------------------------------------------------------------------------------------------- | -------------: |
-| Desktop overview  | Same projection, camera direction, crop, and landmark registration as the 125 CE desktop image |         1.5 MB |
-| Portrait overview | Separately composed to match the 125 CE portrait framing and mobile safe areas                 |         1.5 MB |
-| Fallback still    | Compressed but complete destination frame                                                      |         0.5 MB |
+| Asset            | Composition                                                                                    | Initial budget |
+| ---------------- | ---------------------------------------------------------------------------------------------- | -------------: |
+| Desktop overview | Same projection, camera direction, crop, and landmark registration as the 125 CE desktop image |         1.5 MB |
+| Fallback still   | Compressed but complete destination frame                                                      |         0.5 MB |
 
 The destination does not need pixel-identical buildings, but geographic
 anchors must stay registered. At minimum, review the Pantheon, Forum/Capitoline
@@ -159,9 +157,7 @@ licensed source data.
 AI may be used offline to create a short middle plate from first and last
 keyframes. It is an enhancement, not the source of truth.
 
-- Produce separate landscape and portrait clips when the crops differ.
-- Keep each clip short and silent; target at most 4 MB for landscape and 3 MB
-  for portrait after browser packaging.
+- Keep each clip short and silent; target at most 4 MB after browser packaging.
 - Keep the first and final 10–15% of the runtime transition deterministic.
   Blend the generated footage only into the middle, then resolve onto the exact
   destination still.
@@ -200,7 +196,7 @@ shape is an optional scene field describing:
 - endpoint ID;
 - endpoint order;
 - deterministic transition style;
-- optional forward/reverse desktop and mobile video assets; and
+- optional forward/reverse video assets; and
 - optional transition duration.
 
 The exact TypeScript names must be agreed by the integration owner and the
@@ -251,17 +247,15 @@ Keep responsibilities focused:
   availability. It does not contain Rome-specific years or asset paths.
 
 Both source and destination images must use the same `object-fit: cover`
-calculation during the transition. On resize or orientation change during
-playback, finish at the destination rather than attempting to recompose an
-in-flight animation.
+calculation during the transition. On resize during playback, finish at the
+destination rather than attempting to recompose an in-flight animation.
 
 ### Loading and memory
 
-- Fetch/decode only the currently appropriate destination composition.
+- Fetch/decode only the destination overview composition.
 - Keep the source visible until the destination is ready.
 - Release temporary object URLs, decoded images, video elements, timers, and
   animation listeners after completion or cancellation.
-- Do not decode landscape and portrait transition videos together on mobile.
 - The existing panorama prefetch must not compete with a requested era
   transition. Requested destination media has priority.
 - Once idle at Present, do not prefetch historical POI panoramas until a return
@@ -281,34 +275,31 @@ day`, through a polite live region.
 - During playback, make underlying markers and explorer controls inert rather
   than merely transparent.
 - Maintain a 44 px minimum touch target for the thumb and endpoint labels.
-- Keep the control reachable at 390 × 844 portrait and clear of narration,
-  browser chrome, and safe-area insets.
+- Keep the control clear of narration controls and browser chrome.
 
 If JavaScript animation fails but the destination image loaded, commit the
 destination and announce it. Animation is never required to access an endpoint.
 
 ## 7. Failure and interruption behavior
 
-| Condition                         | Required result                                                               |
-| --------------------------------- | ----------------------------------------------------------------------------- |
-| Destination image fails           | Stay on the source endpoint; show Retry; do not leave a blank layer           |
-| Optional AI video fails           | Play the deterministic transition                                             |
-| Reduced motion                    | Immediate change or ≤150 ms crossfade                                         |
-| `Escape` or Skip                  | Commit the requested destination immediately                                  |
-| Tab becomes hidden                | Resolve to the requested destination and release transition media             |
-| Orientation changes while playing | Resolve to the destination using the newly appropriate still                  |
-| Rapid repeated input              | Ignore while disabled; never start overlapping transitions                    |
-| Present has no POIs               | Hide the places panel and POI markers; keep Choose era and timeline available |
+| Condition               | Required result                                                               |
+| ----------------------- | ----------------------------------------------------------------------------- |
+| Destination image fails | Stay on the source endpoint; show Retry; do not leave a blank layer           |
+| Optional AI video fails | Play the deterministic transition                                             |
+| Reduced motion          | Immediate change or ≤150 ms crossfade                                         |
+| `Escape` or Skip        | Commit the requested destination immediately                                  |
+| Tab becomes hidden      | Resolve to the requested destination and release transition media             |
+| Rapid repeated input    | Ignore while disabled; never start overlapping transitions                    |
+| Present has no POIs     | Hide the places panel and POI markers; keep the timeline available |
 
 ## 8. Milestones and cut line
 
 ### M0 — endpoint and registration review
 
 - Approve the present-day imagery source and redistribution rights.
-- Lock the historical desktop/portrait images as the camera references.
+- Lock the historical desktop image as the camera reference.
 - Produce low-resolution registered present-day proofs.
-- Review the six shared geographic anchors at 50% overlay on desktop and
-  portrait.
+- Review the six shared geographic anchors at 50% overlay on desktop.
 
 **Gate:** Do not animate until both endpoint compositions align convincingly.
 
@@ -317,13 +308,13 @@ destination and announce it. Animation is never required to access an endpoint.
 - Build a throwaway or isolated browser proof using the final endpoint aspect
   ratios.
 - Test the camera push, veil, directional reveal, duration, and exact landing.
-- Review forward and reverse motion on desktop and mobile.
+- Review forward and reverse motion on desktop.
 
 **Gate:** The proof must look intentional without any AI-generated video.
 
 ### M2 — assets and shared contract
 
-- Package the present desktop, portrait, and fallback images.
+- Package the present desktop and fallback images.
 - Add `rome-present` data and the smallest agreed transition metadata.
 - Extend manifest validation for dimensions, hashes, budgets, endpoint IDs,
   and asset existence.
@@ -344,7 +335,7 @@ This milestone is the required release cut line.
 
 - Generate several first/last-keyframe transition plates offline.
 - Review geographic stability and select at most one restrained direction.
-- Package forward/reverse landscape and portrait variants.
+- Package forward and reverse clips.
 - Blend them only into the deterministic middle layer and retain the fallback.
 
 Drop M4 without hesitation if it produces warping, increases load latency, or
@@ -354,7 +345,7 @@ threatens the demo path.
 
 - Run focused unit tests and `npm run typecheck`.
 - Run the production build because this changes runtime integration.
-- Run one desktop and one portrait smoke path:
+- Run one desktop smoke path:
 
 ```text
 Rome -> 125 CE overview -> Present -> 125 CE -> POI -> object -> overview
@@ -370,14 +361,14 @@ Rome -> 125 CE overview -> Present -> 125 CE -> POI -> object -> overview
 The milestone is complete when:
 
 - the timeline has exactly two functioning stops, 125 CE and Present;
-- it appears in Rome overview mode on desktop and mobile and not inside a POI;
+- it appears in Rome overview mode and not inside a POI;
 - both directions start only after the destination still is decoded;
 - no transition shows a blank frame or a generated final frame;
 - the displayed heading, narration, markers, and selected timeline value always
   describe the same committed endpoint;
 - Present shows no historical POI controls;
-- Skip, image failure, video failure, reduced motion, and orientation change
-  all leave the application in a valid endpoint state;
+- Skip, image failure, video failure and reduced motion all leave the
+  application in a valid endpoint state;
 - keyboard and touch operation work and transition announcements are audible to
   assistive technology;
 - all temporary image/video resources are released after switching repeatedly;
@@ -388,12 +379,12 @@ The milestone is complete when:
 
 ## 10. Ownership and estimated effort
 
-| Work                                                                             | Owner        | Estimate after source assets are available |
-| -------------------------------------------------------------------------------- | ------------ | -----------------------------------------: |
-| Present-day camera match, desktop/portrait/fallback images, optional masks/video | Workstream 1 |  1–3 days, dominated by endpoint authoring |
-| Slider, transition lifecycle, loading, responsive layout, reduced motion         | Workstream 2 |                                   1–2 days |
-| Present endpoint copy, provenance, acceptance and release checks                 | Workstream 4 |                                  0.5–1 day |
-| Shared contract review and integration                                           | Astra        |                                    0.5 day |
+| Work                                                                    | Owner        | Estimate after source assets are available |
+| ----------------------------------------------------------------------- | ------------ | -----------------------------------------: |
+| Present-day camera match, desktop/fallback images, optional masks/video | Workstream 1 |  1–3 days, dominated by endpoint authoring |
+| Slider, transition lifecycle, loading, layout, reduced motion           | Workstream 2 |                                   1–2 days |
+| Present endpoint copy, provenance, acceptance and release checks        | Workstream 4 |                                  0.5–1 day |
+| Shared contract review and integration                                  | Astra        |                                    0.5 day |
 
 Workstream 3 should only confirm that historical selection state is cleared and
 that no object controls appear at Present. No Q&A or object work is required.

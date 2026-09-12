@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { findWorld, locations } from '../data/locations';
+import { findOpeningWorld, findWorld, locations } from '../data/locations';
 import { kyoto1700 } from '../data/worlds/kyoto-1700';
 import { kyotoPresent } from '../data/worlds/kyoto-present';
 import { resolvePresentation } from '../utils/presentation';
@@ -11,6 +11,18 @@ describe('Kyoto location and era navigation', () => {
     expect(location?.eras).toEqual([kyoto1700.era, kyotoPresent.era]);
     expect(findWorld('kyoto', '1700')).toBe(kyoto1700);
     expect(findWorld('kyoto', '125')).toBeNull();
+    expect(findOpeningWorld('kyoto')).toBe(kyotoPresent);
+    expect(findOpeningWorld(null)).toBeNull();
+    expect(findOpeningWorld('unknown')).toBeNull();
+    expect(
+      appReducer(initialState, {
+        type: 'enterWorld',
+        world: findOpeningWorld('kyoto')!,
+      }).selectedEraId,
+    ).toBe('present');
+    expect(
+      appReducer(initialState, { type: 'location', id: 'kyoto' }).selectedEraId,
+    ).toBe('present');
 
     const atLocation = appReducer(initialState, {
       type: 'location',

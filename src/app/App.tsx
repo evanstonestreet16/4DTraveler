@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import { useApp } from './AppContext';
 import { locations } from '../data/locations';
 import { LocationSelector } from '../components/location/LocationSelector';
-import { EraSelector } from '../components/timeline/EraSelector';
+import { GlobeLogo } from '../components/location/globe/GlobeLogo';
 import { SceneErrorBoundary } from '../components/world/SceneErrorBoundary';
 
 const WorldExperience = lazy(
@@ -25,17 +25,23 @@ export function App() {
   // The landing globe is presented bare: just the globe and the wordmark.
   const isLandingGlobe = !showGlobe && !state.selectedLocationId;
   return (
-    <div className="app-shell">
-      <header className="site-header">
+    <div className={`app-shell${isLandingGlobe ? ' is-landing' : ''}`}>
+      <header className={`site-header${isLandingGlobe ? ' is-overlay' : ''}`}>
         <button
-          className="wordmark"
-          aria-label="4DTraveler home"
+          className={`wordmark${isLandingGlobe ? ' wordmark-logo' : ''}`}
+          aria-label="4D Traveler home"
           onClick={() => dispatch({ type: 'mode', mode: 'catalog' })}
         >
-          4D<span>Traveler</span>
-          <span className="brand-dot" aria-hidden="true">
-            ✳
-          </span>
+          {isLandingGlobe ? (
+            <GlobeLogo compact />
+          ) : (
+            <>
+              4D<span>Traveler</span>
+              <span className="brand-dot" aria-hidden="true">
+                ✳
+              </span>
+            </>
+          )}
         </button>
         {!isLandingGlobe && (
           <span className="version-label">
@@ -64,8 +70,6 @@ export function App() {
               Choose a location
             </button>
           </div>
-        ) : !state.selectedEraId && staticLocation ? (
-          <EraSelector location={staticLocation} />
         ) : !state.activeWorld ? (
           <div className="notice" role="alert">
             This world is not available yet.{' '}
@@ -106,12 +110,12 @@ export function App() {
                     className="small-button"
                     onClick={() =>
                       dispatch({
-                        type: 'location',
-                        id: state.activeWorld!.locationId,
+                        type: 'mode',
+                        mode: state.mode === 'globe' ? 'globe' : 'catalog',
                       })
                     }
                   >
-                    Choose era
+                    ← Back to globe
                   </button>
                 </div>
               }

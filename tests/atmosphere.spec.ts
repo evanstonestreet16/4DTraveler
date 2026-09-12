@@ -29,7 +29,8 @@ test('environmental motion follows reduced-motion changes and pauses offscreen',
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await scene.scrollIntoViewIfNeeded();
   await expect(scene).toHaveAttribute('data-environment-motion', 'active');
-  await page.setViewportSize({ width: 390, height: 400 });
+  // A short desktop window makes the page scroll so the scene can leave the viewport.
+  await page.setViewportSize({ width: 1440, height: 400 });
   await page.locator('.site-footer').scrollIntoViewIfNeeded();
   await expect(scene).toHaveAttribute('data-environment-motion', 'paused');
   await scene.scrollIntoViewIfNeeded();

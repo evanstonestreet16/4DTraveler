@@ -81,7 +81,7 @@ def save_lossless(image, name):
     }
 
 
-def package_view(poi_id, filename, shift, pixels, camera, entry):
+def package_view(poi_id, filename, shift, pixels, camera):
     source_path = ROOT / "pano-explorer/public/images/citystreetviews/rome" / filename
     source = Image.open(source_path).convert("RGB")
     assert source.size == (1440, 720)
@@ -89,7 +89,6 @@ def package_view(poi_id, filename, shift, pixels, camera, entry):
     desktop = save_lossless(source, f"{poi_id}-360.webp")
     data = {
         "desktop": desktop,
-        "mobile": save_lossless(source, f"{poi_id}-360-mobile.webp") if entry else desktop,
     }
     delta = [b - a for a, b in zip(camera["eye"], camera["initialTarget"])]
     yaw = math.atan2(-delta[0], -delta[2])
@@ -209,7 +208,7 @@ def main(ai_only=False, only_stem=None):
             frame = package_view(
                 poi_id if index == 0 else node_id,
                 filename or view["source"], shift,
-                view["pixels"] if index == 0 else {}, previous, index == 0,
+                view["pixels"] if index == 0 else {}, previous,
             )
             frames.append({"id": node_id, "label": label, **frame})
         data = {k: v for k, v in frames[0].items() if k not in ("id", "label")}
