@@ -3,6 +3,7 @@ import type {
   GeneratedHistoryProfile,
   GeneratedObject,
   GeneratedPOI,
+  ObjectPart,
   ScenePrimitive,
   Vec3,
 } from '../../types/world';
@@ -122,11 +123,41 @@ function validateScenery(raw: unknown, path: string): ScenePrimitive {
   };
 }
 
+const MAX_PARTS = 5;
+
+function validatePart(raw: unknown, path: string): ObjectPart {
+  if (typeof raw !== 'object' || raw === null) {
+    throw new GeneratedProfileError('expected object', path);
+  }
+  const record = raw as Record<string, unknown>;
+  return {
+    shape: assertShape(record.shape, `${path}.shape`),
+    position: assertVec3(record.position, `${path}.position`),
+    scale: assertPositiveVec3(record.scale, `${path}.scale`),
+    color: assertHex(record.color, `${path}.color`),
+  };
+}
+
 function validateObject(raw: unknown, path: string): GeneratedObject {
   if (typeof raw !== 'object' || raw === null) {
     throw new GeneratedProfileError('expected object', path);
   }
   const record = raw as Record<string, unknown>;
+  let parts: ObjectPart[] | undefined;
+  if (record.parts !== undefined && record.parts !== null) {
+    if (!Array.isArray(record.parts)) {
+      throw new GeneratedProfileError(
+        'expected array of parts',
+        `${path}.parts`,
+      );
+    }
+    // Cap silently at MAX_PARTS to protect the renderer from over-eager
+    // silhouettes; discard the tail rather than fail the whole era.
+    parts = record.parts
+      .slice(0, MAX_PARTS)
+      .map((entry, index) => validatePart(entry, `${path}.parts[${index}]`));
+    if (parts.length === 0) parts = undefined;
+  }
   return {
     id: assertString(record.id, `${path}.id`),
     name: assertString(record.name, `${path}.name`),
@@ -134,6 +165,7 @@ function validateObject(raw: unknown, path: string): GeneratedObject {
     position: assertVec3(record.position, `${path}.position`),
     scale: assertPositiveVec3(record.scale, `${path}.scale`),
     color: assertHex(record.color, `${path}.color`),
+    parts,
     description: assertString(record.description, `${path}.description`),
     whyItMatters: assertString(record.whyItMatters, `${path}.whyItMatters`),
   };

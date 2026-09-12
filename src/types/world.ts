@@ -142,6 +142,13 @@ export interface GeneratedPOI {
  * One historical thing that is both rendered (as a primitive) and
  * selectable (with metadata). No cross-references — the shape lives right
  * next to the description.
+ *
+ * The top-level `shape/position/scale/color` fields define the object's
+ * **primary** (clickable) primitive. For iconic landmarks the model may
+ * also supply `parts[]` — 1–5 extra primitives with absolute world
+ * positions that together sketch a recognizable silhouette (e.g. Eiffel
+ * Tower legs + platforms + spire). Parts are decorative; only the
+ * primary primitive participates in click-to-select.
  */
 export interface GeneratedObject {
   id: string;
@@ -150,6 +157,19 @@ export interface GeneratedObject {
   position: Vec3;
   scale: Vec3;
   color: string;
+  parts?: ObjectPart[];
   description: string;
   whyItMatters: string;
+}
+
+/**
+ * One additional primitive that renders alongside a `GeneratedObject`'s
+ * primary shape. Positions are in world coordinates (not offsets), so
+ * Grok never has to reason about local frames.
+ */
+export interface ObjectPart {
+  shape: 'box' | 'cylinder';
+  position: Vec3;
+  scale: Vec3;
+  color: string;
 }

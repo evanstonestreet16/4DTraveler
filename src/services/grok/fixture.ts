@@ -5,12 +5,15 @@ import type { GeneratedHistoryProfile } from '../../types/world';
  * API key is missing, or Grok output failed validation. Doubles as an
  * integration test fixture and as the demo safety net so the globe
  * path always leads somewhere.
+ *
+ * Two eras (matches the current app scope). The 2005 Space Needle
+ * demonstrates the optional `parts[]` field for iconic silhouettes.
  */
 export const seattleFixture: GeneratedHistoryProfile = {
   cityName: 'Seattle',
   region: 'Washington, United States',
   description:
-    'A Salish Sea port that grew from cedar longhouses to a Klondike-era boomtown to a Pacific tech capital.',
+    'A Salish Sea port that grew from cedar longhouses to a Pacific tech capital.',
   eras: [
     {
       id: 'seattle-1780',
@@ -130,135 +133,6 @@ export const seattleFixture: GeneratedHistoryProfile = {
       ],
     },
     {
-      id: 'seattle-1897',
-      label: '1897',
-      year: 1897,
-      subtitle: 'Gold Rush gateway',
-      historicalContext:
-        "News of the Klondike strike arrived on the SS Portland in July 1897 with 'a ton of gold' aboard. Seattle reinvented itself overnight as the outfitter of the North, its waterfront lined with steamships and its streets packed with prospectors.",
-      background: '#d7c9a7',
-      scenery: [
-        {
-          id: 'harbor-water',
-          shape: 'box',
-          position: [0, -0.05, -10],
-          scale: [32, 0.1, 18],
-          color: '#4d5e6a',
-        },
-        {
-          id: 'plank-street',
-          shape: 'box',
-          position: [0, 0.1, 3],
-          scale: [22, 0.2, 3],
-          color: '#7a6a52',
-        },
-        {
-          id: 'coal-heap',
-          shape: 'cylinder',
-          position: [-11, 0.9, -2],
-          scale: [1.8, 1.8, 1.8],
-          color: '#1e1c1a',
-        },
-        {
-          id: 'wagon',
-          shape: 'box',
-          position: [-5, 0.7, 3],
-          scale: [2, 1.4, 1],
-          color: '#4b3a2c',
-        },
-        {
-          id: 'saloon-back',
-          shape: 'box',
-          position: [7, 2.5, 6],
-          scale: [5, 5, 4],
-          color: '#b58c5c',
-        },
-      ],
-      pois: [
-        {
-          id: 'waterfront',
-          name: 'Steamship Waterfront',
-          markerPosition: [-2, 6, -6],
-          objects: [
-            {
-              id: 'klondike-steamer',
-              name: 'Klondike-Bound Steamer',
-              shape: 'box',
-              position: [-2, 1.8, -8],
-              scale: [10, 3.2, 3],
-              color: '#3d3a34',
-              description:
-                'A coal-fired coastal steamer loading prospectors and cargo bound for Skagway.',
-              whyItMatters:
-                'Steamships turned Seattle into the mandatory pit-stop for the Yukon, funneling wealth back through its merchants.',
-            },
-            {
-              id: 'pier-planks',
-              name: 'Working Pier',
-              shape: 'box',
-              position: [0, 0.4, -2],
-              scale: [12, 0.6, 6],
-              color: '#5b4a34',
-              description:
-                "A timber pier stacked with barrels, crates, and outfitters' bundles.",
-              whyItMatters:
-                'The waterfront was the interface between the wilderness economy and industrial capital.',
-            },
-          ],
-        },
-        {
-          id: 'outfitter-row',
-          name: 'Outfitter Row',
-          markerPosition: [-8, 7, 6],
-          objects: [
-            {
-              id: 'ton-of-goods-store',
-              name: 'Klondike Outfitter',
-              shape: 'box',
-              position: [-8, 3, 6],
-              scale: [6, 6, 5],
-              color: '#a86a45',
-              description:
-                "A general store selling the Canadian-mandated 'ton of goods' required to cross into the Yukon.",
-              whyItMatters:
-                'Selling the ton was more reliably profitable than digging for it; local merchants engineered the rule together with promoters.',
-            },
-          ],
-        },
-        {
-          id: 'boomtown-blocks',
-          name: 'Boomtown Blocks',
-          markerPosition: [0, 9, 8],
-          objects: [
-            {
-              id: 'brick-boom-hotel',
-              name: 'Boomtown Hotel',
-              shape: 'box',
-              position: [0, 4, 8],
-              scale: [7, 8, 6],
-              color: '#8f5a3d',
-              description:
-                'A brick hotel built after the 1889 fire, rented by the day to transient miners.',
-              whyItMatters:
-                'The Great Fire and the Rush together funded the shift from wood shanties to a fireproof brick downtown.',
-            },
-            {
-              id: 'gaslit-street',
-              name: 'Gaslit Plank Street',
-              shape: 'cylinder',
-              position: [3, 1.5, 3.5],
-              scale: [0.2, 3, 0.2],
-              color: '#1f1c19',
-              description:
-                'A gas street lamp lighting a plank-laid main street.',
-              whyItMatters:
-                "Public utilities followed capital: gas mains and later electric grids trailed the Rush's spending.",
-            },
-          ],
-        },
-      ],
-    },
-    {
       id: 'seattle-2005',
       label: '2005',
       year: 2005,
@@ -347,6 +221,20 @@ export const seattleFixture: GeneratedHistoryProfile = {
               position: [-2, 6, 10],
               scale: [0.7, 12, 0.7],
               color: '#d0cfc9',
+              parts: [
+                {
+                  shape: 'cylinder',
+                  position: [-2, 12, 10],
+                  scale: [2.6, 0.9, 2.6],
+                  color: '#e4b26b',
+                },
+                {
+                  shape: 'cylinder',
+                  position: [-2, 12.7, 10],
+                  scale: [0.25, 2.8, 0.25],
+                  color: '#d0cfc9',
+                },
+              ],
               description:
                 "The 1962 World's Fair tower, now the city's unmistakable civic logo.",
               whyItMatters:

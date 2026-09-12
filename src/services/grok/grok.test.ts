@@ -8,6 +8,21 @@ describe('validateHistoryProfile', () => {
     expect(() => validateHistoryProfile(seattleFixture)).not.toThrow();
   });
 
+  it('bundled fixture ships with the expected 2 eras', () => {
+    expect(seattleFixture.eras).toHaveLength(2);
+  });
+
+  it('caps parts to at most 5 entries silently', () => {
+    const drifted = structuredClone(seattleFixture);
+    const target = drifted.eras[1].pois[1].objects[0];
+    const basePart = target.parts?.[0];
+    expect(basePart).toBeDefined();
+    if (!basePart) return;
+    target.parts = Array.from({ length: 8 }, () => ({ ...basePart }));
+    const validated = validateHistoryProfile(drifted);
+    expect(validated.eras[1].pois[1].objects[0].parts).toHaveLength(5);
+  });
+
   it('rejects negative scale components', () => {
     const broken = structuredClone(seattleFixture);
     broken.eras[0].pois[0].objects[0].scale[0] = -1;
@@ -96,6 +111,34 @@ describe('deriveWorldsFromProfile', () => {
       const [, , tz] = world.scene.overviewCamera.target;
       expect(tz).toBeGreaterThan(-25);
       expect(tz).toBeLessThan(25);
+    }
+  });
+
+  it('explodes object.parts into extra decorative primitives that keep the primary clickable', () => {
+    const spaceNeedleWorld = worlds[1];
+    const spaceNeedle = spaceNeedleWorld.objects.find(
+      (object) => object.id === 'space-needle',
+    );
+    expect(spaceNeedle).toBeDefined();
+    if (!spaceNeedle) return;
+    // Primary primitive shares the object id (clickable).
+    expect(
+      spaceNeedleWorld.scene.primitives.some(
+        (primitive) => primitive.id === 'space-needle',
+      ),
+    ).toBe(true);
+    // Extra decorative primitives are present.
+    const decorative = spaceNeedleWorld.scene.primitives.filter((primitive) =>
+      primitive.id.startsWith('space-needle-part-'),
+    );
+    expect(decorative.length).toBeGreaterThan(0);
+    // Decorative parts are NOT registered as their own selectable objects.
+    for (const part of decorative) {
+      expect(
+        spaceNeedleWorld.objects.some(
+          (object) => object.sceneObjectId === part.id,
+        ),
+      ).toBe(false);
     }
   });
 

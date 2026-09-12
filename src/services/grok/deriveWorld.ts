@@ -136,8 +136,8 @@ export function deriveWorldFromEra(
     const poiObjectIds: string[] = [];
     for (const object of poi.objects) {
       const objectId = uniqueId(object.id, takenIds);
-      // Each object contributes one primitive with the same id, so
-      // click-to-select in SelectableObject "just works".
+      // The primary primitive shares the object id so click-to-select in
+      // SelectableObject "just works".
       primitives.push({
         id: objectId,
         shape: object.shape,
@@ -145,6 +145,21 @@ export function deriveWorldFromEra(
         scale: object.scale,
         color: object.color,
       });
+      // Extra silhouette parts (Eiffel legs, Space Needle disk, etc.)
+      // render as decorative scenery. They are visually part of the
+      // object but not individually selectable — clicking the primary
+      // primitive still selects and centers the whole cluster.
+      if (object.parts) {
+        object.parts.forEach((part, partIndex) => {
+          primitives.push({
+            id: uniqueId(`${objectId}-part-${partIndex}`, takenIds),
+            shape: part.shape,
+            position: part.position,
+            scale: part.scale,
+            color: part.color,
+          });
+        });
+      }
       objects.push({
         id: objectId,
         name: object.name,
