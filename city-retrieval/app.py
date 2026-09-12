@@ -29,6 +29,7 @@ app.add_middleware(
 # Initialize database and clients once at startup
 openai_client, xai_client, collection = get_clients()
 XAI_API_KEY = os.environ["XAI_API_KEY"]
+city_collection = collection.database.get_collection("cities")
 
 
 class QueryRequest(BaseModel):
@@ -59,6 +60,45 @@ class MonumentResponse(BaseModel):
 class TtsRequest(BaseModel):
     text: str
     voice_id: str = Field(default="ara")
+
+
+@app.get("/api/cities/{city_id}/eras/{era_id}/buildings/{building_id}")
+def get_building(city_id: str, era_id: str, building_id: str):
+    """Return one building's description for a specific historical era."""
+    city = city_collection.find_one(
+        {"cityId": city_id, "eras.eraId": era_id},
+        {
+            "_id": 0,
+            "cityId": 1,
+            "name": 1,
+            "eras": {"$elemMatch": {"eraId": era_id}},
+        },
+    )
+    if not city or not city.get("eras"):
+        raise HTTPException(status_code=404, detail="City or era not found")
+
+    era = city["eras"][0]
+    building = next(
+        (
+            candidate
+            for candidate in era.get("buildings", [])
+            if candidate.get("buildingId") == building_id
+        ),
+        None,
+    )
+    if building is None:
+        raise HTTPException(status_code=404, detail="Building not found")
+
+    return {
+        "cityId": city["cityId"],
+        "city": city["name"],
+        "era": {
+            "eraId": era["eraId"],
+            "label": era.get("label"),
+            "year": era.get("year"),
+        },
+        "building": building,
+    }
 
 
 @app.post("/api/chat", response_model=QueryResponse)

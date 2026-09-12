@@ -24,10 +24,27 @@ XAI_API_KEY=xai-your-xai-api-key-here
 MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/?retryWrites=true&w=majority
 MONGODB_DATABASE=city_rag
 MONGODB_COLLECTION=city_chunks
+MONGODB_CITIES_COLLECTION=cities
 
 ```
 
 This is only if you want to use your own server/API keys, otherwise ask Richard for the .env file containing the API keys
+
+## Inserting structured city data
+
+Structured city descriptions live in the `cities/` directory. The example [Rome document](cities/rome.json) contains three eras and descriptions for the Colosseum, Pantheon, and Roman Forum.
+
+From the `city-retrieval` directory, insert or replace the JSON documents with:
+
+```
+python insert_cities.py
+```
+
+The script reads `MONGODB_URI`, `MONGODB_DATABASE`, and `MONGODB_CITIES_COLLECTION` from `.env`. It upserts by `cityId`, so running it again updates the existing city instead of creating a duplicate. A specific document can also be inserted with:
+
+```
+python insert_cities.py cities/rome.json
+```
 
 ## 🚀 Running the FastAPI Server
 
@@ -180,9 +197,76 @@ const fetchAnswer = async (userQuery) => {
 
 ## 📡 API Endpoint Reference
 
+There are two ways to retrieve city information:
+
+- **Basic structured descriptions:** use the direct building endpoint when the app already knows the city, era, and building IDs. This reads from the `cities` collection and returns the authored description without calling an LLM.
+- **LLM RAG retrieval:** use `/api/chat` for natural-language questions. This embeds the question, searches the `city_chunks` Atlas Vector Search index, and sends the matching text to Grok to generate an answer.
+
+### `GET /api/cities/{city_id}/eras/{era_id}/buildings/{building_id}`
+
+Use this endpoint for a basic description of a known building in a known era.
+
+Required URL keys:
+
+| Key | Example | Meaning |
+| --- | --- | --- |
+| `city_id` | `rome` | The document's `cityId` |
+| `era_id` | `imperial-rome` | The era's `eraId` inside the city document |
+| `building_id` | `colosseum` | The building's `buildingId` inside that era |
+
+For the Rome example, the available building ID is one of `colosseum`, `pantheon`, or `roman-forum`. The available era IDs are `imperial-rome`, `late-antiquity`, and `modern-rome`.
+
+Example request:
+
+```
+curl http://127.0.0.1:8000/api/cities/rome/eras/imperial-rome/buildings/colosseum
+```
+
+The equivalent PowerShell call is:
+
+```
+Invoke-RestMethod -Uri "http://127.0.0.1:8000/api/cities/rome/eras/modern-rome/buildings/pantheon"
+```
+
+The response includes the city, era, building name, description, historical significance, scene object ID, and source links:
+
+```json
+{
+  "cityId": "rome",
+  "city": "Rome",
+  "era": {
+    "eraId": "imperial-rome",
+    "label": "Imperial Rome",
+    "year": 117
+  },
+  "building": {
+    "buildingId": "colosseum",
+    "name": "Colosseum",
+    "status": "active amphitheatre",
+    "description": "...",
+    "whyItMatters": "...",
+    "sceneObjectId": "colosseum",
+    "sources": []
+  }
+}
+```
+
+The endpoint returns `404` when the city, era, or building ID does not exist. The React app should call this endpoint through the FastAPI server rather than connecting directly to MongoDB.
+
 ### `POST /api/chat`
 
 - **Request Headers:** `Content-Type: application/json`
+Use this endpoint when the user asks a question instead of selecting a specific building. The RAG pipeline searches semantically similar chunks, so the query does not need to match a stored title exactly.
+
+Request keys:
+
+| Key | Type | Required | Meaning |
+| --- | --- | --- | --- |
+| `query` | string | Yes | The user's natural-language question |
+
+The current endpoint searches all indexed cities. To improve retrieval for a specific city or era, include those names in the question, for example: `How did the Pantheon change from Imperial Rome to modern Rome?`
+
+Request headers: `Content-Type: application/json`
 
 - **Request Body:**
 
@@ -201,3 +285,30 @@ const fetchAnswer = async (userQuery) => {
   }
 
   ```
+
+Request body:
+
+```json
+{
+  "query": "How was the Colosseum used during Imperial Rome?"
+}
+```
+
+Example request:
+
+```powershell
+Invoke-RestMethod -Uri "http://127.0.0.1:8000/api/chat" `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body '{"query": "How was the Colosseum used during Imperial Rome?"}'
+```
+
+Successful response (`200 OK`):
+
+```json
+{
+  "answer": "string generated from the retrieved database context"
+}
+```
+
+Use the direct endpoint for stable UI content such as the selected building's description. Use `/api/chat` for exploratory questions, comparisons, and follow-up questions where an LLM-generated response is useful.
