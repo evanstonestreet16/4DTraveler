@@ -96,10 +96,10 @@ shape reads \`scale\` differently — respect the convention:
 - "cone"     — round taper to a point.   scale = [radius, height, radius]   Good for spires, tents, wigwams.
 - "pyramid"  — 4-sided pyramid.          scale = [baseHalf, height, baseHalf]  Egyptian/Mesoamerican, roof crowns.
 - "sphere"   — ellipsoid.                scale = [radiusX, radiusY, radiusZ]  Domes, silos, planetariums.
-- "torus"    — flat ring.                scale = [outerRadius, tubeThickness, outerRadius]  Observation-deck rims, halos, arches (rotated).
+- "torus"    — flat ring lying HORIZONTAL by default (donut on a table). scale = [outerRadiusX, tubeThickness (height), outerRadiusZ]  Observation-deck rims, halos, well tops. Use rotation [90,0,0] only to stand it up as a vertical arch.
 
 DESIGN CONSTRAINTS:
-- Ground plane is y=0. Objects sit on the ground; use y = height/2 for a box, y = height/2 for a cylinder/cone/pyramid. Sphere centers at y=radiusY. Torus centers at the ring plane's y.
+- Ground plane is y=0. Objects sit on the ground; use y = height/2 for a box, y = height/2 for a cylinder/cone/pyramid. Sphere centers at y=radiusY. Torus (already rendered flat) centers at the ring plane's y.
 - World fits inside a ~40m x 40m footprint (x in [-20,20], z in [-20,20]).
 - Object height ~1-15m; keep the tallest around 15m.
 - Use era-appropriate palettes: earlier eras trend brown/green/grey, later eras add brighter/more industrial tones.
@@ -109,29 +109,47 @@ DESIGN CONSTRAINTS:
 - Use \`iconic: true\` + \`tripoPrompt\` for AT MOST 1-2 world-famous landmarks per era. Iconic landmarks MUST have BOTH a rich primitive/parts silhouette (for instant rendering + click hit-testing) AND \`tripoPrompt\` (for the async Tripo upgrade).
 - All coordinates are numbers, not strings. All arrays are exactly length 3.
 - All hex colors start with '#' followed by 6 hex digits (e.g. "#8fa87b"). Never omit the '#'.
-- Rotation is in degrees (0-360), applied in Euler XYZ order. Omit for identity. Prefer rotation only when it clearly reads (Eiffel legs at ±15° in X-Z, torus arches at 90°, etc.).
+- Rotation is in degrees (0-360), applied in Euler XYZ order. Omit for identity. Prefer rotation only when it clearly reads.
+
+ROTATION CHEAT-SHEET (get the SIGN right — this is where silhouettes usually go wrong):
+- Rotating a vertical cylinder around Z by +θ tilts its TOP toward -X and its BASE toward +X.
+- Rotating a vertical cylinder around Z by -θ tilts its TOP toward +X and its BASE toward -X.
+- Same relationship for X-axis rotation between top and Z.
+- For a CONVERGENT tripod (legs meet at the top like the Space Needle), each leg's TOP must move toward the shaft. So:
+  * A leg centered to the LEFT of the shaft needs a NEGATIVE Z rotation (top goes +X, toward shaft).
+  * A leg centered to the RIGHT of the shaft needs a POSITIVE Z rotation.
+  * A leg centered BEHIND the shaft (larger z) needs a NEGATIVE X rotation.
+  * A leg centered in FRONT of the shaft (smaller z) needs a POSITIVE X rotation.
+- Match the leg length to the geometry: a leg spanning (base_x, 0) to (top_x, top_y) has length sqrt((base_x-top_x)^2 + top_y^2) and center at their midpoint.
+- Torus rings are rendered FLAT (horizontal) by default — use rotation only to tilt them (e.g. vertical arches: rotation [90,0,0]).
+
 - Output ONLY the JSON object. No markdown fences. No prose before or after.
 
-WORKED EXAMPLE 1 — Space Needle (iconic, ~11 parts):
+WORKED EXAMPLE 1 — Space Needle (iconic, converging tripod, 9 parts):
 {
   "id": "space-needle",
   "name": "Space Needle",
   "shape": "cylinder",
   "position": [-2, 4, 10],
-  "scale": [0.5, 8, 0.5],
+  "scale": [0.4, 8, 0.4],
   "color": "#d0cfc9",
   "parts": [
-    { "shape": "cylinder", "position": [-3.5, 3, 10],   "scale": [0.35, 6, 0.35], "color": "#d0cfc9", "rotation": [0, 0, 15] },
-    { "shape": "cylinder", "position": [-0.5, 3, 10],   "scale": [0.35, 6, 0.35], "color": "#d0cfc9", "rotation": [0, 0, -15] },
-    { "shape": "cylinder", "position": [-2, 3, 11.5],   "scale": [0.35, 6, 0.35], "color": "#d0cfc9", "rotation": [15, 0, 0] },
-    { "shape": "cylinder", "position": [-2, 8.5, 10],   "scale": [2.4, 0.6, 2.4], "color": "#e4b26b" },
-    { "shape": "torus",    "position": [-2, 9,   10],   "scale": [2.6, 0.15, 2.6], "color": "#c8934a" },
-    { "shape": "cylinder", "position": [-2, 9.7, 10],   "scale": [1.4, 0.8, 1.4], "color": "#efc98a" },
-    { "shape": "cone",     "position": [-2, 11,  10],   "scale": [0.4, 1.6, 0.4], "color": "#d0cfc9" },
-    { "shape": "cylinder", "position": [-2, 12.5, 10],  "scale": [0.08, 1.8, 0.08], "color": "#c9c4bb" }
+    // Three tripod legs: each is a 4.47m cylinder spanning ground to y=4
+    // on the shaft. Note the rotation signs: legs converge INWARD at
+    // the top, spread OUTWARD at the base.
+    { "shape": "cylinder", "position": [-3, 2, 10],  "scale": [0.28, 4.47, 0.28], "color": "#c9c4bb", "rotation": [0, 0, -27] },
+    { "shape": "cylinder", "position": [-1, 2, 10],  "scale": [0.28, 4.47, 0.28], "color": "#c9c4bb", "rotation": [0, 0, 27] },
+    { "shape": "cylinder", "position": [-2, 2, 11],  "scale": [0.28, 4.47, 0.28], "color": "#c9c4bb", "rotation": [-27, 0, 0] },
+    // Saucer disc + horizontal rim + observation cabin.
+    { "shape": "cylinder", "position": [-2, 8, 10],    "scale": [2.2, 0.4, 2.2],  "color": "#e4b26b" },
+    { "shape": "torus",    "position": [-2, 8.05, 10], "scale": [2.5, 0.18, 2.5], "color": "#c8934a" },
+    { "shape": "cylinder", "position": [-2, 8.55, 10], "scale": [1.2, 0.7, 1.2],  "color": "#efc98a" },
+    // Cone antenna base + slim antenna tip.
+    { "shape": "cone",     "position": [-2, 9.6, 10],  "scale": [0.35, 1.4, 0.35], "color": "#d0cfc9" },
+    { "shape": "cylinder", "position": [-2, 11, 10],   "scale": [0.07, 1.6, 0.07], "color": "#c9c4bb" }
   ],
   "iconic": true,
-  "tripoPrompt": "low-poly miniature model of the Space Needle in Seattle, 1962 futurism, tripod legs, wide golden saucer at the top, thin antenna spire, clay-shaded",
+  "tripoPrompt": "low-poly miniature model of the Space Needle in Seattle, 1962 futurism, converging tripod legs, wide golden saucer at the top, thin antenna spire, clay-shaded",
   "description": "The 1962 World's Fair tower, now the city's civic logo.",
   "whyItMatters": "Built as a futurist advertisement, it outlasted the era it sold."
 }

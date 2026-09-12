@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import * as THREE from 'three';
 import type {
   HistoricalObject,
@@ -6,6 +6,23 @@ import type {
   ScenePrimitive,
   Vec3,
 } from '../../types/world';
+
+/**
+ * A unit-size torus whose ring lies FLAT in the X-Z plane (like a donut
+ * on a table). Three.js's default `TorusGeometry` sits in the X-Y plane
+ * (standing vertical, like a wheel), which is almost never what you
+ * want for observation-deck rims, halos, or wheel-hubs on the ground.
+ * We bake a 90-degree X rotation into the geometry so authors can just
+ * scale the primitive and get a flat ring — matching the documented
+ * scale convention in [src/types/world.ts](../../types/world.ts).
+ */
+function useHorizontalTorusGeometry(): THREE.TorusGeometry {
+  return useMemo(() => {
+    const g = new THREE.TorusGeometry(0.4, 0.12, 12, 24);
+    g.rotateX(Math.PI / 2);
+    return g;
+  }, []);
+}
 
 /**
  * Return the appropriate three.js geometry element for a supported
@@ -16,7 +33,8 @@ import type {
  * the single source of truth. Segment counts are picked to look smooth
  * at miniature-diorama scale without ballooning the vertex budget.
  */
-function primitiveGeometry(shape: PrimitiveShape) {
+function PrimitiveGeometry({ shape }: { shape: PrimitiveShape }) {
+  const torusGeometry = useHorizontalTorusGeometry();
   switch (shape) {
     case 'box':
       return <boxGeometry args={[1, 1, 1]} />;
@@ -30,9 +48,9 @@ function primitiveGeometry(shape: PrimitiveShape) {
     case 'sphere':
       return <sphereGeometry args={[0.5, 24, 16]} />;
     case 'torus':
-      // Radial and tubular ratios chosen so scale.x reads as the ring
-      // outer radius and scale.y as the tube thickness (see world.ts).
-      return <torusGeometry args={[0.4, 0.12, 12, 24]} />;
+      // Pre-rotated in useHorizontalTorusGeometry so scale.x/z read as
+      // ring outer radius and scale.y reads as tube-diameter height.
+      return <primitive object={torusGeometry} attach="geometry" />;
     default: {
       // Exhaustiveness guard — the union should be exhausted above.
       const _exhaustive: never = shape;
@@ -97,7 +115,7 @@ export function SelectableObject({
       }
       onPointerOut={object ? () => setHovered(false) : undefined}
     >
-      {primitiveGeometry(primitive.shape)}
+      <PrimitiveGeometry shape={primitive.shape} />
       <meshStandardMaterial
         color={selected ? '#efb759' : primitive.color}
         emissive={selected ? '#d88617' : hovered ? '#646f50' : '#000000'}

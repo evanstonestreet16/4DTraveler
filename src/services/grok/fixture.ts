@@ -216,65 +216,79 @@ export const seattleFixture: GeneratedHistoryProfile = {
           objects: [
             {
               id: 'space-needle',
-              name: 'Space Needle',
               // Primary is the central shaft — the clickable primitive.
+              // Runs from ground (y=0) up to the saucer at y=8. Legs
+              // visually enshroud its bottom half; the top half is
+              // exposed like the real tower's slim upper shaft.
+              name: 'Space Needle',
               shape: 'cylinder',
-              position: [-2, 5, 10],
-              scale: [0.45, 10, 0.45],
+              position: [-2, 4, 10],
+              scale: [0.4, 8, 0.4],
               color: '#d0cfc9',
               parts: [
-                // Three tripod legs, tilted outward from the shaft.
+                // Three tripod legs. Each cylinder is 4.47m long,
+                // centered at y=2 (midpoint of a leg spanning ground
+                // to y=4). Rotation signs are chosen so each leg's
+                // TOP moves TOWARD the shaft (converging inward),
+                // and its base sits ~2m out at ground — a real
+                // Space Needle silhouette rather than an inverted V.
+                //
+                // Left leg: base at (-4, 0, 10), top at (-2, 4, 10).
                 {
                   shape: 'cylinder',
-                  position: [-3.3, 3, 10],
-                  scale: [0.28, 6, 0.28],
+                  position: [-3, 2, 10],
+                  scale: [0.28, 4.47, 0.28],
                   color: '#c9c4bb',
-                  rotation: [0, 0, 15],
+                  rotation: [0, 0, -27],
                 },
+                // Right leg: base at (0, 0, 10), top at (-2, 4, 10).
                 {
                   shape: 'cylinder',
-                  position: [-0.7, 3, 10],
-                  scale: [0.28, 6, 0.28],
+                  position: [-1, 2, 10],
+                  scale: [0.28, 4.47, 0.28],
                   color: '#c9c4bb',
-                  rotation: [0, 0, -15],
+                  rotation: [0, 0, 27],
                 },
+                // Back leg: base at (-2, 0, 12), top at (-2, 4, 10).
                 {
                   shape: 'cylinder',
-                  position: [-2, 3, 11.4],
-                  scale: [0.28, 6, 0.28],
+                  position: [-2, 2, 11],
+                  scale: [0.28, 4.47, 0.28],
                   color: '#c9c4bb',
-                  rotation: [15, 0, 0],
+                  rotation: [-27, 0, 0],
                 },
-                // Saucer main disc (golden) and the outer ring rim.
+                // Saucer main disc (golden).
                 {
                   shape: 'cylinder',
-                  position: [-2, 10.4, 10],
-                  scale: [2.2, 0.5, 2.2],
+                  position: [-2, 8, 10],
+                  scale: [2.2, 0.4, 2.2],
                   color: '#e4b26b',
                 },
+                // Saucer rim — flat torus around the disc edge.
                 {
                   shape: 'torus',
-                  position: [-2, 10.6, 10],
-                  scale: [2.5, 0.14, 2.5],
+                  position: [-2, 8.05, 10],
+                  scale: [2.5, 0.18, 2.5],
                   color: '#c8934a',
                 },
                 // Observation deck cabin above the saucer.
                 {
                   shape: 'cylinder',
-                  position: [-2, 11.2, 10],
+                  position: [-2, 8.55, 10],
                   scale: [1.2, 0.7, 1.2],
                   color: '#efc98a',
                 },
-                // Cone base + slim antenna tip.
+                // Cone antenna base tapering above the cabin.
                 {
                   shape: 'cone',
-                  position: [-2, 12.4, 10],
+                  position: [-2, 9.6, 10],
                   scale: [0.35, 1.4, 0.35],
                   color: '#d0cfc9',
                 },
+                // Slim antenna tip.
                 {
                   shape: 'cylinder',
-                  position: [-2, 13.8, 10],
+                  position: [-2, 11, 10],
                   scale: [0.07, 1.6, 0.07],
                   color: '#c9c4bb',
                 },

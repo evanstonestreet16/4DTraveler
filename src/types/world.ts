@@ -30,7 +30,8 @@ export interface Location {
  *   cone     — cone (round taper)    [radius, height, radius]
  *   pyramid  — 4-sided pyramid       [baseHalfSize, height, baseHalfSize]
  *   sphere   — ellipsoid             [radiusX, radiusY, radiusZ]
- *   torus    — ring                  [ringOuterRadius, tubeThickness, ringOuterRadius]
+ *   torus    — flat ring (horizontal by default; ring lies in the X-Z plane)
+ *                                     [ringOuterRadiusX, tubeThickness (height), ringOuterRadiusZ]
  */
 export type PrimitiveShape =
   'box' | 'cylinder' | 'cone' | 'pyramid' | 'sphere' | 'torus';
