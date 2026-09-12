@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1120" role="img" aria-labelledby="title desc">
+  <title id="title">Pittsburgh 1892 — composition and reference board</title>
+  <desc id="desc">Original illustrative scene plan with fixed object positions, four camera sightlines, source reference cards and material palette. Not a geographic reconstruction.</desc>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#d9d4c7" stroke-width="1"/></pattern>
+    <pattern id="water" width="40" height="22" patternUnits="userSpaceOnUse"><path d="M3 11h22" stroke="#bad1ca" stroke-width="1.5"/></pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="m0 0 10 5-10 5" fill="#b05f37"/></marker>
+    <style>text{font-family:Arial,sans-serif;fill:#283b38}.eyebrow{font-size:15px;font-weight:bold;letter-spacing:3px}.h{font-size:28px;font-weight:bold}.body{font-size:17px}.small{font-size:14px}.label{font-size:15px;font-weight:bold}.mono{font-family:monospace;font-size:13px}.card{fill:#f8f5ed;stroke:#d8d1c1;stroke-width:1}.sight{fill:none;stroke:#b05f37;stroke-width:2;stroke-dasharray:7 5;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect width="1440" height="1120" fill="#ede9de"/>
+  <text x="52" y="52" class="eyebrow">4DTRAVELER / VISUAL DIRECTION 01</text>
+  <text x="52" y="111" font-size="48" font-family="Georgia,serif">Pittsburgh, 1892</text>
+  <text x="53" y="146" class="body">An industrial city in miniature. Steel mill first; river and rooftops establish the world.</text>
+  <rect x="1094" y="64" width="294" height="52" rx="26" fill="#dcd0b7"/>
+  <text x="1120" y="96" class="label">ILLUSTRATIVE COMPOSITE</text>
+  <rect x="52" y="184" width="868" height="635" rx="12" class="card"/>
+  <text x="80" y="224" class="eyebrow">01 / BLOCKOUT + SIGHTLINES</text>
+  <text x="80" y="253" class="small">44 × 34 scene units · Y up · top = −Z, not north · camera X/Z shown schematically</text>
+  <g transform="translate(116 290)">
+    <rect width="704" height="476" fill="#b2b39a"/>
+    <rect width="704" height="476" fill="url(#grid)" opacity=".7"/>
+    <rect y="310" width="704" height="108" fill="#628b8a"/>
+    <rect y="310" width="704" height="108" fill="url(#water)"/>
+    <path d="M0 309H704M0 419H704" stroke="#d4cab3" stroke-width="10"/>
+    <rect x="30" y="58" width="291" height="230" rx="12" fill="#867e6f" fill-opacity=".27" stroke="#78564b" stroke-dasharray="6 4"/>
+    <rect x="367" y="50" width="298" height="228" rx="12" fill="#bca282" fill-opacity=".35" stroke="#7f705d" stroke-dasharray="6 4"/>
+    <rect x="64" y="89" width="55" height="87" fill="#59625e"/>
+    <path d="M64 90l27-20 28 20" fill="#465350"/>
+    <circle cx="144" cy="170" r="27" fill="#78564b" stroke="#d7b38b" stroke-width="7"/>
+    <circle cx="224" cy="140" r="15" fill="#956b52" stroke="#3b4640" stroke-width="5"/>
+    <path d="M27 218H319M27 240H319" stroke="#343c3b" stroke-width="3"/>
+    <path d="M36 212v34m20-34v34m20-34v34m20-34v34m20-34v34m20-34v34m20-34v34m20-34v34m20-34v34m20-34v34m20-34v34m20-34v34m20-34v34m20-34v34" stroke="#75654e" stroke-width="6"/>
+    <rect x="200" y="215" width="80" height="29" rx="3" fill="#4e6258" stroke="#283b38" stroke-width="3"/>
+    <rect x="404" y="97" width="64" height="60" fill="#956b52"/>
+    <path d="M397 126h78" stroke="#6c6b59" stroke-width="3"/>
+    <rect x="497" y="68" width="68" height="82" fill="#8c8b77"/><rect x="582" y="105" width="36" height="48" fill="#b59a73"/>
+    <rect x="393" y="214" width="55" height="44" fill="#b5a184"/><rect x="492" y="214" width="65" height="44" fill="#9e7966"/>
+    <path d="M370 185H680" stroke="#a8a48f" stroke-width="35"/>
+    <path d="M470 184v112" stroke="#a8a48f" stroke-width="30"/>
+    <rect x="436" y="280" width="56" height="179" fill="#858477"/>
+    <path d="M436 280v179m56-179v179M436 280l56 30-56 30 56 30-56 30 56 30-56 29" fill="none" stroke="#343c3b" stroke-width="4"/>
+    <path d="M675 470L355 243" class="sight"/><path d="M342 461L192 184" class="sight"/><path d="M670 385L480 142" class="sight"/><path d="M656 474L464 366" class="sight"/>
+    <text x="37" y="42" class="label">STEEL MILL / HERO</text><text x="383" y="35" class="label">DOWNTOWN / SUPPORT</text>
+    <text x="34" y="360" class="label" fill="#f3f3e7">RIVER / NEGATIVE SPACE</text>
+    <text x="100" y="178" class="small" fill="#fff">F</text><text x="219" y="145" class="small" fill="#fff">S</text><text x="232" y="235" class="small">R</text><text x="428" y="123" class="small">W</text>
+    <text x="502" y="365" class="label">BRIDGE</text>
+    <text x="540" y="442" class="small">overview ↖</text><text x="300" y="467" class="small">mill ↑</text><text x="574" y="293" class="small">downtown ↖</text>
+  </g>
+  <rect x="950" y="184" width="438" height="635" rx="12" class="card"/>
+  <text x="978" y="224" class="eyebrow">02 / REFERENCE REGISTER</text>
+  <text x="978" y="257" class="small">Original diagrams; linked records in the brief.</text>
+  <g transform="translate(978 284)">
+    <path d="M0 0h382M0 112h382M0 224h382M0 336h382" stroke="#d8d1c1"/>
+    <text y="30" class="label">R1 + R5 / CITY + WATER</text><text y="57" class="body">1889 map / 1890 Census</text><text y="82" class="small">Documented corridors. Compressed layout</text><text y="101" class="small">and one-river composition are illustrative.</text>
+    <text y="143" class="label">R2 / BUILT FABRIC</text><text y="170" class="body">Sanborn / 1884 + 1893</text><text y="195" class="small">Catalog leads for future sheet review.</text><text y="214" class="small">No modeled footprint claimed as verified.</text>
+    <text y="254" class="label">R3 / OPEN METAL CROSSING</text><text y="281" class="body">Smithfield / 1883 + 1891</text><text y="306" class="small">Later HAER record. Generic truss only;</text><text y="325" class="small">this scene does not reconstruct Smithfield.</text>
+    <text y="366" class="label">R4 / INDUSTRIAL LAYERS</text><text y="393" class="body">Homestead / later HAER survey</text><text y="418" class="small">Shed + equipment silhouette inferred.</text><text y="437" class="small">Machine design and proportions illustrative.</text>
+    <rect y="465" width="382" height="44" rx="5" fill="#e8e0d0"/><text x="12" y="492" class="small">Rights notes + dates: see linked brief table.</text>
+  </g>
+  <rect x="52" y="845" width="1336" height="218" rx="12" class="card"/>
+  <text x="80" y="884" class="eyebrow">03 / QUIET MATERIALS, STRONG SILHOUETTES</text>
+  <g transform="translate(80 909)"><rect width="104" height="55" fill="#343c3b"/><rect x="119" width="104" height="55" fill="#78564b"/><rect x="238" width="104" height="55" fill="#956b52"/><rect x="357" width="104" height="55" fill="#b5a184"/><rect x="476" width="104" height="55" fill="#59625e"/><rect x="595" width="104" height="55" fill="#628b8a"/><rect x="714" width="104" height="55" fill="#8f9178"/><text y="79" class="small">Coal iron</text><text x="119" y="79" class="small">Oxide</text><text x="238" y="79" class="small">Brick</text><text x="357" y="79" class="small">Stone</text><text x="476" y="79" class="small">Slate</text><text x="595" y="79" class="small">River</text><text x="714" y="79" class="small">Ground</text></g>
+  <text x="971" y="925" class="h">≤100k triangles</text><text x="971" y="958" class="body">≤50 asset draws / ≤8 MiB GLB</text><text x="971" y="988" class="small">Shared PBR / no texture downloads</text>
+  <text x="80" y="1037" class="small">Keep: furnace, stack, wagon, warehouse, bridge. Cut: interiors, crowds, exact-city reconstruction, animated smoke and unique background textures.</text>
+  <text x="52" y="1092" class="small">12 SEP 2026 · Workstream 1 · Content + Core Experience review pending · No human approval claimed</text>
+</svg>
