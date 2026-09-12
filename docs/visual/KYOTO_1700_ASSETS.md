@@ -7,7 +7,7 @@ Kyoto provides a desktop overview, three fixed-position 4096×2048 panoramas, ni
 - `blender/source/kyoto-1700/*.blend`: original overview, Nijō, Kiyomizu and Nishiki scenes, with metric cameras and named object anchors.
 - `blender/scripts/render_kyoto.py` and `lib/kyoto_kit.py`: repeatable geometry, materials, lighting and Cycles rendering. Only generic batched mesh primitives are reused from the existing kit.
 - `blender/source/kyoto-1700/overview-illustration.png`: the built-in ImageGen overview illustration based on the original Blender layout, and the only one packaged for delivery. The superseded portrait illustration, its intermediate reference and [prompts](../../blender/references/kyoto-1700/overview-prompts.json) are retained. This illustration is not a surveyed map; its pixel markers were placed against the delivered imagery.
-- `public/images/kyoto-1700/manifest.json`: encoded dimensions, content hashes, byte counts, panorama hotspot angles and anchors. Panoramas are 4K. Every image is below its plan budget.
+- `public/images/kyoto-1700/manifest.json`: encoded dimensions, content hashes, byte counts, panorama hotspot angles and anchors. Nijō and Kiyomizu panoramas are 4K. Nishiki’s entry is the supplied arcade street view; `scripts/package-kyoto-streetviews.py` packages it. Every image is below its plan budget.
 - `src/data/worlds/kyoto-1700.scene.ts`, `.content.ts`, and `.ts`: geography, historical content, and composition. All three POI IDs and nine object/scene IDs match the plan.
 
 Rebuild the Blender images from the repository root (set `BLENDER_BIN` to your installed executable):
@@ -27,7 +27,7 @@ Coordinates are metres with +X east, +Y up, +Z south. The overview camera was re
 
 ## Historical and visual limits
 
-The overview retains a five-story Nijō keep and inferred original Honmaru massing. Kiyomizu excludes the 1735 Zuigu-do. Nishiki is an open-sky street with illustrative stalls, fish, clothing, and a groundwater mechanism. Fine architectural proportions, ornament, finishes and landscape are interpretive. The overview illustration is richer than the deliberately simplified, original Blender POI geometry. See the [content review](KYOTO_1700_CONTENT_REVIEW.md) for claim-level evidence.
+The overview retains a five-story Nijō keep and inferred original Honmaru massing. Kiyomizu excludes the 1735 Zuigu-do. Nishiki is an open-sky street with illustrative stalls, fish, clothing, and a groundwater mechanism. A supplied AI covered-arcade 360 is the street-view entry; nearby arrows return to the original Blender market street. The arcade is not a surveyed 1700 interior. Fine architectural proportions, ornament, finishes and landscape are interpretive. The overview illustration is richer than the deliberately simplified, original Blender POI geometry. See the [content review](KYOTO_1700_CONTENT_REVIEW.md) for claim-level evidence.
 
 Narration ships as readable transcripts. Recorded voices remain deferred pending pronunciation review. No track autoplays. Failed images and WebGL retain object information and return/retry controls; successful return unmounts the active panorama texture. Prefetch warms compressed bytes only after the overview is interactive.
 

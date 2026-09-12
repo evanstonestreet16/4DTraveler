@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { seattleFixture } from './fixture';
 import { deriveWorldsFromProfile } from './deriveWorld';
+import {
+  mergeRefinedParts,
+  objectsNeedingDetail,
+  parseStructureDetailResponse,
+} from './refineStructures';
 import { GeneratedProfileError, validateHistoryProfile } from './validate';
 
 describe('validateHistoryProfile', () => {
@@ -12,15 +17,15 @@ describe('validateHistoryProfile', () => {
     expect(seattleFixture.eras).toHaveLength(2);
   });
 
-  it('caps parts to at most 20 entries silently', () => {
+  it('caps parts to at most 36 entries silently', () => {
     const drifted = structuredClone(seattleFixture);
     const target = drifted.eras[1].pois[1].objects[0];
     const basePart = target.parts?.[0];
     expect(basePart).toBeDefined();
     if (!basePart) return;
-    target.parts = Array.from({ length: 30 }, () => ({ ...basePart }));
+    target.parts = Array.from({ length: 50 }, () => ({ ...basePart }));
     const validated = validateHistoryProfile(drifted);
-    expect(validated.eras[1].pois[1].objects[0].parts).toHaveLength(20);
+    expect(validated.eras[1].pois[1].objects[0].parts).toHaveLength(36);
   });
 
   it('accepts every supported primitive shape on the primary object', () => {
@@ -294,5 +299,58 @@ describe('deriveWorldsFromProfile', () => {
       expect(seen.has(primitive.id)).toBe(false);
       seen.add(primitive.id);
     }
+  });
+});
+
+describe('structure refinement', () => {
+  it('flags Seattle fixture objects that are still simple boxes', () => {
+    const targets = objectsNeedingDetail(seattleFixture);
+    expect(targets.some((target) => target.id === 'longhouse')).toBe(true);
+    expect(targets.some((target) => target.id === 'espresso-cart')).toBe(true);
+    // Fixture Needle has 8 parts; iconic bar is 12, so the detail pass
+    // will still ask Grok to thicken it on a live run.
+    expect(targets.some((target) => target.id === 'space-needle')).toBe(true);
+  });
+
+  it('merges refined parts onto matching ids only', () => {
+    const extra = {
+      shape: 'pyramid' as const,
+      position: [-6, 3.2, 3] as [number, number, number],
+      scale: [2, 1.2, 2] as [number, number, number],
+      color: '#4a3a2c',
+    };
+    const merged = mergeRefinedParts(seattleFixture, [
+      { id: 'longhouse', parts: [extra] },
+      { id: 'does-not-exist', parts: [extra] },
+    ]);
+    const longhouse = merged.eras[0].pois[0].objects.find(
+      (object) => object.id === 'longhouse',
+    );
+    expect(longhouse?.parts).toEqual([extra]);
+    expect(merged.eras[1].pois[1].objects[0].parts).toEqual(
+      seattleFixture.eras[1].pois[1].objects[0].parts,
+    );
+  });
+
+  it('parses a detail-pass payload and ignores empty ids', () => {
+    const parsed = parseStructureDetailResponse({
+      objects: [
+        {
+          id: 'longhouse',
+          parts: [
+            {
+              shape: 'box',
+              position: [0, 1, 0],
+              scale: [1, 1, 1],
+              color: '#7a5943',
+            },
+          ],
+        },
+        { id: '', parts: [] },
+        { name: 'no-id', parts: [{ shape: 'box' }] },
+      ],
+    });
+    expect(parsed).toHaveLength(1);
+    expect(parsed[0].id).toBe('longhouse');
   });
 });

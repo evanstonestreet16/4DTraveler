@@ -31,10 +31,18 @@ const COORD_PRECISION = 3;
 const PIN_COUNTRIES = ['USA', 'JPN', 'ITA'];
 const PINS_PER_COUNTRY = 10;
 /**
- * Always pinned regardless of population rank, because a curated Location points at
- * them. Keep in sync with `src/data/locations.ts`; src/data/geo/geo.test.ts enforces it.
+ * Always pinned regardless of population rank, because a curated Location or
+ * generated-city pipeline points at them. Keep in sync with
+ * `src/data/locations.ts` and `src/components/globe/cities.ts`.
  */
-const CURATED_CITIES = ['Pittsburgh', 'Rome', 'Kyoto'];
+const CURATED_CITIES = [
+  'Pittsburgh',
+  'Rome',
+  'Kyoto',
+  'Seattle',
+  'Los Angeles',
+  'San Francisco',
+];
 
 const GEO_DIR = new URL('../src/data/geo/', import.meta.url);
 

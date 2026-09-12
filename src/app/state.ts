@@ -18,6 +18,8 @@ export interface AppState {
   cameraMode: CameraMode;
   audioState: AudioState;
   eraTransition: { requestId: number; world: HistoricalWorld } | null;
+  /** Landing-globe pin that should start the generated-history pipeline. */
+  generateCityId: string | null;
 }
 
 export const initialState: AppState = {
@@ -30,10 +32,11 @@ export const initialState: AppState = {
   cameraMode: 'OVERVIEW',
   audioState: 'idle',
   eraTransition: null,
+  generateCityId: null,
 };
 
 export type AppAction =
-  | { type: 'mode'; mode: EntryMode }
+  | { type: 'mode'; mode: EntryMode; generateCityId?: string }
   | { type: 'location'; id: string | null }
   | { type: 'era'; id: string; world: HistoricalWorld | null }
   | { type: 'enterWorld'; world: HistoricalWorld }
@@ -53,7 +56,11 @@ export function appReducer(state: AppState, action: AppAction): AppState {
     return state;
   switch (action.type) {
     case 'mode':
-      return { ...initialState, mode: action.mode };
+      return {
+        ...initialState,
+        mode: action.mode,
+        generateCityId: action.generateCityId ?? null,
+      };
     case 'location': {
       if (!action.id) return { ...initialState, mode: state.mode };
       const world = findOpeningWorld(action.id);

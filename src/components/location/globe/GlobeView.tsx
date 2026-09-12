@@ -9,6 +9,7 @@ import {
   type City,
 } from '../../../data/geo/cities';
 import { findOpeningWorld, locations } from '../../../data/locations';
+import { globeCities } from '../../globe/cities';
 import { useApp } from '../../../app/AppContext';
 import { useElementSize } from './useElementSize';
 import {
@@ -47,6 +48,9 @@ function configureGlobeControls(globe: GlobeMethods) {
   controls.enableZoom = false;
   controls.zoomToCursor = false;
   controls.enableDamping = true;
+  controls.dampingFactor = 0.08;
+  controls.rotateSpeed = 0.55;
+  controls.enablePan = false;
   controls.minDistance = radius * (1 + MIN_ALTITUDE);
   controls.maxDistance = radius * (1 + MAX_ALTITUDE);
 }
@@ -135,24 +139,39 @@ export function GlobeView({ interactive }: { interactive: boolean }) {
 
   const makePin = (city: City) => {
     const location = locationByCity.get(`${city.isoA3}:${city.name}`);
+    const generated = globeCities.find(
+      (entry) => entry.name === city.name && !entry.staticLocationId,
+    );
     const label = countryHoverLabel(city.isoA3, city.name);
     const pin = document.createElement('button');
     pin.className = 'globe-pin';
     pin.type = 'button';
     pin.dataset.label = label;
-    pin.setAttribute('aria-label', location ? `Explore ${label}` : label);
+    pin.setAttribute(
+      'aria-label',
+      location || generated ? `Explore ${label}` : label,
+    );
     const markPinHover = (hovering: boolean) => {
       viewportNode.current?.classList.toggle('is-pin-hover', hovering);
     };
     pin.addEventListener('pointerenter', () => markPinHover(true));
     pin.addEventListener('pointerleave', () => markPinHover(false));
-    // Every pin looks and behaves the same; one without a world is simply inert.
+    // Catalog cities enter their present-day world. Generated cities open the
+    // Grok pipeline. Pins without either stay inert.
     if (location) {
       pin.addEventListener('click', () => {
         const world = findOpeningWorld(location.id);
         if (world) dispatch({ type: 'enterWorld', world });
         else dispatch({ type: 'location', id: location.id });
       });
+    } else if (generated) {
+      pin.addEventListener('click', () =>
+        dispatch({
+          type: 'mode',
+          mode: 'globe',
+          generateCityId: generated.id,
+        }),
+      );
     }
     return pin;
   };

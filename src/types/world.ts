@@ -249,8 +249,8 @@ export interface GeneratedPOI {
  * next to the description.
  *
  * The top-level `shape/position/scale/color/rotation` fields define the
- * object's **primary** (clickable) primitive. The model may also supply
- * `parts[]` — up to 20 extra primitives with absolute world positions
+ * object's **primary** (clickable) primitive. The model must also supply
+ * `parts[]` — up to 36 extra primitives with absolute world positions
  * that together sketch a recognizable silhouette (e.g. Space Needle
  * tripod legs + observation deck ring + antenna). Parts are decorative;
  * only the primary primitive participates in click-to-select.

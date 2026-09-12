@@ -116,8 +116,20 @@ it('ships bounded panorama and still assets with complete overview marker mappin
   for (const poi of world.pois) {
     const panorama = poi.immersive!.panorama!;
     expect(panorama.desktop.width).toBe(panorama.desktop.height * 2);
-    expect(panorama.desktop.width).toBeGreaterThanOrEqual(4096);
-    await checkAsset(panorama.desktop, 6);
+    if (poi.id === 'nishiki-fish-market') {
+      expect(panorama.fieldOfView).toBe(75);
+      expect(panorama.viewpoints?.map((view) => view.id)).toEqual([
+        'nishiki-arcade',
+        'nishiki-street',
+      ]);
+      expect(panorama.viewpoints![0].desktop).toEqual(panorama.desktop);
+      expect(panorama.desktop.width).toBe(1440);
+      await checkAsset(panorama.desktop, 3);
+      await checkAsset(panorama.viewpoints![1].desktop, 6);
+    } else {
+      expect(panorama.desktop.width).toBeGreaterThanOrEqual(4096);
+      await checkAsset(panorama.desktop, 6);
+    }
     await checkAsset(panorama.fallback, 1.5);
   }
 });

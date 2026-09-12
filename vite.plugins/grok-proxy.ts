@@ -1,6 +1,16 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { Plugin } from 'vite';
-import { HISTORY_PROFILE_SYSTEM_PROMPT } from '../src/services/grok/systemPrompt';
+import type { GeneratedHistoryProfile } from '../src/types/world';
+import {
+  mergeRefinedParts,
+  objectsNeedingDetail,
+  parseStructureDetailResponse,
+  structureDetailUserPrompt,
+} from '../src/services/grok/refineStructures';
+import {
+  HISTORY_PROFILE_SYSTEM_PROMPT,
+  STRUCTURE_DETAIL_SYSTEM_PROMPT,
+} from '../src/services/grok/systemPrompt';
 import { validateHistoryProfile } from '../src/services/grok/validate';
 
 /**
@@ -49,6 +59,16 @@ function respondJson(res: ServerResponse, status: number, body: unknown) {
   res.end(JSON.stringify(body));
 }
 
+const PROFILE_MAX_TOKENS = 16384;
+const DETAIL_MAX_TOKENS = 12288;
+
+interface GrokChatOptions {
+  system: string;
+  user: string;
+  temperature: number;
+  maxTokens: number;
+}
+
 function extractJsonFromContent(content: string): string {
   const trimmed = content.trim();
   if (trimmed.startsWith('{')) return trimmed;
@@ -63,9 +83,99 @@ function extractJsonFromContent(content: string): string {
   return trimmed;
 }
 
-export function grokProxyPlugin(options: GrokProxyOptions): Plugin {
+class GrokUpstreamError extends Error {
+  constructor(
+    message: string,
+    readonly status: number,
+    readonly detail?: string,
+    readonly sample?: string,
+  ) {
+    super(message);
+    this.name = 'GrokUpstreamError';
+  }
+}
+
+async function completeGrokJson(
+  options: GrokProxyOptions,
+  chat: GrokChatOptions,
+): Promise<unknown> {
   const model = options.model ?? 'grok-4-latest';
   const endpoint = options.endpoint ?? 'https://api.x.ai/v1/chat/completions';
+  const upstream = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${options.apiKey}`,
+    },
+    body: JSON.stringify({
+      model,
+      temperature: chat.temperature,
+      max_tokens: chat.maxTokens,
+      response_format: { type: 'json_object' },
+      messages: [
+        { role: 'system', content: chat.system },
+        { role: 'user', content: chat.user },
+      ],
+    }),
+  });
+  if (!upstream.ok) {
+    const detail = await upstream.text().catch(() => '');
+    throw new GrokUpstreamError(
+      `Grok upstream ${upstream.status}`,
+      502,
+      detail,
+    );
+  }
+  const upstreamJson = (await upstream.json()) as {
+    choices?: { message?: { content?: string } }[];
+  };
+  const content = upstreamJson.choices?.[0]?.message?.content;
+  if (typeof content !== 'string' || content.length === 0) {
+    throw new GrokUpstreamError('Grok returned an empty completion', 502);
+  }
+  try {
+    return JSON.parse(extractJsonFromContent(content));
+  } catch (error) {
+    throw new GrokUpstreamError(
+      'Grok returned non-JSON content',
+      502,
+      error instanceof Error ? error.message : String(error),
+      content.slice(0, 400),
+    );
+  }
+}
+
+/**
+ * Second Grok pass: if the first profile still has thin silhouettes,
+ * ask for denser `parts[]` and merge them. A failed detail pass keeps
+ * the already-valid first profile so generation still succeeds.
+ */
+async function thickenThinStructures(
+  options: GrokProxyOptions,
+  profile: GeneratedHistoryProfile,
+): Promise<GeneratedHistoryProfile> {
+  const targets = objectsNeedingDetail(profile);
+  if (targets.length === 0) return profile;
+  try {
+    const parsed = await completeGrokJson(options, {
+      system: STRUCTURE_DETAIL_SYSTEM_PROMPT,
+      user: structureDetailUserPrompt(profile.cityName, targets),
+      temperature: 0.35,
+      maxTokens: DETAIL_MAX_TOKENS,
+    });
+    const refinements = parseStructureDetailResponse(parsed);
+    if (refinements.length === 0) return profile;
+    return validateHistoryProfile(mergeRefinedParts(profile, refinements));
+  } catch (error) {
+    console.warn(
+      '[grok] structure detail pass failed; keeping first profile:',
+      error instanceof Error ? error.message : error,
+    );
+    return profile;
+  }
+}
+
+export function grokProxyPlugin(options: GrokProxyOptions): Plugin {
   return {
     name: '4dtraveler:grok-proxy',
     configureServer(server) {
@@ -95,59 +205,26 @@ export function grokProxyPlugin(options: GrokProxyOptions): Plugin {
           if (!cityName) {
             return respondJson(res, 400, { error: 'cityName is required' });
           }
-          const userPrompt = `Generate the history profile for ${cityName}. Follow every rule in the system prompt.`;
+          const latitude =
+            typeof body.latitude === 'number' ? body.latitude : undefined;
+          const longitude =
+            typeof body.longitude === 'number' ? body.longitude : undefined;
+          const coords =
+            latitude !== undefined && longitude !== undefined
+              ? ` (approx. ${latitude.toFixed(2)}, ${longitude.toFixed(2)})`
+              : '';
+          const userPrompt = `Generate the history profile for ${cityName}${coords}. Prefer real named buildings from that city. Every clickable object must be a multi-part miniature — roofs, openings, plinths, and an era ornament — not a lone box. Follow every rule in the system prompt.`;
           try {
-            const upstream = await fetch(endpoint, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${options.apiKey}`,
-              },
-              body: JSON.stringify({
-                model,
-                temperature: 0.2,
-                response_format: { type: 'json_object' },
-                messages: [
-                  {
-                    role: 'system',
-                    content: HISTORY_PROFILE_SYSTEM_PROMPT,
-                  },
-                  {
-                    role: 'user',
-                    content: userPrompt,
-                  },
-                ],
-              }),
+            const parsed = await completeGrokJson(options, {
+              system: HISTORY_PROFILE_SYSTEM_PROMPT,
+              user: userPrompt,
+              temperature: 0.3,
+              maxTokens: PROFILE_MAX_TOKENS,
             });
-            if (!upstream.ok) {
-              const detail = await upstream.text().catch(() => '');
-              return respondJson(res, 502, {
-                error: `Grok upstream ${upstream.status}`,
-                detail,
-              });
-            }
-            const upstreamJson = (await upstream.json()) as {
-              choices?: { message?: { content?: string } }[];
-            };
-            const content = upstreamJson.choices?.[0]?.message?.content;
-            if (typeof content !== 'string' || content.length === 0) {
-              return respondJson(res, 502, {
-                error: 'Grok returned an empty completion',
-              });
-            }
-            let parsed: unknown;
-            try {
-              parsed = JSON.parse(extractJsonFromContent(content));
-            } catch (error) {
-              return respondJson(res, 502, {
-                error: 'Grok returned non-JSON content',
-                detail: error instanceof Error ? error.message : String(error),
-                sample: content.slice(0, 400),
-              });
-            }
             try {
               const validated = validateHistoryProfile(parsed);
-              return respondJson(res, 200, validated);
+              const detailed = await thickenThinStructures(options, validated);
+              return respondJson(res, 200, detailed);
             } catch (error) {
               return respondJson(res, 502, {
                 error: 'Grok output failed schema validation',
@@ -155,6 +232,13 @@ export function grokProxyPlugin(options: GrokProxyOptions): Plugin {
               });
             }
           } catch (error) {
+            if (error instanceof GrokUpstreamError) {
+              return respondJson(res, error.status, {
+                error: error.message,
+                detail: error.detail,
+                sample: error.sample,
+              });
+            }
             return respondJson(res, 500, {
               error: 'Proxy failure',
               detail: error instanceof Error ? error.message : String(error),

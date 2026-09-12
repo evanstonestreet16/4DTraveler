@@ -9,6 +9,19 @@ export {
   deriveWorldsFromProfile,
   type DeriveOptions,
 } from './deriveWorld';
-export { validateHistoryProfile, GeneratedProfileError } from './validate';
+export {
+  validateHistoryProfile,
+  GeneratedProfileError,
+  MAX_OBJECT_PARTS,
+} from './validate';
 export { seattleFixture } from './fixture';
-export { HISTORY_PROFILE_SYSTEM_PROMPT } from './systemPrompt';
+export {
+  HISTORY_PROFILE_SYSTEM_PROMPT,
+  STRUCTURE_DETAIL_SYSTEM_PROMPT,
+} from './systemPrompt';
+export {
+  mergeRefinedParts,
+  objectsNeedingDetail,
+  MIN_ICONIC_PARTS,
+  MIN_ORDINARY_PARTS,
+} from './refineStructures';

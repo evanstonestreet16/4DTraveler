@@ -137,34 +137,34 @@
     },
     "nishiki-fish-market": {
       "desktop": {
-        "url": "/images/kyoto-1700/nishiki-fish-market-360.webp?v=38435deb9427",
-        "width": 4096,
-        "height": 2048,
-        "bytes": 274514,
-        "sha256": "38435deb94275006fc5722cd5494bd367f9480238b6adf83e1e56f80069890a2"
+        "url": "/images/kyoto-1700/nishiki-arcade-360.webp?v=615108948a51",
+        "width": 1440,
+        "height": 720,
+        "bytes": 1337230,
+        "sha256": "615108948a51af94c2e0a41de49eb7d1e026f2bac348ba9ff791dbffc18547c7"
       },
       "fallback": {
-        "url": "/images/kyoto-1700/nishiki-fish-market-fallback.webp?v=602613a1e9fc",
-        "width": 1600,
-        "height": 1000,
-        "bytes": 35218,
-        "sha256": "602613a1e9fc56dad2fb32536be1bb3aa276bc305708bd0d393299cec04812bb"
+        "url": "/images/kyoto-1700/nishiki-arcade-fallback.webp?v=788cd5326ec7",
+        "width": 960,
+        "height": 600,
+        "bytes": 88996,
+        "sha256": "788cd5326ec76981ae8dac0d63dfebaca80fe585c947585f2315bd8f207e69cf"
       },
       "hotspots": [
         {
           "objectId": "nishiki-fish-stall",
-          "yaw": 0,
-          "pitch": -0.2071545
+          "yaw": 1.308996938995747,
+          "pitch": -0.34906585039886606
         },
         {
           "objectId": "nishiki-groundwater",
-          "yaw": -1.3200871,
-          "pitch": -0.111764
+          "yaw": 2.356194490192345,
+          "pitch": -0.5235987755982987
         },
         {
           "objectId": "nishiki-machiya-shopfront",
-          "yaw": 1.1902899,
-          "pitch": 0.2335794
+          "yaw": -1.5707963267948966,
+          "pitch": 0.08726646259971652
         }
       ],
       "anchors": {
@@ -184,7 +184,106 @@
           -3.2
         ]
       },
-      "seamMeanRGBDifference": 1.111
+      "seamMeanRGBDifference": 1.111,
+      "viewpoints": [
+        {
+          "id": "nishiki-arcade",
+          "label": "Covered arcade",
+          "desktop": {
+            "url": "/images/kyoto-1700/nishiki-arcade-360.webp?v=615108948a51",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1337230,
+            "sha256": "615108948a51af94c2e0a41de49eb7d1e026f2bac348ba9ff791dbffc18547c7"
+          },
+          "fallback": {
+            "url": "/images/kyoto-1700/nishiki-arcade-fallback.webp?v=788cd5326ec7",
+            "width": 960,
+            "height": 600,
+            "bytes": 88996,
+            "sha256": "788cd5326ec76981ae8dac0d63dfebaca80fe585c947585f2315bd8f207e69cf"
+          },
+          "hotspots": [
+            {
+              "objectId": "nishiki-fish-stall",
+              "yaw": 1.308996938995747,
+              "pitch": -0.34906585039886606
+            },
+            {
+              "objectId": "nishiki-groundwater",
+              "yaw": 2.356194490192345,
+              "pitch": -0.5235987755982987
+            },
+            {
+              "objectId": "nishiki-machiya-shopfront",
+              "yaw": -1.5707963267948966,
+              "pitch": 0.08726646259971652
+            }
+          ],
+          "source": {
+            "path": "public/images/kyoto-1700/Gemini_Generated_Image_23la0c23la0c23la.jpeg",
+            "sha256": "4f50c9a08016f0863045cccb137803da1387e4bea267e796d710ecec6d1d38f1",
+            "width": 1376,
+            "height": 768,
+            "encoding": "lossless WebP; resized to 2:1 for the panorama viewer",
+            "hotspotPixels": {
+              "nishiki-fish-stall": [
+                420,
+                440
+              ],
+              "nishiki-groundwater": [
+                180,
+                480
+              ],
+              "nishiki-machiya-shopfront": [
+                1080,
+                340
+              ]
+            }
+          }
+        },
+        {
+          "id": "nishiki-street",
+          "label": "Open market street",
+          "desktop": {
+            "url": "/images/kyoto-1700/nishiki-fish-market-360.webp?v=38435deb9427",
+            "width": 4096,
+            "height": 2048,
+            "bytes": 274514,
+            "sha256": "38435deb94275006fc5722cd5494bd367f9480238b6adf83e1e56f80069890a2"
+          },
+          "fallback": {
+            "url": "/images/kyoto-1700/nishiki-fish-market-fallback.webp?v=602613a1e9fc",
+            "width": 1600,
+            "height": 1000,
+            "bytes": 35218,
+            "sha256": "602613a1e9fc56dad2fb32536be1bb3aa276bc305708bd0d393299cec04812bb"
+          },
+          "hotspots": [
+            {
+              "objectId": "nishiki-fish-stall",
+              "yaw": 0,
+              "pitch": -0.2071545
+            },
+            {
+              "objectId": "nishiki-groundwater",
+              "yaw": -1.3200871,
+              "pitch": -0.111764
+            },
+            {
+              "objectId": "nishiki-machiya-shopfront",
+              "yaw": 1.1902899,
+              "pitch": 0.2335794
+            }
+          ]
+        }
+      ],
+      "fieldOfView": 75
+    }
+  },
+  "streetViews": {
+    "nishiki-fish-market": {
+      "note": "The covered arcade is a supplied AI street-view illustration. It is not a surveyed 1700 interior and is not registered to the Blender market street. Nearby arrows switch images within Nishiki."
     }
   }
 }

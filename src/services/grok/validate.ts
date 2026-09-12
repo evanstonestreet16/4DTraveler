@@ -149,11 +149,11 @@ function validateScenery(raw: unknown, path: string): ScenePrimitive {
 
 /**
  * Ceiling on how many extra silhouette primitives a single object can
- * contribute. 20 gives Grok enough room to draft an ambitious landmark
- * (Space Needle wants ~12, a cathedral wants ~10) while still keeping
- * the primitive budget bounded on the renderer side.
+ * contribute. 36 gives Grok room for a dense landmark (bridge towers,
+ * cathedral, tower + deck) while still keeping the renderer budget
+ * bounded.
  */
-const MAX_PARTS = 20;
+export const MAX_OBJECT_PARTS = 36;
 
 function validatePart(raw: unknown, path: string): ObjectPart {
   if (typeof raw !== 'object' || raw === null) {
@@ -182,10 +182,10 @@ function validateObject(raw: unknown, path: string): GeneratedObject {
         `${path}.parts`,
       );
     }
-    // Cap silently at MAX_PARTS to protect the renderer from over-eager
-    // silhouettes; discard the tail rather than fail the whole era.
+    // Cap silently at MAX_OBJECT_PARTS to protect the renderer from
+    // over-eager silhouettes; discard the tail rather than fail the era.
     parts = record.parts
-      .slice(0, MAX_PARTS)
+      .slice(0, MAX_OBJECT_PARTS)
       .map((entry, index) => validatePart(entry, `${path}.parts[${index}]`));
     if (parts.length === 0) parts = undefined;
   }

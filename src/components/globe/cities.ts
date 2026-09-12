@@ -26,6 +26,20 @@ export const globeCities: GlobeCity[] = [
     longitude: -122.3321,
   },
   {
+    id: 'los-angeles',
+    name: 'Los Angeles',
+    region: 'California, United States',
+    latitude: 34.0492,
+    longitude: -118.232,
+  },
+  {
+    id: 'san-francisco',
+    name: 'San Francisco',
+    region: 'California, United States',
+    latitude: 37.7749,
+    longitude: -122.4194,
+  },
+  {
     id: 'pittsburgh',
     name: 'Pittsburgh',
     region: 'Pennsylvania, United States',

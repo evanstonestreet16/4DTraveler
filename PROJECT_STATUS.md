@@ -40,7 +40,7 @@ Kyoto's era picker and overview slider now offer **circa 1700 ↔ Present**, usi
 
 All ten Rome street views now use 8192 × 4096 panoramas produced for free with local RealESRGAN_x4plus: four Flavian Amphitheatre, three Forum of Trajan and three Pantheon views. The Flavian entry restores the earlier 1774 × 887 enhancement at native 4× (7096 × 3548); the other nine restore the original 1440 × 720 images at native 4× (5760 × 2880). Lanczos sizing produces exactly 8K, with budgeted high-quality WebP and matching still fallbacks. This supersedes native-source/lossless desktop delivery for all ten views. Original images, stable IDs, cameras and angular hotspots remain; restored detail is inferred rather than native 8K capture. Source PNGs and provenance are in `blender/source/rome-125/*-ai-8k.{png,json}`. The viewer always selects desktop panoramas, including in narrow desktop panels.
 
-City pins on the landing globe open Rome and Kyoto in the **Present** overview. Visitors change year with the overview time slider; there is no separate era-picker page.
+City pins on the landing globe open Rome and Kyoto in the **Present** overview. Visitors change year with the overview time slider; there is no separate era-picker page. Hovering the United States also shows **Seattle**, **Los Angeles**, and **San Francisco** pins that open the generated-history pipeline.
 
 ## Planned Scope
 
@@ -59,6 +59,12 @@ MongoDB, authentication, multiplayer, WASD, physics, NPCs, character interaction
 ## Recent Updates
 
 <!-- Newest first. Format: `- YYYY-MM-DD — summary (link to PR/issue if available)` -->
+
+- 2026-09-12 — Generative cities now ask Grok for multi-part building silhouettes, then run a second detail pass on any thin structures.
+
+- 2026-09-12 — Added a Nishiki covered-arcade street view from the supplied 360, with nearby-view arrows back to the Blender market street.
+
+- 2026-09-12 — Added Seattle, Los Angeles, and San Francisco pins on the landing globe that open the generated-history pipeline.
 
 - 2026-09-12 — Integrated the Rome 8K panorama/flicker improvements with the latest desktop-only, Present-entry navigation. Preserved the updated overview-marker contract and ambience removal, aligned the Rome packager, and repaired committed App import conflict markers. Build, lint, 34 focused tests and desktop globe → Present → 125 CE → POI → object → nearby view → return checks passed.
 

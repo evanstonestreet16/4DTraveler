@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { GlobeCanvas } from './GlobeCanvas';
-import type { GlobeCity } from './cities';
+import { globeCities, type GlobeCity } from './cities';
 import { useApp } from '../../app/AppContext';
 import {
   deriveWorldsFromProfile,
@@ -33,7 +33,7 @@ type Phase =
  * their present-day world when one exists.
  */
 export function GlobeExperience() {
-  const { dispatch } = useApp();
+  const { state, dispatch } = useApp();
   const [phase, setPhase] = useState<Phase>({ kind: 'idle' });
   const abortRef = useRef<AbortController | null>(null);
 
@@ -104,6 +104,13 @@ export function GlobeExperience() {
     },
     [dispatch, startGeneration],
   );
+
+  useEffect(() => {
+    if (!state.generateCityId) return;
+    const city = globeCities.find((entry) => entry.id === state.generateCityId);
+    if (city && !city.staticLocationId)
+      void startGeneration(city, city.useFixture ?? false);
+  }, [state.generateCityId, startGeneration]);
 
   const handleEnterEra = useCallback(
     (world: HistoricalWorld) => {

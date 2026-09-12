@@ -66,6 +66,27 @@ describe('baked city pins', () => {
     expect(countryHoverLabel('FRA')).toBe('France');
   });
 
+  it('pins generated-history cities so their pipeline is reachable', () => {
+    expect(findCity('USA', 'Seattle')).toEqual({
+      name: 'Seattle',
+      isoA3: 'USA',
+      lat: 47.6062,
+      lng: -122.3321,
+    });
+    expect(findCity('USA', 'Los Angeles')).toEqual({
+      name: 'Los Angeles',
+      isoA3: 'USA',
+      lat: 34.0492,
+      lng: -118.232,
+    });
+    expect(findCity('USA', 'San Francisco')).toEqual({
+      name: 'San Francisco',
+      isoA3: 'USA',
+      lat: 37.7749,
+      lng: -122.4194,
+    });
+  });
+
   it('backs every curated location with a real pin', () => {
     // The globe can only be entered through a pin, so a Location whose city is missing
     // from the bake is unreachable. Guards CURATED_CITIES drift in scripts/build-geo.mjs.

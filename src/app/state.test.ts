@@ -73,6 +73,20 @@ describe('globe-mode transitions', () => {
     expect(inGlobe.mode).toBe('globe');
     expect(inGlobe.selectedLocationId).toBeNull();
     expect(inGlobe.activeWorld).toBeNull();
+    expect(inGlobe.generateCityId).toBeNull();
+  });
+
+  it('carries a landing-globe generate pin into globe mode', () => {
+    const inGlobe = appReducer(initialState, {
+      type: 'mode',
+      mode: 'globe',
+      generateCityId: 'seattle',
+    });
+    expect(inGlobe).toMatchObject({
+      mode: 'globe',
+      generateCityId: 'seattle',
+      activeWorld: null,
+    });
   });
 
   it('enterWorld loads a generated world without needing a static catalog entry', () => {
