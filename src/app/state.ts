@@ -1,32 +1,20 @@
-import type { AudioState, CameraMode, HistoricalWorld } from '../types/world';
+import type { HistoricalWorld } from '../types/world';
 
 export interface AppState {
   selectedLocationId: string | null;
   selectedEraId: string | null;
   activeWorld: HistoricalWorld | null;
-  activePOIId: string | null;
-  selectedObjectId: string | null;
-  cameraMode: CameraMode;
-  audioState: AudioState;
 }
 
 export const initialState: AppState = {
   selectedLocationId: null,
   selectedEraId: null,
   activeWorld: null,
-  activePOIId: null,
-  selectedObjectId: null,
-  cameraMode: 'OVERVIEW',
-  audioState: 'idle',
 };
 
 export type AppAction =
   | { type: 'location'; id: string | null }
-  | { type: 'era'; id: string; world: HistoricalWorld | null }
-  | { type: 'poi'; id: string }
-  | { type: 'object'; id: string | null }
-  | { type: 'overview' }
-  | { type: 'audio'; state: AudioState };
+  | { type: 'era'; id: string; world: HistoricalWorld | null };
 
 export function appReducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
@@ -39,61 +27,10 @@ export function appReducer(state: AppState, action: AppAction): AppState {
           ? action.world
           : null;
       return {
-        ...initialState,
         selectedLocationId: state.selectedLocationId,
         selectedEraId: action.id,
         activeWorld: world,
       };
     }
-    case 'poi':
-      return state.activeWorld?.pois.some(
-        (poi) =>
-          poi.id === action.id &&
-          !poi.preview &&
-          (state.activeWorld?.scene.presentation !== 'immersive-city' ||
-            !!poi.immersive),
-      )
-        ? {
-            ...state,
-            activePOIId: action.id,
-            selectedObjectId: null,
-            cameraMode: 'POI',
-          }
-        : state;
-    case 'object': {
-      if (action.id === null) return { ...state, selectedObjectId: null };
-      const object = state.activeWorld?.objects.find(
-        (object) => object.id === action.id,
-      );
-      if (
-        !object ||
-        !state.activeWorld?.pois.some((poi) => poi.id === object.poiId)
-      )
-        return state;
-      const poi = state.activeWorld.pois.find((poi) => poi.id === object.poiId);
-      if (
-        state.activeWorld.scene.presentation === 'immersive-city' &&
-        (!poi?.immersive ||
-          poi.preview ||
-          state.activePOIId !== poi.id ||
-          !poi.objectIds.includes(object.id))
-      )
-        return state;
-      return {
-        ...state,
-        selectedObjectId: object.id,
-        activePOIId: object.poiId,
-        cameraMode: 'POI',
-      };
-    }
-    case 'overview':
-      return {
-        ...state,
-        activePOIId: null,
-        selectedObjectId: null,
-        cameraMode: 'OVERVIEW',
-      };
-    case 'audio':
-      return { ...state, audioState: action.state };
   }
 }

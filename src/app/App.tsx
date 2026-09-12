@@ -56,14 +56,7 @@ export function App() {
           <SceneErrorBoundary key={state.activeWorld.id}>
             <Suspense
               fallback={
-                <div
-                  className={
-                    state.activeWorld.scene.presentation === 'immersive-city'
-                      ? 'city-loading'
-                      : 'notice'
-                  }
-                  role="status"
-                >
+                <div className="city-loading" role="status">
                   <h2>
                     Entering {state.activeWorld.locationName} ·{' '}
                     {state.activeWorld.era.label}

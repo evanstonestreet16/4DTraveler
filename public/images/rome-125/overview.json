@@ -1,0 +1,25 @@
+{
+  "desktop": {
+    "url": "/images/rome-125/overview.webp?v=488694b9e61a",
+    "width": 1586,
+    "height": 992
+  },
+  "mobile": {
+    "url": "/images/rome-125/overview-mobile.webp?v=9e4b4f480d75",
+    "width": 954,
+    "height": 1649
+  },
+  "fallback": {
+    "url": "/images/rome-125/overview-fallback.webp?v=0b37861116df",
+    "width": 1279,
+    "height": 800
+  },
+  "markers": {
+    "forum-trajan": { "desktop": [0.416, 0.422], "mobile": [0.572, 0.466] },
+    "pantheon-forecourt": {
+      "desktop": [0.113, 0.51],
+      "mobile": [0.462, 0.324]
+    },
+    "colosseum-valley": { "desktop": [0.85, 0.398], "mobile": [0.613, 0.685] }
+  }
+}

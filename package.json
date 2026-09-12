@@ -15,19 +15,11 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
-    "test:e2e": "playwright test",
-    "assets:fixture": "node scripts/generate-model-fixture.mjs",
-    "assets:validate": "vitest run src/components/world/modelAsset.test.ts src/components/world/heroModel.test.ts",
-    "assets:hero": "node scripts/generate-pittsburgh-model.js",
-    "profile:world": "node scripts/profile-world.mjs",
-    "assets:budget": "node scripts/asset-budgets.mjs"
+    "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@react-three/drei": "^10.7.8",
-    "@react-three/fiber": "^9.7.0",
     "react": "~19.2.0",
-    "react-dom": "~19.2.0",
-    "three": "^0.180.0"
+    "react-dom": "~19.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
@@ -35,7 +27,6 @@
     "@types/node": "^22.20.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "@types/three": "^0.180.0",
     "@vitejs/plugin-react": "^5.2.0",
     "eslint": "^9.39.5",
     "eslint-plugin-react-hooks": "^5.2.0",

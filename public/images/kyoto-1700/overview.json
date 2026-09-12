@@ -1,0 +1,22 @@
+{
+  "desktop": {
+    "url": "/images/kyoto-1700/overview.webp?v=44f0f733cf4b",
+    "width": 1586,
+    "height": 992
+  },
+  "mobile": {
+    "url": "/images/kyoto-1700/overview-mobile.webp?v=17572205982e",
+    "width": 853,
+    "height": 1844
+  },
+  "fallback": {
+    "url": "/images/kyoto-1700/overview-fallback.webp?v=f38c18d2e727",
+    "width": 1279,
+    "height": 800
+  },
+  "markers": {
+    "nijo-ninomaru": { "desktop": [0.23, 0.62], "mobile": [0.3, 0.57] },
+    "kiyomizu-hillside": { "desktop": [0.93, 0.235], "mobile": [0.9, 0.37] },
+    "nishiki-fish-market": { "desktop": [0.555, 0.565], "mobile": [0.61, 0.64] }
+  }
+}

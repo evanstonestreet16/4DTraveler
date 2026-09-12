@@ -12,7 +12,7 @@ export function LocationSelector() {
         Step into one.
       </h1>
       <p className="intro">
-        Explore the places, objects, and stories that shaped a city.
+        Explore the landmarks and districts that shaped a city.
       </p>
       <div className="selection-grid">
         {locations.map((location) => (

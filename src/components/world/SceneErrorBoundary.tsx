@@ -13,7 +13,7 @@ export class SceneErrorBoundary extends Component<
       return (
         <div className="scene-fallback" role="alert">
           <h2>This view could not load.</h2>
-          <p>Check that WebGL is enabled in your browser, then try again.</p>
+          <p>Check that the overview image is available, then try again.</p>
           <button
             className="primary-button"
             onClick={() => this.setState({ failed: false })}

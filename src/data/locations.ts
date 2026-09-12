@@ -1,9 +1,8 @@
 import { rome125 } from './worlds/rome-125';
+import { kyoto1700 } from './worlds/kyoto-1700';
 import type { Location } from '../types/world';
-import { pittsburgh1892 } from './worlds/pittsburgh-1892';
-import { pittsburgh1850 } from './worlds/pittsburgh-1850';
 
-export const worlds = [rome125, pittsburgh1892, pittsburgh1850];
+export const worlds = [rome125, kyoto1700];
 export const locations: Location[] = [
   {
     id: rome125.locationId,
@@ -14,12 +13,12 @@ export const locations: Location[] = [
     eras: [rome125.era],
   },
   {
-    id: pittsburgh1892.locationId,
-    name: pittsburgh1892.locationName,
-    region: 'Pennsylvania, United States',
+    id: kyoto1700.locationId,
+    name: kyoto1700.locationName,
+    region: 'Japan · Kyoto basin',
     description:
-      'Follow the rivers into a city of mills, railroads, and industry.',
-    eras: [pittsburgh1892.era, pittsburgh1850.era],
+      'Look across the mountain-framed capital and discover its castle, temple, and market districts.',
+    eras: [kyoto1700.era],
   },
 ];
 
