@@ -3,6 +3,7 @@ import { Canvas, useThree } from '@react-three/fiber';
 import type { HistoricalWorld } from '../../types/world';
 import { WorldScene } from './WorldScene';
 import { SceneErrorBoundary } from './SceneErrorBoundary';
+import type { ModelAssetState } from './modelAsset';
 
 function ContextGuard({ onLost }: { onLost: () => void }) {
   const gl = useThree((state) => state.gl);
@@ -20,6 +21,7 @@ function ContextGuard({ onLost }: { onLost: () => void }) {
 
 export function WorldCanvas({ world }: { world: HistoricalWorld }) {
   const [lost, setLost] = useState(false);
+  const [assetState, setAssetState] = useState<ModelAssetState | null>(null);
   return (
     <div className="world-canvas" aria-label="Interactive historical world">
       <SceneErrorBoundary>
@@ -58,10 +60,23 @@ export function WorldCanvas({ world }: { world: HistoricalWorld }) {
             }
           >
             <ContextGuard onLost={() => setLost(true)} />
-            <WorldScene world={world} />
+            <WorldScene world={world} onAssetState={setAssetState} />
           </Canvas>
         )}
       </SceneErrorBoundary>
+      {!lost && world.scene.model && assetState && (
+        <div
+          className={`model-status model-status-${assetState.status}`}
+          role="status"
+          aria-live="polite"
+          data-model-status={assetState.status}
+        >
+          {assetState.message}
+          {assetState.status === 'loading' && assetState.progress !== undefined
+            ? ` (${assetState.progress}%)`
+            : ''}
+        </div>
+      )}
     </div>
   );
 }

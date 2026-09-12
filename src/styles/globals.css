@@ -249,6 +249,32 @@ h1 {
 .world-canvas canvas {
   touch-action: none;
 }
+.model-status {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  width: fit-content;
+  max-width: calc(100% - 24px);
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: #faf8f1f2;
+  color: #263c34;
+  font-size: 11px;
+  line-height: 1.5;
+  pointer-events: none;
+}
+.model-status-ready {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.model-status-fallback {
+  border: 1px solid #b78132;
+}
 .scene-fallback {
   padding: 32px;
   font-size: 14px;

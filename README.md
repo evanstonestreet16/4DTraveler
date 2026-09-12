@@ -35,10 +35,10 @@ React, TypeScript (strict), Vite, Three.js, React Three Fiber, and Drei's HTML m
 - `src/app/`: application flow and selection/audio state.
 - `src/components/`: location, timeline, world/camera, information, and audio UI.
 - `public/audio/`: checked-in temporary narration and transcript.
-- `public/models/`: future GLB integration boundary.
+- `public/models/`: checked-in GLB fixture and compatible model assets.
 - `tests/`: browser acceptance coverage.
 - [AGENTS.md](AGENTS.md): contributor rules and verification.
 
-Camera presets, geometry layout, descriptions, and audio paths come from world data. `sceneObjectId` links selectable meshes to metadata; future assets can preserve these IDs. The primitive adapter is intentionally temporary. Missing data/audio and scene failures have visible fallbacks.
+Camera presets, geometry layout, descriptions, and audio paths come from world data. `sceneObjectId` links selectable meshes to metadata; future assets can preserve these IDs. The GLB adapter validates stable named nodes and retains the full primitive scene during loading or failure. Scene and historical content live in separate modules. See the [asset pipeline](docs/ASSET_PIPELINE.md) for the contract and repeatable export/validation workflow. Missing data/audio and scene failures have visible fallbacks.
 
 See the [project overview](docs/PROJECT_OVERVIEW.md), [Dummy v0 specification](docs/DUMMY_V0_SPEC.md), and [verification notes](docs/VERIFICATION.md). Implementation tasks: [foundation #1](https://github.com/evanstonestreet16/4DTraveler/issues/1), [exploration #2](https://github.com/evanstonestreet16/4DTraveler/issues/2), [narration and verification #3](https://github.com/evanstonestreet16/4DTraveler/issues/3).

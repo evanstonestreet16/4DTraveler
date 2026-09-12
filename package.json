@@ -15,7 +15,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "assets:fixture": "node scripts/generate-model-fixture.mjs",
+    "assets:validate": "vitest run src/components/world/modelAsset.test.ts"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",

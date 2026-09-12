@@ -12,6 +12,7 @@ async function enterWorld(page: Page) {
   await expect(
     page.getByRole('heading', { name: 'Pittsburgh / 1892' }),
   ).toBeVisible();
+  await expect(page.locator('[data-model-status="ready"]')).toHaveCount(1);
   for (const poi of world.pois)
     await expect(
       page.getByRole('button', { name: `Visit ${poi.name}`, exact: true }),
