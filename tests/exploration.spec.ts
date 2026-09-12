@@ -138,10 +138,33 @@ test('complete demo: scene markers, real mesh clicks, metadata, audio, and reset
     const object = world.objects.find(
       (object) => object.id === poi.objectIds[0],
     )!;
-    await page.getByRole('button', { name: object.name, exact: true }).click();
+    await settleCamera(page);
+    const poiCamera = new PerspectiveCamera(
+      48,
+      bounds.width / bounds.height,
+      0.1,
+      400,
+    );
+    poiCamera.position.set(...fitCameraPosition(poi.camera, poiCamera.aspect));
+    poiCamera.lookAt(...poi.camera.target);
+    poiCamera.updateMatrixWorld();
+    const primitive = world.scene.primitives.find(
+      (item) => item.id === object.sceneObjectId,
+    )!;
+    const point = new Vector3(...primitive.position).project(poiCamera);
+    await canvas.click({
+      position: {
+        x: ((point.x + 1) * bounds.width) / 2,
+        y: ((1 - point.y) * bounds.height) / 2,
+      },
+    });
     await expect(
       page.getByRole('heading', { name: object.name, exact: true }),
     ).toBeVisible();
+    await page.screenshot({
+      path: testInfo.outputPath(`${object.id}-selected.png`),
+      fullPage: true,
+    });
   }
   await page.getByRole('button', { name: 'Return to overview' }).click();
   await expect(

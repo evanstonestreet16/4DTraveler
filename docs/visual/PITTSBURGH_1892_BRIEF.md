@@ -61,7 +61,7 @@ Weather/time are **illustrative**: clear overcast-to-warm afternoon, soft direct
 | Reserve                 | Integration and silhouette adjustments                                                              |             10,000 |             11 |
 | **Whole asset ceiling** | GLB ≤8 MiB, preferred ≤4 MiB; no external images, Draco or runtime decoder required                 |        **100,000** |         **50** |
 
-Geometry draw counts exclude renderer shadow passes, UI/POI overlays and fallback. Record actual GLB bytes, triangles, material batches, texture count and required node names on export. Runtime total draw calls and frame timings are separately verified in #10. First demo targets are ≤150 total draw calls, ≤200,000 rendered triangles, and a usable stable view on a 390px-wide mobile viewport; frame-rate measurements must name the real test hardware/browser rather than claim a universal rate.
+Geometry draw counts exclude renderer shadow passes, UI/POI overlays and fallback. Record actual GLB bytes, triangles, material batches, texture count and required node names on export. Runtime total draw calls and frame timings are separately verified in #11. First demo targets are ≤150 total draw calls, ≤200,000 rendered triangles, and a usable stable view on a 390px-wide mobile viewport; frame-rate measurements must name the real test hardware/browser rather than claim a universal rate.
 
 ## Explicit cuts and review handoff
 

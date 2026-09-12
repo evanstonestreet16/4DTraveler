@@ -3,7 +3,7 @@ import type { HistoricalWorld, PointOfInterest } from '../../types/world';
 /** Visual layout ownership: Workstream 1. Units are meters, +Y is up. */
 export const pittsburgh1892Scene = {
   model: {
-    url: '/models/pipeline-fixture.glb',
+    url: '/models/pittsburgh-1892.glb',
     selectableNodes: {
       furnace: 'furnace',
       stack: 'stack',
@@ -11,7 +11,7 @@ export const pittsburgh1892Scene = {
       warehouse: 'warehouse',
       bridge: 'bridge',
     },
-    loadingLabel: 'Loading the simplified world',
+    loadingLabel: 'Loading Pittsburgh’s detailed world',
     fallbackLabel: 'The model could not load. Showing the simplified world.',
   },
   overviewCamera: {
