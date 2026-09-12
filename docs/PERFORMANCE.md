@@ -20,7 +20,7 @@ PROFILE_NOTE="Hero, atmosphere, auto quality; no concurrent browser jobs" \
 node scripts/profile-world.mjs
 ```
 
-For the native laptop GPU, request the browser default backend and verify the **observed** WebGL renderer and CDP GPU device in the generated JSON. A requested hardware backend may still fall back to software. A mobile viewport on the laptop is not a physical phone measurement.
+For the native laptop GPU, request the browser default backend and verify the **observed** WebGL renderer and CDP GPU device in the generated JSON. A requested hardware backend may still fall back to software. On this Apple M3, the headless shell selected SwiftShader while headed Chromium reported the native ANGLE Metal renderer; always inspect the observed renderer. A mobile viewport on the laptop is not a physical phone measurement.
 
 ```sh
 PROFILE_BACKEND=hardware \
@@ -31,7 +31,7 @@ PROFILE_OUTPUT=docs/evidence/performance/after-laptop \
 node scripts/profile-world.mjs
 ```
 
-`PROFILE_URL`, `PROFILE_DIST`, and `PROFILE_OUTPUT` can point at isolated previews/build snapshots. `PROFILE_REPO` identifies the source repository when profiling from another directory. `PROFILE_BASELINE` chooses the comparison directory. `PROFILE_DPR` defaults to 1 to match the historical measurement; use 2 deliberately for a Retina/mobile stress run and record that difference. `PROFILE_ERA` defaults to 1892. `PROFILE_MODEL_EXPECTED=0` is only for the original primitive baseline. `PROFILE_QUALITY` accepts auto, low, medium and high using the accessible **Scene quality** control. Run `node scripts/profile-world.mjs --help` for all options.
+`PROFILE_URL`, `PROFILE_DIST`, and `PROFILE_OUTPUT` can point at isolated previews/build snapshots. `PROFILE_REPO` identifies the source repository when profiling from another directory. `PROFILE_BASELINE` chooses the comparison directory. `PROFILE_DPR` defaults to 1 to match the historical measurement; use 2 deliberately for a Retina/mobile stress run and record that difference. `PROFILE_ERA` defaults to 1892. `PROFILE_MODEL_EXPECTED=0` is only for the original primitive baseline. `PROFILE_QUALITY` accepts auto, low, medium and high using the accessible **Scene quality** control. For a frozen build, set `PROFILE_REVISION` to its exact commit; the report separately records the moving checkout revision/status. `PROFILE_HEAP_SNAPSHOTS=1` captures post-leave heap graphs at cycles 2 and 5 for retention diagnosis. These large `.heapsnapshot` files stay in a local temporary output directory and should not be committed. Compare node counts, retained paths and code/cache growth before attributing a heap increase to world objects. Run `node scripts/profile-world.mjs --help` for all options.
 
 Mount `SceneDiagnostics` inside the world Canvas. The script appends `?profile=1`; only that query enables the canvas's read-only `__worldRendererInfo()` snapshot function. Its effect removes the function on unmount. It returns numeric copies of Three.js memory/render/program counts and effective DPR; it exposes no scene objects or mutable renderer. This is diagnostic data with no user-facing UI.
 
@@ -52,7 +52,7 @@ The script takes approximately one minute per viewport. It creates fresh browser
 | Texture dimensions           | Maximum observed texture allocation dimensions including shadows                                                                            | Not a decoded texture-memory byte estimate                                                                  |
 | Heap                         | V8 `Runtime.getHeapUsage` immediately after `HeapProfiler.collectGarbage`                                                                   | JS/available embedder heap, not complete browser/GPU process memory                                         |
 
-Instrumentation retains WebGL contexts through `WeakRef` and resource handles through `WeakSet`. Strong references would create the leak being measured. Context loss releases the current generation's counts even if WebGL delete methods are not called; restoration starts a fresh generation. Collected contexts are explicitly labeled. The report retains context history as plain numbers/strings and records loss events, so a reset is distinguishable from unexplained disappearance. It does not claim precise GPU residency after a driver releases a context.
+Instrumentation retains WebGL contexts through `WeakRef` and resource handles through `WeakSet`. Strong references would create the leak being measured. Context loss releases the current generation's counts even if WebGL delete methods are not called; restoration starts a fresh generation. Collected contexts are explicitly labeled. The report records loss events, total context generations and only the most recent released context as plain numbers/strings; live records are weak, and released metadata is bounded so the profiler does not grow its own history each cycle. Each saved cycle preserves that point-in-time evidence, making a reset distinguishable from unexplained disappearance. It does not claim precise GPU residency after a driver releases a context.
 
 ## Checks and review rules
 
@@ -78,10 +78,12 @@ The checked-in [baseline evidence](evidence/performance/baseline/README.md) is t
 
 The hero scene is more complex than Dummy v0. This baseline documents that change; it is not an equivalent-scene optimization comparison. Capture another **before** run after representative hero assets and atmosphere exist, before quality/chunking changes. Capture **after** with the same observed GPU, dimensions, DPR, quality and power conditions. Do not call an Apple-GPU result a speedup over SwiftShader. Use `PROFILE_BASELINE` to point the generated summary at the correct comparable directory; inspect provenance before interpreting differences.
 
-No after measurements are included with the initial tooling commit. Run them against the integrated representative build, then attach the generated table, raw JSON and screenshots to the performance PR. If the agreed laptop or physical mobile is unavailable, mark those acceptance checks unverified explicitly.
+Representative [hero-plus-atmosphere before evidence](evidence/performance/before/README.md) is now preserved, including Apple M3 Metal and explicit SwiftShader runs. No after measurements are included yet. Run them against the integrated optimized build, then attach the generated table, raw JSON and screenshots to the performance PR. If the agreed laptop or physical mobile is unavailable, mark those acceptance checks unverified explicitly.
 
 ## Cache and compression configuration
 
 The integrated loader may use `fetch(..., { cache: 'force-cache' })` to reuse response bytes while parsing and GPU resources remain owned and disposed by each world mount. Each model URL must carry a content version, such as `?v=<GLB-SHA-prefix>`, and that version must change when regenerated GLB bytes change. Preserve the full versioned URL in request evidence. Unversioned force-cache URLs risk stale assets. The profiler records full URLs, cache events and actual transfer bytes for every re-entry and reload.
 
 `node scripts/asset-budgets.mjs dist` reports raw, gzip and Brotli sizes for every production asset and per-category totals. Those are actual compressor outputs at level/quality 9, separate from measured HTTP bytes. A hero authored with zero texture files and shared material batches may already be compact enough without Draco/Meshopt/KTX2 decoders; justify decoder dependencies using the measured download/parse/frame results rather than adding them by default. Check the actual server Content-Encoding and cache headers before claiming compressed delivery.
+
+The profiler classifies both `.glb` and `.glb.gz` as model payloads. If the server transparently applies `Content-Encoding: gzip`, Resource Timing decoded bytes can already be the plain GLB size; if it serves the gzip sidecar as a binary file, JavaScript decompression happens outside those network counters. Request journals retain actual Content-Encoding/Content-Type so these cases are not confused.

@@ -1,0 +1,7034 @@
+{
+  "schemaVersion": 2,
+  "name": "desktop",
+  "environment": {
+    "timestamp": "2026-09-12T02:39:52.191Z",
+    "target": "http://127.0.0.1:4181/?profile=1",
+    "sourceRevision": "2e65716",
+    "inspectedCheckoutRevision": "fa3244d5d26d1aa0a5026c116c3f41d06870bb48",
+    "sourceStatus": "M docs/ASSET_PIPELINE.md\n M package.json\n M src/components/world/WorldCanvas.tsx\n M src/components/world/WorldExperience.tsx\n M src/components/world/WorldScene.tsx\n M src/components/world/heroModel.test.ts\n M src/components/world/modelAsset.ts\n M src/components/world/useImmersiveView.ts\n M src/data/worlds/pittsburgh-1892.scene.ts\n M src/styles/globals.css\n M tests/atmosphere.spec.ts\n M tests/model-loading.spec.ts\n M vite.config.ts\n?? src/components/world/useSceneQuality.ts\n?? src/utils/quality.test.ts\n?? src/utils/quality.ts\n?? tests/quality.spec.ts",
+    "note": "Frozen hero+atmosphere build 2e65716 before quality/chunking; headed Chromium verified Apple M3 Metal; no concurrent browser workload; diagnostic bridge not yet mounted",
+    "os": {
+      "platform": "darwin",
+      "release": "25.5.0",
+      "arch": "arm64",
+      "cpu": "Apple M3",
+      "logicalCores": 8,
+      "totalMemoryBytes": 17179869184
+    },
+    "requestedBackend": "browser default GPU",
+    "headed": true,
+    "quality": "auto",
+    "deviceScaleFactor": 1,
+    "browser": "153.0.8010.12",
+    "gpu": {
+      "devices": [
+        {
+          "vendorId": 4203,
+          "deviceId": 0,
+          "vendorString": "Google Inc. (Apple)",
+          "deviceString": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Version 26.5.1 (Build 25F80))",
+          "driverVendor": "Apple",
+          "driverVersion": "26.5.1"
+        }
+      ],
+      "auxAttributes": {
+        "amdSwitchable": false,
+        "canSupportThreadedTextureMailbox": false,
+        "directRenderingVersion": "",
+        "displayType": "ANGLE_METAL",
+        "glExtensions": "GL_AMD_performance_monitor GL_ANGLE_base_vertex_base_instance_shader_builtin GL_ANGLE_blob_cache GL_ANGLE_client_arrays GL_ANGLE_clip_cull_distance GL_ANGLE_compressed_texture_etc GL_ANGLE_depth_texture GL_ANGLE_framebuffer_blit GL_ANGLE_framebuffer_multisample GL_ANGLE_get_serialized_context_string GL_ANGLE_get_tex_level_parameter GL_ANGLE_instanced_arrays GL_ANGLE_memory_size GL_ANGLE_pack_reverse_row_order GL_ANGLE_polygon_mode GL_ANGLE_program_binary_readiness_query GL_ANGLE_program_cache_control GL_ANGLE_provoking_vertex GL_ANGLE_renderability_validation GL_ANGLE_request_extension GL_ANGLE_rgbx_internal_format GL_ANGLE_robust_client_memory GL_ANGLE_shader_pixel_local_storage GL_ANGLE_shader_pixel_local_storage_coherent GL_ANGLE_stencil_texturing GL_ANGLE_texture_compression_dxt3 GL_ANGLE_texture_compression_dxt5 GL_ANGLE_texture_multisample GL_ANGLE_translated_shader_source GL_APPLE_clip_distance GL_ARM_rgba8 GL_CHROMIUM_bind_generates_resource GL_CHROMIUM_bind_uniform_location GL_CHROMIUM_copy_texture GL_CHROMIUM_lose_context GL_EXT_base_instance GL_EXT_blend_func_extended GL_EXT_blend_minmax GL_EXT_clip_control GL_EXT_color_buffer_float GL_EXT_color_buffer_half_float GL_EXT_compressed_ETC1_RGB8_sub_texture GL_EXT_conservative_depth GL_EXT_debug_label GL_EXT_debug_marker GL_EXT_depth_clamp GL_EXT_discard_framebuffer GL_EXT_disjoint_timer_query GL_EXT_draw_buffers GL_EXT_draw_buffers_indexed GL_EXT_draw_elements_base_vertex GL_EXT_float_blend GL_EXT_frag_depth GL_EXT_instanced_arrays GL_EXT_map_buffer_range GL_EXT_multisampled_render_to_texture GL_EXT_occlusion_query_boolean GL_EXT_polygon_offset_clamp GL_EXT_pvrtc_sRGB GL_EXT_read_format_bgra GL_EXT_render_snorm GL_EXT_robustness GL_EXT_sRGB GL_EXT_shader_texture_lod GL_EXT_texture_compression_bptc GL_EXT_texture_compression_dxt1 GL_EXT_texture_compression_rgtc GL_EXT_texture_compression_s3tc_srgb GL_EXT_texture_filter_anisotropic GL_EXT_texture_format_BGRA8888 GL_EXT_texture_mirror_clamp_to_edge GL_EXT_texture_norm16 GL_EXT_texture_rg GL_EXT_texture_sRGB_R8 GL_EXT_texture_sRGB_RG8 GL_EXT_texture_shadow_lod GL_EXT_texture_storage GL_IMG_texture_compression_pvrtc GL_KHR_debug GL_KHR_parallel_shader_compile GL_KHR_robustness GL_KHR_texture_compression_astc_hdr GL_KHR_texture_compression_astc_ldr GL_KHR_texture_compression_astc_sliced_3d GL_MESA_framebuffer_flip_y GL_NV_fence GL_NV_framebuffer_blit GL_NV_pixel_buffer_object GL_NV_shader_noperspective_interpolation GL_OES_EGL_image GL_OES_EGL_sync GL_OES_compressed_ETC1_RGB8_texture GL_OES_depth24 GL_OES_depth32 GL_OES_depth_texture GL_OES_draw_buffers_indexed GL_OES_draw_elements_base_vertex GL_OES_element_index_uint GL_OES_fbo_render_mipmap GL_OES_get_program_binary GL_OES_mapbuffer GL_OES_packed_depth_stencil GL_OES_required_internalformat GL_OES_rgb8_rgba8 GL_OES_sample_variables GL_OES_shader_multisample_interpolation GL_OES_standard_derivatives GL_OES_surfaceless_context GL_OES_texture_3D GL_OES_texture_float GL_OES_texture_float_linear GL_OES_texture_half_float GL_OES_texture_half_float_linear GL_OES_texture_npot GL_OES_texture_stencil8 GL_OES_vertex_array_object GL_QCOM_render_shared_exponent ",
+        "glImplementationParts": "(gl=egl-angle,angle=metal)",
+        "glRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Version 26.5.1 (Build 25F80))",
+        "glResetNotificationStrategy": 33362,
+        "glVendor": "Google Inc. (Apple)",
+        "glVersion": "OpenGL ES 3.0 (ANGLE 2.1.28646 git hash: a6bc9eff8444)",
+        "glWsExtensions": "",
+        "glWsVendor": "",
+        "glWsVersion": "",
+        "inProcessGpu": false,
+        "initializationTime": 0.078665,
+        "isAsan": false,
+        "isClangCoverage": false,
+        "jpegDecodeAcceleratorSupported": false,
+        "maxMsaaSamples": "4",
+        "optimus": false,
+        "passthroughCmdDecoder": true,
+        "pixelShaderVersion": "3.00",
+        "processCrashCount": 0,
+        "sandboxed": false,
+        "skiaBackendType": "GraphiteDawnMetal",
+        "subpixelFontRendering": true,
+        "targetCpuBits": 64,
+        "vertexShaderVersion": "3.00",
+        "visibilityCallbackCallCount": 0
+      },
+      "featureStatus": {
+        "2d_canvas": "enabled",
+        "direct_rendering_display_compositor": "disabled_off_ok",
+        "gpu_compositing": "enabled",
+        "multiple_raster_threads": "enabled_on",
+        "opengl": "enabled_on",
+        "rasterization": "enabled",
+        "raw_draw": "disabled_off_ok",
+        "skia_graphite": "enabled_on",
+        "trees_in_viz": "disabled_off",
+        "video_decode": "enabled",
+        "video_encode": "enabled",
+        "webgl": "enabled",
+        "webgpu": "enabled",
+        "webnn": "disabled_off"
+      },
+      "driverBugWorkarounds": [
+        "disable_2d_canvas_auto_flush",
+        "enable_webgl_timer_query_extensions",
+        "disabled_extension_GL_KHR_blend_equation_advanced",
+        "disabled_extension_GL_KHR_blend_equation_advanced_coherent"
+      ],
+      "videoDecoding": [],
+      "videoEncoding": []
+    }
+  },
+  "deviceNote": "Mobile is viewport/touch simulation, not physical-device certification.",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "beforeWorld": {
+    "alive": {
+      "Buffer": 0,
+      "Texture": 0,
+      "Program": 0,
+      "Framebuffer": 0,
+      "Renderbuffer": 0,
+      "VertexArray": 0,
+      "Shader": 0
+    },
+    "contexts": [],
+    "contextsCreated": 0,
+    "contextLosses": 0,
+    "rendererInfo": null,
+    "canvas": null,
+    "maxTextureWidth": 0,
+    "maxTextureHeight": 0,
+    "visibility": "visible"
+  },
+  "initial": {
+    "alive": {
+      "Buffer": 73,
+      "Texture": 5,
+      "Program": 4,
+      "Framebuffer": 4,
+      "Renderbuffer": 1,
+      "VertexArray": 66,
+      "Shader": 0
+    },
+    "contexts": [
+      {
+        "id": 1,
+        "state": "active",
+        "generation": 0,
+        "losses": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+        "vendor": "Google Inc. (Apple)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "alive": {
+          "Buffer": 73,
+          "Texture": 5,
+          "Program": 4,
+          "Framebuffer": 4,
+          "Renderbuffer": 1,
+          "VertexArray": 66,
+          "Shader": 0
+        }
+      }
+    ],
+    "contextsCreated": 1,
+    "contextLosses": 0,
+    "rendererInfo": null,
+    "canvas": {
+      "cssWidth": 1022,
+      "cssHeight": 570,
+      "bufferWidth": 1021,
+      "bufferHeight": 570
+    },
+    "maxTextureWidth": 1024,
+    "maxTextureHeight": 1024,
+    "visibility": "visible"
+  },
+  "readiness": {
+    "primitiveVisibleMs": 1485,
+    "heroReadyMs": 1511,
+    "modelState": "ready"
+  },
+  "firstUsefulMs": 1511,
+  "landingResources": [
+    {
+      "name": "/assets/index-DslJ92u5.js",
+      "startTime": 22.5,
+      "duration": 55.80000019073486,
+      "initiatorType": "script",
+      "encodedBodySize": 64819,
+      "decodedBodySize": 204820,
+      "transferSize": 65119
+    },
+    {
+      "name": "/assets/index-cjlWijSz.css",
+      "startTime": 22.699999809265137,
+      "duration": 30.200000286102295,
+      "initiatorType": "link",
+      "encodedBodySize": 2235,
+      "decodedBodySize": 7165,
+      "transferSize": 2535
+    },
+    {
+      "name": "/favicon.ico",
+      "startTime": 101.69999980926514,
+      "duration": 3.200000286102295,
+      "initiatorType": "other",
+      "encodedBodySize": 0,
+      "decodedBodySize": 0,
+      "transferSize": 300
+    }
+  ],
+  "landingTotals": {
+    "javascript": {
+      "requests": 1,
+      "encodedBytes": 64819,
+      "decodedBytes": 204820,
+      "transferBytes": 65119
+    },
+    "styles": {
+      "requests": 1,
+      "encodedBytes": 2235,
+      "decodedBytes": 7165,
+      "transferBytes": 2535
+    },
+    "other": {
+      "requests": 1,
+      "encodedBytes": 0,
+      "decodedBytes": 0,
+      "transferBytes": 300
+    }
+  },
+  "firstWorldResources": [
+    {
+      "name": "/assets/index-DslJ92u5.js",
+      "startTime": 22.5,
+      "duration": 55.80000019073486,
+      "initiatorType": "script",
+      "encodedBodySize": 64819,
+      "decodedBodySize": 204820,
+      "transferSize": 65119
+    },
+    {
+      "name": "/assets/index-cjlWijSz.css",
+      "startTime": 22.699999809265137,
+      "duration": 30.200000286102295,
+      "initiatorType": "link",
+      "encodedBodySize": 2235,
+      "decodedBodySize": 7165,
+      "transferSize": 2535
+    },
+    {
+      "name": "/favicon.ico",
+      "startTime": 101.69999980926514,
+      "duration": 3.200000286102295,
+      "initiatorType": "other",
+      "encodedBodySize": 0,
+      "decodedBodySize": 0,
+      "transferSize": 300
+    },
+    {
+      "name": "/assets/WorldExperience-PF56WdxG.js",
+      "startTime": 916.5999999046326,
+      "duration": 29.09999990463257,
+      "initiatorType": "script",
+      "encodedBodySize": 253587,
+      "decodedBodySize": 931921,
+      "transferSize": 253887
+    },
+    {
+      "name": "/models/pittsburgh-1892.glb",
+      "startTime": 1776.5,
+      "duration": 8.900000095367432,
+      "initiatorType": "fetch",
+      "encodedBodySize": 2192436,
+      "decodedBodySize": 2192436,
+      "transferSize": 2192736
+    }
+  ],
+  "firstWorldTotals": {
+    "javascript": {
+      "requests": 2,
+      "encodedBytes": 318406,
+      "decodedBytes": 1136741,
+      "transferBytes": 319006
+    },
+    "styles": {
+      "requests": 1,
+      "encodedBytes": 2235,
+      "decodedBytes": 7165,
+      "transferBytes": 2535
+    },
+    "other": {
+      "requests": 1,
+      "encodedBytes": 0,
+      "decodedBytes": 0,
+      "transferBytes": 300
+    },
+    "models": {
+      "requests": 1,
+      "encodedBytes": 2192436,
+      "decodedBytes": 2192436,
+      "transferBytes": 2192736
+    }
+  },
+  "resources": [
+    {
+      "name": "/assets/index-DslJ92u5.js",
+      "startTime": 22.5,
+      "duration": 55.80000019073486,
+      "initiatorType": "script",
+      "encodedBodySize": 64819,
+      "decodedBodySize": 204820,
+      "transferSize": 65119
+    },
+    {
+      "name": "/assets/index-cjlWijSz.css",
+      "startTime": 22.699999809265137,
+      "duration": 30.200000286102295,
+      "initiatorType": "link",
+      "encodedBodySize": 2235,
+      "decodedBodySize": 7165,
+      "transferSize": 2535
+    },
+    {
+      "name": "/favicon.ico",
+      "startTime": 101.69999980926514,
+      "duration": 3.200000286102295,
+      "initiatorType": "other",
+      "encodedBodySize": 0,
+      "decodedBodySize": 0,
+      "transferSize": 300
+    },
+    {
+      "name": "/assets/WorldExperience-PF56WdxG.js",
+      "startTime": 916.5999999046326,
+      "duration": 29.09999990463257,
+      "initiatorType": "script",
+      "encodedBodySize": 253587,
+      "decodedBodySize": 931921,
+      "transferSize": 253887
+    },
+    {
+      "name": "/models/pittsburgh-1892.glb",
+      "startTime": 1776.5,
+      "duration": 8.900000095367432,
+      "initiatorType": "fetch",
+      "encodedBodySize": 2192436,
+      "decodedBodySize": 2192436,
+      "transferSize": 2192736
+    },
+    {
+      "name": "/models/pittsburgh-1892.glb",
+      "startTime": 14122.5,
+      "duration": 25.300000190734863,
+      "initiatorType": "fetch",
+      "encodedBodySize": 2192436,
+      "decodedBodySize": 2192436,
+      "transferSize": 300
+    },
+    {
+      "name": "/models/pittsburgh-1892.glb",
+      "startTime": 18522.300000190735,
+      "duration": 2.5999999046325684,
+      "initiatorType": "fetch",
+      "encodedBodySize": 2192436,
+      "decodedBodySize": 2192436,
+      "transferSize": 300
+    },
+    {
+      "name": "/models/pittsburgh-1892.glb",
+      "startTime": 22840.199999809265,
+      "duration": 23,
+      "initiatorType": "fetch",
+      "encodedBodySize": 2192436,
+      "decodedBodySize": 2192436,
+      "transferSize": 300
+    },
+    {
+      "name": "/models/pittsburgh-1892.glb",
+      "startTime": 27226.800000190735,
+      "duration": 5.199999809265137,
+      "initiatorType": "fetch",
+      "encodedBodySize": 2192436,
+      "decodedBodySize": 2192436,
+      "transferSize": 300
+    },
+    {
+      "name": "/models/pittsburgh-1892.glb",
+      "startTime": 31609.5,
+      "duration": 6.800000190734863,
+      "initiatorType": "fetch",
+      "encodedBodySize": 2192436,
+      "decodedBodySize": 2192436,
+      "transferSize": 300
+    }
+  ],
+  "frameSummary": {
+    "activeFrames": 376,
+    "idleFrames": 0,
+    "p50Ms": 16.699999999999818,
+    "p95Ms": 17.600000000000364,
+    "p95ReciprocalFps": 56.81818181818064,
+    "p50DrawCalls": 66,
+    "p95DrawCalls": 66,
+    "peakDrawCalls": 66,
+    "peakTriangles": 60754,
+    "interpretation": "Active requestAnimationFrame intervals with submitted GPU draws, not GPU timer-query duration or certified presented FPS. Counts include shadow/effect passes."
+  },
+  "trace": [
+    {
+      "atMs": 4540.7,
+      "phase": "settled-overview",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4557.4,
+      "phase": "settled-overview",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4574,
+      "phase": "settled-overview",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4590.7,
+      "phase": "settled-overview",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4606.5,
+      "phase": "settled-overview",
+      "ms": 15.800000000000182,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4624,
+      "phase": "settled-overview",
+      "ms": 17.5,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4640.7,
+      "phase": "settled-overview",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4657.3,
+      "phase": "settled-overview",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4674,
+      "phase": "settled-overview",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4690.7,
+      "phase": "settled-overview",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4707.3,
+      "phase": "settled-overview",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4724,
+      "phase": "settled-overview",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4740.6,
+      "phase": "settled-overview",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4757.3,
+      "phase": "settled-overview",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4774.1,
+      "phase": "settled-overview",
+      "ms": 16.800000000000182,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4790.5,
+      "phase": "settled-overview",
+      "ms": 16.399999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4807.3,
+      "phase": "settled-overview",
+      "ms": 16.800000000000182,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4823.4,
+      "phase": "settled-overview",
+      "ms": 16.099999999999454,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4840.7,
+      "phase": "settled-overview",
+      "ms": 17.300000000000182,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4857.3,
+      "phase": "settled-overview",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4874,
+      "phase": "settled-overview",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4890.3,
+      "phase": "settled-overview",
+      "ms": 16.300000000000182,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4906.4,
+      "phase": "settled-overview",
+      "ms": 16.099999999999454,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4924,
+      "phase": "settled-overview",
+      "ms": 17.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4940.1,
+      "phase": "settled-overview",
+      "ms": 16.100000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4956.5,
+      "phase": "settled-overview",
+      "ms": 16.399999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4974,
+      "phase": "settled-overview",
+      "ms": 17.5,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4990.7,
+      "phase": "settled-overview",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5007,
+      "phase": "settled-overview",
+      "ms": 16.300000000000182,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5024,
+      "phase": "settled-overview",
+      "ms": 17,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5040.7,
+      "phase": "settled-overview",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5057.4,
+      "phase": "settled-overview",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5074,
+      "phase": "settled-overview",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5090.1,
+      "phase": "settled-overview",
+      "ms": 16.100000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5107.4,
+      "phase": "settled-overview",
+      "ms": 17.299999999999272,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5124.1,
+      "phase": "settled-overview",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5140,
+      "phase": "settled-overview",
+      "ms": 15.899999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5157.4,
+      "phase": "settled-overview",
+      "ms": 17.399999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5174,
+      "phase": "settled-overview",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5189.7,
+      "phase": "settled-overview",
+      "ms": 15.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5207.4,
+      "phase": "settled-overview",
+      "ms": 17.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5224,
+      "phase": "settled-overview",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5240.7,
+      "phase": "settled-overview",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5256.4,
+      "phase": "settled-overview",
+      "ms": 15.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5274,
+      "phase": "settled-overview",
+      "ms": 17.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5290.7,
+      "phase": "settled-overview",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5307.4,
+      "phase": "settled-overview",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5324,
+      "phase": "settled-overview",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5340.7,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5357.3,
+      "phase": "Steel Mill",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5374.1,
+      "phase": "Steel Mill",
+      "ms": 16.800000000000182,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5390.7,
+      "phase": "Steel Mill",
+      "ms": 16.599999999999454,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5407.4,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5424,
+      "phase": "Steel Mill",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5440.4,
+      "phase": "Steel Mill",
+      "ms": 16.399999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5457.3,
+      "phase": "Steel Mill",
+      "ms": 16.900000000000546,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5474,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5490.7,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5507.3,
+      "phase": "Steel Mill",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5524,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5540.7,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5556.9,
+      "phase": "Steel Mill",
+      "ms": 16.199999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5573.4,
+      "phase": "Steel Mill",
+      "ms": 16.5,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5590.6,
+      "phase": "Steel Mill",
+      "ms": 17.200000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5606.3,
+      "phase": "Steel Mill",
+      "ms": 15.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5623.7,
+      "phase": "Steel Mill",
+      "ms": 17.399999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5639.9,
+      "phase": "Steel Mill",
+      "ms": 16.199999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5657.3,
+      "phase": "Steel Mill",
+      "ms": 17.400000000000546,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5674,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5690.5,
+      "phase": "Steel Mill",
+      "ms": 16.5,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5707.4,
+      "phase": "Steel Mill",
+      "ms": 16.899999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5723.9,
+      "phase": "Steel Mill",
+      "ms": 16.5,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5739.7,
+      "phase": "Steel Mill",
+      "ms": 15.800000000000182,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5757.4,
+      "phase": "Steel Mill",
+      "ms": 17.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5774,
+      "phase": "Steel Mill",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5790.7,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5806.4,
+      "phase": "Steel Mill",
+      "ms": 15.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5824,
+      "phase": "Steel Mill",
+      "ms": 17.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5840.7,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5857.4,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5873.2,
+      "phase": "Steel Mill",
+      "ms": 15.800000000000182,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5890.6,
+      "phase": "Steel Mill",
+      "ms": 17.400000000000546,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5907.3,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5924,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5940.7,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5957.3,
+      "phase": "Steel Mill",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5974,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5990.3,
+      "phase": "Steel Mill",
+      "ms": 16.300000000000182,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 6007.3,
+      "phase": "Steel Mill",
+      "ms": 17,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 6024,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 6040.7,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 6057.4,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 6073.3,
+      "phase": "Steel Mill",
+      "ms": 15.900000000000546,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 6090.7,
+      "phase": "Steel Mill",
+      "ms": 17.399999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 6107.4,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 6124,
+      "phase": "Steel Mill",
+      "ms": 16.600000000000364,
+      "calls": 65,
+      "triangles": 60610
+    },
+    {
+      "atMs": 6139.7,
+      "phase": "Steel Mill",
+      "ms": 15.699999999999818,
+      "calls": 65,
+      "triangles": 60610
+    },
+    {
+      "atMs": 6157.1,
+      "phase": "Steel Mill",
+      "ms": 17.400000000000546,
+      "calls": 65,
+      "triangles": 60610
+    },
+    {
+      "atMs": 6173.4,
+      "phase": "Steel Mill",
+      "ms": 16.299999999999272,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6190.7,
+      "phase": "Steel Mill",
+      "ms": 17.300000000000182,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6207.3,
+      "phase": "Steel Mill",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6223.1,
+      "phase": "Steel Mill",
+      "ms": 15.800000000000182,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6240.7,
+      "phase": "Steel Mill",
+      "ms": 17.599999999999454,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6257.2,
+      "phase": "Steel Mill",
+      "ms": 16.5,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6273.8,
+      "phase": "Steel Mill",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6290.4,
+      "phase": "Steel Mill",
+      "ms": 16.599999999999454,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6306.9,
+      "phase": "Steel Mill",
+      "ms": 16.5,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6323.1,
+      "phase": "Steel Mill",
+      "ms": 16.200000000000728,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6340.7,
+      "phase": "Steel Mill",
+      "ms": 17.599999999999454,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6356.6,
+      "phase": "Steel Mill",
+      "ms": 15.900000000000546,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6374,
+      "phase": "Steel Mill",
+      "ms": 17.399999999999636,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6390.7,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6407.3,
+      "phase": "Steel Mill",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6424,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6439.7,
+      "phase": "Steel Mill",
+      "ms": 15.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6456.5,
+      "phase": "Steel Mill",
+      "ms": 16.800000000000182,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6474,
+      "phase": "Steel Mill",
+      "ms": 17.5,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6490.7,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6507.4,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6524,
+      "phase": "Steel Mill",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6539.6,
+      "phase": "Steel Mill",
+      "ms": 15.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6557.3,
+      "phase": "Steel Mill",
+      "ms": 17.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6574,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6590.2,
+      "phase": "Steel Mill",
+      "ms": 16.199999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6607.4,
+      "phase": "Steel Mill",
+      "ms": 17.199999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6624,
+      "phase": "Steel Mill",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6640.3,
+      "phase": "Steel Mill",
+      "ms": 16.300000000000182,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6656.3,
+      "phase": "Steel Mill",
+      "ms": 16,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6673.1,
+      "phase": "Steel Mill",
+      "ms": 16.800000000000182,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6690.7,
+      "phase": "Steel Mill",
+      "ms": 17.599999999999454,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6707.3,
+      "phase": "Steel Mill",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6724,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6740.2,
+      "phase": "Steel Mill",
+      "ms": 16.199999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6757.4,
+      "phase": "Steel Mill",
+      "ms": 17.199999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6774,
+      "phase": "Steel Mill",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6790.1,
+      "phase": "Steel Mill",
+      "ms": 16.100000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6807.3,
+      "phase": "Steel Mill",
+      "ms": 17.199999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6824,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6840.7,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6857.4,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6874,
+      "phase": "Steel Mill",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6889.7,
+      "phase": "Steel Mill",
+      "ms": 15.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6907.3,
+      "phase": "Steel Mill",
+      "ms": 17.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6924,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6940.7,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6956.4,
+      "phase": "Steel Mill",
+      "ms": 15.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6974,
+      "phase": "Steel Mill",
+      "ms": 17.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 6990.2,
+      "phase": "Steel Mill",
+      "ms": 16.199999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7006.8,
+      "phase": "Steel Mill",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7023.7,
+      "phase": "Steel Mill",
+      "ms": 16.899999999999636,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7039.9,
+      "phase": "Steel Mill",
+      "ms": 16.199999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7057.3,
+      "phase": "Steel Mill",
+      "ms": 17.400000000000546,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7074,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7090.4,
+      "phase": "Steel Mill",
+      "ms": 16.399999999999636,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7107.4,
+      "phase": "Steel Mill",
+      "ms": 17,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7124,
+      "phase": "Steel Mill",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7140.6,
+      "phase": "Steel Mill",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7157.3,
+      "phase": "Steel Mill",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7173.1,
+      "phase": "Steel Mill",
+      "ms": 15.800000000000182,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7189.7,
+      "phase": "Steel Mill",
+      "ms": 16.599999999999454,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7207.4,
+      "phase": "Downtown",
+      "ms": 17.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7223,
+      "phase": "Downtown",
+      "ms": 15.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7240.7,
+      "phase": "Downtown",
+      "ms": 17.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7257.3,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7273.9,
+      "phase": "Downtown",
+      "ms": 16.599999999999454,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7290.6,
+      "phase": "Downtown",
+      "ms": 16.700000000000728,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7307.3,
+      "phase": "Downtown",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7324,
+      "phase": "Downtown",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7340.7,
+      "phase": "Downtown",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7357.3,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7374,
+      "phase": "Downtown",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7389.8,
+      "phase": "Downtown",
+      "ms": 15.800000000000182,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7407.4,
+      "phase": "Downtown",
+      "ms": 17.599999999999454,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7424,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7440.7,
+      "phase": "Downtown",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7457.4,
+      "phase": "Downtown",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7474,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7490.6,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7507.2,
+      "phase": "Downtown",
+      "ms": 16.599999999999454,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7523,
+      "phase": "Downtown",
+      "ms": 15.800000000000182,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7540.4,
+      "phase": "Downtown",
+      "ms": 17.399999999999636,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7557.4,
+      "phase": "Downtown",
+      "ms": 17,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7574,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7590.6,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7607.3,
+      "phase": "Downtown",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7623.8,
+      "phase": "Downtown",
+      "ms": 16.5,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7640.7,
+      "phase": "Downtown",
+      "ms": 16.899999999999636,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7657.4,
+      "phase": "Downtown",
+      "ms": 16.699999999999818,
+      "calls": 64,
+      "triangles": 60538
+    },
+    {
+      "atMs": 7674,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 65,
+      "triangles": 60610
+    },
+    {
+      "atMs": 7790.6,
+      "phase": "Downtown",
+      "ms": 116.60000000000036,
+      "calls": 65,
+      "triangles": 60610
+    },
+    {
+      "atMs": 7807.4,
+      "phase": "Downtown",
+      "ms": 16.799999999999272,
+      "calls": 65,
+      "triangles": 60610
+    },
+    {
+      "atMs": 7824,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 65,
+      "triangles": 60610
+    },
+    {
+      "atMs": 7840.7,
+      "phase": "Downtown",
+      "ms": 16.699999999999818,
+      "calls": 65,
+      "triangles": 60610
+    },
+    {
+      "atMs": 7857.3,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 7874,
+      "phase": "Downtown",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 7890.2,
+      "phase": "Downtown",
+      "ms": 16.199999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 7907.4,
+      "phase": "Downtown",
+      "ms": 17.199999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 7924,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 7940.3,
+      "phase": "Downtown",
+      "ms": 16.300000000000182,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 7957.4,
+      "phase": "Downtown",
+      "ms": 17.099999999999454,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 7974,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 7990.7,
+      "phase": "Downtown",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8007.3,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8024,
+      "phase": "Downtown",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8040.7,
+      "phase": "Downtown",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8056.6,
+      "phase": "Downtown",
+      "ms": 15.900000000000546,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8074,
+      "phase": "Downtown",
+      "ms": 17.399999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8089.6,
+      "phase": "Downtown",
+      "ms": 15.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8107.4,
+      "phase": "Downtown",
+      "ms": 17.799999999999272,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8124,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8139.7,
+      "phase": "Downtown",
+      "ms": 15.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8157.4,
+      "phase": "Downtown",
+      "ms": 17.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8174,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8190.6,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8207.3,
+      "phase": "Downtown",
+      "ms": 16.69999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8223,
+      "phase": "Downtown",
+      "ms": 15.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8240.7,
+      "phase": "Downtown",
+      "ms": 17.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8257.3,
+      "phase": "Downtown",
+      "ms": 16.599999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8274,
+      "phase": "Downtown",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8290.7,
+      "phase": "Downtown",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8306.3,
+      "phase": "Downtown",
+      "ms": 15.599999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8323.3,
+      "phase": "Downtown",
+      "ms": 17,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8340.6,
+      "phase": "Downtown",
+      "ms": 17.30000000000109,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8356.9,
+      "phase": "Downtown",
+      "ms": 16.299999999999272,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8373.5,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8389.7,
+      "phase": "Downtown",
+      "ms": 16.200000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8406.4,
+      "phase": "Downtown",
+      "ms": 16.69999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8423.6,
+      "phase": "Downtown",
+      "ms": 17.200000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8440.3,
+      "phase": "Downtown",
+      "ms": 16.69999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8457.3,
+      "phase": "Downtown",
+      "ms": 17,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8474,
+      "phase": "Downtown",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8489.9,
+      "phase": "Downtown",
+      "ms": 15.899999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8507.4,
+      "phase": "Downtown",
+      "ms": 17.5,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8524,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8540.5,
+      "phase": "Downtown",
+      "ms": 16.5,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8557.2,
+      "phase": "Downtown",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8573.3,
+      "phase": "Downtown",
+      "ms": 16.099999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8590.7,
+      "phase": "Downtown",
+      "ms": 17.400000000001455,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8607.3,
+      "phase": "Downtown",
+      "ms": 16.599999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8624,
+      "phase": "Downtown",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8639.7,
+      "phase": "Downtown",
+      "ms": 15.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8657.3,
+      "phase": "Downtown",
+      "ms": 17.599999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8673.1,
+      "phase": "Downtown",
+      "ms": 15.800000000001091,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8690,
+      "phase": "Downtown",
+      "ms": 16.899999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8706.4,
+      "phase": "Downtown",
+      "ms": 16.399999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8724.1,
+      "phase": "Downtown",
+      "ms": 17.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8740.1,
+      "phase": "Downtown",
+      "ms": 16,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8757.3,
+      "phase": "Downtown",
+      "ms": 17.19999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8773.8,
+      "phase": "Downtown",
+      "ms": 16.5,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8790.6,
+      "phase": "Downtown",
+      "ms": 16.80000000000109,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8807.3,
+      "phase": "Downtown",
+      "ms": 16.69999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8823,
+      "phase": "Downtown",
+      "ms": 15.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8840.7,
+      "phase": "Downtown",
+      "ms": 17.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8857.4,
+      "phase": "Downtown",
+      "ms": 16.69999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8874,
+      "phase": "Downtown",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8889.7,
+      "phase": "Downtown",
+      "ms": 15.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8906.7,
+      "phase": "Downtown",
+      "ms": 17,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8924,
+      "phase": "Downtown",
+      "ms": 17.299999999999272,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8940.3,
+      "phase": "Downtown",
+      "ms": 16.299999999999272,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8957.4,
+      "phase": "Downtown",
+      "ms": 17.100000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8973.7,
+      "phase": "Downtown",
+      "ms": 16.30000000000109,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 8990.2,
+      "phase": "Downtown",
+      "ms": 16.5,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9007.3,
+      "phase": "Downtown",
+      "ms": 17.099999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9023.3,
+      "phase": "Downtown",
+      "ms": 16,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9040.7,
+      "phase": "River / Bridge",
+      "ms": 17.400000000001455,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9057.3,
+      "phase": "River / Bridge",
+      "ms": 16.599999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9073.3,
+      "phase": "River / Bridge",
+      "ms": 16,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9090.6,
+      "phase": "River / Bridge",
+      "ms": 17.30000000000109,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9107.3,
+      "phase": "River / Bridge",
+      "ms": 16.69999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9124,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9140.7,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9157.3,
+      "phase": "River / Bridge",
+      "ms": 16.599999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9174,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9190.7,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9206.3,
+      "phase": "River / Bridge",
+      "ms": 15.599999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9224,
+      "phase": "River / Bridge",
+      "ms": 17.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9239.9,
+      "phase": "River / Bridge",
+      "ms": 15.899999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9257.3,
+      "phase": "River / Bridge",
+      "ms": 17.399999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9274,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9290.7,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9306.9,
+      "phase": "River / Bridge",
+      "ms": 16.19999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9323,
+      "phase": "River / Bridge",
+      "ms": 16.100000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9340.5,
+      "phase": "River / Bridge",
+      "ms": 17.5,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9357.3,
+      "phase": "River / Bridge",
+      "ms": 16.799999999999272,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9373.8,
+      "phase": "River / Bridge",
+      "ms": 16.5,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9390.6,
+      "phase": "River / Bridge",
+      "ms": 16.80000000000109,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9406.6,
+      "phase": "River / Bridge",
+      "ms": 16,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9424,
+      "phase": "River / Bridge",
+      "ms": 17.399999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9440.7,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9457.4,
+      "phase": "River / Bridge",
+      "ms": 16.69999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9474,
+      "phase": "River / Bridge",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9490.7,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9507.3,
+      "phase": "River / Bridge",
+      "ms": 16.599999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9523.7,
+      "phase": "River / Bridge",
+      "ms": 16.400000000001455,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9539.7,
+      "phase": "River / Bridge",
+      "ms": 16,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9557.3,
+      "phase": "River / Bridge",
+      "ms": 17.599999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9574,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9589.9,
+      "phase": "River / Bridge",
+      "ms": 15.899999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9606.3,
+      "phase": "River / Bridge",
+      "ms": 16.399999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9623,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9639.8,
+      "phase": "River / Bridge",
+      "ms": 16.799999999999272,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9657.3,
+      "phase": "River / Bridge",
+      "ms": 17.5,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9674,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9689.7,
+      "phase": "River / Bridge",
+      "ms": 15.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9706.4,
+      "phase": "River / Bridge",
+      "ms": 16.69999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9724,
+      "phase": "River / Bridge",
+      "ms": 17.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9740.2,
+      "phase": "River / Bridge",
+      "ms": 16.200000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9757.4,
+      "phase": "River / Bridge",
+      "ms": 17.19999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9774,
+      "phase": "River / Bridge",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9790.4,
+      "phase": "River / Bridge",
+      "ms": 16.399999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9807.3,
+      "phase": "River / Bridge",
+      "ms": 16.899999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9823,
+      "phase": "River / Bridge",
+      "ms": 15.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9840.5,
+      "phase": "River / Bridge",
+      "ms": 17.5,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9857.3,
+      "phase": "River / Bridge",
+      "ms": 16.799999999999272,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9873.7,
+      "phase": "River / Bridge",
+      "ms": 16.400000000001455,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9889.8,
+      "phase": "River / Bridge",
+      "ms": 16.099999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9907.4,
+      "phase": "River / Bridge",
+      "ms": 17.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9923.9,
+      "phase": "River / Bridge",
+      "ms": 16.5,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9940.7,
+      "phase": "River / Bridge",
+      "ms": 16.80000000000109,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9957.3,
+      "phase": "River / Bridge",
+      "ms": 16.599999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9973.9,
+      "phase": "River / Bridge",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9990.6,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10007.3,
+      "phase": "River / Bridge",
+      "ms": 16.69999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10023.8,
+      "phase": "River / Bridge",
+      "ms": 16.5,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10040.3,
+      "phase": "River / Bridge",
+      "ms": 16.5,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10057.4,
+      "phase": "River / Bridge",
+      "ms": 17.100000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10073.3,
+      "phase": "River / Bridge",
+      "ms": 15.899999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10090.5,
+      "phase": "River / Bridge",
+      "ms": 17.200000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10107.4,
+      "phase": "River / Bridge",
+      "ms": 16.899999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10123.7,
+      "phase": "River / Bridge",
+      "ms": 16.30000000000109,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10139.7,
+      "phase": "River / Bridge",
+      "ms": 16,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10157.3,
+      "phase": "River / Bridge",
+      "ms": 17.599999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10174,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10190.7,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10206.8,
+      "phase": "River / Bridge",
+      "ms": 16.099999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10223.1,
+      "phase": "River / Bridge",
+      "ms": 16.30000000000109,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10240.3,
+      "phase": "River / Bridge",
+      "ms": 17.19999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10257.3,
+      "phase": "River / Bridge",
+      "ms": 17,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10274,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10290.6,
+      "phase": "River / Bridge",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10306.3,
+      "phase": "River / Bridge",
+      "ms": 15.699999999998909,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10323,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10340.7,
+      "phase": "River / Bridge",
+      "ms": 17.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10357.3,
+      "phase": "River / Bridge",
+      "ms": 16.599999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10374,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10390.7,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10407.4,
+      "phase": "River / Bridge",
+      "ms": 16.69999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10424,
+      "phase": "River / Bridge",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10440.7,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10457.3,
+      "phase": "River / Bridge",
+      "ms": 16.599999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10474,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10490.2,
+      "phase": "River / Bridge",
+      "ms": 16.200000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10507.3,
+      "phase": "River / Bridge",
+      "ms": 17.099999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10524,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10540.7,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10557.4,
+      "phase": "River / Bridge",
+      "ms": 16.69999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10573.4,
+      "phase": "River / Bridge",
+      "ms": 16,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10590.7,
+      "phase": "River / Bridge",
+      "ms": 17.30000000000109,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10607.3,
+      "phase": "River / Bridge",
+      "ms": 16.599999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10624,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10640.7,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10657.3,
+      "phase": "River / Bridge",
+      "ms": 16.599999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10673.9,
+      "phase": "River / Bridge",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10689.7,
+      "phase": "River / Bridge",
+      "ms": 15.800000000001091,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10706.9,
+      "phase": "River / Bridge",
+      "ms": 17.19999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10724,
+      "phase": "River / Bridge",
+      "ms": 17.100000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10740.7,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10757.3,
+      "phase": "River / Bridge",
+      "ms": 16.599999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10773.8,
+      "phase": "River / Bridge",
+      "ms": 16.5,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10790.4,
+      "phase": "River / Bridge",
+      "ms": 16.600000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10807.3,
+      "phase": "River / Bridge",
+      "ms": 16.899999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10823.4,
+      "phase": "River / Bridge",
+      "ms": 16.100000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10840.7,
+      "phase": "River / Bridge",
+      "ms": 17.30000000000109,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10857.3,
+      "phase": "River / Bridge",
+      "ms": 16.599999999998545,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10874,
+      "phase": "River / Bridge",
+      "ms": 16.700000000000728,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10890.4,
+      "phase": "River / Bridge",
+      "ms": 16.399999999999636,
+      "calls": 66,
+      "triangles": 60754
+    }
+  ],
+  "cycles": [
+    {
+      "cycle": 1,
+      "left": {
+        "alive": {
+          "Buffer": 0,
+          "Texture": 0,
+          "Program": 0,
+          "Framebuffer": 0,
+          "Renderbuffer": 0,
+          "VertexArray": 0,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 1,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+            "vendor": "Google Inc. (Apple)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 1,
+        "contextLosses": 1,
+        "rendererInfo": null,
+        "canvas": null,
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "leftHeap": {
+        "usedBytes": 7021492,
+        "totalBytes": 8257536,
+        "embedderHeapUsedBytes": 1397688,
+        "backingStorageBytes": 1154889
+      },
+      "entered": {
+        "alive": {
+          "Buffer": 73,
+          "Texture": 5,
+          "Program": 4,
+          "Framebuffer": 4,
+          "Renderbuffer": 1,
+          "VertexArray": 66,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 2,
+            "state": "active",
+            "generation": 0,
+            "losses": 0,
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+            "vendor": "Google Inc. (Apple)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 73,
+              "Texture": 5,
+              "Program": 4,
+              "Framebuffer": 4,
+              "Renderbuffer": 1,
+              "VertexArray": 66,
+              "Shader": 0
+            }
+          },
+          {
+            "id": 1,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+            "vendor": "Google Inc. (Apple)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 2,
+        "contextLosses": 1,
+        "rendererInfo": null,
+        "canvas": {
+          "cssWidth": 1022,
+          "cssHeight": 570,
+          "bufferWidth": 1021,
+          "bufferHeight": 570
+        },
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "enteredHeap": {
+        "usedBytes": 8350168,
+        "totalBytes": 9306112,
+        "embedderHeapUsedBytes": 1336232,
+        "backingStorageBytes": 5520677
+      },
+      "readiness": {
+        "primitiveVisibleMs": 217,
+        "heroReadyMs": 249,
+        "modelState": "ready"
+      },
+      "frames": {
+        "activeFrames": 75,
+        "idleFrames": 0,
+        "p50Ms": 16.700000000000728,
+        "p95Ms": 17.600000000002183,
+        "p95ReciprocalFps": 56.81818181817477,
+        "p50DrawCalls": 66,
+        "p95DrawCalls": 66,
+        "peakDrawCalls": 66,
+        "peakTriangles": 60754,
+        "interpretation": "Active requestAnimationFrame intervals with submitted GPU draws, not GPU timer-query duration or certified presented FPS. Counts include shadow/effect passes."
+      },
+      "trace": [
+        {
+          "atMs": 15873.9,
+          "phase": "reentry-1",
+          "ms": 17.600000000000364,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 15890.7,
+          "phase": "reentry-1",
+          "ms": 16.80000000000109,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 15907,
+          "phase": "reentry-1",
+          "ms": 16.299999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 15923.9,
+          "phase": "reentry-1",
+          "ms": 16.899999999999636,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 15940.6,
+          "phase": "reentry-1",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 15957.3,
+          "phase": "reentry-1",
+          "ms": 16.69999999999891,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 15974,
+          "phase": "reentry-1",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 15990.6,
+          "phase": "reentry-1",
+          "ms": 16.600000000000364,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16007.3,
+          "phase": "reentry-1",
+          "ms": 16.69999999999891,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16024,
+          "phase": "reentry-1",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16040.6,
+          "phase": "reentry-1",
+          "ms": 16.600000000000364,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16056.3,
+          "phase": "reentry-1",
+          "ms": 15.699999999998909,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16073.4,
+          "phase": "reentry-1",
+          "ms": 17.100000000000364,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16089.7,
+          "phase": "reentry-1",
+          "ms": 16.30000000000109,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16106.3,
+          "phase": "reentry-1",
+          "ms": 16.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16123.8,
+          "phase": "reentry-1",
+          "ms": 17.5,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16140.6,
+          "phase": "reentry-1",
+          "ms": 16.80000000000109,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16156.8,
+          "phase": "reentry-1",
+          "ms": 16.19999999999891,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16173.9,
+          "phase": "reentry-1",
+          "ms": 17.100000000000364,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16190.7,
+          "phase": "reentry-1",
+          "ms": 16.80000000000109,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16207,
+          "phase": "reentry-1",
+          "ms": 16.299999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16223,
+          "phase": "reentry-1",
+          "ms": 16,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16240.5,
+          "phase": "reentry-1",
+          "ms": 17.5,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16256.4,
+          "phase": "reentry-1",
+          "ms": 15.899999999999636,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16274,
+          "phase": "reentry-1",
+          "ms": 17.600000000000364,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16290.5,
+          "phase": "reentry-1",
+          "ms": 16.5,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16307.3,
+          "phase": "reentry-1",
+          "ms": 16.799999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16323.9,
+          "phase": "reentry-1",
+          "ms": 16.600000000000364,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16339.7,
+          "phase": "reentry-1",
+          "ms": 15.800000000001091,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16357.3,
+          "phase": "reentry-1",
+          "ms": 17.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16374,
+          "phase": "reentry-1",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16389.7,
+          "phase": "reentry-1",
+          "ms": 15.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16407.3,
+          "phase": "reentry-1",
+          "ms": 17.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16424,
+          "phase": "reentry-1",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16440.7,
+          "phase": "reentry-1",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16457.3,
+          "phase": "reentry-1",
+          "ms": 16.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16473,
+          "phase": "reentry-1",
+          "ms": 15.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16490.7,
+          "phase": "reentry-1",
+          "ms": 17.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16506.4,
+          "phase": "reentry-1",
+          "ms": 15.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16523.8,
+          "phase": "reentry-1",
+          "ms": 17.399999999997817,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16540.6,
+          "phase": "reentry-1",
+          "ms": 16.799999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16556.3,
+          "phase": "reentry-1",
+          "ms": 15.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16573.9,
+          "phase": "reentry-1",
+          "ms": 17.600000000002183,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16590.6,
+          "phase": "reentry-1",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16606.3,
+          "phase": "reentry-1",
+          "ms": 15.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16624,
+          "phase": "reentry-1",
+          "ms": 17.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16640.6,
+          "phase": "reentry-1",
+          "ms": 16.599999999998545,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 16657.3,
+          "phase": "reentry-1",
+          "ms": 16.700000000000728,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 16674,
+          "phase": "reentry-1",
+          "ms": 16.700000000000728,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 16690,
+          "phase": "reentry-1",
+          "ms": 16,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16707.3,
+          "phase": "reentry-1",
+          "ms": 17.299999999999272,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16723,
+          "phase": "reentry-1",
+          "ms": 15.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16740.2,
+          "phase": "reentry-1",
+          "ms": 17.200000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16757.3,
+          "phase": "reentry-1",
+          "ms": 17.099999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16773.8,
+          "phase": "reentry-1",
+          "ms": 16.5,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16790.6,
+          "phase": "reentry-1",
+          "ms": 16.799999999999272,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16806.4,
+          "phase": "reentry-1",
+          "ms": 15.80000000000291,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16823,
+          "phase": "reentry-1",
+          "ms": 16.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16840.1,
+          "phase": "reentry-1",
+          "ms": 17.099999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16857.3,
+          "phase": "reentry-1",
+          "ms": 17.200000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16873,
+          "phase": "reentry-1",
+          "ms": 15.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16890.6,
+          "phase": "reentry-1",
+          "ms": 17.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16907.3,
+          "phase": "reentry-1",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16924,
+          "phase": "reentry-1",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16939.6,
+          "phase": "reentry-1",
+          "ms": 15.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16957.3,
+          "phase": "reentry-1",
+          "ms": 17.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16973,
+          "phase": "reentry-1",
+          "ms": 15.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 16990.2,
+          "phase": "reentry-1",
+          "ms": 17.200000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 17007.3,
+          "phase": "reentry-1",
+          "ms": 17.099999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 17023.8,
+          "phase": "reentry-1",
+          "ms": 16.5,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 17040,
+          "phase": "reentry-1",
+          "ms": 16.200000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 17057.2,
+          "phase": "reentry-1",
+          "ms": 17.200000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 17074,
+          "phase": "reentry-1",
+          "ms": 16.799999999999272,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 17089.6,
+          "phase": "reentry-1",
+          "ms": 15.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 17107.3,
+          "phase": "reentry-1",
+          "ms": 17.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        }
+      ]
+    },
+    {
+      "cycle": 2,
+      "left": {
+        "alive": {
+          "Buffer": 0,
+          "Texture": 0,
+          "Program": 0,
+          "Framebuffer": 0,
+          "Renderbuffer": 0,
+          "VertexArray": 0,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 2,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+            "vendor": "Google Inc. (Apple)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 2,
+        "contextLosses": 2,
+        "rendererInfo": null,
+        "canvas": null,
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "leftHeap": {
+        "usedBytes": 7395188,
+        "totalBytes": 8519680,
+        "embedderHeapUsedBytes": 1261592,
+        "backingStorageBytes": 1154889
+      },
+      "entered": {
+        "alive": {
+          "Buffer": 73,
+          "Texture": 5,
+          "Program": 4,
+          "Framebuffer": 4,
+          "Renderbuffer": 1,
+          "VertexArray": 66,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 3,
+            "state": "active",
+            "generation": 0,
+            "losses": 0,
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+            "vendor": "Google Inc. (Apple)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 73,
+              "Texture": 5,
+              "Program": 4,
+              "Framebuffer": 4,
+              "Renderbuffer": 1,
+              "VertexArray": 66,
+              "Shader": 0
+            }
+          },
+          {
+            "id": 2,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+            "vendor": "Google Inc. (Apple)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 3,
+        "contextLosses": 2,
+        "rendererInfo": null,
+        "canvas": {
+          "cssWidth": 1022,
+          "cssHeight": 570,
+          "bufferWidth": 1021,
+          "bufferHeight": 570
+        },
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "enteredHeap": {
+        "usedBytes": 8482448,
+        "totalBytes": 9306112,
+        "embedderHeapUsedBytes": 1363904,
+        "backingStorageBytes": 5520677
+      },
+      "readiness": {
+        "primitiveVisibleMs": 150,
+        "heroReadyMs": 203,
+        "modelState": "ready"
+      },
+      "frames": {
+        "activeFrames": 74,
+        "idleFrames": 0,
+        "p50Ms": 16.69999999999709,
+        "p95Ms": 17.599999999998545,
+        "p95ReciprocalFps": 56.81818181818652,
+        "p50DrawCalls": 66,
+        "p95DrawCalls": 66,
+        "peakDrawCalls": 66,
+        "peakTriangles": 60754,
+        "interpretation": "Active requestAnimationFrame intervals with submitted GPU draws, not GPU timer-query duration or certified presented FPS. Counts include shadow/effect passes."
+      },
+      "trace": [
+        {
+          "atMs": 20224,
+          "phase": "reentry-2",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20240.5,
+          "phase": "reentry-2",
+          "ms": 16.5,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20257.3,
+          "phase": "reentry-2",
+          "ms": 16.799999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20273.9,
+          "phase": "reentry-2",
+          "ms": 16.600000000002183,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20290.6,
+          "phase": "reentry-2",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20306.8,
+          "phase": "reentry-2",
+          "ms": 16.200000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20323.2,
+          "phase": "reentry-2",
+          "ms": 16.400000000001455,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20339.7,
+          "phase": "reentry-2",
+          "ms": 16.5,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20357.2,
+          "phase": "reentry-2",
+          "ms": 17.5,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20374,
+          "phase": "reentry-2",
+          "ms": 16.799999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20390.6,
+          "phase": "reentry-2",
+          "ms": 16.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20407.3,
+          "phase": "reentry-2",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20423,
+          "phase": "reentry-2",
+          "ms": 15.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20440.6,
+          "phase": "reentry-2",
+          "ms": 17.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20456.4,
+          "phase": "reentry-2",
+          "ms": 15.80000000000291,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20474,
+          "phase": "reentry-2",
+          "ms": 17.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20489.8,
+          "phase": "reentry-2",
+          "ms": 15.799999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20506.3,
+          "phase": "reentry-2",
+          "ms": 16.5,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20523.9,
+          "phase": "reentry-2",
+          "ms": 17.600000000002183,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20540.6,
+          "phase": "reentry-2",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20557.3,
+          "phase": "reentry-2",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20574,
+          "phase": "reentry-2",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20590.6,
+          "phase": "reentry-2",
+          "ms": 16.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20607.3,
+          "phase": "reentry-2",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20623.7,
+          "phase": "reentry-2",
+          "ms": 16.400000000001455,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20640.6,
+          "phase": "reentry-2",
+          "ms": 16.899999999997817,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20657.3,
+          "phase": "reentry-2",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20673,
+          "phase": "reentry-2",
+          "ms": 15.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20690.4,
+          "phase": "reentry-2",
+          "ms": 17.400000000001455,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20707.2,
+          "phase": "reentry-2",
+          "ms": 16.799999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20723,
+          "phase": "reentry-2",
+          "ms": 15.799999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20740.6,
+          "phase": "reentry-2",
+          "ms": 17.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20757.3,
+          "phase": "reentry-2",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20773.9,
+          "phase": "reentry-2",
+          "ms": 16.600000000002183,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20790.6,
+          "phase": "reentry-2",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20807.2,
+          "phase": "reentry-2",
+          "ms": 16.600000000002183,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20823.9,
+          "phase": "reentry-2",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20839.6,
+          "phase": "reentry-2",
+          "ms": 15.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20856.7,
+          "phase": "reentry-2",
+          "ms": 17.100000000002183,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20873.7,
+          "phase": "reentry-2",
+          "ms": 17,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20890.4,
+          "phase": "reentry-2",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20907.2,
+          "phase": "reentry-2",
+          "ms": 16.799999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20924,
+          "phase": "reentry-2",
+          "ms": 16.799999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20940.6,
+          "phase": "reentry-2",
+          "ms": 16.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20957.3,
+          "phase": "reentry-2",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20974,
+          "phase": "reentry-2",
+          "ms": 16.700000000000728,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 20989.9,
+          "phase": "reentry-2",
+          "ms": 15.900000000001455,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 21006.4,
+          "phase": "reentry-2",
+          "ms": 16.5,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 21024,
+          "phase": "reentry-2",
+          "ms": 17.599999999998545,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 21039.7,
+          "phase": "reentry-2",
+          "ms": 15.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21057.3,
+          "phase": "reentry-2",
+          "ms": 17.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21073.4,
+          "phase": "reentry-2",
+          "ms": 16.100000000002183,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21090.6,
+          "phase": "reentry-2",
+          "ms": 17.19999999999709,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21107.2,
+          "phase": "reentry-2",
+          "ms": 16.600000000002183,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21124,
+          "phase": "reentry-2",
+          "ms": 16.799999999999272,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21140.6,
+          "phase": "reentry-2",
+          "ms": 16.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21157.3,
+          "phase": "reentry-2",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21173.9,
+          "phase": "reentry-2",
+          "ms": 16.600000000002183,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21189.6,
+          "phase": "reentry-2",
+          "ms": 15.69999999999709,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21206.4,
+          "phase": "reentry-2",
+          "ms": 16.80000000000291,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21224,
+          "phase": "reentry-2",
+          "ms": 17.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21240.6,
+          "phase": "reentry-2",
+          "ms": 16.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21257.3,
+          "phase": "reentry-2",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21273.9,
+          "phase": "reentry-2",
+          "ms": 16.600000000002183,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21290.6,
+          "phase": "reentry-2",
+          "ms": 16.69999999999709,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21306.5,
+          "phase": "reentry-2",
+          "ms": 15.900000000001455,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21323.9,
+          "phase": "reentry-2",
+          "ms": 17.400000000001455,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21340.4,
+          "phase": "reentry-2",
+          "ms": 16.5,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21356.2,
+          "phase": "reentry-2",
+          "ms": 15.799999999999272,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21372.9,
+          "phase": "reentry-2",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21389.6,
+          "phase": "reentry-2",
+          "ms": 16.69999999999709,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21407.3,
+          "phase": "reentry-2",
+          "ms": 17.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21423.9,
+          "phase": "reentry-2",
+          "ms": 16.600000000002183,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 21440.4,
+          "phase": "reentry-2",
+          "ms": 16.5,
+          "calls": 64,
+          "triangles": 60538
+        }
+      ]
+    },
+    {
+      "cycle": 3,
+      "left": {
+        "alive": {
+          "Buffer": 0,
+          "Texture": 0,
+          "Program": 0,
+          "Framebuffer": 0,
+          "Renderbuffer": 0,
+          "VertexArray": 0,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 3,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+            "vendor": "Google Inc. (Apple)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 3,
+        "contextLosses": 3,
+        "rendererInfo": null,
+        "canvas": null,
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "leftHeap": {
+        "usedBytes": 7520116,
+        "totalBytes": 8519680,
+        "embedderHeapUsedBytes": 1196544,
+        "backingStorageBytes": 1154889
+      },
+      "entered": {
+        "alive": {
+          "Buffer": 73,
+          "Texture": 5,
+          "Program": 4,
+          "Framebuffer": 4,
+          "Renderbuffer": 1,
+          "VertexArray": 66,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 4,
+            "state": "active",
+            "generation": 0,
+            "losses": 0,
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+            "vendor": "Google Inc. (Apple)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 73,
+              "Texture": 5,
+              "Program": 4,
+              "Framebuffer": 4,
+              "Renderbuffer": 1,
+              "VertexArray": 66,
+              "Shader": 0
+            }
+          },
+          {
+            "id": 3,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+            "vendor": "Google Inc. (Apple)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 4,
+        "contextLosses": 3,
+        "rendererInfo": null,
+        "canvas": {
+          "cssWidth": 1022,
+          "cssHeight": 570,
+          "bufferWidth": 1021,
+          "bufferHeight": 570
+        },
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "enteredHeap": {
+        "usedBytes": 8543080,
+        "totalBytes": 9306112,
+        "embedderHeapUsedBytes": 1107520,
+        "backingStorageBytes": 5520727
+      },
+      "readiness": {
+        "primitiveVisibleMs": 204,
+        "heroReadyMs": 238,
+        "modelState": "ready"
+      },
+      "frames": {
+        "activeFrames": 74,
+        "idleFrames": 0,
+        "p50Ms": 16.69999999999709,
+        "p95Ms": 17.299999999999272,
+        "p95ReciprocalFps": 57.80346820809492,
+        "p50DrawCalls": 66,
+        "p95DrawCalls": 66,
+        "peakDrawCalls": 66,
+        "peakTriangles": 60754,
+        "interpretation": "Active requestAnimationFrame intervals with submitted GPU draws, not GPU timer-query duration or certified presented FPS. Counts include shadow/effect passes."
+      },
+      "trace": [
+        {
+          "atMs": 24589.6,
+          "phase": "reentry-3",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24606.3,
+          "phase": "reentry-3",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24623.1,
+          "phase": "reentry-3",
+          "ms": 16.799999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24640.6,
+          "phase": "reentry-3",
+          "ms": 17.5,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24657.3,
+          "phase": "reentry-3",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24673.9,
+          "phase": "reentry-3",
+          "ms": 16.600000000002183,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24690.6,
+          "phase": "reentry-3",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24707.3,
+          "phase": "reentry-3",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24723.9,
+          "phase": "reentry-3",
+          "ms": 16.600000000002183,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24740.5,
+          "phase": "reentry-3",
+          "ms": 16.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24757.3,
+          "phase": "reentry-3",
+          "ms": 16.799999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24773.8,
+          "phase": "reentry-3",
+          "ms": 16.5,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24790.2,
+          "phase": "reentry-3",
+          "ms": 16.400000000001455,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24807.2,
+          "phase": "reentry-3",
+          "ms": 17,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24822.9,
+          "phase": "reentry-3",
+          "ms": 15.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24839.8,
+          "phase": "reentry-3",
+          "ms": 16.899999999997817,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24856.2,
+          "phase": "reentry-3",
+          "ms": 16.400000000001455,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24873.9,
+          "phase": "reentry-3",
+          "ms": 17.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24890.5,
+          "phase": "reentry-3",
+          "ms": 16.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24907.2,
+          "phase": "reentry-3",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24923.3,
+          "phase": "reentry-3",
+          "ms": 16.099999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24940.3,
+          "phase": "reentry-3",
+          "ms": 17,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24957.3,
+          "phase": "reentry-3",
+          "ms": 17,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24973.2,
+          "phase": "reentry-3",
+          "ms": 15.900000000001455,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 24990.2,
+          "phase": "reentry-3",
+          "ms": 17,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25007.3,
+          "phase": "reentry-3",
+          "ms": 17.099999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25023.8,
+          "phase": "reentry-3",
+          "ms": 16.5,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25040.5,
+          "phase": "reentry-3",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25056.2,
+          "phase": "reentry-3",
+          "ms": 15.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25073.3,
+          "phase": "reentry-3",
+          "ms": 17.099999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25090.6,
+          "phase": "reentry-3",
+          "ms": 17.299999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25107.2,
+          "phase": "reentry-3",
+          "ms": 16.600000000002183,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25123.9,
+          "phase": "reentry-3",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25139.8,
+          "phase": "reentry-3",
+          "ms": 15.899999999997817,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25156.2,
+          "phase": "reentry-3",
+          "ms": 16.400000000001455,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25173.9,
+          "phase": "reentry-3",
+          "ms": 17.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25190.1,
+          "phase": "reentry-3",
+          "ms": 16.19999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25207.2,
+          "phase": "reentry-3",
+          "ms": 17.100000000002183,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25223.9,
+          "phase": "reentry-3",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25240.6,
+          "phase": "reentry-3",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25257.2,
+          "phase": "reentry-3",
+          "ms": 16.600000000002183,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25273.9,
+          "phase": "reentry-3",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25290.6,
+          "phase": "reentry-3",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25306.9,
+          "phase": "reentry-3",
+          "ms": 16.30000000000291,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25323.9,
+          "phase": "reentry-3",
+          "ms": 17,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25340.6,
+          "phase": "reentry-3",
+          "ms": 16.69999999999709,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 25357.3,
+          "phase": "reentry-3",
+          "ms": 16.700000000000728,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 25373.9,
+          "phase": "reentry-3",
+          "ms": 16.600000000002183,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 25390.6,
+          "phase": "reentry-3",
+          "ms": 16.69999999999709,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 25407.2,
+          "phase": "reentry-3",
+          "ms": 16.600000000002183,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25423.9,
+          "phase": "reentry-3",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25440.6,
+          "phase": "reentry-3",
+          "ms": 16.69999999999709,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25457.3,
+          "phase": "reentry-3",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25473.9,
+          "phase": "reentry-3",
+          "ms": 16.600000000002183,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25490.5,
+          "phase": "reentry-3",
+          "ms": 16.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25507.2,
+          "phase": "reentry-3",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25523.9,
+          "phase": "reentry-3",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25540.4,
+          "phase": "reentry-3",
+          "ms": 16.5,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25557.2,
+          "phase": "reentry-3",
+          "ms": 16.799999999999272,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25573.9,
+          "phase": "reentry-3",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25590.5,
+          "phase": "reentry-3",
+          "ms": 16.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25607.3,
+          "phase": "reentry-3",
+          "ms": 16.799999999999272,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25623.9,
+          "phase": "reentry-3",
+          "ms": 16.600000000002183,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25640.6,
+          "phase": "reentry-3",
+          "ms": 16.69999999999709,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25657.2,
+          "phase": "reentry-3",
+          "ms": 16.600000000002183,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25673.9,
+          "phase": "reentry-3",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25689.6,
+          "phase": "reentry-3",
+          "ms": 15.69999999999709,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25707.3,
+          "phase": "reentry-3",
+          "ms": 17.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25723.5,
+          "phase": "reentry-3",
+          "ms": 16.200000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25740.6,
+          "phase": "reentry-3",
+          "ms": 17.099999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25757.3,
+          "phase": "reentry-3",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25773.9,
+          "phase": "reentry-3",
+          "ms": 16.600000000002183,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25790.5,
+          "phase": "reentry-3",
+          "ms": 16.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 25806.6,
+          "phase": "reentry-3",
+          "ms": 16.099999999998545,
+          "calls": 64,
+          "triangles": 60538
+        }
+      ]
+    },
+    {
+      "cycle": 4,
+      "left": {
+        "alive": {
+          "Buffer": 0,
+          "Texture": 0,
+          "Program": 0,
+          "Framebuffer": 0,
+          "Renderbuffer": 0,
+          "VertexArray": 0,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 4,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+            "vendor": "Google Inc. (Apple)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 4,
+        "contextLosses": 4,
+        "rendererInfo": null,
+        "canvas": null,
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "leftHeap": {
+        "usedBytes": 7638316,
+        "totalBytes": 8519680,
+        "embedderHeapUsedBytes": 985888,
+        "backingStorageBytes": 1154889
+      },
+      "entered": {
+        "alive": {
+          "Buffer": 73,
+          "Texture": 5,
+          "Program": 4,
+          "Framebuffer": 4,
+          "Renderbuffer": 1,
+          "VertexArray": 66,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 5,
+            "state": "active",
+            "generation": 0,
+            "losses": 0,
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+            "vendor": "Google Inc. (Apple)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 73,
+              "Texture": 5,
+              "Program": 4,
+              "Framebuffer": 4,
+              "Renderbuffer": 1,
+              "VertexArray": 66,
+              "Shader": 0
+            }
+          },
+          {
+            "id": 4,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+            "vendor": "Google Inc. (Apple)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 5,
+        "contextLosses": 4,
+        "rendererInfo": null,
+        "canvas": {
+          "cssWidth": 1022,
+          "cssHeight": 570,
+          "bufferWidth": 1021,
+          "bufferHeight": 570
+        },
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "enteredHeap": {
+        "usedBytes": 8702184,
+        "totalBytes": 9830400,
+        "embedderHeapUsedBytes": 1269864,
+        "backingStorageBytes": 5520727
+      },
+      "readiness": {
+        "primitiveVisibleMs": 219,
+        "heroReadyMs": 250,
+        "modelState": "ready"
+      },
+      "frames": {
+        "activeFrames": 74,
+        "idleFrames": 0,
+        "p50Ms": 16.700000000000728,
+        "p95Ms": 17.5,
+        "p95ReciprocalFps": 57.142857142857146,
+        "p50DrawCalls": 66,
+        "p95DrawCalls": 66,
+        "peakDrawCalls": 66,
+        "peakTriangles": 60754,
+        "interpretation": "Active requestAnimationFrame intervals with submitted GPU draws, not GPU timer-query duration or certified presented FPS. Counts include shadow/effect passes."
+      },
+      "trace": [
+        {
+          "atMs": 28957.2,
+          "phase": "reentry-4",
+          "ms": 16.600000000002183,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 28973.9,
+          "phase": "reentry-4",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 28989.9,
+          "phase": "reentry-4",
+          "ms": 16,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29006.9,
+          "phase": "reentry-4",
+          "ms": 17,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29023.9,
+          "phase": "reentry-4",
+          "ms": 17,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29040.2,
+          "phase": "reentry-4",
+          "ms": 16.299999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29056.6,
+          "phase": "reentry-4",
+          "ms": 16.399999999997817,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29073.4,
+          "phase": "reentry-4",
+          "ms": 16.80000000000291,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29090.1,
+          "phase": "reentry-4",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29107,
+          "phase": "reentry-4",
+          "ms": 16.900000000001455,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29123.9,
+          "phase": "reentry-4",
+          "ms": 16.900000000001455,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29140.2,
+          "phase": "reentry-4",
+          "ms": 16.299999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29157.2,
+          "phase": "reentry-4",
+          "ms": 17,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29173.9,
+          "phase": "reentry-4",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29190.3,
+          "phase": "reentry-4",
+          "ms": 16.399999999997817,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29206.2,
+          "phase": "reentry-4",
+          "ms": 15.900000000001455,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29223.9,
+          "phase": "reentry-4",
+          "ms": 17.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29239.6,
+          "phase": "reentry-4",
+          "ms": 15.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29256.3,
+          "phase": "reentry-4",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29273.8,
+          "phase": "reentry-4",
+          "ms": 17.5,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29290.6,
+          "phase": "reentry-4",
+          "ms": 16.799999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29306.9,
+          "phase": "reentry-4",
+          "ms": 16.30000000000291,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29323.9,
+          "phase": "reentry-4",
+          "ms": 17,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29340.6,
+          "phase": "reentry-4",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29356.2,
+          "phase": "reentry-4",
+          "ms": 15.600000000002183,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29372.9,
+          "phase": "reentry-4",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29390.5,
+          "phase": "reentry-4",
+          "ms": 17.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29406.5,
+          "phase": "reentry-4",
+          "ms": 16,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29423.9,
+          "phase": "reentry-4",
+          "ms": 17.400000000001455,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29440.3,
+          "phase": "reentry-4",
+          "ms": 16.399999999997817,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29456.3,
+          "phase": "reentry-4",
+          "ms": 16,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29473.9,
+          "phase": "reentry-4",
+          "ms": 17.600000000002183,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29490.2,
+          "phase": "reentry-4",
+          "ms": 16.299999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29506.9,
+          "phase": "reentry-4",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29523.8,
+          "phase": "reentry-4",
+          "ms": 16.899999999997817,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29540.6,
+          "phase": "reentry-4",
+          "ms": 16.799999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29556.3,
+          "phase": "reentry-4",
+          "ms": 15.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29573.1,
+          "phase": "reentry-4",
+          "ms": 16.799999999999272,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29590.6,
+          "phase": "reentry-4",
+          "ms": 17.5,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29607.3,
+          "phase": "reentry-4",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29623.9,
+          "phase": "reentry-4",
+          "ms": 16.600000000002183,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29640.6,
+          "phase": "reentry-4",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29656.9,
+          "phase": "reentry-4",
+          "ms": 16.30000000000291,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29673.9,
+          "phase": "reentry-4",
+          "ms": 17,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29690.5,
+          "phase": "reentry-4",
+          "ms": 16.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29707,
+          "phase": "reentry-4",
+          "ms": 16.5,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 29723.9,
+          "phase": "reentry-4",
+          "ms": 16.900000000001455,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 29740.2,
+          "phase": "reentry-4",
+          "ms": 16.299999999999272,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 29757.2,
+          "phase": "reentry-4",
+          "ms": 17,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 29773.9,
+          "phase": "reentry-4",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 29790.4,
+          "phase": "reentry-4",
+          "ms": 16.5,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 29807.2,
+          "phase": "reentry-4",
+          "ms": 16.799999999999272,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 29823.9,
+          "phase": "reentry-4",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 29839.5,
+          "phase": "reentry-4",
+          "ms": 15.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 29857.2,
+          "phase": "reentry-4",
+          "ms": 17.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 29873.8,
+          "phase": "reentry-4",
+          "ms": 16.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 29890.5,
+          "phase": "reentry-4",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 29906.9,
+          "phase": "reentry-4",
+          "ms": 16.400000000001455,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 29923.9,
+          "phase": "reentry-4",
+          "ms": 17,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 29940.6,
+          "phase": "reentry-4",
+          "ms": 16.69999999999709,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 29957.3,
+          "phase": "reentry-4",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 29973.9,
+          "phase": "reentry-4",
+          "ms": 16.600000000002183,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 29990.5,
+          "phase": "reentry-4",
+          "ms": 16.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 30007.2,
+          "phase": "reentry-4",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 30023.9,
+          "phase": "reentry-4",
+          "ms": 16.700000000000728,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 30039.5,
+          "phase": "reentry-4",
+          "ms": 15.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 30056.5,
+          "phase": "reentry-4",
+          "ms": 17,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 30073.9,
+          "phase": "reentry-4",
+          "ms": 17.400000000001455,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 30090.5,
+          "phase": "reentry-4",
+          "ms": 16.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 30107.3,
+          "phase": "reentry-4",
+          "ms": 16.799999999999272,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 30123.7,
+          "phase": "reentry-4",
+          "ms": 16.400000000001455,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 30140.5,
+          "phase": "reentry-4",
+          "ms": 16.799999999999272,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 30157.3,
+          "phase": "reentry-4",
+          "ms": 16.799999999999272,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 30173.2,
+          "phase": "reentry-4",
+          "ms": 15.900000000001455,
+          "calls": 64,
+          "triangles": 60538
+        }
+      ]
+    },
+    {
+      "cycle": 5,
+      "left": {
+        "alive": {
+          "Buffer": 0,
+          "Texture": 0,
+          "Program": 0,
+          "Framebuffer": 0,
+          "Renderbuffer": 0,
+          "VertexArray": 0,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 5,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+            "vendor": "Google Inc. (Apple)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 5,
+        "contextLosses": 5,
+        "rendererInfo": null,
+        "canvas": null,
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "leftHeap": {
+        "usedBytes": 7762612,
+        "totalBytes": 8781824,
+        "embedderHeapUsedBytes": 987328,
+        "backingStorageBytes": 1154889
+      },
+      "entered": {
+        "alive": {
+          "Buffer": 73,
+          "Texture": 5,
+          "Program": 4,
+          "Framebuffer": 4,
+          "Renderbuffer": 1,
+          "VertexArray": 66,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 6,
+            "state": "active",
+            "generation": 0,
+            "losses": 0,
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+            "vendor": "Google Inc. (Apple)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 73,
+              "Texture": 5,
+              "Program": 4,
+              "Framebuffer": 4,
+              "Renderbuffer": 1,
+              "VertexArray": 66,
+              "Shader": 0
+            }
+          },
+          {
+            "id": 5,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+            "vendor": "Google Inc. (Apple)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 6,
+        "contextLosses": 5,
+        "rendererInfo": null,
+        "canvas": {
+          "cssWidth": 1022,
+          "cssHeight": 570,
+          "bufferWidth": 1021,
+          "bufferHeight": 570
+        },
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "enteredHeap": {
+        "usedBytes": 8748856,
+        "totalBytes": 9830400,
+        "embedderHeapUsedBytes": 1304216,
+        "backingStorageBytes": 5520727
+      },
+      "readiness": {
+        "primitiveVisibleMs": 240,
+        "heroReadyMs": 269,
+        "modelState": "ready"
+      },
+      "frames": {
+        "activeFrames": 74,
+        "idleFrames": 0,
+        "p50Ms": 16.69999999999709,
+        "p95Ms": 17.69999999999709,
+        "p95ReciprocalFps": 56.49717514125223,
+        "p50DrawCalls": 66,
+        "p95DrawCalls": 66,
+        "peakDrawCalls": 66,
+        "peakTriangles": 60754,
+        "interpretation": "Active requestAnimationFrame intervals with submitted GPU draws, not GPU timer-query duration or certified presented FPS. Counts include shadow/effect passes."
+      },
+      "trace": [
+        {
+          "atMs": 33356.3,
+          "phase": "reentry-5",
+          "ms": 15.700000000004366,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33373.8,
+          "phase": "reentry-5",
+          "ms": 17.5,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33390.6,
+          "phase": "reentry-5",
+          "ms": 16.799999999995634,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33407.2,
+          "phase": "reentry-5",
+          "ms": 16.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33423.9,
+          "phase": "reentry-5",
+          "ms": 16.700000000004366,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33440.5,
+          "phase": "reentry-5",
+          "ms": 16.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33457.2,
+          "phase": "reentry-5",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33473.8,
+          "phase": "reentry-5",
+          "ms": 16.60000000000582,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33490.6,
+          "phase": "reentry-5",
+          "ms": 16.799999999995634,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33506.2,
+          "phase": "reentry-5",
+          "ms": 15.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33523.9,
+          "phase": "reentry-5",
+          "ms": 17.700000000004366,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33540.5,
+          "phase": "reentry-5",
+          "ms": 16.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33557.2,
+          "phase": "reentry-5",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33573.9,
+          "phase": "reentry-5",
+          "ms": 16.700000000004366,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33590.5,
+          "phase": "reentry-5",
+          "ms": 16.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33607.2,
+          "phase": "reentry-5",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33623.9,
+          "phase": "reentry-5",
+          "ms": 16.700000000004366,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33640.5,
+          "phase": "reentry-5",
+          "ms": 16.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33657.2,
+          "phase": "reentry-5",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33673.8,
+          "phase": "reentry-5",
+          "ms": 16.60000000000582,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33690.5,
+          "phase": "reentry-5",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33707.2,
+          "phase": "reentry-5",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33723.8,
+          "phase": "reentry-5",
+          "ms": 16.60000000000582,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33740.6,
+          "phase": "reentry-5",
+          "ms": 16.799999999995634,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33757.2,
+          "phase": "reentry-5",
+          "ms": 16.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33773.8,
+          "phase": "reentry-5",
+          "ms": 16.60000000000582,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33790.5,
+          "phase": "reentry-5",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33807.2,
+          "phase": "reentry-5",
+          "ms": 16.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33823.4,
+          "phase": "reentry-5",
+          "ms": 16.200000000004366,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33840.2,
+          "phase": "reentry-5",
+          "ms": 16.799999999995634,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33856.3,
+          "phase": "reentry-5",
+          "ms": 16.10000000000582,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33873.8,
+          "phase": "reentry-5",
+          "ms": 17.5,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33889.7,
+          "phase": "reentry-5",
+          "ms": 15.89999999999418,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33906.4,
+          "phase": "reentry-5",
+          "ms": 16.700000000004366,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33922.9,
+          "phase": "reentry-5",
+          "ms": 16.5,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33940.6,
+          "phase": "reentry-5",
+          "ms": 17.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33957.2,
+          "phase": "reentry-5",
+          "ms": 16.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33973.9,
+          "phase": "reentry-5",
+          "ms": 16.700000000004366,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 33990.5,
+          "phase": "reentry-5",
+          "ms": 16.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 34006.2,
+          "phase": "reentry-5",
+          "ms": 15.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 34023.9,
+          "phase": "reentry-5",
+          "ms": 17.700000000004366,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 34039.5,
+          "phase": "reentry-5",
+          "ms": 15.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 34057.2,
+          "phase": "reentry-5",
+          "ms": 17.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 34073.8,
+          "phase": "reentry-5",
+          "ms": 16.60000000000582,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 34089.6,
+          "phase": "reentry-5",
+          "ms": 15.799999999995634,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 34107.2,
+          "phase": "reentry-5",
+          "ms": 17.599999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 34123.9,
+          "phase": "reentry-5",
+          "ms": 16.700000000004366,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 34140.6,
+          "phase": "reentry-5",
+          "ms": 16.69999999999709,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 34157.2,
+          "phase": "reentry-5",
+          "ms": 16.599999999998545,
+          "calls": 65,
+          "triangles": 60610
+        },
+        {
+          "atMs": 34172.9,
+          "phase": "reentry-5",
+          "ms": 15.700000000004366,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34190.6,
+          "phase": "reentry-5",
+          "ms": 17.69999999999709,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34206.9,
+          "phase": "reentry-5",
+          "ms": 16.30000000000291,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34222.9,
+          "phase": "reentry-5",
+          "ms": 16,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34240.2,
+          "phase": "reentry-5",
+          "ms": 17.299999999995634,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34257.2,
+          "phase": "reentry-5",
+          "ms": 17,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34273.8,
+          "phase": "reentry-5",
+          "ms": 16.60000000000582,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34290.4,
+          "phase": "reentry-5",
+          "ms": 16.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34307.2,
+          "phase": "reentry-5",
+          "ms": 16.799999999995634,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34323.4,
+          "phase": "reentry-5",
+          "ms": 16.200000000004366,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34340.5,
+          "phase": "reentry-5",
+          "ms": 17.099999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34357.2,
+          "phase": "reentry-5",
+          "ms": 16.69999999999709,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34373.2,
+          "phase": "reentry-5",
+          "ms": 16,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34389.7,
+          "phase": "reentry-5",
+          "ms": 16.5,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34407.2,
+          "phase": "reentry-5",
+          "ms": 17.5,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34423.9,
+          "phase": "reentry-5",
+          "ms": 16.700000000004366,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34439.6,
+          "phase": "reentry-5",
+          "ms": 15.69999999999709,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34457.2,
+          "phase": "reentry-5",
+          "ms": 17.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34472.9,
+          "phase": "reentry-5",
+          "ms": 15.700000000004366,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34490.5,
+          "phase": "reentry-5",
+          "ms": 17.599999999998545,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34506.7,
+          "phase": "reentry-5",
+          "ms": 16.19999999999709,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34523.8,
+          "phase": "reentry-5",
+          "ms": 17.10000000000582,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34540.5,
+          "phase": "reentry-5",
+          "ms": 16.69999999999709,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34557.2,
+          "phase": "reentry-5",
+          "ms": 16.69999999999709,
+          "calls": 64,
+          "triangles": 60538
+        },
+        {
+          "atMs": 34573.3,
+          "phase": "reentry-5",
+          "ms": 16.10000000000582,
+          "calls": 64,
+          "triangles": 60538
+        }
+      ]
+    }
+  ],
+  "reload": {
+    "readiness": {
+      "primitiveVisibleMs": 844,
+      "heroReadyMs": 879,
+      "modelState": "ready"
+    },
+    "snapshot": {
+      "alive": {
+        "Buffer": 73,
+        "Texture": 5,
+        "Program": 4,
+        "Framebuffer": 4,
+        "Renderbuffer": 1,
+        "VertexArray": 66,
+        "Shader": 0
+      },
+      "contexts": [
+        {
+          "id": 1,
+          "state": "active",
+          "generation": 0,
+          "losses": 0,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+          "vendor": "Google Inc. (Apple)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+          "alive": {
+            "Buffer": 73,
+            "Texture": 5,
+            "Program": 4,
+            "Framebuffer": 4,
+            "Renderbuffer": 1,
+            "VertexArray": 66,
+            "Shader": 0
+          }
+        }
+      ],
+      "contextsCreated": 1,
+      "contextLosses": 0,
+      "rendererInfo": null,
+      "canvas": {
+        "cssWidth": 1022,
+        "cssHeight": 570,
+        "bufferWidth": 1021,
+        "bufferHeight": 570
+      },
+      "maxTextureWidth": 1024,
+      "maxTextureHeight": 1024,
+      "visibility": "visible"
+    },
+    "landingResources": [
+      {
+        "name": "/assets/index-DslJ92u5.js",
+        "startTime": 11.699999809265137,
+        "duration": 2.700000286102295,
+        "initiatorType": "script",
+        "encodedBodySize": 64819,
+        "decodedBodySize": 204820,
+        "transferSize": 300
+      },
+      {
+        "name": "/assets/index-cjlWijSz.css",
+        "startTime": 11.800000190734863,
+        "duration": 2.799999713897705,
+        "initiatorType": "link",
+        "encodedBodySize": 2235,
+        "decodedBodySize": 7165,
+        "transferSize": 300
+      }
+    ],
+    "resources": [
+      {
+        "name": "/assets/index-DslJ92u5.js",
+        "startTime": 11.699999809265137,
+        "duration": 2.700000286102295,
+        "initiatorType": "script",
+        "encodedBodySize": 64819,
+        "decodedBodySize": 204820,
+        "transferSize": 300
+      },
+      {
+        "name": "/assets/index-cjlWijSz.css",
+        "startTime": 11.800000190734863,
+        "duration": 2.799999713897705,
+        "initiatorType": "link",
+        "encodedBodySize": 2235,
+        "decodedBodySize": 7165,
+        "transferSize": 300
+      },
+      {
+        "name": "/assets/WorldExperience-PF56WdxG.js",
+        "startTime": 622.3000001907349,
+        "duration": 4.399999618530273,
+        "initiatorType": "script",
+        "encodedBodySize": 253587,
+        "decodedBodySize": 931921,
+        "transferSize": 300
+      },
+      {
+        "name": "/models/pittsburgh-1892.glb",
+        "startTime": 1056.1999998092651,
+        "duration": 5.700000286102295,
+        "initiatorType": "fetch",
+        "encodedBodySize": 2192436,
+        "decodedBodySize": 2192436,
+        "transferSize": 300
+      }
+    ]
+  },
+  "network": [
+    {
+      "id": "6934875C75F368482C0C1DFBEB79A92F",
+      "phase": "landing",
+      "url": "http://127.0.0.1:4181/?profile=1",
+      "method": "GET",
+      "networkStatus": 200,
+      "status": 200,
+      "mimeType": "text/html",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "etag": null,
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 844
+    },
+    {
+      "id": "38518.2",
+      "phase": "landing",
+      "url": "http://127.0.0.1:4181/assets/index-DslJ92u5.js",
+      "method": "GET",
+      "networkStatus": 200,
+      "status": 200,
+      "mimeType": "text/javascript",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "etag": "W/\"204820-1789180463156\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 65226
+    },
+    {
+      "id": "38518.3",
+      "phase": "landing",
+      "url": "http://127.0.0.1:4181/assets/index-cjlWijSz.css",
+      "method": "GET",
+      "networkStatus": 200,
+      "status": 200,
+      "mimeType": "text/css",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "etag": "W/\"7165-1789180463156\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 2598
+    },
+    {
+      "id": "38518.6",
+      "phase": "landing",
+      "url": "http://127.0.0.1:4181/favicon.ico",
+      "method": "GET",
+      "networkStatus": 404,
+      "status": 404,
+      "mimeType": "text/plain",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "etag": null,
+        "cacheControl": null
+      },
+      "completed": true,
+      "encodedTransferBytes": 157
+    },
+    {
+      "id": "38518.7",
+      "phase": "first-world",
+      "url": "http://127.0.0.1:4181/assets/WorldExperience-PF56WdxG.js",
+      "method": "GET",
+      "networkStatus": 200,
+      "status": 200,
+      "mimeType": "text/javascript",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "etag": "W/\"931921-1789180463157\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 254155
+    },
+    {
+      "id": "38518.8",
+      "phase": "first-world",
+      "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+      "method": "GET",
+      "networkStatus": 200,
+      "status": 200,
+      "mimeType": "model/gltf-binary",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "etag": "W/\"2192436-1789180463150\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 2192715
+    },
+    {
+      "id": "38518.9",
+      "phase": "reentry-1",
+      "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+      "method": "GET",
+      "networkStatus": 304,
+      "status": 200,
+      "mimeType": "model/gltf-binary",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "etag": "W/\"2192436-1789180463150\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 127
+    },
+    {
+      "id": "38518.10",
+      "phase": "reentry-2",
+      "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+      "method": "GET",
+      "networkStatus": 304,
+      "status": 200,
+      "mimeType": "model/gltf-binary",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "etag": "W/\"2192436-1789180463150\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 127
+    },
+    {
+      "id": "38518.11",
+      "phase": "reentry-3",
+      "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+      "method": "GET",
+      "networkStatus": 304,
+      "status": 200,
+      "mimeType": "model/gltf-binary",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "etag": "W/\"2192436-1789180463150\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 127
+    },
+    {
+      "id": "38518.12",
+      "phase": "reentry-4",
+      "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+      "method": "GET",
+      "networkStatus": 304,
+      "status": 200,
+      "mimeType": "model/gltf-binary",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "etag": "W/\"2192436-1789180463150\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 127
+    },
+    {
+      "id": "38518.13",
+      "phase": "reentry-5",
+      "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+      "method": "GET",
+      "networkStatus": 304,
+      "status": 200,
+      "mimeType": "model/gltf-binary",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "etag": "W/\"2192436-1789180463150\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 127
+    },
+    {
+      "id": "A89F65A8152C7679C1FAA87CA6C206A8",
+      "phase": "reload-landing",
+      "url": "http://127.0.0.1:4181/?profile=1",
+      "method": "GET",
+      "networkStatus": 304,
+      "status": 200,
+      "mimeType": "text/html",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "etag": null,
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 127
+    },
+    {
+      "id": "38518.15",
+      "phase": "reload-landing",
+      "url": "http://127.0.0.1:4181/assets/index-DslJ92u5.js",
+      "method": "GET",
+      "networkStatus": 304,
+      "status": 200,
+      "mimeType": "text/javascript",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "etag": "W/\"204820-1789180463156\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 179
+    },
+    {
+      "id": "38518.16",
+      "phase": "reload-landing",
+      "url": "http://127.0.0.1:4181/assets/index-cjlWijSz.css",
+      "method": "GET",
+      "status": 200,
+      "mimeType": "text/css",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "etag": "W/\"7165-1789180463156\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 179,
+      "networkStatus": 304
+    },
+    {
+      "id": "38518.19",
+      "phase": "reload-world",
+      "url": "http://127.0.0.1:4181/assets/WorldExperience-PF56WdxG.js",
+      "method": "GET",
+      "networkStatus": 304,
+      "status": 200,
+      "mimeType": "text/javascript",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "etag": "W/\"931921-1789180463157\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 179
+    },
+    {
+      "id": "38518.20",
+      "phase": "reload-world",
+      "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+      "method": "GET",
+      "networkStatus": 304,
+      "status": 200,
+      "mimeType": "model/gltf-binary",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "etag": "W/\"2192436-1789180463150\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 127
+    }
+  ],
+  "networkPhases": [
+    {
+      "phase": "first-world",
+      "completedModelRequests": 1,
+      "models": [
+        {
+          "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+          "status": 200,
+          "networkStatus": 200,
+          "cache": false,
+          "transferBytes": 2192715,
+          "cancelled": false
+        }
+      ]
+    },
+    {
+      "phase": "reentry-1",
+      "completedModelRequests": 1,
+      "models": [
+        {
+          "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+          "status": 200,
+          "networkStatus": 304,
+          "cache": true,
+          "transferBytes": 127,
+          "cancelled": false
+        }
+      ]
+    },
+    {
+      "phase": "reentry-2",
+      "completedModelRequests": 1,
+      "models": [
+        {
+          "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+          "status": 200,
+          "networkStatus": 304,
+          "cache": true,
+          "transferBytes": 127,
+          "cancelled": false
+        }
+      ]
+    },
+    {
+      "phase": "reentry-3",
+      "completedModelRequests": 1,
+      "models": [
+        {
+          "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+          "status": 200,
+          "networkStatus": 304,
+          "cache": true,
+          "transferBytes": 127,
+          "cancelled": false
+        }
+      ]
+    },
+    {
+      "phase": "reentry-4",
+      "completedModelRequests": 1,
+      "models": [
+        {
+          "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+          "status": 200,
+          "networkStatus": 304,
+          "cache": true,
+          "transferBytes": 127,
+          "cancelled": false
+        }
+      ]
+    },
+    {
+      "phase": "reentry-5",
+      "completedModelRequests": 1,
+      "models": [
+        {
+          "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+          "status": 200,
+          "networkStatus": 304,
+          "cache": true,
+          "transferBytes": 127,
+          "cancelled": false
+        }
+      ]
+    },
+    {
+      "phase": "reload-world",
+      "completedModelRequests": 1,
+      "models": [
+        {
+          "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+          "status": 200,
+          "networkStatus": 304,
+          "cache": true,
+          "transferBytes": 127,
+          "cancelled": false
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "checks": [
+    {
+      "name": "No uncaught page errors",
+      "status": "pass",
+      "details": []
+    },
+    {
+      "name": "Heavy model stays out of landing",
+      "status": "pass",
+      "details": {
+        "javascript": {
+          "requests": 1,
+          "encodedBytes": 64819,
+          "decodedBytes": 204820,
+          "transferBytes": 65119
+        },
+        "styles": {
+          "requests": 1,
+          "encodedBytes": 2235,
+          "decodedBytes": 7165,
+          "transferBytes": 2535
+        },
+        "other": {
+          "requests": 1,
+          "encodedBytes": 0,
+          "decodedBytes": 0,
+          "transferBytes": 300
+        }
+      }
+    },
+    {
+      "name": "Actual renderer diagnostics available",
+      "status": "review",
+      "details": "Mount SceneDiagnostics under Canvas and use ?profile=1."
+    },
+    {
+      "name": "Active interaction frames captured",
+      "status": "pass",
+      "details": "376 active frames; three POI transitions and a settled scene."
+    },
+    {
+      "name": "World GPU handles released after each leave",
+      "status": "pass",
+      "details": "Every cycle returned to the pre-world live-handle counts after context disposal. These are API handles, not measured GPU-resident bytes."
+    },
+    {
+      "name": "Entered GPU handles plateau after warmup",
+      "status": "pass",
+      "details": {
+        "cycles": "2–5",
+        "countSpread": {
+          "Buffer": 0,
+          "Texture": 0,
+          "Program": 0,
+          "Framebuffer": 0,
+          "Renderbuffer": 0,
+          "VertexArray": 0,
+          "Shader": 0
+        },
+        "tolerance": 0
+      }
+    },
+    {
+      "name": "Post-GC heap after leave is stable",
+      "status": "fail",
+      "details": {
+        "cycles": "2–5",
+        "heaps": [7395188, 7520116, 7638316, 7762612],
+        "growthBytes": 367424,
+        "spreadBytes": 367424,
+        "strictlyIncreasing": true,
+        "observationToleranceBytes": 262144,
+        "note": "256 KiB or 2% allows snapshot/scheduler noise. Any monotonic growth requires review even below tolerance; exceeding it while monotonic fails. This is JS heap, not total browser or GPU memory."
+      }
+    },
+    {
+      "name": "One completed GLB request per model entry",
+      "status": "pass",
+      "details": [
+        {
+          "phase": "first-world",
+          "completedModelRequests": 1,
+          "models": [
+            {
+              "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+              "status": 200,
+              "networkStatus": 200,
+              "cache": false,
+              "transferBytes": 2192715,
+              "cancelled": false
+            }
+          ]
+        },
+        {
+          "phase": "reentry-1",
+          "completedModelRequests": 1,
+          "models": [
+            {
+              "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+              "status": 200,
+              "networkStatus": 304,
+              "cache": true,
+              "transferBytes": 127,
+              "cancelled": false
+            }
+          ]
+        },
+        {
+          "phase": "reentry-2",
+          "completedModelRequests": 1,
+          "models": [
+            {
+              "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+              "status": 200,
+              "networkStatus": 304,
+              "cache": true,
+              "transferBytes": 127,
+              "cancelled": false
+            }
+          ]
+        },
+        {
+          "phase": "reentry-3",
+          "completedModelRequests": 1,
+          "models": [
+            {
+              "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+              "status": 200,
+              "networkStatus": 304,
+              "cache": true,
+              "transferBytes": 127,
+              "cancelled": false
+            }
+          ]
+        },
+        {
+          "phase": "reentry-4",
+          "completedModelRequests": 1,
+          "models": [
+            {
+              "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+              "status": 200,
+              "networkStatus": 304,
+              "cache": true,
+              "transferBytes": 127,
+              "cancelled": false
+            }
+          ]
+        },
+        {
+          "phase": "reentry-5",
+          "completedModelRequests": 1,
+          "models": [
+            {
+              "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+              "status": 200,
+              "networkStatus": 304,
+              "cache": true,
+              "transferBytes": 127,
+              "cancelled": false
+            }
+          ]
+        },
+        {
+          "phase": "reload-world",
+          "completedModelRequests": 1,
+          "models": [
+            {
+              "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+              "status": 200,
+              "networkStatus": 304,
+              "cache": true,
+              "transferBytes": 127,
+              "cancelled": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Re-entry/reload cache behavior observed",
+      "status": "pass",
+      "details": {
+        "requests": [
+          {
+            "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+            "status": 200,
+            "networkStatus": 304,
+            "cache": true,
+            "transferBytes": 127,
+            "cancelled": false
+          },
+          {
+            "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+            "status": 200,
+            "networkStatus": 304,
+            "cache": true,
+            "transferBytes": 127,
+            "cancelled": false
+          },
+          {
+            "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+            "status": 200,
+            "networkStatus": 304,
+            "cache": true,
+            "transferBytes": 127,
+            "cancelled": false
+          },
+          {
+            "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+            "status": 200,
+            "networkStatus": 304,
+            "cache": true,
+            "transferBytes": 127,
+            "cancelled": false
+          },
+          {
+            "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+            "status": 200,
+            "networkStatus": 304,
+            "cache": true,
+            "transferBytes": 127,
+            "cancelled": false
+          },
+          {
+            "url": "http://127.0.0.1:4181/models/pittsburgh-1892.glb",
+            "status": 200,
+            "networkStatus": 304,
+            "cache": true,
+            "transferBytes": 127,
+            "cancelled": false
+          }
+        ],
+        "note": "Disk/memory-cache hits or HTTP 304 revalidation count as cache reuse. Full 200 transfers on every repeat require review of actual server headers. No cache hit is inferred from a repeated URL alone."
+      }
+    },
+    {
+      "name": "Reload returns the same renderer allocation counts",
+      "status": "not-measured",
+      "details": {}
+    },
+    {
+      "name": "No unexpected failed network requests",
+      "status": "pass",
+      "details": []
+    },
+    {
+      "name": "Requested GPU backend matches observed renderer",
+      "status": "pass",
+      "details": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)"
+    },
+    {
+      "name": "Physical mobile FPS certification",
+      "status": "not-measured",
+      "details": "Mobile viewport/touch emulation is not a representative physical mobile device."
+    },
+    {
+      "name": "Agreed laptop 45+ FPS target",
+      "status": "pass",
+      "details": "Active-frame p95 17.60ms on the reported GPU; browser scheduling proxy, not a GPU timer."
+    }
+  ]
+}

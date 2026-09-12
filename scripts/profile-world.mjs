@@ -16,6 +16,7 @@ Options: PROFILE_DIST=dist, PROFILE_BACKEND=software|hardware, PROFILE_HEADED=1,
 PROFILE_VIEWPORTS=desktop,mobile, PROFILE_DPR=1, PROFILE_QUALITY=auto|low|medium|high,
 PROFILE_BASELINE=docs/evidence/performance/baseline, PROFILE_REPO=., PROFILE_ERA=1892,
 PROFILE_REVISION=<exact build commit when serving a frozen snapshot>,
+PROFILE_HEAP_SNAPSHOTS=1 (large local diagnostic files at post-leave cycles 2 and 5),
 PROFILE_MODEL_EXPECTED=0 (only for primitive baseline), PROFILE_NOTE="measurement context".
 Hardware requests the browser's default GPU; the report verifies the actual renderer.
 Exit 0: checks pass; 1: failed check/run; 2: measurements need review.
@@ -108,13 +109,16 @@ function installInstrumentation() {
     phase: 'idle',
     maxTextureWidth: 0,
     maxTextureHeight: 0,
+    contextsCreated: 0,
+    contextLosses: 0,
+    lastReleased: null,
   };
   function resources(context) {
     let record = contextLookup.get(context);
     if (record) return record;
     const debug = context.getExtension('WEBGL_debug_renderer_info');
     record = {
-      id: records.length + 1,
+      id: ++stats.contextsCreated,
       ref: new WeakRef(context),
       state: 'active',
       generation: 0,
@@ -135,6 +139,7 @@ function installInstrumentation() {
       if (record.state === 'lost') return;
       record.state = 'lost';
       record.losses++;
+      stats.contextLosses++;
       // Context loss releases its generation's GPU objects, even without delete calls.
       record.counts = emptyCounts();
       record.handles = Object.fromEntries(
@@ -146,6 +151,7 @@ function installInstrumentation() {
     context.canvas.addEventListener('webglcontextrestored', () => {
       record.state = 'active';
       record.generation++;
+      if (!records.includes(record)) records.push(record);
     });
     return record;
   }
@@ -235,7 +241,7 @@ function installInstrumentation() {
         record.counts = emptyCounts();
       }
       for (const kind of kinds) alive[kind] += record.counts[kind];
-      return {
+      const summary = {
         id: record.id,
         state: record.state,
         generation: record.generation,
@@ -245,11 +251,25 @@ function installInstrumentation() {
         version: record.version,
         alive: { ...record.counts },
       };
+      if (record.state !== 'active') stats.lastReleased = summary;
+      return summary;
     });
+    // Keep only live weak records and one numeric release summary. An ever-growing
+    // instrumentation history would itself bias the five-cycle heap measurement.
+    for (let index = records.length - 1; index >= 0; index--) {
+      if (records[index].state !== 'active') records.splice(index, 1);
+    }
+    if (
+      stats.lastReleased &&
+      !contexts.some((context) => context.id === stats.lastReleased.id)
+    )
+      contexts.push(stats.lastReleased);
     const canvas = document.querySelector('.world-canvas canvas');
     return {
       alive,
       contexts,
+      contextsCreated: stats.contextsCreated,
+      contextLosses: stats.contextLosses,
       rendererInfo: canvas?.__worldRendererInfo?.() ?? null,
       canvas: canvas
         ? {
@@ -419,6 +439,22 @@ async function collectHeap(cdp) {
     embedderHeapUsedBytes: heap.embedderHeapUsedSize ?? null,
     backingStorageBytes: heap.backingStorageSize ?? null,
   };
+}
+
+async function captureHeapSnapshot(cdp, path) {
+  const chunks = [];
+  const collect = (event) => chunks.push(event.chunk);
+  cdp.on('HeapProfiler.addHeapSnapshotChunk', collect);
+  try {
+    await cdp.send('HeapProfiler.takeHeapSnapshot', {
+      reportProgress: false,
+      captureNumericValue: false,
+      exposeInternals: false,
+    });
+    await writeFile(path, chunks.join(''));
+  } finally {
+    cdp.off('HeapProfiler.addHeapSnapshotChunk', collect);
+  }
 }
 
 function assess(result) {
@@ -620,6 +656,14 @@ try {
         fromDiskCache: !!event.response.fromDiskCache,
         fromServiceWorker: !!event.response.fromServiceWorker,
         headers: {
+          contentEncoding:
+            event.response.headers['content-encoding'] ??
+            event.response.headers['Content-Encoding'] ??
+            null,
+          contentType:
+            event.response.headers['content-type'] ??
+            event.response.headers['Content-Type'] ??
+            null,
           etag:
             event.response.headers.etag ?? event.response.headers.ETag ?? null,
           cacheControl:
@@ -706,6 +750,15 @@ try {
         .catch(() => undefined);
       const left = await page.evaluate(() => window.__worldProfile.snapshot());
       const leftHeap = await collectHeap(cdp);
+      if (
+        process.env.PROFILE_HEAP_SNAPSHOTS === '1' &&
+        [2, 5].includes(cycle)
+      ) {
+        await captureHeapSnapshot(
+          cdp,
+          resolve(output, `${name}-left-cycle-${cycle}.heapsnapshot`),
+        );
+      }
       phase = `reentry-${cycle}`;
       const enteredReadiness = await chooseWorld(page);
       await page.waitForTimeout(1600);

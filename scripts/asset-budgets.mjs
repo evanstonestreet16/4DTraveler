@@ -7,6 +7,7 @@ import console from 'node:console';
 import { pathToFileURL } from 'node:url';
 
 export function assetKind(path) {
+  if (path.split('?')[0].toLowerCase().endsWith('.glb.gz')) return 'models';
   const extension = extname(path).toLowerCase();
   if (extension === '.js') return 'javascript';
   if (extension === '.css') return 'styles';
