@@ -206,7 +206,6 @@ export const rome125POILayout: PointOfInterest[] = [
       background: '#d6dfdf',
       environment: forumEnvironment,
       look: { minPitch: (-35 * Math.PI) / 180, maxPitch: (60 * Math.PI) / 180 },
-      ambientAudio: '/audio/rome-125/colosseum-valley-ambience.wav',
       model: {
         url: `/models/rome-125/colosseum-valley.glb?v=${valleyMetrics.sha256.slice(0, 12)}`,
         selectableNodes: {

@@ -50,6 +50,8 @@ MongoDB, authentication, multiplayer, WASD, physics, NPCs, character interaction
 
 <!-- Newest first. Format: `- YYYY-MM-DD — summary (link to PR/issue if available)` -->
 
+- 2026-09-12 — Generate looping street ambience from city, year, and place (period crowd speech included), shrink the ambience control, and add Back to globe on bird’s-eye overview.
+
 - 2026-09-12 — Integrated Kyoto P0–P2 with Rome's latest rendered viewer and Present transition, preserving both cities' responsive overviews, panoramic POIs, object paths and recovery behavior.
 
 - 2026-09-12 — Replaced the provisional Rome Present endpoint with reference-grounded desktop/portrait compositions centered on the Vittoriano, Via dei Fori Imperiali and the excavated archaeological landscape; refreshed asset provenance, UI copy and accuracy checks.

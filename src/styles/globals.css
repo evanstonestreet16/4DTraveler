@@ -1160,15 +1160,25 @@ h1 {
   flex: 1;
   accent-color: #365540;
 }
-.city-narration .ambient-controls {
-  display: flex;
+.city-narration .ambient-controls,
+.city-overview-footer .ambient-controls {
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 6px;
-  padding: 4px 10px;
-  border-radius: 5px;
-  background: #faf7eff2;
-  font-size: 11px;
+  gap: 6px;
+  width: fit-content;
+  max-width: 220px;
+  margin-top: 4px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: #faf7efd8;
+  font-size: 10px;
+}
+.city-narration .ambient-controls .audio-status,
+.city-overview-footer .ambient-controls .audio-status {
+  min-width: 0;
+  flex: 1;
+  font-size: 9px;
+  line-height: 1.2;
 }
 .city-loading {
   position: fixed;
@@ -1227,16 +1237,19 @@ h1 {
     width: 180px;
   }
 }
-.city-narration .ambient-controls button {
+.city-narration .ambient-controls button,
+.city-overview-footer .ambient-controls button {
   flex-shrink: 0;
   white-space: nowrap;
+  padding: 5px 9px;
+  font-size: 10px;
 }
 @media (max-width: 700px) {
   .city-experience:has(.ambient-controls) .city-information {
-    bottom: 220px;
+    bottom: 164px;
   }
   .city-experience:has(.ambient-controls) .city-look-hint {
-    bottom: 260px;
+    bottom: 188px;
   }
 }
 

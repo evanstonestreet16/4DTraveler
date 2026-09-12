@@ -214,24 +214,9 @@ def find_ticket_links(city: str, monument: str, xai_api_key: str) -> list[dict[s
 
 def synthesize_speech(text: str, xai_api_key: str, voice_id: str = "ara") -> bytes:
     """Turn narration text into MP3 bytes via xAI Grok TTS. Key stays server-side."""
-    import requests
+    from ambience import synthesize_speech as speak
 
-    cleaned = " ".join((text or "").split())
-    if not cleaned:
-        raise ValueError("Cannot narrate empty text.")
-    response = requests.post(
-        "https://api.x.ai/v1/tts",
-        headers={
-            "Authorization": f"Bearer {xai_api_key}",
-            "Content-Type": "application/json",
-        },
-        json={"text": cleaned[:4000], "voice_id": voice_id, "language": "en"},
-        timeout=45,
-    )
-    response.raise_for_status()
-    if not response.content:
-        raise ValueError("TTS returned an empty body.")
-    return response.content
+    return speak(text, xai_api_key, voice_id=voice_id, language="en", codec="mp3")
 
 def getResponse(query: str):
     openai_client, xai_client, collection = get_clients()

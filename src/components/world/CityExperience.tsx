@@ -144,12 +144,24 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
           </p>
         </div>
         <nav className="city-navigation" aria-label="World navigation">
-          {poi && (
+          {poi ? (
             <button
               className="small-button"
               onClick={() => dispatch({ type: 'overview' })}
             >
               ← Return to overview
+            </button>
+          ) : (
+            <button
+              className="small-button"
+              onClick={() =>
+                dispatch({
+                  type: 'mode',
+                  mode: state.mode === 'globe' ? 'globe' : 'catalog',
+                })
+              }
+            >
+              ← Back to globe
             </button>
           )}
           <button
@@ -265,6 +277,12 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
             <summary>Read narration transcript</summary>
             <p>{presentation.narrationTranscript}</p>
           </details>
+          <AmbientControls
+            city={world.locationName}
+            place={world.locationName}
+            year={world.era.year}
+            hint={world.era.subtitle}
+          />
         </div>
       ) : (
         <div className="city-narration" key={world.id}>
@@ -274,7 +292,12 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
               <p>{presentation.narrationTranscript}</p>
             </details>
           )}
-          <AmbientControls src={presentation.ambientAudio} />
+          <AmbientControls
+            city={world.locationName}
+            place={poi?.name ?? world.locationName}
+            year={world.era.year}
+            hint={world.era.subtitle}
+          />
         </div>
       )}
     </section>

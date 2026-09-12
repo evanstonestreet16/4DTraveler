@@ -37,6 +37,19 @@ function LegacyWorldExperience({ world }: { world: HistoricalWorld }) {
     >
       <div className="world-heading">
         <div>
+          {!poi && (
+            <button
+              className="text-button"
+              onClick={() =>
+                dispatch({
+                  type: 'mode',
+                  mode: state.mode === 'globe' ? 'globe' : 'catalog',
+                })
+              }
+            >
+              ← Back to globe
+            </button>
+          )}
           <button
             className="text-button"
             onClick={() => dispatch({ type: 'location', id: world.locationId })}
