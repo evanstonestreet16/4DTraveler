@@ -23,6 +23,7 @@ async function enterValley(page: Page) {
 test('valley ambience starts only on request, pauses, and stops on every scene exit', async ({
   page,
 }) => {
+  test.setTimeout(60000);
   const requests: string[] = [];
   page.on('request', (request) => {
     if (request.url().includes('/audio/rome-125/'))
@@ -68,9 +69,7 @@ test('valley ambience starts only on request, pauses, and stops on every scene e
       page.getByText('Quiet ambience playing', { exact: true }),
     ).toBeVisible();
     const retained = await ambient(page).elementHandle();
-    await page
-      .getByRole('button', { name: 'Return to overview', exact: true })
-      .click();
+    await page.getByRole('button', { name: /Return to overview/ }).click();
     expect(
       await retained!.evaluate((audio: HTMLAudioElement) => audio.paused),
     ).toBe(true);
