@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useApp } from '../../app/AppContext';
 import { resolvePresentation } from '../../utils/presentation';
 import { Canvas, useThree } from '@react-three/fiber';
@@ -12,6 +12,8 @@ import { ViewportDpr } from './ViewportDpr';
 import { useCityModelPrefetch } from './useCityModelPrefetch';
 import { useSceneActivity } from './useSceneActivity';
 import type { ModelAssetState } from './modelAsset';
+import { TripoActivityBanner } from './TripoActivityBanner';
+import type { TripoStatus } from './IconicUpgrade';
 
 function SceneExposure({ value }: { value: number }) {
   const { gl, invalidate } = useThree();
@@ -61,6 +63,17 @@ export function WorldCanvas({
       active &&
       !lost,
   );
+  const [tripoStatuses, setTripoStatuses] = useState<
+    Record<string, TripoStatus>
+  >({});
+  const handleTripoStatus = useCallback((status: TripoStatus) => {
+    setTripoStatuses((prev) => ({ ...prev, [status.objectId]: status }));
+  }, []);
+  // Reset the aggregated status whenever the active world changes so we
+  // don't carry stale banners across Seattle → Pittsburgh, etc.
+  useEffect(() => {
+    setTripoStatuses({});
+  }, [world.id]);
   return (
     <div
       ref={container}
@@ -124,6 +137,7 @@ export function WorldCanvas({
             <WorldScene
               world={world}
               onAssetState={setAssetState}
+              onTripoStatus={handleTripoStatus}
               animated={active && settings.motion}
               shadowMap={settings.shadowMap}
               detail={settings.detail}
@@ -147,6 +161,7 @@ export function WorldCanvas({
             : ''}
         </div>
       )}
+      {!lost && <TripoActivityBanner statuses={tripoStatuses} />}
     </div>
   );
 }

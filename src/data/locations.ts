@@ -12,6 +12,7 @@ export const locations: Location[] = [
     description:
       'Enter the living capital of Hadrian: marble forums, a new Pantheon, and the Flavian Amphitheatre.',
     eras: [rome125.era],
+    globe: { countryIsoA3: 'ITA', coordinates: { lat: 41.895, lng: 12.485 } },
   },
   {
     id: pittsburgh1892.locationId,
@@ -20,6 +21,10 @@ export const locations: Location[] = [
     description:
       'Follow the rivers into a city of mills, railroads, and industry.',
     eras: [pittsburgh1892.era, pittsburgh1850.era],
+    globe: {
+      countryIsoA3: 'USA',
+      coordinates: { lat: 40.4406, lng: -79.9959 },
+    },
   },
 ];
 
