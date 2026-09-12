@@ -50,7 +50,7 @@ Optional AI-generated transition video remains deferred. Present-day POIs and tr
 
 The owner clarified the Rome visual target on 2026-09-12: photographic realism comparable to the supplied warm, atmospheric Roman architectural reference. The current stylized assets do not meet that target. The rendered viewer is a working foundation; the next visual milestone is one convincing Forum frame with detailed architecture, realistic materials and vegetation, photographic lighting and historically appropriate 125 CE condition, before extending that quality through the full panorama and other POIs.
 
-The active demo uses rendered overviews and fixed-position panoramas for **Rome / 125 CE** and **Kyoto / circa 1700**. Recorded narration remains deferred; reviewed written transcripts are available. Scene ambience is not part of the product. Walking, physics and runtime Blender coupling remain excluded. See the [immersive historical city plan](docs/IMMERSIVE_CITY_PLAN.md).
+The active demo uses rendered overviews and fixed-position panoramas for **Rome / 125 CE** and **Kyoto / circa 1700**. Recorded narration remains deferred. Scene ambience is not part of the product. City chrome is Back to globe, a places list, the overview time slider, and object information. Walking, physics and runtime Blender coupling remain excluded. See the [immersive historical city plan](docs/IMMERSIVE_CITY_PLAN.md).
 
 ## Out of Scope Unless Explicitly Requested
 
@@ -71,6 +71,8 @@ MongoDB, authentication, multiplayer, WASD, physics, NPCs, character interaction
 - 2026-09-12 — Established desktop-only product scope, beyond testing alone. Investigated Flavian Amphitheatre blur: the AI source and shipped WebP are 1774 × 887, both image variants resolve to the same file, and the 1440 × 900 desktop canvas renders at full viewport resolution on High. The attempted generation did not deliver 4K; its opening view spans roughly 501 × 370 source pixels.
 
 - 2026-09-12 — Added a 1774 × 887 AI-enhanced Flavian Amphitheatre entry panorama for visual testing, retaining the original and all nearby images. Five panorama checks, production build and desktop hotspot/return navigation passed. Owner testing priority is desktop only; mobile testing is deferred.
+
+- 2026-09-12 — Simplified city chrome: no Choose era button, View controls, ambience toggle, or narration transcript. The left panel is a plain list of places.
 
 - 2026-09-12 — Removed the Choose era page; city entry opens Present and the overview slider is the only year control.
 

@@ -154,12 +154,6 @@
 .panorama-navigation-label strong {
   font-size: 13px;
 }
-.city-experience:has(.panorama-navigation) .city-narration {
-  pointer-events: none;
-}
-.city-experience:has(.panorama-navigation) .city-narration > * {
-  pointer-events: auto;
-}
 @media (prefers-reduced-motion: reduce) {
   .rendered-poi-marker {
     transition: none;

@@ -869,15 +869,14 @@ h1 {
   background: #faf7efeb;
   box-shadow: 0 4px 24px #3b2f2310;
 }
-.city-explorer details + details {
+.city-objects {
   border-top: 1px solid #d3c9b9;
 }
-.city-explorer summary {
+.city-explorer-label {
+  margin: 0;
   padding: 12px 14px;
-  cursor: pointer;
   font-size: 12px;
   font-weight: 600;
-  align-content: center;
 }
 .city-explorer .poi-list {
   grid-template-columns: minmax(0, 1fr);
@@ -902,14 +901,6 @@ h1 {
 }
 .city-explorer .object-list button {
   text-align: left;
-}
-.city-help p {
-  margin: 0 14px 10px;
-  font-size: 12px;
-  line-height: 1.6;
-}
-.city-help .quality-control {
-  margin: 0 14px 14px;
 }
 .city-look-hint {
   position: absolute;
@@ -942,25 +933,6 @@ h1 {
   border-top: 0;
   margin-top: 0;
 }
-.city-narration {
-  position: absolute;
-  z-index: 35;
-  bottom: max(20px, env(safe-area-inset-bottom));
-  left: max(24px, env(safe-area-inset-left));
-  width: min(720px, calc(100vw - 48px));
-}
-.city-narration .narration {
-  margin: 0;
-  max-height: 32dvh;
-  overflow: auto;
-  overscroll-behavior: contain;
-  padding: 10px 16px;
-  background: #faf7eff2;
-  border-color: #d3c9b9;
-}
-.city-narration .narration-main {
-  gap: 8px 20px;
-}
 .city-experience .model-status:not(.model-status-ready) {
   z-index: 21;
   left: 50%;
@@ -975,17 +947,6 @@ h1 {
   overflow: auto;
   background: #faf7eff5;
   border-radius: 8px;
-}
-.city-narration .narration-progress {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 8px;
-  font-size: 10px;
-}
-.city-narration .narration-progress progress {
-  flex: 1;
-  accent-color: #365540;
 }
 .city-loading {
   position: fixed;
@@ -1057,6 +1018,7 @@ h1 {
   border-radius: 0;
   background: transparent;
   box-shadow: none;
+  touch-action: none;
 }
 .globe-landing > .globe-cta {
   position: relative;

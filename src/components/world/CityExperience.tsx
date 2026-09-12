@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useApp } from '../../app/AppContext';
 import type { HistoricalWorld } from '../../types/world';
-import type { QualityPreference } from '../../utils/quality';
 import { ObjectInfoPanel } from '../info/ObjectInfoPanel';
 import { WorldCanvas } from './WorldCanvas';
 import { RenderedCityViewer } from './RenderedCityViewer';
@@ -12,7 +11,6 @@ import { OverviewTimeSlider } from '../timeline/OverviewTimeSlider';
 export function CityExperience({ world }: { world: HistoricalWorld }) {
   const { state, dispatch } = useApp();
   const transitioning = !!state.eraTransition;
-  const [quality, setQuality] = useState<QualityPreference>('auto');
   const container = useRef<HTMLElement>(null);
   const returnButton = useRef<HTMLButtonElement>(null);
   const poi = world.pois.find((item) => item.id === state.activePOIId);
@@ -119,9 +117,9 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
     >
       <WorldViewport layout="city" informationOpen={!!selectedObject}>
         {(poi ? presentation.panorama : presentation.overviewImage) ? (
-          <RenderedCityViewer world={world} quality={quality} />
+          <RenderedCityViewer world={world} />
         ) : (
-          <WorldCanvas world={world} quality={quality} />
+          <WorldCanvas world={world} />
         )}
       </WorldViewport>
       <header className="city-heading">
@@ -163,12 +161,8 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
           aria-label="Explore this world"
           inert={transitioning}
         >
-          <details
-            key={poi?.id ?? 'overview'}
-            className="city-places"
-            open={!poi}
-          >
-            <summary>Places in this world</summary>
+          <div className="city-places">
+            <p className="city-explorer-label">Places in this world</p>
             <nav className="poi-list" aria-label="Points of interest">
               {world.pois.map((item, index) => (
                 <button
@@ -185,14 +179,14 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
                 </button>
               ))}
             </nav>
-          </details>
+          </div>
           {poi && (
-            <details className="city-objects" open>
-              <summary>Inspect an object</summary>
-              <section
-                className="object-list"
-                aria-label={`Objects at ${poi.name}`}
-              >
+            <section
+              className="city-objects"
+              aria-label={`Objects at ${poi.name}`}
+            >
+              <p className="city-explorer-label">Inspect an object</p>
+              <div className="object-list">
                 <div>
                   {objects.map((object) => (
                     <button
@@ -207,33 +201,9 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
                     </button>
                   ))}
                 </div>
-              </section>
-            </details>
+              </div>
+            </section>
           )}
-          <details className="city-help">
-            <summary>View controls</summary>
-            <p>
-              {poi
-                ? 'Drag to look around. On a keyboard, focus the scene and use the arrow keys. Select a highlighted object or use the object list.'
-                : world.pois.every((item) => item.preview || !item.immersive)
-                  ? 'These places are overview previews. Use the timeline to travel to another era.'
-                  : 'Choose a marker or a place from the list to enter a fixed viewpoint.'}
-            </p>
-            <label className="quality-control">
-              Scene quality
-              <select
-                value={quality}
-                onChange={(event) =>
-                  setQuality(event.target.value as QualityPreference)
-                }
-              >
-                <option value="auto">Auto</option>
-                <option value="high">High</option>
-                <option value="medium">Medium</option>
-                <option value="low">Low</option>
-              </select>
-            </label>
-          </details>
         </aside>
       )}
       {poi && <div className="city-look-hint">Drag to look around · 360°</div>}
@@ -254,22 +224,6 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
               `${world.era.label} · Illustrated reconstruction`}
           </p>
           <OverviewTimeSlider world={world} />
-          <details
-            key={world.id}
-            className="city-overview-story"
-            inert={transitioning}
-            style={{ visibility: transitioning ? 'hidden' : undefined }}
-          >
-            <summary>Read narration transcript</summary>
-            <p>{presentation.narrationTranscript}</p>
-          </details>
-        </div>
-      ) : presentation.narrationTranscript ? (
-        <div className="city-narration" key={world.id}>
-          <details className="transcript">
-            <summary>Read narration transcript</summary>
-            <p>{presentation.narrationTranscript}</p>
-          </details>
         </div>
       ) : null}
     </section>
