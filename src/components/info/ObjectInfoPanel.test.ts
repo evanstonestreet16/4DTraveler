@@ -5,41 +5,40 @@ import { pittsburgh1892 } from '../../data/worlds/pittsburgh-1892';
 import { ObjectInfoPanel } from './ObjectInfoPanel';
 
 describe('object field notes', () => {
-  it('displays source links and the authored distinction between documented and inferred details', () => {
+  it('keeps only the object name when no city is available for a Grok tour', () => {
+    const object = pittsburgh1892.objects[0];
     const markup = renderToStaticMarkup(
       createElement(ObjectInfoPanel, {
-        object: {
-          ...pittsburgh1892.objects[0],
-          confidence: 'Plan documented; color inferred.',
-          sources: [
-            {
-              id: 'museum-record',
-              title: 'Museum record',
-              url: 'https://example.org/object',
-            },
-          ],
-        },
+        object,
         onClose: () => {},
       }),
     );
-    expect(markup).toContain('Reconstruction confidence');
-    expect(markup).toContain('Plan documented; color inferred.');
-    expect(markup).toContain('href="https://example.org/object"');
-    expect(markup).toContain('Museum record');
-    expect(markup).toContain('rel="noopener noreferrer"');
+    expect(markup).toContain(object.name);
+    expect(markup).toContain('Close object information');
+    expect(markup).toContain('A live field note needs a city context.');
+    expect(markup).not.toContain(object.description);
+    expect(markup).not.toContain(object.whyItMatters);
+    expect(markup).not.toContain('Why it matters');
+    expect(markup).not.toContain('Reconstruction confidence');
+    expect(markup).not.toContain('<h3>Sources</h3>');
     expect(markup).not.toContain('Illustrative demo content');
   });
 
-  it('keeps legacy field notes readable when confidence and sources are absent', () => {
+  it('shows the Grok tour heading instead of authored copy when a city is provided', () => {
+    const object = pittsburgh1892.objects[0];
     const markup = renderToStaticMarkup(
       createElement(ObjectInfoPanel, {
-        object: pittsburgh1892.objects[0],
+        object,
+        cityName: 'Pittsburgh',
+        year: 1892,
         onClose: () => {},
       }),
     );
-    expect(markup).toContain(pittsburgh1892.objects[0].name);
-    expect(markup).toContain('Illustrative demo content');
-    expect(markup).toContain('Close object information');
-    expect(markup).not.toContain('<h3>Sources</h3>');
+    expect(markup).toContain('Grok tour · 1892');
+    expect(markup).toContain('Drafting a period summary');
+    expect(markup).not.toContain(object.description);
+    expect(markup).not.toContain(object.whyItMatters);
+    expect(markup).not.toContain('Reconstruction confidence');
+    expect(markup).not.toContain('Visit / tickets');
   });
 });

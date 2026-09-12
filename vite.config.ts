@@ -9,6 +9,23 @@ export default defineConfig(({ mode }) => {
   // injected into the dev middleware — they never reach the browser bundle.
   const env = loadEnv(mode, process.cwd(), '');
   return {
+    server: {
+      proxy: {
+        // city-retrieval FastAPI (RAG summary + Grok TTS). Dev only;
+        // the Python server must be running on 8000.
+        '/api/city-summary': {
+          target: 'http://127.0.0.1:8000',
+          changeOrigin: true,
+          timeout: 70_000,
+          rewrite: () => '/api/monument',
+        },
+        '/api/city-tts': {
+          target: 'http://127.0.0.1:8000',
+          changeOrigin: true,
+          rewrite: () => '/api/tts',
+        },
+      },
+    },
     plugins: [
       react(),
       grokProxyPlugin({

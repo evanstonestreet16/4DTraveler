@@ -43,11 +43,7 @@ async function expectBlockoutOverview(page: Page) {
   ).toHaveCount(0);
   await expect(
     page.getByRole('button', { name: 'Play Narration', exact: true }),
-  ).toBeDisabled();
-  await expect(
-    page.getByText('No narration is available for this world.'),
-  ).toBeVisible();
-  await expect(page.locator('audio')).toHaveCount(0);
+  ).toHaveCount(0);
   await expect(page.locator('[data-model-status]')).toHaveCount(0);
   await expect(
     page.getByRole('button', { name: 'Visit Market / Blockout', exact: true }),
@@ -159,23 +155,13 @@ test('repeated 1892 and 1850 transitions reset selections/audio and release the 
       page.getByText('Bird’s-eye overview', { exact: true }),
     ).toBeVisible();
     await expect(
-      page.getByText('Ready to play', { exact: true }),
-    ).toBeVisible();
-    await expect(
       page.getByRole('button', { name: 'Close object information' }),
     ).toHaveCount(0);
     await selectPlace(page, 'Steel Mill');
     await page
       .getByRole('button', { name: 'Blast Furnace', exact: true })
       .click();
-    await page
-      .getByRole('button', { name: 'Play Narration', exact: true })
-      .click();
-    await expect(
-      page.getByText('Playing narration', { exact: true }),
-    ).toBeVisible();
     const oldCanvas = await page.locator('canvas').elementHandle();
-    const oldAudio = await page.locator('audio').elementHandle();
     await page.getByRole('button', { name: 'Choose era' }).click();
     await chooseEra(page, '1850');
     await expectBlockoutOverview(page);
@@ -189,13 +175,7 @@ test('repeated 1892 and 1850 transitions reset selections/audio and release the 
         ),
       )
       .toBe(true);
-    expect(
-      await oldAudio!.evaluate(
-        (audio: HTMLAudioElement) => !audio.isConnected && audio.paused,
-      ),
-    ).toBe(true);
     await oldCanvas!.dispose();
-    await oldAudio!.dispose();
     await selectPlace(page, 'Wharf / Blockout');
     await page
       .getByRole('button', { name: 'Wharf Landing', exact: true })
@@ -356,9 +336,6 @@ test.describe('mobile second era', () => {
     await expect(page.locator('[data-model-status="ready"]')).toHaveCount(1);
     await expect(
       page.getByRole('heading', { name: 'Pittsburgh / 1892' }),
-    ).toBeVisible();
-    await expect(
-      page.getByText('Ready to play', { exact: true }),
     ).toBeVisible();
   });
 });

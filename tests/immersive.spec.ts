@@ -101,17 +101,7 @@ test('CSS immersive transitions preserve the live world, audio, selection, camer
   });
   await enterWorld(page);
   await selectFurnace(page);
-  await page
-    .getByRole('button', { name: 'Play Narration', exact: true })
-    .click();
-  await expect(
-    page.getByText('Playing narration', { exact: true }),
-  ).toBeVisible();
   const canvas = await page.locator('canvas').elementHandle();
-  const audio = await page.locator('audio').elementHandle();
-  const initialTime = await page
-    .locator('audio')
-    .evaluate((element: HTMLAudioElement) => element.currentTime);
   for (let cycle = 0; cycle < 2; cycle++) {
     await page.getByRole('button', { name: 'Enter immersive view' }).click();
     await expect(
@@ -125,15 +115,6 @@ test('CSS immersive transitions preserve the live world, audio, selection, camer
     ).toBeVisible();
     await expectReservedCanvas(page);
     await expectAnchoredCamera(page);
-    await page.getByRole('button', { name: 'Choose era' }).focus();
-    await page.keyboard.press('Shift+Tab');
-    await expect(
-      page.getByText('Read narration transcript', { exact: true }),
-    ).toBeFocused();
-    await page.keyboard.press('Tab');
-    await expect(
-      page.getByRole('button', { name: 'Choose era' }),
-    ).toBeFocused();
     await page.keyboard.press('Escape');
     await expect(
       page.getByRole('button', { name: 'Enter immersive view' }),
@@ -146,25 +127,10 @@ test('CSS immersive transitions preserve the live world, audio, selection, camer
   }
   expect(
     await page.evaluate(
-      ({ canvas, audio }) =>
-        canvas === document.querySelector('canvas') &&
-        audio === document.querySelector('audio'),
-      { canvas, audio },
+      (canvas) => canvas === document.querySelector('canvas'),
+      canvas,
     ),
   ).toBe(true);
-  await expect
-    .poll(() =>
-      page
-        .locator('audio')
-        .evaluate((element: HTMLAudioElement) => element.currentTime),
-    )
-    .toBeGreaterThan(initialTime);
-  await page
-    .getByRole('button', { name: 'Pause Narration', exact: true })
-    .click();
-  await expect(
-    page.getByText('Narration paused', { exact: true }),
-  ).toBeVisible();
   expect(
     await page
       .locator('.site-header')
@@ -280,15 +246,9 @@ test.describe('mobile touch exploration', () => {
       });
       await close.tap();
       await selectFurnace(page);
-      await page
-        .getByRole('button', { name: 'Play Narration', exact: true })
-        .tap();
       await expect(
-        page.getByText('Playing narration', { exact: true }),
-      ).toBeVisible();
-      await page
-        .getByRole('button', { name: 'Pause Narration', exact: true })
-        .tap();
+        page.getByRole('button', { name: 'Play Narration', exact: true }),
+      ).toHaveCount(0);
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth,

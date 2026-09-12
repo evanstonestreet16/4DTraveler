@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useApp } from '../../app/AppContext';
 import type { HistoricalWorld } from '../../types/world';
 import type { QualityPreference } from '../../utils/quality';
-import { NarrationControls } from '../audio/NarrationControls';
 import { AmbientControls } from '../audio/AmbientControls';
 import { ObjectInfoPanel } from '../info/ObjectInfoPanel';
 import { WorldCanvas } from './WorldCanvas';
@@ -242,7 +241,12 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
       {poi && <div className="city-look-hint">Drag to look around · 360°</div>}
       {selectedObject && (
         <div className="city-information">
-          <ObjectInfoPanel object={selectedObject} onClose={closeObject} />
+          <ObjectInfoPanel
+            object={selectedObject}
+            cityName={world.locationName}
+            year={world.era.year}
+            onClose={closeObject}
+          />
         </div>
       )}
       {!poi && world.scene.overviewTransition ? (
@@ -264,11 +268,12 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
         </div>
       ) : (
         <div className="city-narration" key={world.id}>
-          <NarrationControls
-            src={presentation.narrationAudio}
-            transcript={presentation.narrationTranscript}
-            label={poi?.name ?? 'Overview narration'}
-          />
+          {presentation.narrationTranscript && (
+            <details className="transcript">
+              <summary>Read narration transcript</summary>
+              <p>{presentation.narrationTranscript}</p>
+            </details>
+          )}
           <AmbientControls src={presentation.ambientAudio} />
         </div>
       )}

@@ -26,63 +26,29 @@
     },
     "markers": {
       "forum-trajan": {
-        "desktop": [
-          0.416,
-          0.422
-        ],
-        "mobile": [
-          0.572,
-          0.466
-        ]
+        "desktop": [0.416, 0.422],
+        "mobile": [0.572, 0.466]
       },
       "pantheon-forecourt": {
-        "desktop": [
-          0.113,
-          0.51
-        ],
-        "mobile": [
-          0.462,
-          0.324
-        ]
+        "desktop": [0.113, 0.51],
+        "mobile": [0.462, 0.324]
       },
       "colosseum-valley": {
-        "desktop": [
-          0.85,
-          0.398
-        ],
-        "mobile": [
-          0.613,
-          0.685
-        ]
+        "desktop": [0.85, 0.398],
+        "mobile": [0.613, 0.685]
       }
     },
     "cameras": {
       "desktop": {
-        "eye": [
-          -1450.0,
-          1250.0,
-          1650.0
-        ],
-        "target": [
-          50,
-          40,
-          180
-        ],
+        "eye": [-1450.0, 1250.0, 1650.0],
+        "target": [50, 40, 180],
         "projection": "PERSP",
         "lensMm": 42.0,
         "orthoScale": null
       },
       "mobile": {
-        "eye": [
-          1450.0,
-          3300.0,
-          1650.0
-        ],
-        "target": [
-          0,
-          0,
-          180
-        ],
+        "eye": [1450.0, 3300.0, 1650.0],
+        "target": [0, 0, 180],
         "projection": "ORTHO",
         "lensMm": 36.0,
         "orthoScale": 2250.0
@@ -90,34 +56,16 @@
     },
     "sourceProjectedMarkers": {
       "forum-trajan": {
-        "desktop": [
-          0.423707,
-          0.465071
-        ],
-        "mobile": [
-          0.55618,
-          0.462181
-        ]
+        "desktop": [0.423707, 0.465071],
+        "mobile": [0.55618, 0.462181]
       },
       "pantheon-forecourt": {
-        "desktop": [
-          0.101117,
-          0.540411
-        ],
-        "mobile": [
-          0.463128,
-          0.306874
-        ]
+        "desktop": [0.101117, 0.540411],
+        "mobile": [0.463128, 0.306874]
       },
       "colosseum-valley": {
-        "desktop": [
-          0.851987,
-          0.432296
-        ],
-        "mobile": [
-          0.574713,
-          0.684986
-        ]
+        "desktop": [0.851987, 0.432296],
+        "mobile": [0.574713, 0.684986]
       }
     },
     "generator": "Original Blender layout plus Codex built-in image generation; package_rome_overview_detail.py",
@@ -169,32 +117,12 @@
           "pitch": 0.0357521
         }
       ],
-      "eye": [
-        0,
-        1.65,
-        30
-      ],
-      "initialTarget": [
-        0,
-        12,
-        -40
-      ],
+      "eye": [0, 1.65, 30],
+      "initialTarget": [0, 12, -40],
       "anchors": {
-        "trajan-equestrian-statue": [
-          0,
-          5.6,
-          0
-        ],
-        "basilica-ulpia-facade": [
-          -24,
-          17,
-          -42.5
-        ],
-        "dacian-prisoner-statue": [
-          42,
-          3.7,
-          -9
-        ]
+        "trajan-equestrian-statue": [0, 5.6, 0],
+        "basilica-ulpia-facade": [-24, 17, -42.5],
+        "dacian-prisoner-statue": [42, 3.7, -9]
       },
       "seamMeanRGBDifference": 1.833,
       "review": "Cardinal views and longitudinal seam measured from final delivered pixels; see authored render folder."
@@ -238,32 +166,12 @@
           "pitch": 0.2211562
         }
       ],
-      "eye": [
-        0,
-        1.65,
-        -42
-      ],
-      "initialTarget": [
-        0,
-        13,
-        0
-      ],
+      "eye": [0, 1.65, -42],
+      "initialTarget": [0, 13, 0],
       "anchors": {
-        "pantheon-agrippa-inscription": [
-          0,
-          16.8,
-          -11.1
-        ],
-        "pantheon-granite-columns": [
-          -10.5,
-          8,
-          -7.8
-        ],
-        "pantheon-forecourt-colonnade": [
-          26,
-          7.5,
-          -41
-        ]
+        "pantheon-agrippa-inscription": [0, 16.8, -11.1],
+        "pantheon-granite-columns": [-10.5, 8, -7.8],
+        "pantheon-forecourt-colonnade": [26, 7.5, -41]
       },
       "seamMeanRGBDifference": 2.48,
       "review": "Cardinal views and longitudinal seam measured from final delivered pixels; see authored render folder."
@@ -307,32 +215,12 @@
           "pitch": 0.0768186
         }
       ],
-      "eye": [
-        0,
-        1.65,
-        0
-      ],
-      "initialTarget": [
-        80,
-        18,
-        0
-      ],
+      "eye": [0, 1.65, 0],
+      "initialTarget": [80, 18, 0],
       "anchors": {
-        "colosseum-outer-arcade": [
-          81,
-          21,
-          0
-        ],
-        "meta-sudans": [
-          16,
-          8,
-          36
-        ],
-        "venus-roma-worksite": [
-          -55,
-          6,
-          -13
-        ]
+        "colosseum-outer-arcade": [81, 21, 0],
+        "meta-sudans": [16, 8, 36],
+        "venus-roma-worksite": [-55, 6, -13]
       },
       "seamMeanRGBDifference": 1.992,
       "review": "Cardinal views and longitudinal seam measured from final delivered pixels; see authored render folder."

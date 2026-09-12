@@ -121,10 +121,7 @@ test('complete demo: scene markers, real mesh clicks, metadata, audio, and reset
       page.getByRole('heading', { name: object.name, exact: true }),
     ).toBeVisible();
     await expect(
-      page.getByText(object.description, { exact: true }),
-    ).toBeVisible();
-    await expect(
-      page.getByText(object.whyItMatters, { exact: true }),
+      page.getByRole('heading', { name: /Grok tour/ }),
     ).toBeVisible();
     await expect(
       page.getByRole('button', { name: object.name, exact: true }),
@@ -138,39 +135,9 @@ test('complete demo: scene markers, real mesh clicks, metadata, audio, and reset
   await expect(
     page.getByRole('heading', { name: 'Rail Car', exact: true }),
   ).toHaveCount(0);
-  await page
-    .getByRole('button', { name: 'Play Narration', exact: true })
-    .click();
   await expect(
-    page.getByText('Playing narration', { exact: true }),
-  ).toBeVisible();
-  await expect
-    .poll(() =>
-      page
-        .locator('audio')
-        .evaluate((element: HTMLAudioElement) => element.currentTime),
-    )
-    .toBeGreaterThan(0);
-  await page
-    .getByRole('button', { name: 'Pause Narration', exact: true })
-    .click();
-  await expect(
-    page.getByText('Narration paused', { exact: true }),
-  ).toBeVisible();
-  expect(
-    await page
-      .locator('audio')
-      .evaluate((element: HTMLAudioElement) => element.paused),
-  ).toBe(true);
-  await page
-    .getByRole('button', { name: 'Play Narration', exact: true })
-    .click();
-  await expect(
-    page.getByText('Playing narration', { exact: true }),
-  ).toBeVisible();
-  await page
-    .getByRole('button', { name: 'Pause Narration', exact: true })
-    .click();
+    page.getByRole('button', { name: 'Play Narration', exact: true }),
+  ).toHaveCount(0);
   for (const poi of world.pois.slice(1)) {
     await page
       .getByRole('navigation', { name: 'Points of interest' })
@@ -214,13 +181,8 @@ test('complete demo: scene markers, real mesh clicks, metadata, audio, and reset
   await expect(
     page.getByRole('button', { name: 'Close object information' }),
   ).toHaveCount(0);
-  await page
-    .getByRole('button', { name: 'Play Narration', exact: true })
-    .click();
   await page.getByRole('button', { name: 'Choose era' }).click();
-  await expect(page.locator('audio')).toHaveCount(0);
   await page.getByRole('button', { name: /1892 An industrial city/ }).click();
-  await expect(page.getByText('Ready to play', { exact: true })).toBeVisible();
   await expect(
     page.getByText('Bird’s-eye overview', { exact: true }),
   ).toBeVisible();
@@ -277,19 +239,13 @@ test('mobile layout, keyboard selection, rapid navigation, and reduced motion', 
   ).toHaveCount(0);
 });
 
-test('missing narration is recoverable and does not break exploration', async ({
+test('missing static audio files do not break exploration', async ({
   page,
 }) => {
   await page.route('**/audio/*.wav', (route) =>
     route.fulfill({ status: 404, body: '' }),
   );
   await enterWorld(page);
-  await page
-    .getByRole('button', { name: 'Play Narration', exact: true })
-    .click();
-  await expect(
-    page.getByText('Narration unavailable.', { exact: false }),
-  ).toBeVisible();
   await page
     .getByRole('navigation', { name: 'Points of interest' })
     .getByRole('button', { name: /Steel Mill/ })
@@ -300,13 +256,9 @@ test('missing narration is recoverable and does not break exploration', async ({
   await expect(
     page.getByRole('heading', { name: 'Blast Furnace' }),
   ).toBeVisible();
-  await page.unroute('**/audio/*.wav');
-  await page
-    .getByRole('button', { name: 'Play Narration', exact: true })
-    .click();
   await expect(
-    page.getByText('Playing narration', { exact: true }),
-  ).toBeVisible();
+    page.getByRole('button', { name: 'Play Narration', exact: true }),
+  ).toHaveCount(0);
 });
 
 test('a lost WebGL context presents a recoverable scene error', async ({

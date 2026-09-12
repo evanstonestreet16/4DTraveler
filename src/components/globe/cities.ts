@@ -33,4 +33,18 @@ export const globeCities: GlobeCity[] = [
     longitude: -79.9959,
     staticLocationId: 'pittsburgh',
   },
+  {
+    id: 'rome',
+    name: 'Rome',
+    region: 'Lazio, Italy',
+    latitude: 41.9028,
+    longitude: 12.4964,
+  },
+  {
+    id: 'kyoto',
+    name: 'Kyoto',
+    region: 'Kansai, Japan',
+    latitude: 35.0116,
+    longitude: 135.7681,
+  },
 ];

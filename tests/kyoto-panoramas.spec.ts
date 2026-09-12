@@ -63,14 +63,8 @@ async function inspectObjects(page: Page, poi: PointOfInterest) {
       page.getByRole('heading', { name: object.name, exact: true }),
     ).toBeVisible();
     await expect(
-      page.getByText(object.confidence!, { exact: true }),
+      page.getByRole('heading', { name: /Grok tour/ }),
     ).toBeVisible();
-    for (const source of object.sources!)
-      await expect(
-        page
-          .locator('.object-sources')
-          .getByRole('link', { name: source.title }),
-      ).toHaveAttribute('href', source.url);
   }
   await page.getByRole('button', { name: 'Close object information' }).click();
   await expect(

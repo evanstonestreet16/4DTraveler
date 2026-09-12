@@ -4,7 +4,6 @@ import { useApp } from '../../app/AppContext';
 import type { HistoricalWorld } from '../../types/world';
 import { ObjectInfoPanel } from '../info/ObjectInfoPanel';
 import { WorldCanvas } from './WorldCanvas';
-import { NarrationControls } from '../audio/NarrationControls';
 import { useImmersiveView } from './useImmersiveView';
 import { WorldViewport } from './WorldViewport';
 import { CityExperience } from './CityExperience';
@@ -150,15 +149,13 @@ function LegacyWorldExperience({ world }: { world: HistoricalWorld }) {
           {selectedObject && (
             <ObjectInfoPanel
               object={selectedObject}
+              cityName={world.locationName}
+              year={world.era.year}
               onClose={() => dispatch({ type: 'object', id: null })}
             />
           )}
         </aside>
       </div>
-      <NarrationControls
-        src={world.scene.narrationAudio}
-        transcript={world.scene.narrationTranscript}
-      />
       <p className="sr-only" role="status" aria-live="polite">
         {view.announcement}
       </p>
