@@ -87,3 +87,19 @@ The integrated loader may use `fetch(..., { cache: 'force-cache' })` to reuse re
 `node scripts/asset-budgets.mjs dist` reports raw, gzip and Brotli sizes for every production asset and per-category totals. Those are actual compressor outputs at level/quality 9, separate from measured HTTP bytes. A hero authored with zero texture files and shared material batches may already be compact enough without Draco/Meshopt/KTX2 decoders; justify decoder dependencies using the measured download/parse/frame results rather than adding them by default. Check the actual server Content-Encoding and cache headers before claiming compressed delivery.
 
 The profiler classifies both `.glb` and `.glb.gz` as model payloads. If the server transparently applies `Content-Encoding: gzip`, Resource Timing decoded bytes can already be the plain GLB size; if it serves the gzip sidecar as a binary file, JavaScript decompression happens outside those network counters. Request journals retain actual Content-Encoding/Content-Type so these cases are not confused.
+
+## Implemented quality and delivery controls
+
+| Tier   | Maximum DPR | Shadow map | Decorative smoke/water | Environmental motion       |
+| ------ | ----------: | ---------: | ---------------------- | -------------------------- |
+| Low    |           1 |   Disabled | Removed                | Paused                     |
+| Medium |        1.25 |        512 | Present                | Visible/active scenes only |
+| High   |        1.75 |       1024 | Present                | Visible/active scenes only |
+
+Auto uses Low for software WebGL or four-or-fewer CPU threads, Medium for other coarse-pointer devices, and High otherwise. An explicit choice always wins. Reduced motion, tab visibility and intersection still govern animation at every tier. Changing quality preserves the mounted canvas, model, selection and narration. Light instances are recreated when the shadow-map budget changes so their old shadow targets can be disposed; object geometry never disappears as a quality optimization.
+
+The location/era flow retains the existing lazy world boundary. Three's renderer/core are separate cacheable chunks below Vite's 500kB advisory threshold; the initial page does not request either chunk or a model. Loading presents the primitive world first, then validated hero geometry, then decorative effects. A model failure remains selectable and explains recovery.
+
+The generated hero gzip transport is **210,934 bytes** versus the **2,192,436-byte** GLB (90.4% smaller). `SceneModel.compressedUrl` is optional. Browsers with native `DecompressionStream` use it; unavailable/failed compressed transport retries the plain GLB. The loader also accepts responses already decompressed by HTTP Content-Encoding. No additional codec dependency or remote decoder is used. Both model URLs carry the raw asset's SHA-256 prefix and use browser byte caching; parsed model/material resources are disposed per visit. Keeping the plain GLB in the deployment is intentional compatibility/recovery overhead. Integrity tests require the gzip output to decode byte-for-byte to the GLB and the version keys to match its hash.
+
+Export with `npm run assets:hero`; validate with `npm run assets:validate`; inspect raw/gzip/Brotli production sizes with `npm run assets:budget`. No textures are shipped, so there is no hidden image residency or oversized atlas. Source generator/preview files stay outside the runtime bundle. Narration remains lazy (`preload="none"`) and its bytes/playback are owned by Content + Audio.

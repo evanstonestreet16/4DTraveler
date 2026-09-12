@@ -3,7 +3,8 @@ import type { HistoricalWorld, PointOfInterest } from '../../types/world';
 /** Visual layout ownership: Workstream 1. Units are meters, +Y is up. */
 export const pittsburgh1892Scene = {
   model: {
-    url: '/models/pittsburgh-1892.glb',
+    url: '/models/pittsburgh-1892.glb?v=cee5ce9ad370',
+    compressedUrl: '/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370',
     selectableNodes: {
       furnace: 'furnace',
       stack: 'stack',

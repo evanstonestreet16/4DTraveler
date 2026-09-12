@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import type { QualityPreference } from '../../utils/quality';
 import { useApp } from '../../app/AppContext';
 import type { HistoricalWorld } from '../../types/world';
 import { ObjectInfoPanel } from '../info/ObjectInfoPanel';
@@ -8,6 +10,7 @@ import { WorldViewport } from './WorldViewport';
 
 export default function WorldExperience({ world }: { world: HistoricalWorld }) {
   const { state, dispatch } = useApp();
+  const [quality, setQuality] = useState<QualityPreference>('auto');
   const view = useImmersiveView();
   const poi = world.pois.find((poi) => poi.id === state.activePOIId);
   const selectedObject = world.objects.find(
@@ -54,6 +57,20 @@ export default function WorldExperience({ world }: { world: HistoricalWorld }) {
       <div className="world-layout">
         <div className="scene-column">
           <div className="scene-toolbar">
+            <label className="quality-control">
+              Scene quality
+              <select
+                value={quality}
+                onChange={(event) =>
+                  setQuality(event.target.value as QualityPreference)
+                }
+              >
+                <option value="auto">Auto</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+            </label>
             <span className="eyebrow" role="status">
               {poi ? `Exploring ${poi.name}` : 'Bird’s-eye overview'}
             </span>
@@ -69,7 +86,7 @@ export default function WorldExperience({ world }: { world: HistoricalWorld }) {
             layout={view.immersive ? 'immersive' : 'standard'}
             informationOpen={!!selectedObject}
           >
-            <WorldCanvas world={world} />
+            <WorldCanvas world={world} quality={quality} />
           </WorldViewport>
           <div className="scene-caption">
             <span>

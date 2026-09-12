@@ -3,6 +3,9 @@ import { Canvas, useThree } from '@react-three/fiber';
 import type { HistoricalWorld } from '../../types/world';
 import { WorldScene } from './WorldScene';
 import { SceneErrorBoundary } from './SceneErrorBoundary';
+import { SceneDiagnostics } from './SceneDiagnostics';
+import { useSceneQuality } from './useSceneQuality';
+import type { QualityPreference } from '../../utils/quality';
 import { ViewportDpr } from './ViewportDpr';
 import { useSceneActivity } from './useSceneActivity';
 import type { ModelAssetState } from './modelAsset';
@@ -21,7 +24,15 @@ function ContextGuard({ onLost }: { onLost: () => void }) {
   return null;
 }
 
-export function WorldCanvas({ world }: { world: HistoricalWorld }) {
+export function WorldCanvas({
+  world,
+  quality: preference = 'auto',
+}: {
+  world: HistoricalWorld;
+  quality?: QualityPreference;
+}) {
+  const [softwareRenderer, setSoftwareRenderer] = useState(false);
+  const { quality, settings } = useSceneQuality(preference, softwareRenderer);
   const [lost, setLost] = useState(false);
   const container = useRef<HTMLDivElement>(null);
   const active = useSceneActivity(container);
@@ -31,7 +42,8 @@ export function WorldCanvas({ world }: { world: HistoricalWorld }) {
       ref={container}
       className="world-canvas"
       aria-label="Interactive historical world"
-      data-environment-motion={active ? 'active' : 'paused'}
+      data-environment-motion={active && settings.motion ? 'active' : 'paused'}
+      data-scene-quality={quality}
     >
       <SceneErrorBoundary>
         {lost ? (
@@ -44,9 +56,9 @@ export function WorldCanvas({ world }: { world: HistoricalWorld }) {
           </div>
         ) : (
           <Canvas
-            shadows
+            shadows={settings.shadowMap > 0}
             frameloop="demand"
-            dpr={[1, 1.75]}
+            dpr={[1, settings.dpr]}
             camera={{
               position: world.scene.overviewCamera.position,
               fov: 48,
@@ -54,6 +66,16 @@ export function WorldCanvas({ world }: { world: HistoricalWorld }) {
               far: 400,
             }}
             onCreated={({ camera, gl }) => {
+              const context = gl.getContext();
+              const debug = context.getExtension('WEBGL_debug_renderer_info');
+              const renderer = String(
+                context.getParameter(
+                  debug?.UNMASKED_RENDERER_WEBGL ?? context.RENDERER,
+                ),
+              );
+              setSoftwareRenderer(
+                /swiftshader|llvmpipe|software/i.test(renderer),
+              );
               gl.toneMappingExposure = world.scene.environment?.exposure ?? 1;
               camera.lookAt(...world.scene.overviewCamera.target);
               gl.domElement.setAttribute('role', 'img');
@@ -70,11 +92,14 @@ export function WorldCanvas({ world }: { world: HistoricalWorld }) {
             }
           >
             <ContextGuard onLost={() => setLost(true)} />
-            <ViewportDpr maximum={1.75} />
+            <ViewportDpr maximum={settings.dpr} />
+            <SceneDiagnostics />
             <WorldScene
               world={world}
               onAssetState={setAssetState}
-              animated={active}
+              animated={active && settings.motion}
+              shadowMap={settings.shadowMap}
+              detail={settings.detail}
               effectsReady={
                 !world.scene.model || assetState?.status === 'ready'
               }

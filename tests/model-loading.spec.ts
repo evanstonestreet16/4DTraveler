@@ -15,7 +15,7 @@ for (const failure of ['missing', 'corrupt', 'missing-node'] as const) {
   }) => {
     const errors: string[] = [];
     page.on('pageerror', (error) => errors.push(error.message));
-    await page.route('**/models/*.glb', async (route) => {
+    await page.route('**/models/*.glb*', async (route) => {
       if (failure === 'missing')
         return route.fulfill({ status: 404, body: '' });
       if (failure === 'corrupt')
@@ -61,7 +61,7 @@ test('loading keeps the primitive world usable and leaving cancels without stale
   const pending = new Promise<void>((resolve) => {
     release = resolve;
   });
-  await page.route('**/models/*.glb', async (route) => {
+  await page.route('**/models/*.glb*', async (route) => {
     await pending;
     await route.continue().catch(() => undefined);
   });
@@ -72,7 +72,7 @@ test('loading keeps the primitive world usable and leaving cancels without stale
   ).toBeVisible();
   await page.getByRole('button', { name: 'Choose era' }).click();
   release!();
-  await page.unroute('**/models/*.glb');
+  await page.unroute('**/models/*.glb*');
   await page.getByRole('button', { name: /1892 An industrial city/ }).click();
   await expect(page.locator('[data-model-status="ready"]')).toHaveCount(1);
   await expect(page.locator('[data-model-status="fallback"]')).toHaveCount(0);

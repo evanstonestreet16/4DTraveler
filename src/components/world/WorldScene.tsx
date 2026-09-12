@@ -12,11 +12,15 @@ export function WorldScene({
   onAssetState,
   animated = false,
   effectsReady = false,
+  shadowMap = 1024,
+  detail = true,
 }: {
   world: HistoricalWorld;
   onAssetState: (state: ModelAssetState) => void;
   animated?: boolean;
   effectsReady?: boolean;
+  shadowMap?: number;
+  detail?: boolean;
 }) {
   const { state, dispatch } = useApp();
   const environment = world.scene.environment;
@@ -55,16 +59,21 @@ export function WorldScene({
             ]}
           />
           {effectsReady && (
-            <EnvironmentEffects environment={environment} animated={animated} />
+            <EnvironmentEffects
+              environment={environment}
+              animated={animated}
+              detail={detail}
+            />
           )}
         </>
       )}
       <directionalLight
+        key={shadowMap}
         position={environment?.keyLight.position ?? [12, 30, 14]}
         color={environment?.keyLight.color ?? '#ffffff'}
         intensity={environment?.keyLight.intensity ?? 2.2}
-        castShadow
-        shadow-mapSize={[1024, 1024]}
+        castShadow={shadowMap > 0}
+        shadow-mapSize={[shadowMap || 512, shadowMap || 512]}
         shadow-camera-left={-25}
         shadow-camera-right={25}
         shadow-camera-top={25}

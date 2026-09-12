@@ -709,3 +709,43 @@ h1 {
     grid-template-rows: auto minmax(0, 1fr);
   }
 }
+
+.quality-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  order: 1;
+}
+.quality-control select {
+  font: inherit;
+  color: inherit;
+  background: #faf8f1;
+  padding: 7px;
+  border: 1px solid #b8c0af;
+  border-radius: 4px;
+}
+.quality-control select:focus-visible {
+  outline: 3px solid #a34e25;
+  outline-offset: 3px;
+}
+.scene-toolbar {
+  flex-wrap: wrap;
+}
+.scene-toolbar > .small-button {
+  order: 2;
+}
+.world-experience.is-immersive .quality-control select {
+  min-height: 44px;
+}
+@media (max-width: 640px) {
+  .quality-control select {
+    min-height: 44px;
+  }
+  .scene-toolbar .eyebrow {
+    flex: 1 1 100%;
+  }
+  .quality-control {
+    flex: 1;
+  }
+}
