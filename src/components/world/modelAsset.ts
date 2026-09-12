@@ -231,7 +231,10 @@ async function downloadModel(
   const response = await fetch(url, { signal, cache: 'force-cache' });
   if (!response.ok)
     throw new Error(`Model request failed (HTTP ${response.status}).`);
-  const total = Number(response.headers.get('content-length'));
+  // Fetch streams decoded bytes, but Content-Length describes encoded bytes.
+  const total = response.headers.get('content-encoding')
+    ? 0
+    : Number(response.headers.get('content-length'));
   const chunks: Uint8Array[] = [];
   let received = 0;
   if (!response.body) throw new Error('The model response was empty.');

@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+import { gzipSync } from 'node:zlib';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   BoxGeometry,
@@ -154,7 +155,9 @@ describe('GLB asset contract', () => {
 
   it('reports progress and disposes an owned load idempotently', async () => {
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-      new Response(await fixture()),
+      new Response(await fixture(), {
+        headers: { 'content-encoding': 'gzip', 'content-length': '12' },
+      }),
     );
     const progress = vi.fn();
     const asset = await loadModelAsset(
@@ -163,12 +166,35 @@ describe('GLB asset contract', () => {
       new AbortController().signal,
       progress,
     );
-    expect(progress).toHaveBeenCalled();
+    // Fetch has decoded the body, so the encoded Content-Length is not a valid percentage total.
+    expect(progress).toHaveBeenCalledWith(undefined);
     const mesh = asset.scene.getObjectByName('furnace-surface-0') as Mesh;
     const dispose = vi.spyOn(mesh.geometry, 'dispose');
     asset.dispose();
     asset.dispose();
     expect(dispose).toHaveBeenCalledTimes(1);
+  });
+
+  it('decodes gzip transport without relying on HTTP Content-Encoding', async () => {
+    const compressed = gzipSync(new Uint8Array(await fixture()));
+    const fetch = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(compressed, {
+        headers: { 'content-length': String(compressed.byteLength) },
+      }),
+    );
+    const asset = await loadModelAsset(
+      world.scene.model!,
+      world.objects,
+      new AbortController().signal,
+      vi.fn(),
+    );
+    expect(asset.selection.size).toBe(5);
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledWith(
+      world.scene.model!.compressedUrl,
+      expect.objectContaining({ cache: 'force-cache' }),
+    );
+    asset.dispose();
   });
 
   it('propagates request cancellation and HTTP errors for the visible fallback', async () => {
