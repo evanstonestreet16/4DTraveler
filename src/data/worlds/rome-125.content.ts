@@ -25,6 +25,26 @@ const pantheonResearchSource = {
   title: 'The Open University — Introducing the Pantheon',
   url: 'https://www.open.edu/openlearn/history-the-arts/hadrians-rome/content-section-2.1',
 };
+const colosseumSource = {
+  id: 'rome-r7',
+  title: 'Parco archeologico del Colosseo — The Colosseum',
+  url: 'https://colosseo.it/en/area/the-colosseum/',
+};
+const metaSudansSource = {
+  id: 'rome-r8',
+  title: 'Parco archeologico del Colosseo — Meta Sudans',
+  url: 'https://colosseo.it/en/area/arch-of-constantine-and-meta-sudans/',
+};
+const venusRomaSource = {
+  id: 'rome-r9',
+  title: 'Parco archeologico del Colosseo — Temple of Venus and Roma',
+  url: 'https://colosseo.it/en/marvels/temple-of-venus-and-roma/',
+};
+const colosseumExcavationSource = {
+  id: 'rome-r15',
+  title: 'Parco archeologico del Colosseo — Southern arcade excavations',
+  url: 'https://colosseo.it/en/event/archaeological-colosseum-square-excavation-southern-side/',
+};
 
 /** Workstream 4. Source-reviewed text; see ROME_125_CONTENT_REVIEW.md for limits. */
 export const rome125Content = {
@@ -40,6 +60,10 @@ export const rome125Content = {
     'pantheon-forecourt': {
       narrationTranscript:
         'The Pantheon stands ahead, its porch approached through a framed forecourt. Granite column shafts traveled from Egypt; above them, the inscription names Agrippa, who commissioned an earlier building here. Behind the temple-like front lies a great circular hall and concrete dome. We show the monument newly rebuilt in 125, while its precise completion and the roles of Trajan and Hadrian remain debated. Inspect the inscription, columns, and forecourt. The colonnade arrangement and ancient finishes are interpretations; this visit stays outside the building.',
+    },
+    'colosseum-valley': {
+      narrationTranscript:
+        'The Flavian Amphitheatre, familiar today as the Colosseum, faces the valley with its exterior intact. Nearby, water emerges from the conical Meta Sudans fountain. Turn toward the Temple of Venus and Roma works: Hadrian’s project began in 121, with inauguration still years ahead, in 136 or 137. This worksite’s exact arrangement in 125 is unknown; the partial columns, stored materials, and timber equipment are illustrative. Inspect the arcade, fountain, and worksite. The optional quiet sounds suggest water and construction, not a recording of the ancient city.',
     },
   },
   objects: [
@@ -120,6 +144,45 @@ export const rome125Content = {
       confidence:
         'The porticoed forecourt is documented. Bay count, decoration, surrounding façades, and this precise reconstructed ground level require specialist review.',
       sources: [pantheonSource],
+    },
+    {
+      id: 'colosseum-outer-arcade',
+      name: 'Flavian Amphitheatre Arcade',
+      poiId: 'colosseum-valley',
+      sceneObjectId: 'rome125_colosseum_outer_arcade',
+      description:
+        'The amphitheatre’s exterior arcades connected with vaulted passageways and stairs. This first-century Flavian building hosted gladiatorial contests and animal hunts.',
+      whyItMatters:
+        'The façade joined imperial spectacle with the practical work of moving spectators through a huge building.',
+      confidence:
+        'The building and circulation system are documented. This intact 125 exterior is simplified; surface color, ornament, and the quiet non-event setting are interpretive.',
+      sources: [colosseumSource, colosseumExcavationSource],
+    },
+    {
+      id: 'meta-sudans',
+      name: 'Meta Sudans',
+      poiId: 'colosseum-valley',
+      sceneObjectId: 'rome125_meta_sudans',
+      description:
+        'This Flavian fountain combined a cylindrical base with a tall conical upper part from which water emerged, marking an important road junction.',
+      whyItMatters:
+        'Water infrastructure shaped public space as surely as temples and arenas did.',
+      confidence:
+        'Position and broad form are supported by archaeology and depictions. The upper ornament and fine details remain uncertain; this model’s water and finish are illustrative.',
+      sources: [metaSudansSource],
+    },
+    {
+      id: 'venus-roma-worksite',
+      name: 'Temple of Venus and Roma Works',
+      poiId: 'colosseum-valley',
+      sceneObjectId: 'rome125_venus_roma_worksite',
+      description:
+        'Hadrian’s temple project began in 121 CE. It would be inaugurated in 136 or 137 and completed under Antoninus Pius in 141; here it remains a worksite.',
+      whyItMatters:
+        'The unfinished project anchors this visit in 125 and reveals a capital still being rebuilt.',
+      confidence:
+        'The project’s start and later inauguration are documented. Its exact 125 construction stage is unknown: partial columns, materials, and lifting gear are illustrative.',
+      sources: [venusRomaSource],
     },
   ] satisfies HistoricalObject[],
 };

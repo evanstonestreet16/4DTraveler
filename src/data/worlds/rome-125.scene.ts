@@ -1,8 +1,11 @@
+import renderedImages from '../../../public/images/rome-125/manifest.json' with { type: 'json' };
 import pantheonMetrics from '../../../public/models/rome-125/pantheon-forecourt.metrics.json' with { type: 'json' };
 import overviewMetrics from '../../../public/models/rome-125/overview.metrics.json' with { type: 'json' };
 import forumMetrics from '../../../public/models/rome-125/forum-trajan.metrics.json' with { type: 'json' };
+import valleyMetrics from '../../../public/models/rome-125/colosseum-valley.metrics.json' with { type: 'json' };
 import type {
   HistoricalWorld,
+  OverviewImage,
   PointOfInterest,
   ScenePrimitive,
   WorldEnvironment,
@@ -23,9 +26,25 @@ const forumEnvironment: WorldEnvironment = {
   exposure: 1.1,
 };
 
+/** Coordinates follow each delivered overview image before responsive cover cropping. */
+const renderedOverview: OverviewImage = {
+  ...renderedImages.overview,
+  markers: Object.fromEntries(
+    Object.entries(renderedImages.overview.markers).map(([id, marker]) => [
+      id,
+      {
+        desktop: [marker.desktop[0], marker.desktop[1]] as [number, number],
+        mobile: [marker.mobile[0], marker.mobile[1]] as [number, number],
+      },
+    ]),
+  ),
+};
+
 /** Metres; Forum center is origin, +X east, +Y up, +Z south. */
 export const rome125Scene: HistoricalWorld['scene'] = {
   presentation: 'immersive-city',
+  overviewTransition: { group: 'rome-central', durationMs: 2200 },
+  overviewImage: renderedOverview,
   overviewCamera: {
     position: [-1450, 1250, 1650],
     target: [50, 40, 180],
@@ -81,6 +100,7 @@ export const rome125POILayout: PointOfInterest[] = [
       'dacian-prisoner-statue',
     ],
     immersive: {
+      panorama: renderedImages.panoramas['forum-trajan'],
       background: '#d6dfdf',
       environment: forumEnvironment,
       look: { minPitch: (-35 * Math.PI) / 180, maxPitch: (55 * Math.PI) / 180 },
@@ -127,6 +147,7 @@ export const rome125POILayout: PointOfInterest[] = [
       'pantheon-forecourt-colonnade',
     ],
     immersive: {
+      panorama: renderedImages.panoramas['pantheon-forecourt'],
       background: '#d6dfdf',
       environment: forumEnvironment,
       look: { minPitch: (-35 * Math.PI) / 180, maxPitch: (65 * Math.PI) / 180 },
@@ -179,7 +200,45 @@ export const rome125POILayout: PointOfInterest[] = [
     name: 'Flavian Amphitheatre Valley',
     markerPosition: [680, 68, 630],
     camera: { position: [0, 1.65, 0], target: [80, 18, 0], far: 1800 },
-    objectIds: [],
-    preview: true,
+    objectIds: ['colosseum-outer-arcade', 'meta-sudans', 'venus-roma-worksite'],
+    immersive: {
+      panorama: renderedImages.panoramas['colosseum-valley'],
+      background: '#d6dfdf',
+      environment: forumEnvironment,
+      look: { minPitch: (-35 * Math.PI) / 180, maxPitch: (60 * Math.PI) / 180 },
+      ambientAudio: '/audio/rome-125/colosseum-valley-ambience.wav',
+      model: {
+        url: `/models/rome-125/colosseum-valley.glb?v=${valleyMetrics.sha256.slice(0, 12)}`,
+        selectableNodes: {
+          rome125_colosseum_outer_arcade: 'rome125_colosseum_outer_arcade',
+          rome125_meta_sudans: 'rome125_meta_sudans',
+          rome125_venus_roma_worksite: 'rome125_venus_roma_worksite',
+        },
+        loadingLabel: 'Entering the Flavian Amphitheatre valley',
+        fallbackLabel:
+          'The detailed valley could not load. Explore its simplified landmarks and objects.',
+      },
+      primitives: [
+        box('valley-paving', [0, -0.3, 0], [1600, 0.6, 1600], '#bdae93'),
+        {
+          id: 'rome125_colosseum_outer_arcade',
+          shape: 'cylinder',
+          position: [175, 24, 0],
+          scale: [188, 48, 156],
+          color: '#d9c5a1',
+        },
+        {
+          id: 'rome125_meta_sudans',
+          shape: 'cylinder',
+          position: [16, 8, 36],
+          scale: [8, 16, 8],
+          color: '#c5b595',
+        },
+        box('rome125_venus_roma_worksite', [-120, 1.5, -10], [170, 3, 95]),
+        box('valley-palatine', [10, 22, 220], [380, 44, 140], '#8b9068'),
+        box('valley-north-closure', [0, 13, -320], [700, 26, 45]),
+        box('valley-west-closure', [-320, 13, 0], [45, 26, 700]),
+      ],
+    },
   },
 ];

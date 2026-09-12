@@ -79,12 +79,15 @@ export function ModelScene({
   }, [loaded, selectedId, hoveredId, invalidate]);
   if (!loaded) return fallback;
   const handlePointer = (event: ThreeEvent<PointerEvent>) => {
-    if (shouldSuppressSceneClick(canvas)) return;
-    const object = resolveModelObject(event.object, loaded.selection);
-    if (object) {
-      event.stopPropagation();
-      setHoveredId(object.id);
+    // The nearest rendered surface occludes meshes behind it, even when that
+    // surface has no historical metadata of its own.
+    event.stopPropagation();
+    if (event.buttons && shouldSuppressSceneClick(canvas)) {
+      setHoveredId(null);
+      return;
     }
+    const object = resolveModelObject(event.object, loaded.selection);
+    setHoveredId(object?.id ?? null);
   };
   return (
     <group
@@ -96,14 +99,12 @@ export function ModelScene({
         object={loaded.scene}
         dispose={null}
         onClick={(event: ThreeEvent<MouseEvent>) => {
+          event.stopPropagation();
+          if (shouldSuppressSceneClick(canvas)) return;
           const object = resolveModelObject(event.object, loaded.selection);
-          if (object) {
-            event.stopPropagation();
-            if (shouldSuppressSceneClick(canvas)) return;
-            onSelect(object.id);
-          }
+          if (object) onSelect(object.id);
         }}
-        onPointerOver={handlePointer}
+        onPointerMove={handlePointer}
         onPointerOut={() => setHoveredId(null)}
       />
     </group>

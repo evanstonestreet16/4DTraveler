@@ -1,0 +1,106 @@
+.city-overview-footer {
+  position: absolute;
+  z-index: 35;
+  bottom: max(14px, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(440px, calc(100% - 28px));
+  display: grid;
+  gap: 8px;
+}
+.overview-time-slider {
+  padding: 14px 22px 4px;
+  border: 1px solid #fff8;
+  border-radius: 16px;
+  background: #faf7eef2;
+  box-shadow: 0 8px 36px #261c2840;
+  color: #263c34;
+  backdrop-filter: blur(16px);
+}
+.time-slider-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  font-weight: 650;
+}
+.time-slider-title > span:last-child {
+  font:
+    18px Georgia,
+    serif;
+  letter-spacing: 0;
+}
+.overview-time-slider input {
+  width: 100%;
+  height: 44px;
+  margin: 4px 0 0;
+  accent-color: #345b43;
+  cursor: pointer;
+}
+.overview-time-slider input:focus-visible {
+  outline: 3px solid #a34e25;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+.overview-time-slider input:disabled {
+  cursor: wait;
+}
+.time-slider-stops {
+  display: flex;
+  justify-content: space-between;
+}
+.time-slider-stops button {
+  min-height: 44px;
+  padding: 0 10px;
+  margin: -6px -10px 0;
+  background: none;
+  border: 0;
+  font-size: 13px;
+  border-radius: 6px;
+}
+.time-slider-stops button[aria-pressed='true'] {
+  font-weight: 750;
+}
+.city-overview-story {
+  margin: 0;
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: #faf7eef2;
+  color: #334537;
+  box-shadow: 0 3px 18px #261c2820;
+  font-size: 11px;
+}
+.city-overview-story summary {
+  cursor: pointer;
+}
+.city-overview-story p {
+  line-height: 1.6;
+  max-height: 24dvh;
+  overflow: auto;
+}
+.city-overview-caption {
+  margin: 0;
+  text-align: center;
+  font-size: 10px;
+  color: #fff;
+  text-shadow:
+    0 1px 4px #000,
+    0 1px 8px #000;
+}
+.city-experience[data-era-transition='true'] .city-explorer {
+  opacity: 0;
+  pointer-events: none;
+}
+@media (max-height: 500px) {
+  .city-overview-footer {
+    width: min(360px, calc(100% - 28px));
+    bottom: 8px;
+  }
+  .city-overview-story {
+    display: none;
+  }
+  .overview-time-slider {
+    padding-top: 8px;
+  }
+}

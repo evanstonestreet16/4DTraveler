@@ -95,53 +95,60 @@ h1 {
   gap: 20px;
   margin: 34px 0 24px;
 }
-.location-card {
-  padding: 0;
-  border: 1px solid #c9cbbb;
-  background: #faf8f1;
-  width: 390px;
-  max-width: 100%;
-  text-align: left;
-  border-radius: 8px;
-  overflow: hidden;
-}
-.location-card:hover,
 .era-card:hover {
   border-color: #426151;
   box-shadow: 0 3px 12px #263c3412;
 }
-.card-art {
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.globe-stage {
   position: relative;
-  height: 132px;
-  padding: 22px;
-  display: block;
-  background: #d6d4c3;
-  color: #6d7866;
-  font:
-    42px Georgia,
-    serif;
+  min-height: calc(100vh - 162px);
   overflow: hidden;
 }
-.city-line {
+.globe-canvas-layer,
+.globe-logo-layer {
   position: absolute;
-  right: 18px;
-  bottom: -12px;
-  font-size: 95px;
-  letter-spacing: -15px;
-  color: #7d8b76;
-}
-.card-body {
-  display: grid;
-  gap: 12px;
-  padding: 24px;
-  font-size: 13px;
-  line-height: 1.6;
-}
-.card-title {
+  inset: 0;
   display: flex;
-  justify-content: space-between;
-  font-size: 28px;
-  font-family: Georgia, serif;
+  align-items: center;
+  justify-content: center;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+.globe-viewport {
+  width: 100%;
+  height: 100%;
+}
+.globe-canvas-layer {
+  opacity: 0;
+  pointer-events: none;
+}
+.globe-logo-layer {
+  opacity: 1;
+}
+.globe-logo {
+  width: 140px;
+  height: 140px;
+}
+.globe-stage.is-globe .globe-canvas-layer {
+  opacity: 1;
+  pointer-events: auto;
+}
+.globe-stage.is-globe .globe-logo-layer {
+  opacity: 0;
+  transform: scale(3.2);
+  pointer-events: none;
 }
 .muted {
   color: #5c685f;
@@ -274,6 +281,88 @@ h1 {
 }
 .model-status-fallback {
   border: 1px solid #b78132;
+}
+.tripo-activity {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: rgba(20, 26, 32, 0.85);
+  color: #f5f2ea;
+  font-size: 11px;
+  line-height: 1.45;
+  min-width: 220px;
+  max-width: 320px;
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  pointer-events: none;
+  z-index: 5;
+}
+.tripo-activity-spinner {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  margin-top: 2px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #f5c66c;
+  border-radius: 50%;
+  animation: tripo-spin 900ms linear infinite;
+}
+@keyframes tripo-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.tripo-activity-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  flex: 1;
+}
+.tripo-activity-title {
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+.tripo-activity-detail {
+  color: #d7cfbe;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tripo-activity-bar {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  margin-top: 2px;
+}
+.tripo-activity-bar-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: linear-gradient(90deg, #f5c66c, #f0e0b8);
+  border-radius: 2px;
+  transition: width 320ms ease-out;
+}
+.tripo-activity-summary {
+  color: #a49b86;
+  font-size: 10px;
+}
+.tripo-activity-failed {
+  color: #f3a26c;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tripo-activity-spinner {
+    animation-duration: 2400ms;
+  }
 }
 .scene-fallback {
   padding: 32px;
@@ -1108,5 +1197,202 @@ h1 {
 @media (min-width: 701px) and (max-height: 600px) {
   .city-explorer {
     width: 180px;
+  }
+}
+.city-narration .ambient-controls button {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  .city-experience:has(.ambient-controls) .city-information {
+    bottom: 220px;
+  }
+  .city-experience:has(.ambient-controls) .city-look-hint {
+    bottom: 260px;
+  }
+}
+
+/* --- Globe experience --- */
+.pill-button {
+  border: 1px solid #365540;
+  background: #365540;
+  color: #fffdf5;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0.4px;
+}
+.pill-button.ghost {
+  background: transparent;
+  color: #365540;
+}
+.pill-button:hover {
+  filter: brightness(1.08);
+}
+.globe-cta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 8px 0 28px;
+  flex-wrap: wrap;
+}
+.globe-page {
+  padding: 40px 6% 56px;
+  min-height: calc(100vh - 162px);
+}
+.globe-stage.globe-landing {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 0;
+}
+.globe-landing > .globe-cta {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding: 20px clamp(16px, 4vw, 56px);
+  background: #faf8f1f2;
+}
+.curated-city-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.globe-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr);
+  gap: 32px;
+  margin-top: 28px;
+  align-items: stretch;
+}
+.globe-viewport {
+  position: relative;
+  min-height: 520px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #1c2a3a;
+  background: #111a24;
+  box-shadow: 0 20px 45px -22px #10182014;
+}
+.globe-canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+.globe-city-label {
+  font-family: Georgia, serif;
+  color: #f4c66a;
+  font-size: 14px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #0d141bcc;
+  border: 1px solid #f4c66a55;
+  white-space: nowrap;
+}
+.globe-panel {
+  border: 1px solid #c9cbbb;
+  background: #faf8f1;
+  border-radius: 12px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.globe-info h2 {
+  font-family: Georgia, serif;
+  font-size: 34px;
+  margin: 4px 0 10px;
+  font-weight: 400;
+}
+.globe-info p {
+  line-height: 1.65;
+  font-size: 14px;
+  color: #384a41;
+}
+.globe-tip-list {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  color: #59675e;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.globe-loader {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.globe-loader span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #365540;
+  animation: globe-loader-pulse 1s ease-in-out infinite;
+}
+.globe-loader span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.globe-loader span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes globe-loader-pulse {
+  0%,
+  100% {
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.globe-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.generated-era-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.generated-era-card {
+  width: 100%;
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  text-align: left;
+  border: 1px solid #b9c1b2;
+  border-radius: 8px;
+  background: #e6e9df;
+}
+.generated-era-card:hover {
+  border-color: #365540;
+  box-shadow: 0 3px 12px #263c3418;
+}
+.generated-era-year {
+  font:
+    30px Georgia,
+    serif;
+}
+.generated-era-subtitle {
+  font-size: 12px;
+  color: #59675e;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+}
+.generated-era-body {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #384a41;
+}
+@media (max-width: 960px) {
+  .globe-stage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .globe-viewport {
+    min-height: 380px;
   }
 }

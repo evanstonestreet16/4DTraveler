@@ -9,10 +9,10 @@ import { format } from 'prettier';
 import { Euler, Quaternion } from 'three';
 
 // Normal visitor controls plus the existing read-only profile bridge produce a repeatable review.
-// Usage: node scripts/review-rome.mjs http://127.0.0.1:4173 docs/evidence/rome-p0 forum-trajan
+// Usage: node scripts/review-rome.mjs http://127.0.0.1:4173 /tmp/rome-review forum-trajan
 const [
   base = 'http://127.0.0.1:4173',
-  output = 'docs/evidence/rome-p0',
+  output = '/tmp/rome-review',
   poiId = 'forum-trajan',
 ] = process.argv.slice(2);
 const destination = path.resolve(output);
@@ -34,18 +34,23 @@ async function capture(name) {
   evidence.views.push(
     await page.evaluate((name) => {
       const canvas = document.querySelector('canvas');
-      const rect = canvas.getBoundingClientRect();
+      const viewer = document.querySelector('[data-rendered-view]');
+      const rect = viewer.getBoundingClientRect();
       return {
         name,
         viewport: { width: innerWidth, height: innerHeight },
-        canvas: {
+        viewer: {
           x: rect.x,
           y: rect.y,
           width: rect.width,
           height: rect.height,
         },
-        renderer: canvas.__worldRendererInfo?.(),
-        markers: [...document.querySelectorAll('.poi-marker')].map((marker) => {
+        renderer: canvas?.__worldRendererInfo?.(),
+        markers: [
+          ...document.querySelectorAll(
+            '.rendered-poi-marker, .panorama-hotspot',
+          ),
+        ].map((marker) => {
           const bounds = marker.getBoundingClientRect();
           return {
             label: marker.textContent,
@@ -92,18 +97,20 @@ try {
   await page.goto(url.href);
   await page.getByRole('button', { name: /Rome/ }).click();
   await page.getByRole('button', { name: /125/ }).click();
-  await page.locator('[data-model-status="ready"]').waitFor();
+  await page.locator('[data-image-status="ready"]').waitFor();
   await capture('overview-desktop');
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForFunction(
     () =>
-      document.querySelector('canvas')?.getBoundingClientRect().width === 390,
+      document.querySelector('[data-rendered-view]')?.getBoundingClientRect()
+        .width === 390 && document.querySelector('[data-image-status="ready"]'),
   );
   await capture('overview-portrait');
   await page.setViewportSize({ width: 844, height: 390 });
   await page.waitForFunction(
     () =>
-      document.querySelector('canvas')?.getBoundingClientRect().width === 844,
+      document.querySelector('[data-rendered-view]')?.getBoundingClientRect()
+        .width === 844 && document.querySelector('[data-image-status="ready"]'),
   );
   await capture('overview-landscape');
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -116,7 +123,9 @@ try {
     .getByRole('navigation', { name: 'Points of interest' })
     .getByRole('button', { name: names[poiId] })
     .click();
-  await page.locator('[data-model-status="ready"]').waitFor();
+  await page
+    .locator('[data-image-status="ready"] canvas[data-fixed-look="true"]')
+    .waitFor();
   await page.locator('canvas').focus();
   await capture(`${poiId}-initial`);
   for (const [direction, yaw] of [

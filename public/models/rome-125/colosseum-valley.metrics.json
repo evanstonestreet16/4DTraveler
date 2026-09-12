@@ -1,0 +1,21 @@
+{
+  "asset": "/models/rome-125/colosseum-valley.glb",
+  "generator": "blender/scripts/build_rome.py",
+  "sha256": "aeed659cab01742389247f29a8b1a4e30dc465b22d32f0e6fea94e620cd8a0c2",
+  "bytes": 3830044,
+  "triangles": 72256,
+  "materialBatches": 28,
+  "textures": 0,
+  "externalResources": 0,
+  "groups": [
+    "scenery",
+    "rome125_colosseum_outer_arcade",
+    "rome125_meta_sudans",
+    "rome125_venus_roma_worksite"
+  ],
+  "bounds": {
+    "min": [-800.0, -98.0, -800.0],
+    "max": [800.0, 68.5, 800.0]
+  },
+  "confidence": "Source-aware interpretive reconstruction; original procedural geometry, no third-party assets."
+}

@@ -1,56 +1,40 @@
 # 4DTraveler
 
-Explore a place through time: choose Rome or Pittsburgh and an era, enter a 3D world, visit points of interest, inspect objects, and hear narration. **Pittsburgh / 1892** is a detailed, original industrial diorama with five selectable objects, atmospheric lighting and motion, quality controls, and immersive fullscreen. **1850** is an explicitly labeled illustrative blockout that proves the same data/rendering pipeline can host another era.
+Explore a place through time: choose a city and era, visit points of interest, inspect objects, and hear or read narration. Active development is focused on Rome / 125 CE and Kyoto / circa 1700. Pittsburgh remains in the repository as legacy code pending deletion and is outside current development and testing scope.
 
-**Rome / 125 CE** adds a full-viewport city overview and eye-level Forum of Trajan and Pantheon forecourt scenes. Drag or use arrow keys on the focused canvas to look through 360°, inspect three sourced objects at each place, read the narration transcript, and return to the same overview. The Colosseum remains a preview marker pending P2. See the [Rome asset delivery](docs/visual/ROME_125_ASSETS.md) for Blender sources, budgets and reconstruction limits.
+**Rome / 125 CE** presents an offline-rendered city overview and eye-level 360° panoramas of the Forum of Trajan, Pantheon forecourt and Flavian Amphitheatre valley. Drag or use arrow keys on the focused view to look around, inspect three sourced objects at each place through numbered hotspots or the object list, read the narration transcript, and return to the same overview. The valley includes optional, manually started construction and water ambience. See the [Rome asset delivery](docs/visual/ROME_125_ASSETS.md) for Blender sources, budgets and reconstruction limits.
 
-These scenes are illustrative composites, not surveyed city reconstructions. The [visual brief](docs/visual/PITTSBURGH_1892_BRIEF.md) distinguishes historical references from modeling choices.
+These scenes are illustrative composites, not surveyed city reconstructions. Lighting, materials and architectural detail are rendered in Blender; the browser displays the images with interactive hotspots. Desktop and mobile receive separate image sizes, and portrait screens have a separately composed overview.
 
 ## Run locally
 
-Requires Node.js 22.12+ and npm, plus a browser with WebGL.
+Requires Node.js 22.12+ and npm. WebGL enables panorama looking; the overview, fallback stills and object lists also work without it.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Choose Pittsburgh → 1892 → Steel Mill. Click the actual furnace, stack or rail car, read its information, and play/pause narration. Explore Downtown and River / Bridge, then return to overview. Enter immersive view to use the viewport; Escape returns without resetting selection/audio. Scene quality offers Auto, High, Medium and Low. Reduced motion and offscreen/hidden scenes pause environmental animation. Choose era to visit the 1850 blockout.
+Choose Rome → 125 CE. Visit the Forum, Pantheon, and Flavian Amphitheatre valley; inspect the three objects at each POI, read the transcripts, try the valley ambience, and return to the overview.
 
 ```sh
-npm run format:check
-npm run lint
 npm run typecheck
-npm test
-npm run build
-npx playwright install chromium   # Once, for browser tests
-npm run test:e2e
-npm run preview -- --port 4174 --strictPort
+npm test -- <relevant-test-file>
+npm run build                     # Runtime integration or release
+npm run test:e2e -- <smoke-spec>  # Runtime integration or release
 ```
 
-No API keys, database, Blender installation, remote model/texture files or external audio services are required. If a detailed model cannot load, the complete selectable primitive world remains usable. Failed WebGL and narration have visible recovery controls.
+No API keys, database, Blender installation, remote visual assets or external audio services are required. Failed panorama loading or graphics rendering shows a compressed still, a retry control and the accessible object list. Rome narration remains available as reviewed text; recorded speech is not included.
 
-## Authoring and performance
-
-```sh
-npm run assets:fixture    # Deterministic small contract fixture
-npm run assets:hero       # Original modular GLB and gzip transport
-npm run assets:validate   # Node, geometry, version and transport integrity
-npm run assets:budget     # Production raw/gzip/Brotli sizes and hashes
-npm run profile:world    # Run with production preview on 4174
-```
-
-The Pittsburgh hero is 30,152 triangles across 32 material batches, uses no textures, and transfers as a roughly 211KB gzip asset when native decompression is available (2.09MiB plain GLB fallback). A content-hash URL version prevents stale byte caches; after changing the generated model, update the version in scene data as described in the [asset pipeline](docs/ASSET_PIPELINE.md). The landing flow does not load the heavy renderer or model before era selection.
-
-See [performance measurements](docs/PERFORMANCE.md) for real Apple M3/SwiftShader traces, resource lifecycle checks, DPR/shadow tiers and measurement limits. A mobile viewport in Chromium is not a physical-phone certification.
+Use Blender offline for visual authoring. Rome's repeatable render pipeline exports the overview, equirectangular panoramas, fallback stills and camera-projected hotspot coordinates. Existing GLBs remain available for authoring and the shared viewer still supports worlds that use them.
 
 ## Structure and integration
 
-- `src/types/world.ts`: shared world, model, environment, camera, POI and object contracts.
+- `src/types/world.ts`: shared world, image/panorama, hotspot, model, environment, camera, POI and object contracts.
 - `src/data/`: scene composition and historical content with separate ownership modules.
 - `src/app/`: location/era flow and selection/audio state.
-- `src/components/world/`: model loading, selection mapping, camera, atmosphere and renderer boundaries.
-- `public/models/`: versioned runtime assets; `scripts/assets/`: editable offline kit and preview.
+- `src/components/world/`: visual loading, selection mapping, camera and viewer boundaries.
+- `public/models/` and `public/images/`: versioned runtime visuals; `blender/`: editable offline sources.
 - `public/audio/`: checked-in temporary narration and transcript.
 - `tests/`: browser acceptance paths, failure/re-entry, fullscreen, quality and era switching.
 - [AGENTS.md](AGENTS.md): workstream boundaries and required verification.

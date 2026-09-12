@@ -280,3 +280,94 @@ def pantheon(k):
     for side in [-1,1]:
         k.box((side*75,14,-20),(50,28,200),'plaster')
         for z in [-85,35,65]: k.tree(side*46,z)
+
+
+def arch(k,p,r=2.2,spring=5.4,depth=3.5,angle=0,group=None):
+    """Visible masonry around an open arched bay; no invisible selection collider."""
+    x,y,z=p; c,s=math.cos(angle),math.sin(angle); outer=r+.8
+    for side in [-1,1]:
+        k.box((x+side*(r+.4)*c,y+spring/2,z-side*(r+.4)*s),(.8,spring,depth),'travertine',group,angle)
+    for i in range(12):
+        a=i*math.pi/12; b=(i+1)*math.pi/12
+        local=[(r*math.cos(a),spring+r*math.sin(a)),(outer*math.cos(a),spring+outer*math.sin(a)),(outer*math.cos(b),spring+outer*math.sin(b)),(r*math.cos(b),spring+r*math.sin(b))]
+        vertices=[(x+u*c+v*s,y+h,z-u*s+v*c) for v in [-depth/2,depth/2] for u,h in local]
+        k.mesh(vertices,[(0,3,2,1),(4,5,6,7),(0,1,5,4),(1,2,6,5),(2,3,7,6),(3,0,4,7)],'marble' if i%3==0 else 'travertine',group)
+
+
+def colosseum(k):
+    rng=random.Random(127)
+    k.box((0,-.65,0),(1600,1.2,1600),'earth')
+    k.box((22,-.09,0),(155,.15,160),'paving')
+    k.box((-25,-.07,-80),(55,.12,270),'paving_dark')
+    for x in range(-30,49,6):
+        for z in range(-54,61,6): k.box((x,.02,z),(5.96,.035,5.96),rng.choice(['paving','paving','paving_light']))
+    # Full intact Flavian ellipse at 188 x 156 m, three arcaded storeys and attic.
+    amph='rome125_colosseum_outer_arcade'; cx=175
+    for i in range(80):
+        a=i*math.tau/80
+        tx,tz=-94*math.sin(a),78*math.cos(a); angle=math.atan2(-tz,tx)
+        x,z=cx+94*math.cos(a),78*math.sin(a)
+        for tier in range(3):
+            arch(k,(x,1+tier*11,z),r=2.05,spring=5.9,depth=3.8,angle=angle,group=amph)
+            # Engaged orders between bays are simplified by storey.
+            ax,az=cx+95.8*math.cos(a+.0375),79.8*math.sin(a+.0375)
+            k.cylinder((ax,5.7+tier*11,az),.42,8.8,'marble',top=.36,n=8,group=amph)
+            k.box((ax,10.35+tier*11,az),(1.2,.5,1.2),'trim',amph,angle)
+        for y in [.6,11.1,22.1,33.1,45.8,48]:
+            k.box((x,y,z),(7.65,1.0,5.2),'trim',amph,angle)
+        k.box((x,39.5,z),(7.7,11.6,3.8),'travertine',amph,angle)
+        # Rectangular attic openings represented by recessed dark faces.
+        if i%2==0:
+            nx,nz=cx+96*math.cos(a),80*math.sin(a)
+            k.box((nx,40,nz),(2.2,3.5,.16),'dark',amph,angle)
+        # Deep circulation behind the open bays closes sightlines without false glass.
+        k.box((cx+85*math.cos(a),18,69*math.sin(a)),(7.5,36,2.6),'shadow_stone',amph,angle)
+        if i%4==0: k.cylinder((cx+94*math.cos(a),50,78*math.sin(a)),.15,6,'wood',n=6,group=amph)
+    # Fountain at the southeast junction, with an illustrative water treatment.
+    fountain='rome125_meta_sudans'; fx,fz=16,36
+    k.cylinder((fx,.45,fz),9,.9,'travertine',n=48,group=fountain)
+    k.cylinder((fx,.94,fz),7.9,.16,'water',n=48,group=fountain)
+    k.cylinder((fx,8,fz),3.4,14,'travertine',top=.45,n=32,group=fountain)
+    k.cylinder((fx,15.3,fz),.7,.8,'trim',n=16,group=fountain)
+    for i in range(12):
+        a=i*math.tau/12
+        k.rod((fx+.48*math.cos(a),14.9,fz+.48*math.sin(a)),(fx+3.3*math.cos(a),1.1,fz+3.3*math.sin(a)),.04,'water',fountain)
+    # Hadrian's unfinished platform: no completed cella or pediment in 125.
+    works='rome125_venus_roma_worksite'
+    k.box((-120,1.5,-10),(170,3,95),'travertine',works)
+    for side in [-1,1]:
+        for x in [-44,-66,-88,-110,-132,-154,-176,-198]:
+            height=rng.choice([2.2,3.4,5,7,9])
+            k.cylinder((x,3+height/2,-10+side*42),1.1,height,'marble',n=16,group=works)
+            k.box((x,3.2,-10+side*42),(3,.4,3),'trim',works)
+    for i in range(20):
+        x=-65-rng.random()*120; z=-38+rng.random()*55
+        for level in range(rng.choice([1,2,3])): k.box((x,3.5+level*1.05,z),(4,1,2.5),'shadow_stone',works)
+    for x,z in [(-65,14),(-140,-18)]:
+        k.rod((x-5,3,z-4),(x,21,z),.3,'wood',works)
+        k.rod((x+5,3,z-4),(x,21,z),.3,'wood',works)
+        k.rod((x,3,z+6),(x,21,z),.3,'wood',works)
+        k.rod((x-8,19,z),(x+10,23,z),.25,'wood',works)
+        k.rod((x+9,22.8,z),(x+9,7,z),.055,'dark',works)
+        k.box((x+9,6.5,z),(2,1,1.5),'marble',works)
+    for z in [-51,31]:
+        for x in range(-206,-29,8):
+            k.rod((x,0,z),(x,4,z),.16,'wood',works)
+        k.rod((-206,3,z),(-30,3,z),.13,'wood',works)
+    # Palatine slope to the south; an economical, continuous urban closure ring.
+    k.ellipsoid((-45,-28,205),(235,70,140),'grass',n=36,rings=12)
+    k.box((-45,43,220),(160,35,75),'plaster_light')
+    k.roof((-45,60.5,220),166,79,8)
+    for x in range(-113,28,14): k.column(x,177,14,.85,y=27,detail=False)
+    # North/northwest route threshold evokes the Arch of Titus, not Constantine.
+    arch(k,(-42,0,-135),r=4.2,spring=7.2,depth=6,angle=0)
+    for side in [-1,1]: k.box((-42+side*8,7.5,-135),(6,15,8),'travertine')
+    k.box((-42,15,-135),(23,5,8),'trim')
+    for i in range(60):
+        a=i*math.tau/60; x=330*math.cos(a); z=300*math.sin(a)
+        if z>130: continue
+        height=rng.uniform(17,30)
+        k.box((x,height/2,z),(39,height,34),rng.choice(['plaster','plaster_light']))
+        k.roof((x,height,z),41,36,5)
+        if i%3==0: k.tree(x*.9,z*.9,h=16)
+    for x,z in [(-100,95),(-180,122),(60,175),(-245,-95),(-235,80)]: k.tree(x,z,h=17)
