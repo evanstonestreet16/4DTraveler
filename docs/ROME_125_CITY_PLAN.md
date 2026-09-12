@@ -1,6 +1,6 @@
 # Rome / 125 CE — immersive city generation plan
 
-**Status:** P0 implemented; P1/P2 remain ordered follow-ups  
+**Status:** P0 and P1 implemented; P2 remains an ordered follow-up\
 **Consumes:** [`IMMERSIVE_CITY_PLAN.md`](./IMMERSIVE_CITY_PLAN.md)  
 **World ID:** `rome-125`  
 **Historical frame:** Rome during the reign of Hadrian, in 125 CE  
@@ -159,8 +159,8 @@ Trajan's Column is behind the Basilica Ulpia and must not be made visible throug
 
 The visitor stands in the north forecourt and looks south toward the Pantheon. The forecourt's long colonnades deliberately hide much of the rotunda until the visitor turns toward the portico, reflecting the historically controlled approach.
 
-- Local camera: `[0, 1.65, -32]`.
-- Initial target: `[0, 11, 0]`.
+- Local camera: `[0, 1.65, -42]` (moved 10 m north after browser composition review to include the complete pediment in the initial view).
+- Initial target: `[0, 13, 0]`.
 - Pitch range: `-35°` to `+65°`.
 - South: Pantheon porch, pediment, Agrippa inscription, and portal.
 - East/west: forecourt colonnades and dense adjoining façades.

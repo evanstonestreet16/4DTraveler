@@ -72,7 +72,10 @@ it('ships each Rome GLB within its own budget with exact visible selectable node
     expect(new URL(model.url, 'http://local').searchParams.get('v')).toBe(
       createHash('sha256').update(bytes).digest('hex').slice(0, 12),
     );
-    expect(bytes.byteLength).toBeLessThan((isOverview ? 8 : 10) * 1024 * 1024);
+    const isPantheon = model.url.includes('/pantheon-forecourt.glb');
+    expect(bytes.byteLength).toBeLessThan(
+      (isOverview ? 8 : isPantheon ? 9 : 10) * 1024 * 1024,
+    );
     const buffer = bytes.buffer.slice(
       bytes.byteOffset,
       bytes.byteOffset + bytes.byteLength,
@@ -110,8 +113,10 @@ it('ships each Rome GLB within its own budget with exact visible selectable node
         }
       });
       expect(triangles).toBeGreaterThan(1000);
-      expect(triangles).toBeLessThanOrEqual(isOverview ? 100000 : 150000);
-      expect(batches).toBeLessThanOrEqual(50);
+      expect(triangles).toBeLessThanOrEqual(
+        isOverview ? 100000 : isPantheon ? 130000 : 150000,
+      );
+      expect(batches).toBeLessThanOrEqual(isPantheon ? 45 : 50);
     } finally {
       disposeModelScenes(gltf.scenes);
     }

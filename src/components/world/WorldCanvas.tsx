@@ -9,6 +9,7 @@ import { SceneDiagnostics } from './SceneDiagnostics';
 import { useSceneQuality } from './useSceneQuality';
 import type { QualityPreference } from '../../utils/quality';
 import { ViewportDpr } from './ViewportDpr';
+import { useCityModelPrefetch } from './useCityModelPrefetch';
 import { useSceneActivity } from './useSceneActivity';
 import type { ModelAssetState } from './modelAsset';
 
@@ -53,6 +54,13 @@ export function WorldCanvas({
   const container = useRef<HTMLDivElement>(null);
   const active = useSceneActivity(container);
   const [assetState, setAssetState] = useState<ModelAssetState | null>(null);
+  useCityModelPrefetch(
+    world,
+    state.cameraMode === 'OVERVIEW' &&
+      assetState?.status === 'ready' &&
+      active &&
+      !lost,
+  );
   return (
     <div
       ref={container}

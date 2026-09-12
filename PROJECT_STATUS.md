@@ -24,7 +24,7 @@ The user-selected **1850 · Blockout** adds a distinct market/wharf composition 
 
 The scoped PR stack for issues #5–#12 was merged into `main` in dependency order at the project owner's request. See the [integration runbook](docs/3D_MODELING.md) for the PR history and evidence. Historical/editorial approval, adjacent workstream review and physical-phone/browser certification remain handoffs. The performance report retains normal-browser total-heap growth and a passing JIT-disabled control; merging does not claim an unrestricted heap plateau or replace those reviews.
 
-Rome / 125 CE P0 now provides a full-viewport static city overview and a Forum of Trajan fixed-position 360° scene, three sourced inspectable objects, source-reviewed transcripts, and low-detail recovery geometry. Original Blender sources and repeatable GLB exports are checked in. Pantheon and Colosseum remain visible preview markers pending P1/P2. The additive immersive contract was agreed across navigation, objects and content workstreams before implementation.
+Rome / 125 CE P0 now provides a full-viewport static city overview and a Forum of Trajan fixed-position 360° scene, three sourced inspectable objects, source-reviewed transcripts, and low-detail recovery geometry. Original Blender sources and repeatable GLB exports are checked in. P1 adds the Pantheon forecourt with three sourced objects, its own transcript and selectable fallback; idle prefetch warms Forum/Pantheon assets only after the overview is interactive. Colosseum remains a preview pending P2. The additive immersive contract was agreed across navigation, objects and content workstreams before implementation.
 
 ## Planned Scope
 
@@ -37,6 +37,8 @@ MongoDB, authentication, multiplayer, WASD, physics, NPCs, character interaction
 ## Recent Updates
 
 <!-- Newest first. Format: `- YYYY-MM-DD — summary (link to PR/issue if available)` -->
+
+- 2026-09-12 — Completed Rome P1 Pantheon forecourt and bounded model prefetch on top of [P0 #21](https://github.com/evanstonestreet16/4DTraveler/pull/21). Six Rome objects now share the same inspection path.
 
 - 2026-09-12 — Completed Rome P0 overview/Forum integration with fixed look, selection, source-aware transcripts and recovery; Forum passed four-direction browser review. See [asset delivery](docs/visual/ROME_125_ASSETS.md).
 

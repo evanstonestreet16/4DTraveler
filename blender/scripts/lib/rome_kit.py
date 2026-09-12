@@ -200,3 +200,83 @@ def forum(k,overview=False,origin=(0,0,0)):
     k.rod((x+.52,3.75,z),(x-.25,3,z+.6),.2,'porphyry',dacian)
     for side in [-1,1]:
         for z in [-75,70]: k.tree(side*69,z)
+
+
+def inscription(k,text,center,y,z,width,group):
+    """Original line-drawn Roman capitals; no font or texture dependency."""
+    glyphs={
+        'M': [[(0,0),(0,1),(.5,.4),(1,1),(1,0)]],
+        'A': [[(0,0),(.5,1),(1,0)],[(.2,.4),(.8,.4)]],
+        'G': [[(1,.8),(.8,1),(.2,1),(0,.8),(0,.2),(.2,0),(1,0),(1,.5),(.55,.5)]],
+        'R': [[(0,0),(0,1),(.8,1),(1,.8),(1,.6),(.8,.5),(0,.5)],[(.5,.5),(1,0)]],
+        'I': [[(0,1),(1,1)],[(.5,1),(.5,0)],[(0,0),(1,0)]],
+        'P': [[(0,0),(0,1),(.8,1),(1,.8),(1,.6),(.8,.5),(0,.5)]],
+        'L': [[(0,1),(0,0),(1,0)]],
+        'F': [[(0,0),(0,1),(1,1)],[(0,.55),(.8,.55)]],
+        'C': [[(1,.8),(.8,1),(.2,1),(0,.8),(0,.2),(.2,0),(.8,0),(1,.2)]],
+        'O': [[(.2,0),(0,.2),(0,.8),(.2,1),(.8,1),(1,.8),(1,.2),(.8,0),(.2,0)]],
+        'S': [[(1,.85),(.8,1),(.2,1),(0,.8),(.1,.6),(.9,.4),(1,.2),(.8,0),(.2,0),(0,.15)]],
+        'T': [[(0,1),(1,1)],[(.5,1),(.5,0)]],
+        'E': [[(1,1),(0,1),(0,0),(1,0)],[(0,.5),(.8,.5)]],
+        'V': [[(0,1),(.5,0),(1,1)]],
+    }
+    size=width/(len(text)*1.3)
+    for i,char in enumerate(text):
+        for stroke in glyphs.get(char,[]):
+            for a,b in zip(stroke,stroke[1:]):
+                def point(v): return (center+width/2-(i*1.3+v[0])*size,y+v[1]*size,z)
+                k.rod(point(a),point(b),size*.047,'letter',group,n=6)
+
+
+def pantheon(k):
+    k.box((0,-.6,0),(1200,1.1,1200),'earth')
+    k.box((0,-.13,-30),(82,.24,160),'paving')
+    rng=random.Random(126)
+    for x in range(-36,37,4):
+        for z in range(-92,25,4):
+            k.box((x,.005,z),(3.95,.025,3.95),rng.choice(['paving_light','paving_light','paving']))
+    # The rotunda and dome are exterior scenery, not an enterable interior.
+    k.cylinder((0,11,28),22,22,'shadow_stone',n=64)
+    for y in [2,10,20.8,22.5]: k.cylinder((0,y,28),22.4,.6,'travertine',n=64)
+    k.ellipsoid((0,22,28),(22.4,21,22.4),'travertine',n=64,rings=20)
+    # Eight visible front columns, with paired inner rows: sixteen monoliths.
+    columns='rome125_pantheon_granite_columns'
+    for x in [-14.7,-10.5,-6.3,-2.1,2.1,6.3,10.5,14.7]:
+        k.column(x,-7,13.7,.76,y=1.4,material='shadow_stone',group=columns)
+    for z in [0,7]:
+        for x in [-14.7,-6.3,6.3,14.7]: k.column(x,z,13.7,.76,y=1.4,material='shadow_stone',group=columns)
+    k.box((0,1,1),(36,1,25),'marble')
+    for step in range(5): k.box((0,.14+step*.27,-15+step*.75),(36,.28,6-step*.65),'marble')
+    k.box((0,8.2,11.5),(33,14.2,1.5),'travertine')
+    k.box((0,6.5,10.65),(6.8,10,.22),'bronze_dark')
+    for x in [-5,5]: k.column(x,10.3,11.2,.5,y=1.4,material='porphyry')
+    k.box((0,15.65,1),(36,1,24),'trim')
+    label='rome125_pantheon_agrippa_inscription'
+    k.box((0,16.6,-9.6),(36,1.6,2.8),'travertine',label)
+    inscription(k,'M AGRIPPA L F COS TERTIVM FECIT',0,16.13,-11.05,31,label)
+    k.box((0,17.55,1),(37,.4,25),'trim')
+    # Solid triangular pediment with an inset field and projecting cornice.
+    k.roof((0,17.75,1),37,25,5.4,'travertine')
+    k.roof((0,18.1,-11.65),33,.15,4.6,'shadow_stone')
+    for a,b in [((-19,17.8,-12),(0,23.4,-12)),((0,23.4,-12),(19,17.8,-12))]: k.rod(a,b,.23,'trim',n=6)
+    # Controlled north approach: two continuous side colonnades, no modern fountain.
+    court='rome125_pantheon_forecourt_colonnade'
+    for side in [-1,1]:
+        k.box((side*36,8,-35),(2,16,110),'plaster',court)
+        k.box((side*31,12.4,-35),(12,.65,110),'trim',court)
+        k.box((side*31,13.1,-35),(12,.65,112),'roof',court)
+        for z in range(-83,13,6):
+            k.column(side*26,z,12,.64,y=.3,group=court)
+            k.box((side*34.8,5.2,z),(.15,7.5,3.4),'shadow_stone',court)
+        k.box((side*31,.15,-35),(12,.3,111),'marble',court)
+    # Closed urban ring behind the entry, with doorways and terracotta roofs.
+    for x in range(-65,66,13):
+        h=15+rng.random()*6
+        k.box((x,h/2,-107),(12,h,20),'plaster_light'); k.roof((x,h,-107),13,22,3)
+        for window in [-3,3]: k.box((x+window,h-4,-96.9),(1.6,2.4,.1),'dark')
+        k.box((x,3,-96.8),(2.5,6,.1),'wood')
+    for x in [-25,-12,0,12,25]: k.column(x,-91,10,.55)
+    k.box((0,10.5,-91),(60,1.2,5),'trim')
+    for side in [-1,1]:
+        k.box((side*75,14,-20),(50,28,200),'plaster')
+        for z in [-85,35,65]: k.tree(side*46,z)

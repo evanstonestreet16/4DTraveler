@@ -11,7 +11,7 @@ from pathlib import Path
 import bpy
 from mathutils import Vector
 sys.path.insert(0,str(Path(__file__).parent/'lib'))
-from rome_kit import Kit, forum
+from rome_kit import Kit, forum, pantheon
 ROOT=Path(__file__).resolve().parents[2]
 
 def overview(k):
@@ -74,7 +74,8 @@ def build(name):
     bpy.ops.object.select_all(action='SELECT'); bpy.ops.object.delete(use_global=False)
     kit=Kit()
     if name=='overview': overview(kit); eye=(-1450,1250,1650); target=(50,40,180)
-    else: forum(kit); eye=(0,1.65,30); target=(0,12,-40)
+    elif name=='forum-trajan': forum(kit); eye=(0,1.65,30); target=(0,12,-40)
+    else: pantheon(kit); eye=(0,1.65,-42); target=(0,13,0)
     groups=kit.export_objects()
     scene=bpy.context.scene
     scene.world.color=(.65,.69,.71)
@@ -95,15 +96,15 @@ def build(name):
             obj.data.calc_loop_triangles(); triangles+=len(obj.data.loop_triangles); batches+=len(obj.data.materials)
             bounds.extend([(v.co.x,v.co.z,-v.co.y) for v in obj.data.vertices])
     metrics={'asset':f'/models/rome-125/{name}.glb','generator':'blender/scripts/build_rome.py','sha256':hashlib.sha256((out/f'{name}.glb').read_bytes()).hexdigest(),'bytes':(out/f'{name}.glb').stat().st_size,'triangles':triangles,'materialBatches':batches,'textures':0,'externalResources':0,'groups':list(groups),'bounds':{'min':[min(p[i] for p in bounds) for i in range(3)],'max':[max(p[i] for p in bounds) for i in range(3)]},'confidence':'Source-aware interpretive reconstruction; original procedural geometry, no third-party assets.'}
-    assert metrics['bytes']< (8 if name=='overview' else 10)*1024*1024,metrics
-    assert triangles<(100000 if name=='overview' else 150000),metrics
-    assert batches<=50,metrics
+    assert metrics['bytes']< (8 if name=='overview' else 9 if name=='pantheon-forecourt' else 10)*1024*1024,metrics
+    assert triangles<(100000 if name=='overview' else 130000 if name=='pantheon-forecourt' else 150000),metrics
+    assert batches<=(45 if name=='pantheon-forecourt' else 50),metrics
     (out/f'{name}.metrics.json').write_text(json.dumps(metrics,indent=2)+'\n')
     print(json.dumps(metrics))
     if '--render' in sys.argv:
         scene.render.filepath=str(source/f'{name}-review.png'); bpy.ops.render.render(write_still=True)
 
 args=sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else []
-parser=argparse.ArgumentParser(); parser.add_argument('--scene',choices=['overview','forum-trajan','all'],default='all'); parser.add_argument('--render',action='store_true')
+parser=argparse.ArgumentParser(); parser.add_argument('--scene',choices=['overview','forum-trajan','pantheon-forecourt','all'],default='all'); parser.add_argument('--render',action='store_true')
 opts=parser.parse_args(args)
-for name in (['overview','forum-trajan'] if opts.scene=='all' else [opts.scene]): build(name)
+for name in (['overview','forum-trajan','pantheon-forecourt'] if opts.scene=='all' else [opts.scene]): build(name)
