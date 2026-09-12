@@ -17,6 +17,7 @@ PROFILE_VIEWPORTS=desktop,mobile, PROFILE_DPR=1, PROFILE_QUALITY=auto|low|medium
 PROFILE_BASELINE=docs/evidence/performance/baseline, PROFILE_REPO=., PROFILE_ERA=1892,
 PROFILE_REVISION=<exact build commit when serving a frozen snapshot>,
 PROFILE_HEAP_SNAPSHOTS=1 (large local diagnostic files at post-leave cycles 2 and 5),
+PROFILE_WARMUP_CYCLES=5 (same cycle path before the five measured cycles; default 0),
 PROFILE_MODEL_EXPECTED=0 (only for primitive baseline), PROFILE_NOTE="measurement context".
 Hardware requests the browser's default GPU; the report verifies the actual renderer.
 Exit 0: checks pass; 1: failed check/run; 2: measurements need review.
@@ -36,6 +37,9 @@ const software = process.env.PROFILE_BACKEND !== 'hardware';
 const quality = process.env.PROFILE_QUALITY || 'auto';
 const era = process.env.PROFILE_ERA || '1892';
 const expectModel = process.env.PROFILE_MODEL_EXPECTED !== '0';
+const warmupCount = Number(process.env.PROFILE_WARMUP_CYCLES || 0);
+if (!Number.isInteger(warmupCount) || warmupCount < 0 || warmupCount > 10)
+  throw new Error('PROFILE_WARMUP_CYCLES must be an integer from 0 to 10');
 const requestedViewports = (
   process.env.PROFILE_VIEWPORTS || 'desktop,mobile'
 ).split(',');
@@ -84,6 +88,7 @@ const environment = {
   requestedBackend: software ? 'SwiftShader' : 'browser default GPU',
   headed: process.env.PROFILE_HEADED === '1',
   quality,
+  warmupCycles: warmupCount,
   deviceScaleFactor: dpr,
 };
 
@@ -734,8 +739,11 @@ try {
       path: resolve(output, `${name}-selected.png`),
       fullPage: true,
     });
-    const cycles = [];
-    for (let cycle = 1; cycle <= 5; cycle++) {
+    const cycles = [],
+      warmupCycles = [];
+    for (let iteration = 1; iteration <= warmupCount + 5; iteration++) {
+      const warming = iteration <= warmupCount;
+      const cycle = warming ? iteration : iteration - warmupCount;
       await page.getByRole('button', { name: 'Choose era' }).click();
       await page.waitForTimeout(1200);
       await page
@@ -752,6 +760,7 @@ try {
       const leftHeap = await collectHeap(cdp);
       if (
         process.env.PROFILE_HEAP_SNAPSHOTS === '1' &&
+        !warming &&
         [2, 5].includes(cycle)
       ) {
         await captureHeapSnapshot(
@@ -759,13 +768,10 @@ try {
           resolve(output, `${name}-left-cycle-${cycle}.heapsnapshot`),
         );
       }
-      phase = `reentry-${cycle}`;
+      phase = `${warming ? 'warmup' : 'reentry'}-${cycle}`;
       const enteredReadiness = await chooseWorld(page);
       await page.waitForTimeout(1600);
-      await page.evaluate(
-        (cycle) => window.__worldProfile.start(`reentry-${cycle}`),
-        cycle,
-      );
+      await page.evaluate((phase) => window.__worldProfile.start(phase), phase);
       await page
         .getByRole('navigation', { name: 'Points of interest' })
         .getByRole('button', { name: /Steel Mill/ })
@@ -778,8 +784,9 @@ try {
         window.__worldProfile.snapshot(),
       );
       const enteredHeap = await collectHeap(cdp);
-      cycles.push({
+      (warming ? warmupCycles : cycles).push({
         cycle,
+        iteration,
         left,
         leftHeap,
         entered,
@@ -800,6 +807,7 @@ try {
     const reloadResources = await resourceEntries(page);
     const networkPhases = [
       'first-world',
+      ...warmupCycles.map((c) => `warmup-${c.cycle}`),
       ...cycles.map((c) => `reentry-${c.cycle}`),
       'reload-world',
     ].map((phase) => {
@@ -843,6 +851,7 @@ try {
       frameSummary: frameSummary(trace),
       trace,
       cycles,
+      warmupCycles,
       reload: {
         readiness: reloadReadiness,
         snapshot: reload,
