@@ -22,10 +22,14 @@ export interface Location {
   region: string;
   description: string;
   eras: Era[];
-  /** Real-world anchor used by the globe UI. Omit for locations not yet placeable on the globe. */
+  /**
+   * Real-world anchor used by the globe UI. `city` must match a pin baked into
+   * `src/data/geo/cities.json`; coordinates come from there, not from here.
+   * Omit for locations not yet placeable on the globe.
+   */
   globe?: {
     countryIsoA3: string;
-    coordinates: { lat: number; lng: number };
+    city: string;
   };
 }
 

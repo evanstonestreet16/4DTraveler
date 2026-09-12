@@ -20,7 +20,7 @@ export const locations: Location[] = [
     description:
       'Enter the living capital of Hadrian: marble forums, a new Pantheon, and the Flavian Amphitheatre.',
     eras: [rome125.era, romePresent.era],
-    globe: { countryIsoA3: 'ITA', coordinates: { lat: 41.895, lng: 12.485 } },
+    globe: { countryIsoA3: 'ITA', city: 'Rome' },
   },
   {
     id: kyoto1700.locationId,
@@ -29,6 +29,7 @@ export const locations: Location[] = [
     description:
       'Look across the mountain-framed capital, then step inside the guarded approach to Nijō Castle.',
     eras: [kyoto1700.era],
+    globe: { countryIsoA3: 'JPN', city: 'Kyoto' },
   },
   {
     id: pittsburgh1892.locationId,
@@ -37,10 +38,7 @@ export const locations: Location[] = [
     description:
       'Follow the rivers into a city of mills, railroads, and industry.',
     eras: [pittsburgh1892.era, pittsburgh1850.era],
-    globe: {
-      countryIsoA3: 'USA',
-      coordinates: { lat: 40.4406, lng: -79.9959 },
-    },
+    globe: { countryIsoA3: 'USA', city: 'Pittsburgh' },
   },
 ];
 

@@ -1,75 +1,51 @@
-import { useMemo, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Globe, { type GlobeMethods } from 'react-globe.gl';
 import { MeshPhongMaterial } from 'three';
 import { countries, type CountryFeature } from '../../../data/geo/countries';
-import type { SubregionFeature } from '../../../data/geo/subregions';
+import { citiesFor, findCity, type City } from '../../../data/geo/cities';
 import { locations } from '../../../data/locations';
 import { useApp } from '../../../app/AppContext';
 import { useElementSize } from './useElementSize';
-import { useHoveredSubregions } from './useHoveredSubregions';
-
-type GlobeFeature = CountryFeature | SubregionFeature;
-
-function isSubregion(feature: GlobeFeature): feature is SubregionFeature {
-  return 'parentIso3' in feature.properties;
-}
-
-function countryIsoOf(feature: GlobeFeature): string {
-  return isSubregion(feature)
-    ? feature.properties.parentIso3
-    : feature.properties.isoA3;
-}
 
 const WATER_COLOR = '#1d4e6b';
 const LAND_COLOR = '#3a7d44';
 const HOVER_LAND_COLOR = '#5fae70';
 const HOVER_STROKE_COLOR = '#f2c14e';
-const SUBREGION_FILL_COLOR = 'rgba(0,0,0,0)';
-const SUBREGION_HOVER_COLOR = '#e0a743';
-const SUBREGION_STROKE_COLOR = '#fff3d6';
+const PIN_COLOR = '#f2c14e';
 
 const globeMaterial = new MeshPhongMaterial({ color: WATER_COLOR });
 
-const countryNameByIso = new Map(
-  countries.map((country) => [
-    country.properties.isoA3,
-    country.properties.name,
-  ]),
-);
-
-const supportedByIso = new Map(
+const locationByCity = new Map(
   locations
     .filter((location) => location.globe)
-    .map((location) => [location.globe!.countryIsoA3, location]),
+    .map((location) => [
+      `${location.globe!.countryIsoA3}:${location.globe!.city}`,
+      location,
+    ]),
 );
 
-const heroLocation = locations.find((location) => location.globe);
+const heroGlobe = locations.find((location) => location.globe)?.globe;
+const heroCity = heroGlobe && findCity(heroGlobe.countryIsoA3, heroGlobe.city);
 
 export function GlobeView({ interactive }: { interactive: boolean }) {
   const { dispatch } = useApp();
   const globeRef = useRef<GlobeMethods | undefined>(undefined);
-  const [hovered, setHovered] = useState<GlobeFeature | null>(null);
+  const [hovered, setHovered] = useState<CountryFeature | null>(null);
+  // Tracked separately from `hovered`, and never cleared on hover-out: moving the pointer
+  // onto a pin clears the polygon hover that produced it, which would otherwise unmount
+  // the pin from under the cursor. Pins persist until a different country is hovered.
+  const [pinnedIso, setPinnedIso] = useState<string | null>(null);
+
   const [containerRef, size] = useElementSize<HTMLDivElement>();
-
-  const hoveredIso = hovered ? countryIsoOf(hovered) : null;
-  const subregions = useHoveredSubregions(interactive ? hoveredIso : null);
-
-  const polygonsData = useMemo<GlobeFeature[]>(
-    () => [...countries, ...subregions],
-    [subregions],
-  );
-
-  const isSupported = useMemo(
-    () => (feature: GlobeFeature) => supportedByIso.has(countryIsoOf(feature)),
-    [],
-  );
+  const hoveredIso = hovered?.properties.isoA3 ?? null;
+  const cities = citiesFor(interactive ? pinnedIso : null);
 
   return (
     <div
       className="globe-viewport"
       ref={containerRef}
       role="group"
-      aria-label="Interactive globe. Hover a country to see its name and sub-regions, click a highlighted place to enter its world."
+      aria-label="Interactive globe. Hover a country to see its name, and its cities where available."
     >
       {size.width > 0 && (
         <Globe
@@ -82,60 +58,54 @@ export function GlobeView({ interactive }: { interactive: boolean }) {
           atmosphereColor="#89b7a0"
           atmosphereAltitude={0.14}
           showGraticules={false}
-          polygonsData={polygonsData}
-          // Above three-globe's default resolution (5deg), large polygons get extra
-          // "inner" fill points via a global-grid + point-in-polygon filter that can
-          // misfire for irregular real-world coastlines, filling the wrong region
-          // entirely. A high value skips that path for plain, reliable triangulation.
-          polygonCapCurvatureResolution={180}
-          polygonAltitude={(feature) =>
-            isSubregion(feature as GlobeFeature) ? 0.009 : 0.006
-          }
-          polygonCapColor={(feature) => {
-            const f = feature as GlobeFeature;
-            if (isSubregion(f))
-              return f === hovered
-                ? SUBREGION_HOVER_COLOR
-                : SUBREGION_FILL_COLOR;
-            return f === hovered || countryIsoOf(f) === hoveredIso
+          polygonsData={countries}
+          // Do not raise. Coarser subdivision makes a large polygon's flat interior chord
+          // through the sphere: measured, 10 pits Canada and Nevada, 180 sinks the whole
+          // continental US below the water surface.
+          polygonCapCurvatureResolution={5}
+          polygonAltitude={0.006}
+          polygonCapColor={(feature) =>
+            (feature as CountryFeature).properties.isoA3 === hoveredIso
               ? HOVER_LAND_COLOR
-              : LAND_COLOR;
-          }}
-          polygonSideColor={() => 'rgba(0,0,0,0)'}
-          polygonStrokeColor={(feature) => {
-            const f = feature as GlobeFeature;
-            if (isSubregion(f))
-              return f === hovered ? SUBREGION_STROKE_COLOR : false;
-            return countryIsoOf(f) === hoveredIso ? HOVER_STROKE_COLOR : false;
-          }}
-          polygonLabel={(feature) => {
-            const f = feature as GlobeFeature;
-            const countryName = countryNameByIso.get(countryIsoOf(f)) ?? '';
-            return isSubregion(f)
-              ? `${countryName}, ${f.properties.name}`
-              : countryName;
-          }}
-          polygonsTransitionDuration={0}
-          onPolygonHover={(polygon) =>
-            setHovered(interactive ? (polygon as GlobeFeature | null) : null)
+              : LAND_COLOR
           }
-          onPolygonClick={(polygon) => {
+          polygonSideColor={() => 'rgba(0,0,0,0)'}
+          polygonStrokeColor={(feature) =>
+            (feature as CountryFeature).properties.isoA3 === hoveredIso
+              ? HOVER_STROKE_COLOR
+              : false
+          }
+          polygonLabel={(feature) =>
+            (feature as CountryFeature).properties.name
+          }
+          polygonsTransitionDuration={0}
+          onPolygonHover={(polygon) => {
             if (!interactive) return;
-            const location = supportedByIso.get(
-              countryIsoOf(polygon as GlobeFeature),
-            );
+            const country = polygon as CountryFeature | null;
+            setHovered(country);
+            if (country) setPinnedIso(country.properties.isoA3);
+          }}
+          pointsData={cities}
+          pointLat={(city) => (city as City).lat}
+          pointLng={(city) => (city as City).lng}
+          pointLabel={(city) => (city as City).name}
+          pointColor={() => PIN_COLOR}
+          pointAltitude={0.012}
+          // Degrees, so pins scale with zoom.
+          pointRadius={0.3}
+          pointsTransitionDuration={0}
+          onPointClick={(point) => {
+            if (!interactive) return;
+            const city = point as City;
+            const location = locationByCity.get(`${city.isoA3}:${city.name}`);
             if (location) dispatch({ type: 'location', id: location.id });
           }}
-          showPointerCursor={(objType, objData) =>
-            interactive &&
-            objType === 'polygon' &&
-            isSupported(objData as GlobeFeature)
-          }
+          showPointerCursor={(objType) => interactive && objType === 'point'}
           enablePointerInteraction={interactive}
           onGlobeReady={() => {
-            if (!heroLocation?.globe) return;
+            if (!heroCity) return;
             globeRef.current?.pointOfView(
-              { ...heroLocation.globe.coordinates, altitude: 1.8 },
+              { lat: heroCity.lat, lng: heroCity.lng, altitude: 1.8 },
               0,
             );
           }}
