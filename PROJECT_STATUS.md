@@ -22,9 +22,9 @@ Rome's timeline now includes **Circa 500 BCE → 125 CE → Present**, with the 
 
 Pittsburgh is legacy code pending deletion. It is outside active development, documentation, and verification scope unless the project owner explicitly reactivates it.
 
-Rome / 125 CE P0–P2 established the full-viewport overview, Forum of Trajan, Pantheon forecourt and Flavian Amphitheatre valley. All three POIs are available, with nine sourced objects, reviewed transcripts, original Blender sources and an unfinished Temple of Venus and Roma worksite. The valley has original manually started construction/water ambience. The additive immersive contract was agreed across navigation, objects and content workstreams before implementation.
+Rome / 125 CE P0–P2 established the full-viewport overview, Forum of Trajan, Pantheon forecourt and Flavian Amphitheatre valley. All three POIs are available, with nine sourced objects, reviewed transcripts, original Blender sources and an unfinished Temple of Venus and Roma worksite. The additive immersive contract was agreed across navigation, objects and content workstreams before implementation.
 
-The rendered Rome milestone replaces the normal GLB viewing path with an offline-rendered desktop overview. The original nine camera-authored hotspots preserved the existing objects, sources, fixed eyes and narration. Materials, light, architectural detail, people and foliage are authored offline. Image retries and compressed stills keep exploration available after image or WebGL failure; only one panorama texture is retained, and idle prefetch warms encoded hero-image bytes. Original GLBs remain available. The visuals are stylized interpretations, with reviewed written narration and optional valley ambience.
+The rendered Rome milestone replaces the normal GLB viewing path with an offline-rendered desktop overview. The original nine camera-authored hotspots preserved the existing objects, sources, fixed eyes and narration. Materials, light, architectural detail, people and foliage are authored offline. Image retries and compressed stills keep exploration available after image or WebGL failure; only one panorama texture is retained, and idle prefetch warms encoded hero-image bytes. Original GLBs remain available. The visuals are stylized interpretations, with reviewed written narration.
 
 Rome's bird's-eye detail upgrade was completed on 2026-09-12 by a separate visual agent, using Kyoto's shipped overview as the finish reference. A denser editable Blender layout and an AI-enhanced desktop illustration add varied roofs, courtyards, monumental detail, greenery and riverfront activity. Both shipped overview images fit their budgets; reviewed image markers preserve stable IDs and world coordinates. The build, focused overview asset check and desktop navigation smoke tests passed. See [overview delivery and source workflow](docs/visual/ROME_125_ASSETS.md).
 
@@ -46,15 +46,17 @@ Optional AI-generated transition video remains deferred. Present-day POIs and tr
 
 The owner clarified the Rome visual target on 2026-09-12: photographic realism comparable to the supplied warm, atmospheric Roman architectural reference. The current stylized assets do not meet that target. The rendered viewer is a working foundation; the next visual milestone is one convincing Forum frame with detailed architecture, realistic materials and vegetation, photographic lighting and historically appropriate 125 CE condition, before extending that quality through the full panorama and other POIs.
 
-The active demo uses rendered overviews and fixed-position panoramas for **Rome / 125 CE** and **Kyoto / circa 1700**. Recorded narration remains deferred; reviewed written transcripts are available. Walking, physics and runtime Blender coupling remain excluded. See the [immersive historical city plan](docs/IMMERSIVE_CITY_PLAN.md).
+The active demo uses rendered overviews and fixed-position panoramas for **Rome / 125 CE** and **Kyoto / circa 1700**. Recorded narration remains deferred; reviewed written transcripts are available. Scene ambience is not part of the product. Walking, physics and runtime Blender coupling remain excluded. See the [immersive historical city plan](docs/IMMERSIVE_CITY_PLAN.md).
 
 ## Out of Scope Unless Explicitly Requested
 
-MongoDB, authentication, multiplayer, WASD, physics, NPCs, character interactions, dynamic city generation, Gemini/Grok integration, ElevenLabs live generation, and historical preview video. Blender automation is limited to the explicitly planned offline asset-authoring pipeline; Blender is not a runtime dependency.
+MongoDB, authentication, multiplayer, WASD, physics, NPCs, character interactions, dynamic city generation, Gemini/Grok integration, ElevenLabs live generation, scene ambience, and historical preview video. Blender automation is limited to the explicitly planned offline asset-authoring pipeline; Blender is not a runtime dependency.
 
 ## Recent Updates
 
 <!-- Newest first. Format: `- YYYY-MM-DD — summary (link to PR/issue if available)` -->
+
+- 2026-09-12 — Removed scene ambience from the product, including the Play ambience control, generation API, and unused loop files.
 
 - 2026-09-12 — Removed mobile and portrait support; the app is desktop only.
 

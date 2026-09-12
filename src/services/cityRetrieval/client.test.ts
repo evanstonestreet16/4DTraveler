@@ -5,7 +5,6 @@ import {
   composeQuery,
   fetchMonumentSpeech,
   fetchMonumentSummary,
-  fetchSceneAmbience,
   parseTicketLinks,
 } from './client';
 
@@ -205,27 +204,6 @@ describe('cityRetrieval.fetchMonumentSpeech', () => {
     expect(JSON.parse(fake.mock.calls[0]![1]?.body as string)).toEqual({
       text: 'The Colosseum opened in 80 AD.',
       voice_id: 'ara',
-    });
-  });
-
-  it('returns an object URL for a generated street bed', async () => {
-    const fake = vi
-      .fn<typeof fetch>()
-      .mockResolvedValue(
-        new Response(new Blob(['RIFF'], { type: 'audio/wav' }), {
-          status: 200,
-        }),
-      );
-    const url = await fetchSceneAmbience(
-      { city: 'Rome', place: 'Forum of Trajan', year: 125 },
-      { fetchImpl: fake },
-    );
-    expect(url).toBe('blob:mock-narration');
-    expect(JSON.parse(fake.mock.calls[0]![1]?.body as string)).toEqual({
-      city: 'Rome',
-      place: 'Forum of Trajan',
-      year: 125,
-      hint: '',
     });
   });
 

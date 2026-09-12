@@ -11,7 +11,6 @@
 
 const SUMMARY_ENDPOINT = '/api/city-summary';
 const TTS_ENDPOINT = '/api/city-tts';
-const AMBIENCE_ENDPOINT = '/api/city-ambience';
 const DEFAULT_TIMEOUT_MS = 60_000;
 
 interface FetchOptions {
@@ -32,23 +31,6 @@ export interface MonumentSummary {
 
 const summaryCache = new Map<string, Promise<MonumentSummary | null>>();
 const speechCache = new Map<string, Promise<string | null>>();
-const ambienceCache = new Map<string, Promise<string | null>>();
-
-export interface AmbienceQuery {
-  city: string;
-  place: string;
-  year?: number;
-  hint?: string;
-}
-
-export function ambienceCacheKey(input: AmbienceQuery): string {
-  return JSON.stringify({
-    city: input.city.trim(),
-    place: input.place.trim(),
-    year: input.year ?? null,
-    hint: (input.hint ?? '').trim(),
-  });
-}
 
 /** Structured input so the query composition is auditable and testable. */
 export interface MonumentSummaryQuery {
@@ -212,50 +194,6 @@ export function fetchMonumentSpeech(
   return promise;
 }
 
-/**
- * Ask Grok to design and mix a looping street bed for this place and year.
- * Returns an object-URL for a WAV blob, or `null` if unavailable.
- */
-export function fetchSceneAmbience(
-  input: AmbienceQuery,
-  options: FetchOptions = {},
-): Promise<string | null> {
-  const key = ambienceCacheKey(input);
-  if (!input.city.trim() || !input.place.trim()) return Promise.resolve(null);
-  if (!options.bypassCache) {
-    const cached = ambienceCache.get(key);
-    if (cached) return cached;
-  }
-
-  const doFetch = options.fetchImpl ?? fetch;
-  const promise = withTimeout(
-    doFetch,
-    AMBIENCE_ENDPOINT,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        city: input.city,
-        place: input.place,
-        year: input.year,
-        hint: input.hint ?? '',
-      }),
-    },
-    options.timeoutMs ?? 80_000,
-  )
-    .then(async (response) => {
-      if (!response.ok) return null;
-      const blob = await response.blob();
-      if (blob.size === 0) return null;
-      return URL.createObjectURL(blob);
-    })
-    .catch(() => null);
-
-  ambienceCache.set(key, promise);
-  rememberFailure(ambienceCache, key, promise);
-  return promise;
-}
-
 export function _cachedKeys(): string[] {
   return Array.from(summaryCache.keys());
 }
@@ -263,5 +201,4 @@ export function _cachedKeys(): string[] {
 export function _resetCache(): void {
   summaryCache.clear();
   speechCache.clear();
-  ambienceCache.clear();
 }

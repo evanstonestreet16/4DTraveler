@@ -979,26 +979,6 @@ h1 {
   flex: 1;
   accent-color: #365540;
 }
-.city-narration .ambient-controls,
-.city-overview-footer .ambient-controls {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  width: fit-content;
-  max-width: 220px;
-  margin-top: 4px;
-  padding: 2px 6px;
-  border-radius: 999px;
-  background: #faf7efd8;
-  font-size: 10px;
-}
-.city-narration .ambient-controls .audio-status,
-.city-overview-footer .ambient-controls .audio-status {
-  min-width: 0;
-  flex: 1;
-  font-size: 9px;
-  line-height: 1.2;
-}
 .city-loading {
   position: fixed;
   z-index: 1000;
@@ -1025,13 +1005,6 @@ h1 {
 .city-experience .scene-fallback {
   inset: 150px 24px 180px auto;
   width: min(420px, calc(100vw - 324px));
-}
-.city-narration .ambient-controls button,
-.city-overview-footer .ambient-controls button {
-  flex-shrink: 0;
-  white-space: nowrap;
-  padding: 5px 9px;
-  font-size: 10px;
 }
 /* --- Globe experience --- */
 .pill-button {

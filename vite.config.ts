@@ -24,12 +24,6 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           rewrite: () => '/api/tts',
         },
-        '/api/city-ambience': {
-          target: 'http://127.0.0.1:8000',
-          changeOrigin: true,
-          timeout: 90_000,
-          rewrite: () => '/api/ambience',
-        },
       },
     },
     plugins: [

@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useApp } from '../../app/AppContext';
 import type { HistoricalWorld } from '../../types/world';
 import type { QualityPreference } from '../../utils/quality';
-import { AmbientControls } from '../audio/AmbientControls';
 import { ObjectInfoPanel } from '../info/ObjectInfoPanel';
 import { WorldCanvas } from './WorldCanvas';
 import { RenderedCityViewer } from './RenderedCityViewer';
@@ -269,29 +268,15 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
             <summary>Read narration transcript</summary>
             <p>{presentation.narrationTranscript}</p>
           </details>
-          <AmbientControls
-            city={world.locationName}
-            place={world.locationName}
-            year={world.era.year}
-            hint={world.era.subtitle}
-          />
         </div>
-      ) : (
+      ) : presentation.narrationTranscript ? (
         <div className="city-narration" key={world.id}>
-          {presentation.narrationTranscript && (
-            <details className="transcript">
-              <summary>Read narration transcript</summary>
-              <p>{presentation.narrationTranscript}</p>
-            </details>
-          )}
-          <AmbientControls
-            city={world.locationName}
-            place={poi?.name ?? world.locationName}
-            year={world.era.year}
-            hint={world.era.subtitle}
-          />
+          <details className="transcript">
+            <summary>Read narration transcript</summary>
+            <p>{presentation.narrationTranscript}</p>
+          </details>
         </div>
-      )}
+      ) : null}
     </section>
   );
 }
