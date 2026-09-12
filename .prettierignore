@@ -5,3 +5,5 @@ playwright-report
 test-results
 docs/DUMMY_V0_SPEC.md
 docs/PROJECT_OVERVIEW.md
+docs/workstream2.md
+src/data/geo/countries-110m.json

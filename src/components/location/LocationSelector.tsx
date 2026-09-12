@@ -1,42 +1,64 @@
-import { locations } from '../../data/locations';
-import { useApp } from '../../app/AppContext';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { GlobeLogo } from './globe/GlobeLogo';
+
+// Deferred: react-globe.gl/three-globe are heavy, and the logo intro gives them time to load in the background.
+const GlobeView = lazy(() =>
+  import('./globe/GlobeView').then((module) => ({ default: module.GlobeView })),
+);
+
+const INTRO_KEY = '4dtraveler:globe-intro-played';
+const INTRO_DELAY_MS = 2200;
+
+function hasPlayedIntro() {
+  try {
+    return sessionStorage.getItem(INTRO_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+function markIntroPlayed() {
+  try {
+    sessionStorage.setItem(INTRO_KEY, '1');
+  } catch {
+    // Storage may be unavailable (private browsing, sandboxed contexts); replaying the intro is harmless.
+  }
+}
 
 export function LocationSelector() {
-  const { dispatch } = useApp();
+  const [morphed, setMorphed] = useState(hasPlayedIntro);
+
+  useEffect(() => {
+    if (morphed) return;
+    const timeout = setTimeout(() => {
+      markIntroPlayed();
+      setMorphed(true);
+    }, INTRO_DELAY_MS);
+    return () => clearTimeout(timeout);
+  }, [morphed]);
+
   return (
-    <section className="selection-page" aria-labelledby="location-heading">
-      <p className="eyebrow">01 / Choose a place</p>
-      <h1 id="location-heading">
-        Every place has a past.
-        <br />
-        Step into one.
+    <section
+      className={`globe-stage${morphed ? ' is-globe' : ''}`}
+      aria-labelledby="location-heading"
+    >
+      <h1 id="location-heading" className="visually-hidden">
+        Choose a place to explore
       </h1>
-      <p className="intro">
-        Explore the places, objects, and stories that shaped a city.
-      </p>
-      <div className="selection-grid">
-        {locations.map((location) => (
-          <button
-            className="location-card"
-            key={location.id}
-            onClick={() => dispatch({ type: 'location', id: location.id })}
-          >
-            <span className="card-art" aria-hidden="true">
-              1892<span className="city-line">▥ ▥ ▥</span>
-            </span>
-            <span className="card-body">
-              <span className="eyebrow">{location.region}</span>
-              <span className="card-title">
-                {location.name} <span aria-hidden="true">↗</span>
-              </span>
-              <span>{location.description}</span>
-            </span>
-          </button>
-        ))}
+      <div className="globe-canvas-layer" aria-hidden={!morphed}>
+        <Suspense fallback={null}>
+          <GlobeView interactive={morphed} />
+        </Suspense>
       </div>
+      <div className="globe-logo-layer" aria-hidden={morphed}>
+        <GlobeLogo />
+      </div>
+<<<<<<< HEAD
       <p className="muted">
         An early exploration of how places change through time.
       </p>
+=======
+>>>>>>> b058d1a (glboe half done)
     </section>
   );
 }
