@@ -66,6 +66,7 @@ export function LocationSelector() {
       <div className="globe-logo-layer" aria-hidden={morphed}>
         <GlobeLogo />
       </div>
+<<<<<<< HEAD
       {morphed && (
         <div className="globe-cta">
           <button
@@ -81,6 +82,8 @@ export function LocationSelector() {
           </span>
         </div>
       )}
+=======
+>>>>>>> 9eff075 (rough pins)
     </section>
   );
 }
