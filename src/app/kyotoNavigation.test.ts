@@ -22,7 +22,7 @@ describe('Kyoto location and era navigation', () => {
     ).toBe('present');
     expect(
       appReducer(initialState, { type: 'location', id: 'kyoto' }).selectedEraId,
-    ).toBeNull();
+    ).toBe('present');
 
     const atLocation = appReducer(initialState, {
       type: 'location',

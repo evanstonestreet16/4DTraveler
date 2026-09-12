@@ -36,7 +36,7 @@ Kyoto / circa 1700 provides a rendered desktop overview plus three original Blen
 
 Kyoto's era picker and overview slider now offer **circa 1700 ↔ Present**, using Rome's 2.2-second bidirectional reveal with destination decoding, Skip, reduced motion and image recovery. Present is overview-only; returning to circa 1700 restores the three historical POIs and their object paths. Modern desktop, phone and fallback BEVs preserve the historical compositions approximately while adding modern urban fabric. Prompts, references and source PNGs are in [the asset delivery](blender/source/kyoto-present/README.md).
 
-City pins on the landing globe open Rome and Kyoto in the **Present** overview. Choose era still lists every available year.
+City pins on the landing globe open Rome and Kyoto in the **Present** overview. Visitors change year with the overview time slider; there is no separate era-picker page.
 
 ## Planned Scope
 
@@ -56,11 +56,13 @@ MongoDB, authentication, multiplayer, WASD, physics, NPCs, character interaction
 
 <!-- Newest first. Format: `- YYYY-MM-DD — summary (link to PR/issue if available)` -->
 
+- 2026-09-12 — Removed the Choose era page; city entry opens Present and the overview slider is the only year control.
+
 - 2026-09-12 — Removed scene ambience from the product, including the Play ambience control, generation API, and unused loop files.
 
 - 2026-09-12 — Removed mobile and portrait support; the app is desktop only.
 
-- 2026-09-12 — City pins skip the era picker and open the present-day overview; Choose era still lists every year.
+- 2026-09-12 — City pins skip the era picker and open the present-day overview.
 
 - 2026-09-12 — Integrated Rome street-view navigation, Rome’s 500 BCE era and Kyoto Present with the latest globe-navigation and ambience changes. Preserved both sides of the status-log conflict; production build, 100 active/generic unit checks, and Rome/Kyoto globe → overview → POI → object → return browser smoke paths passed. Existing browser-test entry helpers still target the former city-list buttons.
 

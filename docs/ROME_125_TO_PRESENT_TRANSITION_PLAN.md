@@ -290,7 +290,7 @@ destination and announce it. Animation is never required to access an endpoint.
 | `Escape` or Skip        | Commit the requested destination immediately                                  |
 | Tab becomes hidden      | Resolve to the requested destination and release transition media             |
 | Rapid repeated input    | Ignore while disabled; never start overlapping transitions                    |
-| Present has no POIs     | Hide the places panel and POI markers; keep Choose era and timeline available |
+| Present has no POIs     | Hide the places panel and POI markers; keep the timeline available |
 
 ## 8. Milestones and cut line
 

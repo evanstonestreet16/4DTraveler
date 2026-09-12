@@ -220,7 +220,9 @@ test('reduced motion, direct Present entry and repeated visits release decoded i
       await page.evaluate(() => Reflect.get(window, '__activeImageUrls')),
     ).toBe(1);
   }
-  await page.getByRole('button', { name: 'Choose era', exact: true }).click();
+  await page
+    .getByRole('button', { name: '← Back to globe', exact: true })
+    .click();
   await expect
     .poll(() => page.evaluate(() => Reflect.get(window, '__activeImageUrls')))
     .toBe(0);

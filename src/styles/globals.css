@@ -107,10 +107,6 @@ html:has(.app-shell.is-landing) #root {
   border-radius: 5px;
   font-size: 11px;
 }
-.selection-page {
-  padding: 56px 8% 64px;
-  min-height: calc(100vh - 162px);
-}
 .eyebrow {
   font-size: 11px;
   font-weight: 650;
@@ -128,16 +124,6 @@ h1 {
 .intro {
   color: #59675e;
   line-height: 1.7;
-}
-.selection-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin: 34px 0 24px;
-}
-.era-card:hover {
-  border-color: #426151;
-  box-shadow: 0 3px 12px #263c3412;
 }
 .visually-hidden {
   position: absolute;
@@ -194,21 +180,6 @@ h1 {
   color: #5c685f;
   font-size: 12px;
   line-height: 1.6;
-}
-.era-card {
-  display: grid;
-  gap: 15px;
-  min-width: 300px;
-  padding: 30px;
-  text-align: left;
-  border: 1px solid #b9c1b2;
-  border-radius: 6px;
-  background: #e6e9df;
-}
-.era-year {
-  font:
-    62px Georgia,
-    serif;
 }
 .enter-label {
   margin-top: 20px;

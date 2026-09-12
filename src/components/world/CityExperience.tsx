@@ -135,6 +135,7 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
         <nav className="city-navigation" aria-label="World navigation">
           {poi ? (
             <button
+              ref={returnButton}
               className="small-button"
               onClick={() => dispatch({ type: 'overview' })}
             >
@@ -142,6 +143,7 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
             </button>
           ) : (
             <button
+              ref={returnButton}
               className="small-button"
               onClick={() =>
                 dispatch({
@@ -153,13 +155,6 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
               ← Back to globe
             </button>
           )}
-          <button
-            ref={returnButton}
-            className="small-button"
-            onClick={() => dispatch({ type: 'location', id: world.locationId })}
-          >
-            Choose era
-          </button>
         </nav>
       </header>
       {world.pois.length > 0 && (

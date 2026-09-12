@@ -28,7 +28,7 @@ function markIntroPlayed() {
 /**
  * Landing page: an intro logo that morphs into an interactive 3D globe
  * (Workstream 2 — Andrew Liu). Clicking a city pin opens that place in
- * the present era; Choose era still lists every available year.
+ * the present era; the overview slider is how visitors change year.
  */
 export function LocationSelector() {
   const [morphed, setMorphed] = useState(hasPlayedIntro);

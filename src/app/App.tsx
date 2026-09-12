@@ -2,7 +2,6 @@ import { lazy, Suspense } from 'react';
 import { useApp } from './AppContext';
 import { locations } from '../data/locations';
 import { LocationSelector } from '../components/location/LocationSelector';
-import { EraSelector } from '../components/timeline/EraSelector';
 import { SceneErrorBoundary } from '../components/world/SceneErrorBoundary';
 
 const WorldExperience = lazy(
@@ -64,8 +63,6 @@ export function App() {
               Choose a location
             </button>
           </div>
-        ) : !state.selectedEraId && staticLocation ? (
-          <EraSelector location={staticLocation} />
         ) : !state.activeWorld ? (
           <div className="notice" role="alert">
             This world is not available yet.{' '}
@@ -106,12 +103,12 @@ export function App() {
                     className="small-button"
                     onClick={() =>
                       dispatch({
-                        type: 'location',
-                        id: state.activeWorld!.locationId,
+                        type: 'mode',
+                        mode: state.mode === 'globe' ? 'globe' : 'catalog',
                       })
                     }
                   >
-                    Choose era
+                    ← Back to globe
                   </button>
                 </div>
               }
