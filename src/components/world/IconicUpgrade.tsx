@@ -4,6 +4,16 @@ import * as THREE from 'three';
 import type { HistoricalObject, ScenePrimitive, Vec3 } from '../../types/world';
 import { generateTripoMesh, TripoError } from '../../services/tripo';
 
+export type TripoStatusPhase = 'queued' | 'running' | 'success' | 'failed';
+
+export interface TripoStatus {
+  objectId: string;
+  name: string;
+  phase: TripoStatusPhase;
+  /** Tripo-reported percent (0–100). */
+  progress: number;
+}
+
 /**
  * Optional Tripo P1 visual upgrade for iconic landmarks.
  *
@@ -25,10 +35,16 @@ export function IconicUpgrade({
   object,
   primitive,
   onMeshReady,
+  onStatusChange,
 }: {
   object: HistoricalObject;
   primitive: ScenePrimitive;
   onMeshReady: (objectId: string) => void;
+  /**
+   * Optional hook for a global loading UI outside the 3D canvas. Fires
+   * every time the request phase or progress changes.
+   */
+  onStatusChange?: (status: TripoStatus) => void;
 }) {
   const [modelUrl, setModelUrl] = useState<string | null>(null);
   const [progress, setProgress] = useState<{
@@ -37,18 +53,32 @@ export function IconicUpgrade({
   } | null>(null);
   const [failed, setFailed] = useState(false);
   const notifiedRef = useRef(false);
+  // Keep the latest onStatusChange in a ref so callback identity doesn't
+  // re-trigger the whole Tripo request every parent render.
+  const statusRef = useRef(onStatusChange);
+  statusRef.current = onStatusChange;
 
   useEffect(() => {
     if (!object.iconic || !object.tripoPrompt) return;
     const controller = new AbortController();
     console.info(`[tripo] requesting iconic mesh for "${object.id}"`);
+    const emit = (phase: TripoStatusPhase, percent: number) => {
+      statusRef.current?.({
+        objectId: object.id,
+        name: object.name,
+        phase,
+        progress: percent,
+      });
+    };
     setProgress({ status: 'queued', percent: 0 });
+    emit('queued', 0);
     generateTripoMesh({
       prompt: object.tripoPrompt,
       signal: controller.signal,
       onProgress: (update) => {
         if (controller.signal.aborted) return;
         setProgress({ status: update.status, percent: update.progress });
+        emit('running', update.progress);
       },
     })
       .then((result) => {
@@ -57,6 +87,7 @@ export function IconicUpgrade({
           `[tripo] mesh ready for "${object.id}" (task ${result.taskId})`,
         );
         setModelUrl(result.modelUrl);
+        emit('success', 100);
       })
       .catch((error) => {
         if (error instanceof DOMException && error.name === 'AbortError') {
@@ -74,9 +105,10 @@ export function IconicUpgrade({
         );
         setFailed(true);
         setProgress(null);
+        emit('failed', 0);
       });
     return () => controller.abort();
-  }, [object.id, object.iconic, object.tripoPrompt]);
+  }, [object.id, object.name, object.iconic, object.tripoPrompt]);
 
   // While the mesh is being generated, float a small label above the
   // primitive so the user sees the progress instead of an unchanged

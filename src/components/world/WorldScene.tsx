@@ -6,12 +6,14 @@ import { CameraController } from './CameraController';
 import { POIMarker } from './POIMarker';
 import { SelectableObject } from './SelectableObject';
 import { IconicUpgrade } from './IconicUpgrade';
+import type { TripoStatus } from './IconicUpgrade';
 import { ModelScene } from './ModelScene';
 import type { ModelAssetState } from './modelAsset';
 
 export function WorldScene({
   world,
   onAssetState,
+  onTripoStatus,
   animated = false,
   effectsReady = false,
   shadowMap = 1024,
@@ -19,6 +21,7 @@ export function WorldScene({
 }: {
   world: HistoricalWorld;
   onAssetState: (state: ModelAssetState) => void;
+  onTripoStatus?: (status: TripoStatus) => void;
   animated?: boolean;
   effectsReady?: boolean;
   shadowMap?: number;
@@ -64,6 +67,7 @@ export function WorldScene({
           object={object}
           primitive={primitive}
           onMeshReady={handleIconicMeshReady}
+          onStatusChange={onTripoStatus}
         />,
       );
     }
