@@ -1,6 +1,6 @@
 # 3D modeling integration and demo runbook
 
-Workstream 1 · parent issue #5. `codex/3d-modeling` contains the complete integration. The PRs are stacked in roadmap order so every diff remains scoped to one issue. Merge from the bottom and retarget the next PR to `main` after each dependency lands. No PR requires an API key or Blender installation.
+Workstream 1 · parent issue #5. The complete integration is on `main`, developed on `codex/3d-modeling`. The PRs were stacked in roadmap order so every diff remained scoped to one issue, then merged with merge commits in the order below. No PR requires an API key or Blender installation.
 
 ## PR stack
 
@@ -15,7 +15,7 @@ Workstream 1 · parent issue #5. `codex/3d-modeling` contains the complete integ
 | 7     | #12   | [#19](https://github.com/evanstonestreet16/4DTraveler/pull/19) | User-selected 1850 blockout and shared era layers                             |
 | 8     | #5    | [#20](https://github.com/evanstonestreet16/4DTraveler/pull/20) | Roadmap handoff, current project status and final verification                |
 
-The stack is open for review and has not been merged. GitHub resolves the `Fixes` issue links when changes reach the default branch. Merge dependencies in this listed order. Preserve each child PR's narrow diff when retargeting; verify that its dependency is on `main` first.
+The project owner requested merging the full stack on 2026-09-11. Each dependent PR was retargeted to `main` after its predecessor merged, preserving the shared history. The historical/editorial, physical-device and resource-budget handoffs below remain documented; merging does not imply those independent reviews have occurred.
 
 ## Delivered path
 
