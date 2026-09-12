@@ -1,4 +1,6 @@
 import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { gunzipSync } from 'node:zlib';
 import { expect, it } from 'vitest';
 import { Box3, Mesh, Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -13,7 +15,20 @@ it('the shipped hero meets geometry budgets and contains visible geometry at eve
   const bytes = await readFile(
     new URL('../../../public/models/pittsburgh-1892.glb', import.meta.url),
   );
+  const compressed = await readFile(
+    new URL('../../../public/models/pittsburgh-1892.glb.gz', import.meta.url),
+  );
+  expect(gunzipSync(compressed).equals(bytes)).toBe(true);
+  expect(compressed.byteLength).toBeLessThan(bytes.byteLength / 4);
+  expect(
+    new URL(world.scene.model!.compressedUrl!, 'http://local').searchParams.get(
+      'v',
+    ),
+  ).toBe(createHash('sha256').update(bytes).digest('hex').slice(0, 12));
   expect(bytes.byteLength).toBeLessThan(8 * 1024 * 1024);
+  expect(
+    new URL(world.scene.model!.url, 'http://local').searchParams.get('v'),
+  ).toBe(createHash('sha256').update(bytes).digest('hex').slice(0, 12));
   const buffer = bytes.buffer.slice(
     bytes.byteOffset,
     bytes.byteOffset + bytes.byteLength,

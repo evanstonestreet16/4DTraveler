@@ -1,0 +1,1031 @@
+{
+  "before": {
+    "path": "results/desktop-left-cycle-2.heapsnapshot",
+    "nodeCount": 139792,
+    "totalSelfBytes": 7669061,
+    "byType": {
+      "synthetic": {
+        "count": 32,
+        "selfBytes": 0
+      },
+      "native": {
+        "count": 28299,
+        "selfBytes": 3321809
+      },
+      "string": {
+        "count": 29193,
+        "selfBytes": 1092532
+      },
+      "object shape": {
+        "count": 10412,
+        "selfBytes": 591228
+      },
+      "code": {
+        "count": 38833,
+        "selfBytes": 1785624
+      },
+      "array": {
+        "count": 2279,
+        "selfBytes": 406160
+      },
+      "number": {
+        "count": 14402,
+        "selfBytes": 19752
+      },
+      "symbol": {
+        "count": 86,
+        "selfBytes": 496
+      },
+      "object": {
+        "count": 5678,
+        "selfBytes": 153224
+      },
+      "closure": {
+        "count": 9527,
+        "selfBytes": 277160
+      },
+      "concatenated string": {
+        "count": 1037,
+        "selfBytes": 20740
+      },
+      "regexp": {
+        "count": 14,
+        "selfBytes": 336
+      }
+    },
+    "threeFlags": {
+      "isTexture": {
+        "count": 8,
+        "selfBytes": 1204
+      },
+      "isBufferGeometry": {
+        "count": 8,
+        "selfBytes": 576
+      },
+      "isMaterial": {
+        "count": 12,
+        "selfBytes": 3036
+      },
+      "isObject3D": {
+        "count": 22,
+        "selfBytes": 2456
+      },
+      "isMesh": {
+        "count": 8,
+        "selfBytes": 528
+      },
+      "isCamera": {
+        "count": 7,
+        "selfBytes": 1336
+      },
+      "isWebGLRenderer": {
+        "count": 1,
+        "selfBytes": 284
+      },
+      "isScene": {
+        "count": 2,
+        "selfBytes": 204
+      }
+    }
+  },
+  "after": {
+    "path": "results/desktop-left-cycle-5.heapsnapshot",
+    "nodeCount": 140625,
+    "totalSelfBytes": 7717005,
+    "byType": {
+      "synthetic": {
+        "count": 32,
+        "selfBytes": 0
+      },
+      "native": {
+        "count": 28354,
+        "selfBytes": 3329313
+      },
+      "string": {
+        "count": 29213,
+        "selfBytes": 1092532
+      },
+      "object shape": {
+        "count": 10463,
+        "selfBytes": 593824
+      },
+      "code": {
+        "count": 39487,
+        "selfBytes": 1820772
+      },
+      "array": {
+        "count": 2278,
+        "selfBytes": 407852
+      },
+      "number": {
+        "count": 14422,
+        "selfBytes": 19896
+      },
+      "symbol": {
+        "count": 86,
+        "selfBytes": 496
+      },
+      "object": {
+        "count": 5712,
+        "selfBytes": 154084
+      },
+      "closure": {
+        "count": 9527,
+        "selfBytes": 277160
+      },
+      "concatenated string": {
+        "count": 1037,
+        "selfBytes": 20740
+      },
+      "regexp": {
+        "count": 14,
+        "selfBytes": 336
+      }
+    },
+    "threeFlags": {
+      "isTexture": {
+        "count": 8,
+        "selfBytes": 1204
+      },
+      "isBufferGeometry": {
+        "count": 8,
+        "selfBytes": 576
+      },
+      "isMaterial": {
+        "count": 12,
+        "selfBytes": 3036
+      },
+      "isObject3D": {
+        "count": 22,
+        "selfBytes": 2456
+      },
+      "isMesh": {
+        "count": 8,
+        "selfBytes": 528
+      },
+      "isCamera": {
+        "count": 7,
+        "selfBytes": 1336
+      },
+      "isWebGLRenderer": {
+        "count": 1,
+        "selfBytes": 284
+      },
+      "isScene": {
+        "count": 2,
+        "selfBytes": 204
+      }
+    }
+  },
+  "typeDeltas": [
+    {
+      "name": "code",
+      "before": {
+        "count": 38833,
+        "selfBytes": 1785624
+      },
+      "after": {
+        "count": 39487,
+        "selfBytes": 1820772
+      },
+      "countDelta": 654,
+      "selfBytesDelta": 35148
+    },
+    {
+      "name": "native",
+      "before": {
+        "count": 28299,
+        "selfBytes": 3321809
+      },
+      "after": {
+        "count": 28354,
+        "selfBytes": 3329313
+      },
+      "countDelta": 55,
+      "selfBytesDelta": 7504
+    },
+    {
+      "name": "object shape",
+      "before": {
+        "count": 10412,
+        "selfBytes": 591228
+      },
+      "after": {
+        "count": 10463,
+        "selfBytes": 593824
+      },
+      "countDelta": 51,
+      "selfBytesDelta": 2596
+    },
+    {
+      "name": "array",
+      "before": {
+        "count": 2279,
+        "selfBytes": 406160
+      },
+      "after": {
+        "count": 2278,
+        "selfBytes": 407852
+      },
+      "countDelta": -1,
+      "selfBytesDelta": 1692
+    },
+    {
+      "name": "object",
+      "before": {
+        "count": 5678,
+        "selfBytes": 153224
+      },
+      "after": {
+        "count": 5712,
+        "selfBytes": 154084
+      },
+      "countDelta": 34,
+      "selfBytesDelta": 860
+    },
+    {
+      "name": "number",
+      "before": {
+        "count": 14402,
+        "selfBytes": 19752
+      },
+      "after": {
+        "count": 14422,
+        "selfBytes": 19896
+      },
+      "countDelta": 20,
+      "selfBytesDelta": 144
+    },
+    {
+      "name": "regexp",
+      "before": {
+        "count": 14,
+        "selfBytes": 336
+      },
+      "after": {
+        "count": 14,
+        "selfBytes": 336
+      },
+      "countDelta": 0,
+      "selfBytesDelta": 0
+    },
+    {
+      "name": "symbol",
+      "before": {
+        "count": 86,
+        "selfBytes": 496
+      },
+      "after": {
+        "count": 86,
+        "selfBytes": 496
+      },
+      "countDelta": 0,
+      "selfBytesDelta": 0
+    },
+    {
+      "name": "concatenated string",
+      "before": {
+        "count": 1037,
+        "selfBytes": 20740
+      },
+      "after": {
+        "count": 1037,
+        "selfBytes": 20740
+      },
+      "countDelta": 0,
+      "selfBytesDelta": 0
+    },
+    {
+      "name": "closure",
+      "before": {
+        "count": 9527,
+        "selfBytes": 277160
+      },
+      "after": {
+        "count": 9527,
+        "selfBytes": 277160
+      },
+      "countDelta": 0,
+      "selfBytesDelta": 0
+    },
+    {
+      "name": "string",
+      "before": {
+        "count": 29193,
+        "selfBytes": 1092532
+      },
+      "after": {
+        "count": 29213,
+        "selfBytes": 1092532
+      },
+      "countDelta": 20,
+      "selfBytesDelta": 0
+    },
+    {
+      "name": "synthetic",
+      "before": {
+        "count": 32,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 32,
+        "selfBytes": 0
+      },
+      "countDelta": 0,
+      "selfBytesDelta": 0
+    }
+  ],
+  "threeDeltas": [
+    {
+      "name": "isWebGLRenderer",
+      "before": {
+        "count": 1,
+        "selfBytes": 284
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 284
+      },
+      "countDelta": 0,
+      "selfBytesDelta": 0
+    },
+    {
+      "name": "isObject3D",
+      "before": {
+        "count": 22,
+        "selfBytes": 2456
+      },
+      "after": {
+        "count": 22,
+        "selfBytes": 2456
+      },
+      "countDelta": 0,
+      "selfBytesDelta": 0
+    },
+    {
+      "name": "isBufferGeometry",
+      "before": {
+        "count": 8,
+        "selfBytes": 576
+      },
+      "after": {
+        "count": 8,
+        "selfBytes": 576
+      },
+      "countDelta": 0,
+      "selfBytesDelta": 0
+    },
+    {
+      "name": "isMesh",
+      "before": {
+        "count": 8,
+        "selfBytes": 528
+      },
+      "after": {
+        "count": 8,
+        "selfBytes": 528
+      },
+      "countDelta": 0,
+      "selfBytesDelta": 0
+    },
+    {
+      "name": "isCamera",
+      "before": {
+        "count": 7,
+        "selfBytes": 1336
+      },
+      "after": {
+        "count": 7,
+        "selfBytes": 1336
+      },
+      "countDelta": 0,
+      "selfBytesDelta": 0
+    },
+    {
+      "name": "isScene",
+      "before": {
+        "count": 2,
+        "selfBytes": 204
+      },
+      "after": {
+        "count": 2,
+        "selfBytes": 204
+      },
+      "countDelta": 0,
+      "selfBytesDelta": 0
+    },
+    {
+      "name": "isMaterial",
+      "before": {
+        "count": 12,
+        "selfBytes": 3036
+      },
+      "after": {
+        "count": 12,
+        "selfBytes": 3036
+      },
+      "countDelta": 0,
+      "selfBytesDelta": 0
+    },
+    {
+      "name": "isTexture",
+      "before": {
+        "count": 8,
+        "selfBytes": 1204
+      },
+      "after": {
+        "count": 8,
+        "selfBytes": 1204
+      },
+      "countDelta": 0,
+      "selfBytesDelta": 0
+    }
+  ],
+  "largestGrowth": [
+    {
+      "name": "code: system / FeedbackVector",
+      "before": {
+        "count": 1366,
+        "selfBytes": 208676
+      },
+      "after": {
+        "count": 1629,
+        "selfBytes": 236740
+      },
+      "countDelta": 263,
+      "selfBytesDelta": 28064
+    },
+    {
+      "name": "code: system / LoadHandler",
+      "before": {
+        "count": 1833,
+        "selfBytes": 30184
+      },
+      "after": {
+        "count": 2143,
+        "selfBytes": 35236
+      },
+      "countDelta": 310,
+      "selfBytesDelta": 5052
+    },
+    {
+      "name": "array: (object elements)",
+      "before": {
+        "count": 667,
+        "selfBytes": 60116
+      },
+      "after": {
+        "count": 677,
+        "selfBytes": 64080
+      },
+      "countDelta": 10,
+      "selfBytesDelta": 3964
+    },
+    {
+      "name": "native: blink::NetworkResourcesData::ResourceData",
+      "before": {
+        "count": 28,
+        "selfBytes": 8064
+      },
+      "after": {
+        "count": 34,
+        "selfBytes": 9792
+      },
+      "countDelta": 6,
+      "selfBytesDelta": 1728
+    },
+    {
+      "name": "code: system / AllocationSite",
+      "before": {
+        "count": 564,
+        "selfBytes": 15680
+      },
+      "after": {
+        "count": 623,
+        "selfBytes": 17316
+      },
+      "countDelta": 59,
+      "selfBytesDelta": 1636
+    },
+    {
+      "name": "object shape: system / DescriptorArray",
+      "before": {
+        "count": 2628,
+        "selfBytes": 289084
+      },
+      "after": {
+        "count": 2640,
+        "selfBytes": 290464
+      },
+      "countDelta": 12,
+      "selfBytesDelta": 1380
+    },
+    {
+      "name": "native: LargestContentfulPaint",
+      "before": {
+        "count": 26,
+        "selfBytes": 3536
+      },
+      "after": {
+        "count": 35,
+        "selfBytes": 4760
+      },
+      "countDelta": 9,
+      "selfBytesDelta": 1224
+    },
+    {
+      "name": "native: blink::HeapHashTableBacking<blink::HashTable<blink::String, blink::KeyValuePair<blink::String, cppgc::internal::BasicMember<blink::NetworkResourcesData::ResourceData, cppgc::internal::StrongMemberTag, cppgc::internal::DijkstraWriteBarrierPolicy>>, blink::KeyValuePairExtractor, blink::HashMapValueTraits<blink::HashTraits<String>, blink::HashTraits<cppgc::internal::BasicMember<blink::NetworkResourcesData::ResourceData, cppgc::internal::StrongMemberTag, cppgc::internal::DijkstraWriteBarrierPolicy>>>, blink::HashTraits<String>, blink::HeapAllocator>>",
+      "before": {
+        "count": 2,
+        "selfBytes": 1040
+      },
+      "after": {
+        "count": 2,
+        "selfBytes": 2064
+      },
+      "countDelta": 0,
+      "selfBytesDelta": 1024
+    },
+    {
+      "name": "native: InteractionContentfulPaint",
+      "before": {
+        "count": 25,
+        "selfBytes": 2600
+      },
+      "after": {
+        "count": 34,
+        "selfBytes": 3536
+      },
+      "countDelta": 9,
+      "selfBytesDelta": 936
+    },
+    {
+      "name": "native: LayoutShift",
+      "before": {
+        "count": 18,
+        "selfBytes": 2736
+      },
+      "after": {
+        "count": 24,
+        "selfBytes": 3648
+      },
+      "countDelta": 6,
+      "selfBytesDelta": 912
+    },
+    {
+      "name": "code: (constant elements)",
+      "before": {
+        "count": 508,
+        "selfBytes": 11488
+      },
+      "after": {
+        "count": 496,
+        "selfBytes": 12232
+      },
+      "countDelta": -12,
+      "selfBytesDelta": 744
+    },
+    {
+      "name": "native: DOMRectReadOnly",
+      "before": {
+        "count": 40,
+        "selfBytes": 2240
+      },
+      "after": {
+        "count": 52,
+        "selfBytes": 2912
+      },
+      "countDelta": 12,
+      "selfBytesDelta": 672
+    },
+    {
+      "name": "object: Object",
+      "before": {
+        "count": 2060,
+        "selfBytes": 52792
+      },
+      "after": {
+        "count": 2080,
+        "selfBytes": 53428
+      },
+      "countDelta": 20,
+      "selfBytesDelta": 636
+    },
+    {
+      "name": "object shape: system / Map",
+      "before": {
+        "count": 6493,
+        "selfBytes": 263208
+      },
+      "after": {
+        "count": 6508,
+        "selfBytes": 263808
+      },
+      "countDelta": 15,
+      "selfBytesDelta": 600
+    },
+    {
+      "name": "object shape: system / PrototypeInfo",
+      "before": {
+        "count": 509,
+        "selfBytes": 20360
+      },
+      "after": {
+        "count": 520,
+        "selfBytes": 20800
+      },
+      "countDelta": 11,
+      "selfBytesDelta": 440
+    },
+    {
+      "name": "native: PerformanceResourceTiming",
+      "before": {
+        "count": 13,
+        "selfBytes": 1768
+      },
+      "after": {
+        "count": 16,
+        "selfBytes": 2176
+      },
+      "countDelta": 3,
+      "selfBytesDelta": 408
+    },
+    {
+      "name": "code: system / WeakFixedArray",
+      "before": {
+        "count": 1065,
+        "selfBytes": 55052
+      },
+      "after": {
+        "count": 1078,
+        "selfBytes": 55308
+      },
+      "countDelta": 13,
+      "selfBytesDelta": 256
+    },
+    {
+      "name": "native: LayoutShiftAttribution",
+      "before": {
+        "count": 20,
+        "selfBytes": 800
+      },
+      "after": {
+        "count": 26,
+        "selfBytes": 1040
+      },
+      "countDelta": 6,
+      "selfBytesDelta": 240
+    },
+    {
+      "name": "object: Array",
+      "before": {
+        "count": 1027,
+        "selfBytes": 16432
+      },
+      "after": {
+        "count": 1041,
+        "selfBytes": 16656
+      },
+      "countDelta": 14,
+      "selfBytesDelta": 224
+    },
+    {
+      "name": "native: PerformanceLongAnimationFrameTiming",
+      "before": {
+        "count": 2,
+        "selfBytes": 352
+      },
+      "after": {
+        "count": 3,
+        "selfBytes": 528
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 176
+    },
+    {
+      "name": "number: heap number",
+      "before": {
+        "count": 1656,
+        "selfBytes": 19752
+      },
+      "after": {
+        "count": 1668,
+        "selfBytes": 19896
+      },
+      "countDelta": 12,
+      "selfBytesDelta": 144
+    },
+    {
+      "name": "code: system / StoreHandler",
+      "before": {
+        "count": 295,
+        "selfBytes": 3800
+      },
+      "after": {
+        "count": 304,
+        "selfBytes": 3940
+      },
+      "countDelta": 9,
+      "selfBytesDelta": 140
+    },
+    {
+      "name": "native: system / PropertyArray",
+      "before": {
+        "count": 1191,
+        "selfBytes": 40388
+      },
+      "after": {
+        "count": 1194,
+        "selfBytes": 40468
+      },
+      "countDelta": 3,
+      "selfBytesDelta": 80
+    },
+    {
+      "name": "object shape: system / Cell",
+      "before": {
+        "count": 244,
+        "selfBytes": 1944
+      },
+      "after": {
+        "count": 253,
+        "selfBytes": 2016
+      },
+      "countDelta": 9,
+      "selfBytesDelta": 72
+    },
+    {
+      "name": "native: blink::HeapVectorBacking<cppgc::internal::BasicMember<blink::PerformanceEntry, cppgc::internal::StrongMemberTag, cppgc::internal::DijkstraWriteBarrierPolicy>>",
+      "before": {
+        "count": 8,
+        "selfBytes": 408
+      },
+      "after": {
+        "count": 8,
+        "selfBytes": 464
+      },
+      "countDelta": 0,
+      "selfBytesDelta": 56
+    },
+    {
+      "name": "string: 44a83d4c-2e42-46aa-8767-11959ff133c1",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: d2abe6c0-c787-4eb5-9e67-822b99d55a5a",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: 33cceeba-d576-48d7-8080-af3f8db81afc",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: b3e8e348-b760-4605-a33b-bb52d4d7dc28",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: 17471ef4-f423-4c08-a689-95a164f32ca2",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: 9d35e2df-80ee-495b-b994-4b6c890287d1",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: 167c0710-4da4-4d0e-a0c7-8bf90278c2c5",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: 361634c4-0c6e-4637-9f2a-317fcdf3514e",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: 69e91007-8d96-41b5-94fd-957addbaf17c",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: c568109f-3c58-4a2b-813d-e8b1bf2af163",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: 69c12fc6-b467-4cf0-b3c0-7bd773eeeddc",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: 771282d6-bf92-42d5-bd4c-69f3243fd9fd",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: 9bc1e8c1-18f5-41ae-8513-65bd086e3780",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: 2c0e9d32-ece6-4c59-9b29-f23ceb76765d",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: fe8c6247-7329-4db0-b3b3-eae7d1c9ee6c",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: b0a2ae5b-f003-44a5-bfa4-bcb182a6a416",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "native: CSSStyleDeclaration",
+      "before": {
+        "count": 7,
+        "selfBytes": 456
+      },
+      "after": {
+        "count": 7,
+        "selfBytes": 504
+      },
+      "countDelta": 0,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: a0f72d8d-fe45-44b1-9609-59f4d0f99f2c",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: 6bb73278-4d17-4e59-acf5-f626cb467394",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    },
+    {
+      "name": "string: 3499121f-7089-41b1-bd86-5f1046126885",
+      "before": {
+        "count": 0,
+        "selfBytes": 0
+      },
+      "after": {
+        "count": 1,
+        "selfBytes": 48
+      },
+      "countDelta": 1,
+      "selfBytesDelta": 48
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import { mkdir, writeFile } from 'node:fs/promises';
+import { gzipSync } from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 import { Buffer } from 'node:buffer';
 import { format } from 'prettier';
@@ -67,7 +68,9 @@ const stats = {
   materials: materials.size,
   textures: 0,
   externalResources: 0,
-  compression: 'none; texture-free material batches; no decoder dependency',
+  compression:
+    'gzip transport with native browser decompression; raw GLB fallback',
+  gzipBytes: gzipSync(Buffer.from(binary), { level: 9 }).byteLength,
   ceilings: { bytes: 8 * 1024 * 1024, triangles: 100_000, materialBatches: 50 },
   groups,
 };
@@ -81,6 +84,10 @@ if (
 const output = fileURLToPath(new URL('../public/models/', import.meta.url));
 await mkdir(output, { recursive: true });
 await writeFile(`${output}pittsburgh-1892.glb`, Buffer.from(binary));
+await writeFile(
+  `${output}pittsburgh-1892.glb.gz`,
+  gzipSync(Buffer.from(binary), { level: 9 }),
+);
 await writeFile(
   `${output}pittsburgh-1892.metrics.json`,
   await format(JSON.stringify(stats), { parser: 'json' }),

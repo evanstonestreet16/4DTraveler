@@ -221,16 +221,20 @@ export function validateGlbContainer(buffer: ArrayBuffer) {
   }
 }
 
-export async function loadModelAsset(
-  model: SceneModel,
-  objects: HistoricalObject[],
+async function downloadModel(
+  url: string,
+  compressed: boolean,
   signal: AbortSignal,
   onProgress: (progress: number | undefined) => void,
 ) {
-  const response = await fetch(model.url, { signal });
+  signal.throwIfAborted();
+  const response = await fetch(url, { signal, cache: 'force-cache' });
   if (!response.ok)
     throw new Error(`Model request failed (HTTP ${response.status}).`);
-  const total = Number(response.headers.get('content-length'));
+  // Fetch streams decoded bytes, but Content-Length describes encoded bytes.
+  const total = response.headers.get('content-encoding')
+    ? 0
+    : Number(response.headers.get('content-length'));
   const chunks: Uint8Array[] = [];
   let received = 0;
   if (!response.body) throw new Error('The model response was empty.');
@@ -253,8 +257,39 @@ export async function loadModelAsset(
     offset += chunk.byteLength;
   }
   signal.throwIfAborted();
-  validateGlbContainer(bytes.buffer);
-  const gltf = await new GLTFLoader().parseAsync(bytes.buffer, '');
+  // Content-Encoding may already have decompressed a .gz response in fetch.
+  const gzip = compressed && bytes[0] === 0x1f && bytes[1] === 0x8b;
+  const buffer = gzip
+    ? await new Response(
+        new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip')),
+      ).arrayBuffer()
+    : bytes.buffer;
+  signal.throwIfAborted();
+  validateGlbContainer(buffer);
+  return buffer;
+}
+
+export async function loadModelAsset(
+  model: SceneModel,
+  objects: HistoricalObject[],
+  signal: AbortSignal,
+  onProgress: (progress: number | undefined) => void,
+) {
+  let buffer: ArrayBuffer;
+  if (model.compressedUrl && typeof DecompressionStream !== 'undefined') {
+    try {
+      buffer = await downloadModel(
+        model.compressedUrl,
+        true,
+        signal,
+        onProgress,
+      );
+    } catch (error) {
+      if (signal.aborted) throw error;
+      buffer = await downloadModel(model.url, false, signal, onProgress);
+    }
+  } else buffer = await downloadModel(model.url, false, signal, onProgress);
+  const gltf = await new GLTFLoader().parseAsync(buffer, '');
   let originals = new Set<Material>();
   try {
     signal.throwIfAborted();

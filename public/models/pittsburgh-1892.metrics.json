@@ -8,7 +8,8 @@
   "materials": 12,
   "textures": 0,
   "externalResources": 0,
-  "compression": "none; texture-free material batches; no decoder dependency",
+  "compression": "gzip transport with native browser decompression; raw GLB fallback",
+  "gzipBytes": 210934,
   "ceilings": { "bytes": 8388608, "triangles": 100000, "materialBatches": 50 },
   "groups": [
     {

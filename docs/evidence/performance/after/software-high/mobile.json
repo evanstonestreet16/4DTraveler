@@ -1,0 +1,3547 @@
+{
+  "schemaVersion": 2,
+  "name": "mobile",
+  "environment": {
+    "timestamp": "2026-09-12T02:49:38.877Z",
+    "target": "http://127.0.0.1:4182/?profile=1",
+    "sourceRevision": "c87afe3",
+    "inspectedCheckoutRevision": "c87afe3e8e11060f29e7b6dc0636f1894467fd50",
+    "sourceStatus": "",
+    "note": "Frozen optimized build c87afe3; explicit SwiftShader High for comparison with prequality full-detail scene; no competing browser workloads",
+    "os": {
+      "platform": "darwin",
+      "release": "25.5.0",
+      "arch": "arm64",
+      "cpu": "Apple M3",
+      "logicalCores": 8,
+      "totalMemoryBytes": 17179869184
+    },
+    "requestedBackend": "SwiftShader",
+    "headed": false,
+    "quality": "high",
+    "deviceScaleFactor": 1,
+    "browser": "153.0.8010.12",
+    "gpu": {
+      "devices": [
+        {
+          "vendorId": 65535,
+          "deviceId": 65535,
+          "vendorString": "Google Inc. (Google)",
+          "deviceString": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+          "driverVendor": "SwANGLE",
+          "driverVersion": "5.0.0"
+        }
+      ],
+      "auxAttributes": {
+        "amdSwitchable": false,
+        "canSupportThreadedTextureMailbox": false,
+        "directRenderingVersion": "",
+        "displayType": "ANGLE_SWIFTSHADER",
+        "glExtensions": "GL_AMD_performance_monitor GL_ANGLE_base_vertex_base_instance_shader_builtin GL_ANGLE_blob_cache GL_ANGLE_client_arrays GL_ANGLE_clip_cull_distance GL_ANGLE_compressed_texture_etc GL_ANGLE_copy_texture_3d GL_ANGLE_depth_texture GL_ANGLE_framebuffer_blit GL_ANGLE_framebuffer_multisample GL_ANGLE_get_image GL_ANGLE_get_serialized_context_string GL_ANGLE_get_tex_level_parameter GL_ANGLE_instanced_arrays GL_ANGLE_memory_object_flags GL_ANGLE_memory_size GL_ANGLE_multi_draw GL_ANGLE_pack_reverse_row_order GL_ANGLE_polygon_mode GL_ANGLE_program_binary_readiness_query GL_ANGLE_program_cache_control GL_ANGLE_read_only_depth_stencil_feedback_loops GL_ANGLE_relaxed_vertex_attribute_type GL_ANGLE_renderability_validation GL_ANGLE_request_extension GL_ANGLE_rgbx_internal_format GL_ANGLE_robust_client_memory GL_ANGLE_robust_fragment_shader_output GL_ANGLE_robust_resource_initialization GL_ANGLE_shader_pixel_local_storage GL_ANGLE_shader_pixel_local_storage_coherent GL_ANGLE_stencil_texturing GL_ANGLE_texture_compression_dxt3 GL_ANGLE_texture_compression_dxt5 GL_ANGLE_texture_multisample GL_ANGLE_texture_usage GL_ANGLE_translated_shader_source GL_ANGLE_vulkan_image GL_ANGLE_yuv_internal_format GL_APPLE_clip_distance GL_ARM_rgba8 GL_ARM_shader_framebuffer_fetch GL_CHROMIUM_bind_generates_resource GL_CHROMIUM_bind_uniform_location GL_CHROMIUM_copy_compressed_texture GL_CHROMIUM_copy_texture GL_CHROMIUM_lose_context GL_EXT_EGL_image_array GL_EXT_EGL_image_external_wrap_modes GL_EXT_EGL_image_storage GL_EXT_base_instance GL_EXT_blend_minmax GL_EXT_buffer_storage GL_EXT_clear_texture GL_EXT_clip_control GL_EXT_clip_cull_distance GL_EXT_color_buffer_float GL_EXT_color_buffer_half_float GL_EXT_compressed_ETC1_RGB8_sub_texture GL_EXT_conservative_depth GL_EXT_copy_image GL_EXT_debug_label GL_EXT_debug_marker GL_EXT_depth_clamp GL_EXT_discard_framebuffer GL_EXT_disjoint_timer_query GL_EXT_draw_buffers GL_EXT_draw_buffers_indexed GL_EXT_draw_elements_base_vertex GL_EXT_float_blend GL_EXT_frag_depth GL_EXT_instanced_arrays GL_EXT_map_buffer_range GL_EXT_memory_object GL_EXT_memory_object_fd GL_EXT_occlusion_query_boolean GL_EXT_polygon_offset_clamp GL_EXT_read_format_bgra GL_EXT_robustness GL_EXT_sRGB GL_EXT_sRGB_write_control GL_EXT_semaphore GL_EXT_separate_shader_objects GL_EXT_shader_framebuffer_fetch GL_EXT_shader_framebuffer_fetch_non_coherent GL_EXT_shader_non_constant_global_initializers GL_EXT_shader_texture_lod GL_EXT_shadow_samplers GL_EXT_texture_border_clamp GL_EXT_texture_compression_bptc GL_EXT_texture_compression_dxt1 GL_EXT_texture_compression_rgtc GL_EXT_texture_compression_s3tc_srgb GL_EXT_texture_filter_anisotropic GL_EXT_texture_format_BGRA8888 GL_EXT_texture_lod_bias GL_EXT_texture_mirror_clamp_to_edge GL_EXT_texture_rg GL_EXT_texture_sRGB_R8 GL_EXT_texture_sRGB_RG8 GL_EXT_texture_sRGB_decode GL_EXT_texture_shadow_lod GL_EXT_texture_storage GL_EXT_texture_type_2_10_10_10_REV GL_EXT_unpack_subimage GL_KHR_blend_equation_advanced GL_KHR_debug GL_KHR_robust_buffer_access_behavior GL_KHR_robustness GL_KHR_texture_compression_astc_ldr GL_NV_fence GL_NV_framebuffer_blit GL_NV_pack_subimage GL_NV_pixel_buffer_object GL_NV_polygon_mode GL_NV_read_depth GL_NV_read_depth_stencil GL_NV_read_stencil GL_NV_shader_noperspective_interpolation GL_OES_EGL_image GL_OES_EGL_image_external GL_OES_EGL_image_external_essl3 GL_OES_EGL_sync GL_OES_compressed_ETC1_RGB8_texture GL_OES_compressed_paletted_texture GL_OES_copy_image GL_OES_depth24 GL_OES_depth32 GL_OES_depth_texture GL_OES_depth_texture_cube_map GL_OES_draw_buffers_indexed GL_OES_draw_elements_base_vertex GL_OES_element_index_uint GL_OES_fbo_render_mipmap GL_OES_get_program_binary GL_OES_mapbuffer GL_OES_packed_depth_stencil GL_OES_required_internalformat GL_OES_rgb8_rgba8 GL_OES_sample_shading GL_OES_sample_variables GL_OES_shader_multisample_interpolation GL_OES_standard_derivatives GL_OES_surfaceless_context GL_OES_texture_3D GL_OES_texture_border_clamp GL_OES_texture_float GL_OES_texture_float_linear GL_OES_texture_half_float GL_OES_texture_half_float_linear GL_OES_texture_npot GL_OES_texture_stencil8 GL_OES_texture_storage_multisample_2d_array GL_OES_vertex_array_object GL_OES_vertex_half_float GL_OES_vertex_type_10_10_10_2 GL_OVR_multiview GL_OVR_multiview2 GL_QCOM_texture_lod_bias ",
+        "glImplementationParts": "(gl=egl-angle,angle=swiftshader)",
+        "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+        "glResetNotificationStrategy": 33362,
+        "glVendor": "Google Inc. (Google)",
+        "glVersion": "OpenGL ES 3.0 (ANGLE 2.1.28646 git hash: a6bc9eff8444)",
+        "glWsExtensions": "",
+        "glWsVendor": "",
+        "glWsVersion": "",
+        "inProcessGpu": false,
+        "initializationTime": 0.084315,
+        "isAsan": false,
+        "isClangCoverage": false,
+        "jpegDecodeAcceleratorSupported": false,
+        "maxMsaaSamples": "4",
+        "optimus": false,
+        "passthroughCmdDecoder": true,
+        "pixelShaderVersion": "3.00",
+        "processCrashCount": 0,
+        "sandboxed": false,
+        "skiaBackendType": "GraphiteDawnVulkan",
+        "subpixelFontRendering": true,
+        "targetCpuBits": 64,
+        "vertexShaderVersion": "3.00",
+        "visibilityCallbackCallCount": 0
+      },
+      "featureStatus": {
+        "2d_canvas": "enabled",
+        "direct_rendering_display_compositor": "disabled_off_ok",
+        "gpu_compositing": "enabled",
+        "multiple_raster_threads": "enabled_on",
+        "opengl": "enabled_on",
+        "rasterization": "enabled",
+        "raw_draw": "disabled_off_ok",
+        "skia_graphite": "enabled_on",
+        "trees_in_viz": "disabled_off",
+        "video_decode": "enabled",
+        "video_encode": "enabled",
+        "webgl": "enabled",
+        "webgpu": "unavailable_software",
+        "webnn": "disabled_off"
+      },
+      "driverBugWorkarounds": [
+        "disable_2d_canvas_auto_flush",
+        "enable_webgl_timer_query_extensions",
+        "disabled_extension_GL_KHR_blend_equation_advanced",
+        "disabled_extension_GL_KHR_blend_equation_advanced_coherent"
+      ],
+      "videoDecoding": [],
+      "videoEncoding": []
+    }
+  },
+  "deviceNote": "Mobile is viewport/touch simulation, not physical-device certification.",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "beforeWorld": {
+    "alive": {
+      "Buffer": 0,
+      "Texture": 0,
+      "Program": 0,
+      "Framebuffer": 0,
+      "Renderbuffer": 0,
+      "VertexArray": 0,
+      "Shader": 0
+    },
+    "contexts": [],
+    "contextsCreated": 0,
+    "contextLosses": 0,
+    "rendererInfo": null,
+    "canvas": null,
+    "maxTextureWidth": 0,
+    "maxTextureHeight": 0,
+    "visibility": "visible"
+  },
+  "initial": {
+    "alive": {
+      "Buffer": 73,
+      "Texture": 5,
+      "Program": 5,
+      "Framebuffer": 4,
+      "Renderbuffer": 1,
+      "VertexArray": 98,
+      "Shader": 0
+    },
+    "contexts": [
+      {
+        "id": 1,
+        "state": "active",
+        "generation": 0,
+        "losses": 0,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+        "vendor": "Google Inc. (Google)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "alive": {
+          "Buffer": 73,
+          "Texture": 5,
+          "Program": 5,
+          "Framebuffer": 4,
+          "Renderbuffer": 1,
+          "VertexArray": 98,
+          "Shader": 0
+        }
+      }
+    ],
+    "contextsCreated": 1,
+    "contextLosses": 0,
+    "rendererInfo": {
+      "memory": {
+        "geometries": 34,
+        "textures": 1
+      },
+      "render": {
+        "frame": 42,
+        "calls": 34,
+        "triangles": 30602,
+        "points": 0,
+        "lines": 0
+      },
+      "programs": 5,
+      "pixelRatio": 1
+    },
+    "canvas": {
+      "cssWidth": 357,
+      "cssHeight": 481,
+      "bufferWidth": 356,
+      "bufferHeight": 481
+    },
+    "maxTextureWidth": 1024,
+    "maxTextureHeight": 1024,
+    "visibility": "visible"
+  },
+  "readiness": {
+    "primitiveVisibleMs": 853,
+    "heroReadyMs": 999,
+    "modelState": "ready"
+  },
+  "firstUsefulMs": 999,
+  "landingResources": [
+    {
+      "name": "/assets/index-DBSyyAak.js",
+      "startTime": 14.099999904632568,
+      "duration": 17.800000190734863,
+      "initiatorType": "script",
+      "encodedBodySize": 64972,
+      "decodedBodySize": 205102,
+      "transferSize": 65272
+    },
+    {
+      "name": "/assets/index-CmEEmIo8.css",
+      "startTime": 14.300000190734863,
+      "duration": 7.799999713897705,
+      "initiatorType": "link",
+      "encodedBodySize": 2883,
+      "decodedBodySize": 10705,
+      "transferSize": 3183
+    }
+  ],
+  "landingTotals": {
+    "javascript": {
+      "requests": 1,
+      "encodedBytes": 64972,
+      "decodedBytes": 205102,
+      "transferBytes": 65272
+    },
+    "styles": {
+      "requests": 1,
+      "encodedBytes": 2883,
+      "decodedBytes": 10705,
+      "transferBytes": 3183
+    }
+  },
+  "firstWorldResources": [
+    {
+      "name": "/assets/index-DBSyyAak.js",
+      "startTime": 14.099999904632568,
+      "duration": 17.800000190734863,
+      "initiatorType": "script",
+      "encodedBodySize": 64972,
+      "decodedBodySize": 205102,
+      "transferSize": 65272
+    },
+    {
+      "name": "/assets/index-CmEEmIo8.css",
+      "startTime": 14.300000190734863,
+      "duration": 7.799999713897705,
+      "initiatorType": "link",
+      "encodedBodySize": 2883,
+      "decodedBodySize": 10705,
+      "transferSize": 3183
+    },
+    {
+      "name": "/assets/WorldExperience-Djr2lSFl.js",
+      "startTime": 657.1999998092651,
+      "duration": 13.300000190734863,
+      "initiatorType": "script",
+      "encodedBodySize": 74343,
+      "decodedBodySize": 233101,
+      "transferSize": 74643
+    },
+    {
+      "name": "/assets/three-renderer-Zel-nCrQ.js",
+      "startTime": 657.3000001907349,
+      "duration": 15.799999713897705,
+      "initiatorType": "script",
+      "encodedBodySize": 82665,
+      "decodedBodySize": 334536,
+      "transferSize": 82965
+    },
+    {
+      "name": "/assets/three-core-DEcG90xN.js",
+      "startTime": 657.3000001907349,
+      "duration": 18.399999618530273,
+      "initiatorType": "script",
+      "encodedBodySize": 102352,
+      "decodedBodySize": 375757,
+      "transferSize": 102652
+    },
+    {
+      "name": "/models/pittsburgh-1892.glb.gz",
+      "startTime": 1098,
+      "duration": 6.099999904632568,
+      "initiatorType": "fetch",
+      "encodedBodySize": 210934,
+      "decodedBodySize": 2192436,
+      "transferSize": 211234
+    }
+  ],
+  "firstWorldTotals": {
+    "javascript": {
+      "requests": 4,
+      "encodedBytes": 324332,
+      "decodedBytes": 1148496,
+      "transferBytes": 325532
+    },
+    "styles": {
+      "requests": 1,
+      "encodedBytes": 2883,
+      "decodedBytes": 10705,
+      "transferBytes": 3183
+    },
+    "models": {
+      "requests": 1,
+      "encodedBytes": 210934,
+      "decodedBytes": 2192436,
+      "transferBytes": 211234
+    }
+  },
+  "resources": [
+    {
+      "name": "/assets/index-DBSyyAak.js",
+      "startTime": 14.099999904632568,
+      "duration": 17.800000190734863,
+      "initiatorType": "script",
+      "encodedBodySize": 64972,
+      "decodedBodySize": 205102,
+      "transferSize": 65272
+    },
+    {
+      "name": "/assets/index-CmEEmIo8.css",
+      "startTime": 14.300000190734863,
+      "duration": 7.799999713897705,
+      "initiatorType": "link",
+      "encodedBodySize": 2883,
+      "decodedBodySize": 10705,
+      "transferSize": 3183
+    },
+    {
+      "name": "/assets/WorldExperience-Djr2lSFl.js",
+      "startTime": 657.1999998092651,
+      "duration": 13.300000190734863,
+      "initiatorType": "script",
+      "encodedBodySize": 74343,
+      "decodedBodySize": 233101,
+      "transferSize": 74643
+    },
+    {
+      "name": "/assets/three-renderer-Zel-nCrQ.js",
+      "startTime": 657.3000001907349,
+      "duration": 15.799999713897705,
+      "initiatorType": "script",
+      "encodedBodySize": 82665,
+      "decodedBodySize": 334536,
+      "transferSize": 82965
+    },
+    {
+      "name": "/assets/three-core-DEcG90xN.js",
+      "startTime": 657.3000001907349,
+      "duration": 18.399999618530273,
+      "initiatorType": "script",
+      "encodedBodySize": 102352,
+      "decodedBodySize": 375757,
+      "transferSize": 102652
+    },
+    {
+      "name": "/models/pittsburgh-1892.glb.gz",
+      "startTime": 1098,
+      "duration": 6.099999904632568,
+      "initiatorType": "fetch",
+      "encodedBodySize": 210934,
+      "decodedBodySize": 2192436,
+      "transferSize": 211234
+    },
+    {
+      "name": "/models/pittsburgh-1892.glb.gz",
+      "startTime": 14021,
+      "duration": 2.9000000953674316,
+      "initiatorType": "fetch",
+      "encodedBodySize": 210934,
+      "decodedBodySize": 2192436,
+      "transferSize": 0
+    },
+    {
+      "name": "/models/pittsburgh-1892.glb.gz",
+      "startTime": 18720.400000095367,
+      "duration": 2.9000000953674316,
+      "initiatorType": "fetch",
+      "encodedBodySize": 210934,
+      "decodedBodySize": 2192436,
+      "transferSize": 0
+    },
+    {
+      "name": "/models/pittsburgh-1892.glb.gz",
+      "startTime": 23269.800000190735,
+      "duration": 2.799999713897705,
+      "initiatorType": "fetch",
+      "encodedBodySize": 210934,
+      "decodedBodySize": 2192436,
+      "transferSize": 0
+    },
+    {
+      "name": "/models/pittsburgh-1892.glb.gz",
+      "startTime": 28003.5,
+      "duration": 2.5999999046325684,
+      "initiatorType": "fetch",
+      "encodedBodySize": 210934,
+      "decodedBodySize": 2192436,
+      "transferSize": 0
+    },
+    {
+      "name": "/models/pittsburgh-1892.glb.gz",
+      "startTime": 32653.400000095367,
+      "duration": 2.799999713897705,
+      "initiatorType": "fetch",
+      "encodedBodySize": 210934,
+      "decodedBodySize": 2192436,
+      "transferSize": 0
+    }
+  ],
+  "frameSummary": {
+    "activeFrames": 110,
+    "idleFrames": 0,
+    "p50Ms": 50,
+    "p95Ms": 100,
+    "p95ReciprocalFps": 10,
+    "p50DrawCalls": 66,
+    "p95DrawCalls": 66,
+    "peakDrawCalls": 66,
+    "peakTriangles": 60754,
+    "interpretation": "Active requestAnimationFrame intervals with submitted GPU draws, not GPU timer-query duration or certified presented FPS. Counts include shadow/effect passes."
+  },
+  "trace": [
+    {
+      "atMs": 3809.2,
+      "phase": "settled-overview",
+      "ms": 33.399999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 3859.1,
+      "phase": "settled-overview",
+      "ms": 49.90000000000009,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 3892.5,
+      "phase": "settled-overview",
+      "ms": 33.40000000000009,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4009.1,
+      "phase": "settled-overview",
+      "ms": 116.59999999999991,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4059.1,
+      "phase": "settled-overview",
+      "ms": 50,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4092.5,
+      "phase": "settled-overview",
+      "ms": 33.40000000000009,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4109.2,
+      "phase": "settled-overview",
+      "ms": 16.699999999999818,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4159.2,
+      "phase": "settled-overview",
+      "ms": 50,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4209.1,
+      "phase": "settled-overview",
+      "ms": 49.900000000000546,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4259.2,
+      "phase": "settled-overview",
+      "ms": 50.099999999999454,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4309.1,
+      "phase": "settled-overview",
+      "ms": 49.900000000000546,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4359.1,
+      "phase": "settled-overview",
+      "ms": 50,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4409.1,
+      "phase": "settled-overview",
+      "ms": 50,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4459.2,
+      "phase": "settled-overview",
+      "ms": 50.099999999999454,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4492.5,
+      "phase": "settled-overview",
+      "ms": 33.30000000000018,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4542.4,
+      "phase": "settled-overview",
+      "ms": 49.899999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4592.5,
+      "phase": "settled-overview",
+      "ms": 50.100000000000364,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4642.5,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4692.5,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4725.8,
+      "phase": "Steel Mill",
+      "ms": 33.30000000000018,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4775.8,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4825.8,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4875.8,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 4942.5,
+      "phase": "Steel Mill",
+      "ms": 66.69999999999982,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5009.1,
+      "phase": "Steel Mill",
+      "ms": 66.60000000000036,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5059.1,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5109.1,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5175.8,
+      "phase": "Steel Mill",
+      "ms": 66.69999999999982,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5225.8,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5292.4,
+      "phase": "Steel Mill",
+      "ms": 66.59999999999945,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5359.1,
+      "phase": "Steel Mill",
+      "ms": 66.70000000000073,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5425.8,
+      "phase": "Steel Mill",
+      "ms": 66.69999999999982,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5475.8,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5542.4,
+      "phase": "Steel Mill",
+      "ms": 66.59999999999945,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 5592.4,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 63,
+      "triangles": 60238
+    },
+    {
+      "atMs": 5642.4,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 60,
+      "triangles": 59678
+    },
+    {
+      "atMs": 5692.4,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 60,
+      "triangles": 59678
+    },
+    {
+      "atMs": 5742.4,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 59,
+      "triangles": 59534
+    },
+    {
+      "atMs": 5792.4,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 5842.4,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 5892.5,
+      "phase": "Steel Mill",
+      "ms": 50.100000000000364,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 5942.4,
+      "phase": "Steel Mill",
+      "ms": 49.899999999999636,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 5975.7,
+      "phase": "Steel Mill",
+      "ms": 33.30000000000018,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 6025.7,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 6075.8,
+      "phase": "Steel Mill",
+      "ms": 50.100000000000364,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 6125.7,
+      "phase": "Steel Mill",
+      "ms": 49.899999999999636,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 6175.7,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 6225.8,
+      "phase": "Steel Mill",
+      "ms": 50.100000000000364,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 6292.4,
+      "phase": "Steel Mill",
+      "ms": 66.59999999999945,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 6342.4,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 6392.4,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 6442.4,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 6492.4,
+      "phase": "Steel Mill",
+      "ms": 50,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 6542.4,
+      "phase": "Downtown",
+      "ms": 50,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 6592.4,
+      "phase": "Downtown",
+      "ms": 50,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 6642.4,
+      "phase": "Downtown",
+      "ms": 50,
+      "calls": 58,
+      "triangles": 59462
+    },
+    {
+      "atMs": 6692.4,
+      "phase": "Downtown",
+      "ms": 50,
+      "calls": 59,
+      "triangles": 59534
+    },
+    {
+      "atMs": 6742.3,
+      "phase": "Downtown",
+      "ms": 49.900000000000546,
+      "calls": 60,
+      "triangles": 59678
+    },
+    {
+      "atMs": 6792.4,
+      "phase": "Downtown",
+      "ms": 50.099999999999454,
+      "calls": 60,
+      "triangles": 59678
+    },
+    {
+      "atMs": 6859,
+      "phase": "Downtown",
+      "ms": 66.60000000000036,
+      "calls": 60,
+      "triangles": 59678
+    },
+    {
+      "atMs": 6909.1,
+      "phase": "Downtown",
+      "ms": 50.100000000000364,
+      "calls": 65,
+      "triangles": 60598
+    },
+    {
+      "atMs": 6959.1,
+      "phase": "Downtown",
+      "ms": 50,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 7009.1,
+      "phase": "Downtown",
+      "ms": 50,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 7042.4,
+      "phase": "Downtown",
+      "ms": 33.29999999999927,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 7092.4,
+      "phase": "Downtown",
+      "ms": 50,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 7159.1,
+      "phase": "Downtown",
+      "ms": 66.70000000000073,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 7209,
+      "phase": "Downtown",
+      "ms": 49.899999999999636,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 7275.7,
+      "phase": "Downtown",
+      "ms": 66.69999999999982,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 7325.7,
+      "phase": "Downtown",
+      "ms": 50,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 7392.3,
+      "phase": "Downtown",
+      "ms": 66.60000000000036,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 7442.4,
+      "phase": "Downtown",
+      "ms": 50.099999999999454,
+      "calls": 64,
+      "triangles": 60502
+    },
+    {
+      "atMs": 7509,
+      "phase": "Downtown",
+      "ms": 66.60000000000036,
+      "calls": 61,
+      "triangles": 59886
+    },
+    {
+      "atMs": 7559,
+      "phase": "Downtown",
+      "ms": 50,
+      "calls": 60,
+      "triangles": 58786
+    },
+    {
+      "atMs": 7609,
+      "phase": "Downtown",
+      "ms": 50,
+      "calls": 60,
+      "triangles": 58786
+    },
+    {
+      "atMs": 7659,
+      "phase": "Downtown",
+      "ms": 50,
+      "calls": 59,
+      "triangles": 56922
+    },
+    {
+      "atMs": 7709,
+      "phase": "Downtown",
+      "ms": 50,
+      "calls": 59,
+      "triangles": 56922
+    },
+    {
+      "atMs": 7759,
+      "phase": "Downtown",
+      "ms": 50,
+      "calls": 59,
+      "triangles": 56922
+    },
+    {
+      "atMs": 7825.7,
+      "phase": "Downtown",
+      "ms": 66.69999999999982,
+      "calls": 59,
+      "triangles": 56922
+    },
+    {
+      "atMs": 7875.7,
+      "phase": "Downtown",
+      "ms": 50,
+      "calls": 59,
+      "triangles": 56922
+    },
+    {
+      "atMs": 7925.6,
+      "phase": "Downtown",
+      "ms": 49.900000000000546,
+      "calls": 59,
+      "triangles": 56922
+    },
+    {
+      "atMs": 7975.7,
+      "phase": "Downtown",
+      "ms": 50.099999999999454,
+      "calls": 59,
+      "triangles": 56922
+    },
+    {
+      "atMs": 8025.7,
+      "phase": "Downtown",
+      "ms": 50,
+      "calls": 59,
+      "triangles": 56922
+    },
+    {
+      "atMs": 8075.6,
+      "phase": "Downtown",
+      "ms": 49.900000000000546,
+      "calls": 59,
+      "triangles": 56922
+    },
+    {
+      "atMs": 8142.4,
+      "phase": "Downtown",
+      "ms": 66.79999999999927,
+      "calls": 59,
+      "triangles": 56922
+    },
+    {
+      "atMs": 8192.3,
+      "phase": "Downtown",
+      "ms": 49.899999999999636,
+      "calls": 59,
+      "triangles": 56922
+    },
+    {
+      "atMs": 8259,
+      "phase": "Downtown",
+      "ms": 66.70000000000073,
+      "calls": 59,
+      "triangles": 56922
+    },
+    {
+      "atMs": 8308.9,
+      "phase": "Downtown",
+      "ms": 49.899999999999636,
+      "calls": 59,
+      "triangles": 56922
+    },
+    {
+      "atMs": 8359,
+      "phase": "Downtown",
+      "ms": 50.100000000000364,
+      "calls": 59,
+      "triangles": 56922
+    },
+    {
+      "atMs": 8409,
+      "phase": "River / Bridge",
+      "ms": 50,
+      "calls": 59,
+      "triangles": 56922
+    },
+    {
+      "atMs": 8475.7,
+      "phase": "River / Bridge",
+      "ms": 66.70000000000073,
+      "calls": 59,
+      "triangles": 56922
+    },
+    {
+      "atMs": 8525.7,
+      "phase": "River / Bridge",
+      "ms": 50,
+      "calls": 59,
+      "triangles": 56922
+    },
+    {
+      "atMs": 8575.6,
+      "phase": "River / Bridge",
+      "ms": 49.899999999999636,
+      "calls": 60,
+      "triangles": 58786
+    },
+    {
+      "atMs": 8625.7,
+      "phase": "River / Bridge",
+      "ms": 50.100000000000364,
+      "calls": 60,
+      "triangles": 58786
+    },
+    {
+      "atMs": 8725.6,
+      "phase": "River / Bridge",
+      "ms": 99.89999999999964,
+      "calls": 62,
+      "triangles": 60346
+    },
+    {
+      "atMs": 8859,
+      "phase": "River / Bridge",
+      "ms": 133.39999999999964,
+      "calls": 65,
+      "triangles": 60562
+    },
+    {
+      "atMs": 8959,
+      "phase": "River / Bridge",
+      "ms": 100,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9042.3,
+      "phase": "River / Bridge",
+      "ms": 83.29999999999927,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9125.7,
+      "phase": "River / Bridge",
+      "ms": 83.40000000000146,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9192.3,
+      "phase": "River / Bridge",
+      "ms": 66.59999999999854,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9325.6,
+      "phase": "River / Bridge",
+      "ms": 133.3000000000011,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9425.6,
+      "phase": "River / Bridge",
+      "ms": 100,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9492.3,
+      "phase": "River / Bridge",
+      "ms": 66.69999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9575.6,
+      "phase": "River / Bridge",
+      "ms": 83.30000000000109,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9675.6,
+      "phase": "River / Bridge",
+      "ms": 100,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9792.3,
+      "phase": "River / Bridge",
+      "ms": 116.69999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9875.6,
+      "phase": "River / Bridge",
+      "ms": 83.30000000000109,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 9942.3,
+      "phase": "River / Bridge",
+      "ms": 66.69999999999891,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10042.3,
+      "phase": "River / Bridge",
+      "ms": 100,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10125.6,
+      "phase": "River / Bridge",
+      "ms": 83.30000000000109,
+      "calls": 66,
+      "triangles": 60754
+    },
+    {
+      "atMs": 10208.9,
+      "phase": "River / Bridge",
+      "ms": 83.29999999999927,
+      "calls": 66,
+      "triangles": 60754
+    }
+  ],
+  "cycles": [
+    {
+      "cycle": 1,
+      "left": {
+        "alive": {
+          "Buffer": 0,
+          "Texture": 0,
+          "Program": 0,
+          "Framebuffer": 0,
+          "Renderbuffer": 0,
+          "VertexArray": 0,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 1,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 1,
+        "contextLosses": 1,
+        "rendererInfo": null,
+        "canvas": null,
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "leftHeap": {
+        "usedBytes": 7154368,
+        "totalBytes": 8519680,
+        "embedderHeapUsedBytes": 1398696,
+        "backingStorageBytes": 1167226
+      },
+      "entered": {
+        "alive": {
+          "Buffer": 73,
+          "Texture": 5,
+          "Program": 5,
+          "Framebuffer": 4,
+          "Renderbuffer": 1,
+          "VertexArray": 98,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 2,
+            "state": "active",
+            "generation": 0,
+            "losses": 0,
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 73,
+              "Texture": 5,
+              "Program": 5,
+              "Framebuffer": 4,
+              "Renderbuffer": 1,
+              "VertexArray": 98,
+              "Shader": 0
+            }
+          },
+          {
+            "id": 1,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 2,
+        "contextLosses": 1,
+        "rendererInfo": {
+          "memory": {
+            "geometries": 34,
+            "textures": 1
+          },
+          "render": {
+            "frame": 54,
+            "calls": 27,
+            "triangles": 29382,
+            "points": 0,
+            "lines": 0
+          },
+          "programs": 5,
+          "pixelRatio": 1
+        },
+        "canvas": {
+          "cssWidth": 357,
+          "cssHeight": 481,
+          "bufferWidth": 356,
+          "bufferHeight": 481
+        },
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "enteredHeap": {
+        "usedBytes": 8351816,
+        "totalBytes": 9043968,
+        "embedderHeapUsedBytes": 1171392,
+        "backingStorageBytes": 5533014
+      },
+      "readiness": {
+        "primitiveVisibleMs": 307,
+        "heroReadyMs": 453,
+        "modelState": "ready"
+      },
+      "frames": {
+        "activeFrames": 22,
+        "idleFrames": 0,
+        "p50Ms": 50,
+        "p95Ms": 83.29999999999927,
+        "p95ReciprocalFps": 12.004801920768411,
+        "p50DrawCalls": 66,
+        "p95DrawCalls": 66,
+        "peakDrawCalls": 66,
+        "peakTriangles": 60754,
+        "interpretation": "Active requestAnimationFrame intervals with submitted GPU draws, not GPU timer-query duration or certified presented FPS. Counts include shadow/effect passes."
+      },
+      "trace": [
+        {
+          "atMs": 16008.7,
+          "phase": "reentry-1",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16042.1,
+          "phase": "reentry-1",
+          "ms": 33.399999999999636,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16092,
+          "phase": "reentry-1",
+          "ms": 49.899999999999636,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16125.4,
+          "phase": "reentry-1",
+          "ms": 33.399999999999636,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16158.7,
+          "phase": "reentry-1",
+          "ms": 33.30000000000109,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16192.1,
+          "phase": "reentry-1",
+          "ms": 33.399999999999636,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16225.3,
+          "phase": "reentry-1",
+          "ms": 33.19999999999891,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16258.7,
+          "phase": "reentry-1",
+          "ms": 33.400000000001455,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16308.6,
+          "phase": "reentry-1",
+          "ms": 49.899999999999636,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16358.7,
+          "phase": "reentry-1",
+          "ms": 50.100000000000364,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16442,
+          "phase": "reentry-1",
+          "ms": 83.29999999999927,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16542,
+          "phase": "reentry-1",
+          "ms": 100,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16592,
+          "phase": "reentry-1",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16642,
+          "phase": "reentry-1",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16692,
+          "phase": "reentry-1",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16742,
+          "phase": "reentry-1",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16792,
+          "phase": "reentry-1",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16858.6,
+          "phase": "reentry-1",
+          "ms": 66.59999999999854,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 16942,
+          "phase": "reentry-1",
+          "ms": 83.40000000000146,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 17008.6,
+          "phase": "reentry-1",
+          "ms": 66.59999999999854,
+          "calls": 62,
+          "triangles": 60206
+        },
+        {
+          "atMs": 17075.3,
+          "phase": "reentry-1",
+          "ms": 66.70000000000073,
+          "calls": 60,
+          "triangles": 59678
+        },
+        {
+          "atMs": 17158.6,
+          "phase": "reentry-1",
+          "ms": 83.29999999999927,
+          "calls": 60,
+          "triangles": 59678
+        }
+      ]
+    },
+    {
+      "cycle": 2,
+      "left": {
+        "alive": {
+          "Buffer": 0,
+          "Texture": 0,
+          "Program": 0,
+          "Framebuffer": 0,
+          "Renderbuffer": 0,
+          "VertexArray": 0,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 2,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 2,
+        "contextLosses": 2,
+        "rendererInfo": null,
+        "canvas": null,
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "leftHeap": {
+        "usedBytes": 7446236,
+        "totalBytes": 8519680,
+        "embedderHeapUsedBytes": 1123416,
+        "backingStorageBytes": 1167226
+      },
+      "entered": {
+        "alive": {
+          "Buffer": 73,
+          "Texture": 5,
+          "Program": 5,
+          "Framebuffer": 4,
+          "Renderbuffer": 1,
+          "VertexArray": 98,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 3,
+            "state": "active",
+            "generation": 0,
+            "losses": 0,
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 73,
+              "Texture": 5,
+              "Program": 5,
+              "Framebuffer": 4,
+              "Renderbuffer": 1,
+              "VertexArray": 98,
+              "Shader": 0
+            }
+          },
+          {
+            "id": 2,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 3,
+        "contextLosses": 2,
+        "rendererInfo": {
+          "memory": {
+            "geometries": 34,
+            "textures": 1
+          },
+          "render": {
+            "frame": 41,
+            "calls": 26,
+            "triangles": 29310,
+            "points": 0,
+            "lines": 0
+          },
+          "programs": 5,
+          "pixelRatio": 1
+        },
+        "canvas": {
+          "cssWidth": 357,
+          "cssHeight": 481,
+          "bufferWidth": 356,
+          "bufferHeight": 481
+        },
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "enteredHeap": {
+        "usedBytes": 8545888,
+        "totalBytes": 9306112,
+        "embedderHeapUsedBytes": 1187960,
+        "backingStorageBytes": 5533014
+      },
+      "readiness": {
+        "primitiveVisibleMs": 128,
+        "heroReadyMs": 347,
+        "modelState": "ready"
+      },
+      "frames": {
+        "activeFrames": 23,
+        "idleFrames": 0,
+        "p50Ms": 50,
+        "p95Ms": 66.70000000000073,
+        "p95ReciprocalFps": 14.992503748125774,
+        "p50DrawCalls": 66,
+        "p95DrawCalls": 66,
+        "peakDrawCalls": 66,
+        "peakTriangles": 60754,
+        "interpretation": "Active requestAnimationFrame intervals with submitted GPU draws, not GPU timer-query duration or certified presented FPS. Counts include shadow/effect passes."
+      },
+      "trace": [
+        {
+          "atMs": 20575.2,
+          "phase": "reentry-2",
+          "ms": 50.10000000000218,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20625.2,
+          "phase": "reentry-2",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20675.2,
+          "phase": "reentry-2",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20725.2,
+          "phase": "reentry-2",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20791.8,
+          "phase": "reentry-2",
+          "ms": 66.59999999999854,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20841.8,
+          "phase": "reentry-2",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20925.2,
+          "phase": "reentry-2",
+          "ms": 83.40000000000146,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 20975.2,
+          "phase": "reentry-2",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 21041.8,
+          "phase": "reentry-2",
+          "ms": 66.59999999999854,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 21091.8,
+          "phase": "reentry-2",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 21158.5,
+          "phase": "reentry-2",
+          "ms": 66.70000000000073,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 21208.5,
+          "phase": "reentry-2",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 21291.8,
+          "phase": "reentry-2",
+          "ms": 83.29999999999927,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 21358.5,
+          "phase": "reentry-2",
+          "ms": 66.70000000000073,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 21408.5,
+          "phase": "reentry-2",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 21458.5,
+          "phase": "reentry-2",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 21525.2,
+          "phase": "reentry-2",
+          "ms": 66.70000000000073,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 21575.2,
+          "phase": "reentry-2",
+          "ms": 50,
+          "calls": 62,
+          "triangles": 60206
+        },
+        {
+          "atMs": 21625.1,
+          "phase": "reentry-2",
+          "ms": 49.89999999999782,
+          "calls": 60,
+          "triangles": 59678
+        },
+        {
+          "atMs": 21675.2,
+          "phase": "reentry-2",
+          "ms": 50.10000000000218,
+          "calls": 60,
+          "triangles": 59678
+        },
+        {
+          "atMs": 21725.2,
+          "phase": "reentry-2",
+          "ms": 50,
+          "calls": 59,
+          "triangles": 59534
+        },
+        {
+          "atMs": 21775.2,
+          "phase": "reentry-2",
+          "ms": 50,
+          "calls": 58,
+          "triangles": 59462
+        },
+        {
+          "atMs": 21825.2,
+          "phase": "reentry-2",
+          "ms": 50,
+          "calls": 58,
+          "triangles": 59462
+        }
+      ]
+    },
+    {
+      "cycle": 3,
+      "left": {
+        "alive": {
+          "Buffer": 0,
+          "Texture": 0,
+          "Program": 0,
+          "Framebuffer": 0,
+          "Renderbuffer": 0,
+          "VertexArray": 0,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 3,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 3,
+        "contextLosses": 3,
+        "rendererInfo": null,
+        "canvas": null,
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "leftHeap": {
+        "usedBytes": 7638512,
+        "totalBytes": 8781824,
+        "embedderHeapUsedBytes": 1154768,
+        "backingStorageBytes": 1167226
+      },
+      "entered": {
+        "alive": {
+          "Buffer": 73,
+          "Texture": 5,
+          "Program": 5,
+          "Framebuffer": 4,
+          "Renderbuffer": 1,
+          "VertexArray": 98,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 4,
+            "state": "active",
+            "generation": 0,
+            "losses": 0,
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 73,
+              "Texture": 5,
+              "Program": 5,
+              "Framebuffer": 4,
+              "Renderbuffer": 1,
+              "VertexArray": 98,
+              "Shader": 0
+            }
+          },
+          {
+            "id": 3,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 4,
+        "contextLosses": 3,
+        "rendererInfo": {
+          "memory": {
+            "geometries": 34,
+            "textures": 1
+          },
+          "render": {
+            "frame": 49,
+            "calls": 26,
+            "triangles": 29310,
+            "points": 0,
+            "lines": 0
+          },
+          "programs": 5,
+          "pixelRatio": 1
+        },
+        "canvas": {
+          "cssWidth": 357,
+          "cssHeight": 481,
+          "bufferWidth": 356,
+          "bufferHeight": 481
+        },
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "enteredHeap": {
+        "usedBytes": 8681708,
+        "totalBytes": 9568256,
+        "embedderHeapUsedBytes": 1190456,
+        "backingStorageBytes": 5533014
+      },
+      "readiness": {
+        "primitiveVisibleMs": 305,
+        "heroReadyMs": 453,
+        "modelState": "ready"
+      },
+      "frames": {
+        "activeFrames": 25,
+        "idleFrames": 0,
+        "p50Ms": 50,
+        "p95Ms": 66.70000000000073,
+        "p95ReciprocalFps": 14.992503748125774,
+        "p50DrawCalls": 66,
+        "p95DrawCalls": 66,
+        "peakDrawCalls": 66,
+        "peakTriangles": 60754,
+        "interpretation": "Active requestAnimationFrame intervals with submitted GPU draws, not GPU timer-query duration or certified presented FPS. Counts include shadow/effect passes."
+      },
+      "trace": [
+        {
+          "atMs": 25225,
+          "phase": "reentry-3",
+          "ms": 66.59999999999854,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25308.3,
+          "phase": "reentry-3",
+          "ms": 83.29999999999927,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25375,
+          "phase": "reentry-3",
+          "ms": 66.70000000000073,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25425,
+          "phase": "reentry-3",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25474.9,
+          "phase": "reentry-3",
+          "ms": 49.900000000001455,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25524.9,
+          "phase": "reentry-3",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25575,
+          "phase": "reentry-3",
+          "ms": 50.099999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25641.6,
+          "phase": "reentry-3",
+          "ms": 66.59999999999854,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25691.6,
+          "phase": "reentry-3",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25741.6,
+          "phase": "reentry-3",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25791.7,
+          "phase": "reentry-3",
+          "ms": 50.10000000000218,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25841.6,
+          "phase": "reentry-3",
+          "ms": 49.89999999999782,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25891.6,
+          "phase": "reentry-3",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 25941.6,
+          "phase": "reentry-3",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 26008.3,
+          "phase": "reentry-3",
+          "ms": 66.70000000000073,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 26058.2,
+          "phase": "reentry-3",
+          "ms": 49.900000000001455,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 26125,
+          "phase": "reentry-3",
+          "ms": 66.79999999999927,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 26174.9,
+          "phase": "reentry-3",
+          "ms": 49.900000000001455,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 26241.6,
+          "phase": "reentry-3",
+          "ms": 66.69999999999709,
+          "calls": 63,
+          "triangles": 60238
+        },
+        {
+          "atMs": 26291.6,
+          "phase": "reentry-3",
+          "ms": 50,
+          "calls": 60,
+          "triangles": 59678
+        },
+        {
+          "atMs": 26358.3,
+          "phase": "reentry-3",
+          "ms": 66.70000000000073,
+          "calls": 60,
+          "triangles": 59678
+        },
+        {
+          "atMs": 26408.2,
+          "phase": "reentry-3",
+          "ms": 49.900000000001455,
+          "calls": 59,
+          "triangles": 59534
+        },
+        {
+          "atMs": 26458.3,
+          "phase": "reentry-3",
+          "ms": 50.099999999998545,
+          "calls": 58,
+          "triangles": 59462
+        },
+        {
+          "atMs": 26508.3,
+          "phase": "reentry-3",
+          "ms": 50,
+          "calls": 58,
+          "triangles": 59462
+        },
+        {
+          "atMs": 26558.2,
+          "phase": "reentry-3",
+          "ms": 49.900000000001455,
+          "calls": 58,
+          "triangles": 59462
+        }
+      ]
+    },
+    {
+      "cycle": 4,
+      "left": {
+        "alive": {
+          "Buffer": 0,
+          "Texture": 0,
+          "Program": 0,
+          "Framebuffer": 0,
+          "Renderbuffer": 0,
+          "VertexArray": 0,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 4,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 4,
+        "contextLosses": 4,
+        "rendererInfo": null,
+        "canvas": null,
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "leftHeap": {
+        "usedBytes": 7760520,
+        "totalBytes": 8781824,
+        "embedderHeapUsedBytes": 1324136,
+        "backingStorageBytes": 1167226
+      },
+      "entered": {
+        "alive": {
+          "Buffer": 73,
+          "Texture": 5,
+          "Program": 5,
+          "Framebuffer": 4,
+          "Renderbuffer": 1,
+          "VertexArray": 98,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 5,
+            "state": "active",
+            "generation": 0,
+            "losses": 0,
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 73,
+              "Texture": 5,
+              "Program": 5,
+              "Framebuffer": 4,
+              "Renderbuffer": 1,
+              "VertexArray": 98,
+              "Shader": 0
+            }
+          },
+          {
+            "id": 4,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 5,
+        "contextLosses": 4,
+        "rendererInfo": {
+          "memory": {
+            "geometries": 34,
+            "textures": 1
+          },
+          "render": {
+            "frame": 59,
+            "calls": 26,
+            "triangles": 29310,
+            "points": 0,
+            "lines": 0
+          },
+          "programs": 5,
+          "pixelRatio": 1
+        },
+        "canvas": {
+          "cssWidth": 357,
+          "cssHeight": 481,
+          "bufferWidth": 356,
+          "bufferHeight": 481
+        },
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "enteredHeap": {
+        "usedBytes": 8777992,
+        "totalBytes": 9568256,
+        "embedderHeapUsedBytes": 1246776,
+        "backingStorageBytes": 5533014
+      },
+      "readiness": {
+        "primitiveVisibleMs": 313,
+        "heroReadyMs": 459,
+        "modelState": "ready"
+      },
+      "frames": {
+        "activeFrames": 27,
+        "idleFrames": 0,
+        "p50Ms": 50,
+        "p95Ms": 66.70000000000073,
+        "p95ReciprocalFps": 14.992503748125774,
+        "p50DrawCalls": 66,
+        "p95DrawCalls": 66,
+        "peakDrawCalls": 66,
+        "peakTriangles": 60754,
+        "interpretation": "Active requestAnimationFrame intervals with submitted GPU draws, not GPU timer-query duration or certified presented FPS. Counts include shadow/effect passes."
+      },
+      "trace": [
+        {
+          "atMs": 29958.1,
+          "phase": "reentry-4",
+          "ms": 33.29999999999927,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 29991.4,
+          "phase": "reentry-4",
+          "ms": 33.30000000000291,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30024.8,
+          "phase": "reentry-4",
+          "ms": 33.39999999999782,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30058.1,
+          "phase": "reentry-4",
+          "ms": 33.29999999999927,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30074.8,
+          "phase": "reentry-4",
+          "ms": 16.700000000000728,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30108.2,
+          "phase": "reentry-4",
+          "ms": 33.400000000001455,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30158.2,
+          "phase": "reentry-4",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30191.4,
+          "phase": "reentry-4",
+          "ms": 33.20000000000073,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30224.8,
+          "phase": "reentry-4",
+          "ms": 33.39999999999782,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30258.1,
+          "phase": "reentry-4",
+          "ms": 33.29999999999927,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30291.4,
+          "phase": "reentry-4",
+          "ms": 33.30000000000291,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30341.5,
+          "phase": "reentry-4",
+          "ms": 50.099999999998545,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30391.4,
+          "phase": "reentry-4",
+          "ms": 49.900000000001455,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30491.4,
+          "phase": "reentry-4",
+          "ms": 100,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30558.1,
+          "phase": "reentry-4",
+          "ms": 66.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30624.8,
+          "phase": "reentry-4",
+          "ms": 66.70000000000073,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30658.1,
+          "phase": "reentry-4",
+          "ms": 33.29999999999927,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30708.1,
+          "phase": "reentry-4",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30758.1,
+          "phase": "reentry-4",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30808.1,
+          "phase": "reentry-4",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 30874.7,
+          "phase": "reentry-4",
+          "ms": 66.60000000000218,
+          "calls": 65,
+          "triangles": 60598
+        },
+        {
+          "atMs": 30941.4,
+          "phase": "reentry-4",
+          "ms": 66.70000000000073,
+          "calls": 60,
+          "triangles": 59678
+        },
+        {
+          "atMs": 30991.4,
+          "phase": "reentry-4",
+          "ms": 50,
+          "calls": 60,
+          "triangles": 59678
+        },
+        {
+          "atMs": 31041.4,
+          "phase": "reentry-4",
+          "ms": 50,
+          "calls": 59,
+          "triangles": 59534
+        },
+        {
+          "atMs": 31091.4,
+          "phase": "reentry-4",
+          "ms": 50,
+          "calls": 58,
+          "triangles": 59462
+        },
+        {
+          "atMs": 31141.4,
+          "phase": "reentry-4",
+          "ms": 50,
+          "calls": 58,
+          "triangles": 59462
+        },
+        {
+          "atMs": 31191.4,
+          "phase": "reentry-4",
+          "ms": 50,
+          "calls": 58,
+          "triangles": 59462
+        }
+      ]
+    },
+    {
+      "cycle": 5,
+      "left": {
+        "alive": {
+          "Buffer": 0,
+          "Texture": 0,
+          "Program": 0,
+          "Framebuffer": 0,
+          "Renderbuffer": 0,
+          "VertexArray": 0,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 5,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 5,
+        "contextLosses": 5,
+        "rendererInfo": null,
+        "canvas": null,
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "leftHeap": {
+        "usedBytes": 7867736,
+        "totalBytes": 9043968,
+        "embedderHeapUsedBytes": 1243584,
+        "backingStorageBytes": 1167226
+      },
+      "entered": {
+        "alive": {
+          "Buffer": 73,
+          "Texture": 5,
+          "Program": 5,
+          "Framebuffer": 4,
+          "Renderbuffer": 1,
+          "VertexArray": 98,
+          "Shader": 0
+        },
+        "contexts": [
+          {
+            "id": 6,
+            "state": "active",
+            "generation": 0,
+            "losses": 0,
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 73,
+              "Texture": 5,
+              "Program": 5,
+              "Framebuffer": 4,
+              "Renderbuffer": 1,
+              "VertexArray": 98,
+              "Shader": 0
+            }
+          },
+          {
+            "id": 5,
+            "state": "lost",
+            "generation": 0,
+            "losses": 1,
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "alive": {
+              "Buffer": 0,
+              "Texture": 0,
+              "Program": 0,
+              "Framebuffer": 0,
+              "Renderbuffer": 0,
+              "VertexArray": 0,
+              "Shader": 0
+            }
+          }
+        ],
+        "contextsCreated": 6,
+        "contextLosses": 5,
+        "rendererInfo": {
+          "memory": {
+            "geometries": 34,
+            "textures": 1
+          },
+          "render": {
+            "frame": 36,
+            "calls": 34,
+            "triangles": 30602,
+            "points": 0,
+            "lines": 0
+          },
+          "programs": 5,
+          "pixelRatio": 1
+        },
+        "canvas": {
+          "cssWidth": 357,
+          "cssHeight": 481,
+          "bufferWidth": 356,
+          "bufferHeight": 481
+        },
+        "maxTextureWidth": 1024,
+        "maxTextureHeight": 1024,
+        "visibility": "visible"
+      },
+      "enteredHeap": {
+        "usedBytes": 8893556,
+        "totalBytes": 9568256,
+        "embedderHeapUsedBytes": 1199520,
+        "backingStorageBytes": 5533014
+      },
+      "readiness": {
+        "primitiveVisibleMs": 125,
+        "heroReadyMs": 330,
+        "modelState": "ready"
+      },
+      "frames": {
+        "activeFrames": 14,
+        "idleFrames": 0,
+        "p50Ms": 83.30000000000291,
+        "p95Ms": 133.5,
+        "p95ReciprocalFps": 7.49063670411985,
+        "p50DrawCalls": 66,
+        "p95DrawCalls": 66,
+        "peakDrawCalls": 66,
+        "peakTriangles": 60754,
+        "interpretation": "Active requestAnimationFrame intervals with submitted GPU draws, not GPU timer-query duration or certified presented FPS. Counts include shadow/effect passes."
+      },
+      "trace": [
+        {
+          "atMs": 34491.3,
+          "phase": "reentry-5",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 34524.6,
+          "phase": "reentry-5",
+          "ms": 33.299999999995634,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 34574.6,
+          "phase": "reentry-5",
+          "ms": 50,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 34607.9,
+          "phase": "reentry-5",
+          "ms": 33.30000000000291,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 34674.6,
+          "phase": "reentry-5",
+          "ms": 66.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 34791.3,
+          "phase": "reentry-5",
+          "ms": 116.70000000000437,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 34891.3,
+          "phase": "reentry-5",
+          "ms": 100,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 34941.2,
+          "phase": "reentry-5",
+          "ms": 49.89999999999418,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 35024.5,
+          "phase": "reentry-5",
+          "ms": 83.30000000000291,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 35158,
+          "phase": "reentry-5",
+          "ms": 133.5,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 35291.2,
+          "phase": "reentry-5",
+          "ms": 133.1999999999971,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 35407.9,
+          "phase": "reentry-5",
+          "ms": 116.70000000000437,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 35524.6,
+          "phase": "reentry-5",
+          "ms": 116.69999999999709,
+          "calls": 66,
+          "triangles": 60754
+        },
+        {
+          "atMs": 35691.2,
+          "phase": "reentry-5",
+          "ms": 166.59999999999854,
+          "calls": 66,
+          "triangles": 60754
+        }
+      ]
+    }
+  ],
+  "reload": {
+    "readiness": {
+      "primitiveVisibleMs": 819,
+      "heroReadyMs": 877,
+      "modelState": "ready"
+    },
+    "snapshot": {
+      "alive": {
+        "Buffer": 73,
+        "Texture": 5,
+        "Program": 5,
+        "Framebuffer": 4,
+        "Renderbuffer": 1,
+        "VertexArray": 98,
+        "Shader": 0
+      },
+      "contexts": [
+        {
+          "id": 1,
+          "state": "active",
+          "generation": 0,
+          "losses": 0,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+          "vendor": "Google Inc. (Google)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+          "alive": {
+            "Buffer": 73,
+            "Texture": 5,
+            "Program": 5,
+            "Framebuffer": 4,
+            "Renderbuffer": 1,
+            "VertexArray": 98,
+            "Shader": 0
+          }
+        }
+      ],
+      "contextsCreated": 1,
+      "contextLosses": 0,
+      "rendererInfo": {
+        "memory": {
+          "geometries": 34,
+          "textures": 1
+        },
+        "render": {
+          "frame": 33,
+          "calls": 34,
+          "triangles": 30602,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 5,
+        "pixelRatio": 1
+      },
+      "canvas": {
+        "cssWidth": 357,
+        "cssHeight": 481,
+        "bufferWidth": 356,
+        "bufferHeight": 481
+      },
+      "maxTextureWidth": 1024,
+      "maxTextureHeight": 1024,
+      "visibility": "visible"
+    },
+    "landingResources": [
+      {
+        "name": "/assets/index-DBSyyAak.js",
+        "startTime": 248.19999980926514,
+        "duration": 4.900000095367432,
+        "initiatorType": "script",
+        "encodedBodySize": 64972,
+        "decodedBodySize": 205102,
+        "transferSize": 300
+      },
+      {
+        "name": "/assets/index-CmEEmIo8.css",
+        "startTime": 248.40000009536743,
+        "duration": 4.599999904632568,
+        "initiatorType": "link",
+        "encodedBodySize": 2883,
+        "decodedBodySize": 10705,
+        "transferSize": 300
+      }
+    ],
+    "resources": [
+      {
+        "name": "/assets/index-DBSyyAak.js",
+        "startTime": 248.19999980926514,
+        "duration": 4.900000095367432,
+        "initiatorType": "script",
+        "encodedBodySize": 64972,
+        "decodedBodySize": 205102,
+        "transferSize": 300
+      },
+      {
+        "name": "/assets/index-CmEEmIo8.css",
+        "startTime": 248.40000009536743,
+        "duration": 4.599999904632568,
+        "initiatorType": "link",
+        "encodedBodySize": 2883,
+        "decodedBodySize": 10705,
+        "transferSize": 300
+      },
+      {
+        "name": "/assets/WorldExperience-Djr2lSFl.js",
+        "startTime": 862.5,
+        "duration": 2.799999713897705,
+        "initiatorType": "script",
+        "encodedBodySize": 74343,
+        "decodedBodySize": 233101,
+        "transferSize": 300
+      },
+      {
+        "name": "/assets/three-renderer-Zel-nCrQ.js",
+        "startTime": 862.5999999046326,
+        "duration": 4.599999904632568,
+        "initiatorType": "script",
+        "encodedBodySize": 82665,
+        "decodedBodySize": 334536,
+        "transferSize": 300
+      },
+      {
+        "name": "/assets/three-core-DEcG90xN.js",
+        "startTime": 862.6999998092651,
+        "duration": 4.900000095367432,
+        "initiatorType": "script",
+        "encodedBodySize": 102352,
+        "decodedBodySize": 375757,
+        "transferSize": 300
+      },
+      {
+        "name": "/models/pittsburgh-1892.glb.gz",
+        "startTime": 1305,
+        "duration": 5.299999713897705,
+        "initiatorType": "fetch",
+        "encodedBodySize": 210934,
+        "decodedBodySize": 2192436,
+        "transferSize": 0
+      }
+    ]
+  },
+  "network": [
+    {
+      "id": "BEBFEDFB04F71FAC00E94A9AEB0217F3",
+      "phase": "landing",
+      "url": "http://127.0.0.1:4182/?profile=1",
+      "method": "GET",
+      "networkStatus": 200,
+      "status": 200,
+      "mimeType": "text/html",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": null,
+        "contentType": "text/html",
+        "etag": null,
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 844
+    },
+    {
+      "id": "39679.2",
+      "phase": "landing",
+      "url": "http://127.0.0.1:4182/assets/index-DBSyyAak.js",
+      "method": "GET",
+      "networkStatus": 200,
+      "status": 200,
+      "mimeType": "text/javascript",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": "gzip",
+        "contentType": "text/javascript",
+        "etag": "W/\"205102-1789181235924\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 65379
+    },
+    {
+      "id": "39679.3",
+      "phase": "landing",
+      "url": "http://127.0.0.1:4182/assets/index-CmEEmIo8.css",
+      "method": "GET",
+      "networkStatus": 200,
+      "status": 200,
+      "mimeType": "text/css",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": "gzip",
+        "contentType": "text/css",
+        "etag": "W/\"10705-1789181235923\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 3247
+    },
+    {
+      "id": "39679.6",
+      "phase": "first-world",
+      "url": "http://127.0.0.1:4182/assets/WorldExperience-Djr2lSFl.js",
+      "method": "GET",
+      "networkStatus": 200,
+      "status": 200,
+      "mimeType": "text/javascript",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": "gzip",
+        "contentType": "text/javascript",
+        "etag": "W/\"233101-1789181235926\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 74766
+    },
+    {
+      "id": "39679.7",
+      "phase": "first-world",
+      "url": "http://127.0.0.1:4182/assets/three-renderer-Zel-nCrQ.js",
+      "method": "GET",
+      "networkStatus": 200,
+      "status": 200,
+      "mimeType": "text/javascript",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": "gzip",
+        "contentType": "text/javascript",
+        "etag": "W/\"334536-1789181235922\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 83100
+    },
+    {
+      "id": "39679.8",
+      "phase": "first-world",
+      "url": "http://127.0.0.1:4182/assets/three-core-DEcG90xN.js",
+      "method": "GET",
+      "networkStatus": 200,
+      "status": 200,
+      "mimeType": "text/javascript",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": "gzip",
+        "contentType": "text/javascript",
+        "etag": "W/\"375757-1789181235925\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 102802
+    },
+    {
+      "id": "39679.9",
+      "phase": "first-world",
+      "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+      "method": "GET",
+      "networkStatus": 200,
+      "status": 200,
+      "mimeType": "model/gltf-binary",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": "gzip",
+        "contentType": "model/gltf-binary",
+        "etag": "W/\"210934-1789181235917\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 211235
+    },
+    {
+      "id": "39679.10",
+      "phase": "reentry-1",
+      "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+      "method": "GET",
+      "status": 200,
+      "mimeType": "model/gltf-binary",
+      "fromDiskCache": true,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": "gzip",
+        "contentType": "model/gltf-binary",
+        "etag": "W/\"210934-1789181235917\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 0
+    },
+    {
+      "id": "39679.11",
+      "phase": "reentry-2",
+      "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+      "method": "GET",
+      "status": 200,
+      "mimeType": "model/gltf-binary",
+      "fromDiskCache": true,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": "gzip",
+        "contentType": "model/gltf-binary",
+        "etag": "W/\"210934-1789181235917\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 0
+    },
+    {
+      "id": "39679.12",
+      "phase": "reentry-3",
+      "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+      "method": "GET",
+      "status": 200,
+      "mimeType": "model/gltf-binary",
+      "fromDiskCache": true,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": "gzip",
+        "contentType": "model/gltf-binary",
+        "etag": "W/\"210934-1789181235917\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 0
+    },
+    {
+      "id": "39679.13",
+      "phase": "reentry-4",
+      "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+      "method": "GET",
+      "status": 200,
+      "mimeType": "model/gltf-binary",
+      "fromDiskCache": true,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": "gzip",
+        "contentType": "model/gltf-binary",
+        "etag": "W/\"210934-1789181235917\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 0
+    },
+    {
+      "id": "39679.14",
+      "phase": "reentry-5",
+      "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+      "method": "GET",
+      "status": 200,
+      "mimeType": "model/gltf-binary",
+      "fromDiskCache": true,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": "gzip",
+        "contentType": "model/gltf-binary",
+        "etag": "W/\"210934-1789181235917\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 0
+    },
+    {
+      "id": "DBAFB1C54F8FA25CE741996D1A6A3187",
+      "phase": "reload-landing",
+      "url": "http://127.0.0.1:4182/?profile=1",
+      "method": "GET",
+      "networkStatus": 304,
+      "status": 200,
+      "mimeType": "text/html",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": null,
+        "contentType": "text/html",
+        "etag": null,
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 127
+    },
+    {
+      "id": "39679.16",
+      "phase": "reload-landing",
+      "url": "http://127.0.0.1:4182/assets/index-DBSyyAak.js",
+      "method": "GET",
+      "networkStatus": 304,
+      "status": 200,
+      "mimeType": "text/javascript",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": "gzip",
+        "contentType": "text/javascript",
+        "etag": "W/\"205102-1789181235924\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 179
+    },
+    {
+      "id": "39679.17",
+      "phase": "reload-landing",
+      "url": "http://127.0.0.1:4182/assets/index-CmEEmIo8.css",
+      "method": "GET",
+      "status": 200,
+      "mimeType": "text/css",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": "gzip",
+        "contentType": "text/css",
+        "etag": "W/\"10705-1789181235923\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 179,
+      "networkStatus": 304
+    },
+    {
+      "id": "39679.20",
+      "phase": "reload-world",
+      "url": "http://127.0.0.1:4182/assets/WorldExperience-Djr2lSFl.js",
+      "method": "GET",
+      "networkStatus": 304,
+      "status": 200,
+      "mimeType": "text/javascript",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": "gzip",
+        "contentType": "text/javascript",
+        "etag": "W/\"233101-1789181235926\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 179
+    },
+    {
+      "id": "39679.21",
+      "phase": "reload-world",
+      "url": "http://127.0.0.1:4182/assets/three-renderer-Zel-nCrQ.js",
+      "method": "GET",
+      "networkStatus": 304,
+      "status": 200,
+      "mimeType": "text/javascript",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": "gzip",
+        "contentType": "text/javascript",
+        "etag": "W/\"334536-1789181235922\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 179
+    },
+    {
+      "id": "39679.22",
+      "phase": "reload-world",
+      "url": "http://127.0.0.1:4182/assets/three-core-DEcG90xN.js",
+      "method": "GET",
+      "networkStatus": 304,
+      "status": 200,
+      "mimeType": "text/javascript",
+      "fromDiskCache": false,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": "gzip",
+        "contentType": "text/javascript",
+        "etag": "W/\"375757-1789181235925\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 179
+    },
+    {
+      "id": "39679.23",
+      "phase": "reload-world",
+      "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+      "method": "GET",
+      "status": 200,
+      "mimeType": "model/gltf-binary",
+      "fromDiskCache": true,
+      "fromServiceWorker": false,
+      "headers": {
+        "contentEncoding": "gzip",
+        "contentType": "model/gltf-binary",
+        "etag": "W/\"210934-1789181235917\"",
+        "cacheControl": "no-cache"
+      },
+      "completed": true,
+      "encodedTransferBytes": 0
+    }
+  ],
+  "networkPhases": [
+    {
+      "phase": "first-world",
+      "completedModelRequests": 1,
+      "models": [
+        {
+          "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+          "status": 200,
+          "networkStatus": 200,
+          "cache": false,
+          "transferBytes": 211235,
+          "cancelled": false
+        }
+      ]
+    },
+    {
+      "phase": "reentry-1",
+      "completedModelRequests": 1,
+      "models": [
+        {
+          "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+          "status": 200,
+          "cache": true,
+          "transferBytes": 0,
+          "cancelled": false
+        }
+      ]
+    },
+    {
+      "phase": "reentry-2",
+      "completedModelRequests": 1,
+      "models": [
+        {
+          "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+          "status": 200,
+          "cache": true,
+          "transferBytes": 0,
+          "cancelled": false
+        }
+      ]
+    },
+    {
+      "phase": "reentry-3",
+      "completedModelRequests": 1,
+      "models": [
+        {
+          "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+          "status": 200,
+          "cache": true,
+          "transferBytes": 0,
+          "cancelled": false
+        }
+      ]
+    },
+    {
+      "phase": "reentry-4",
+      "completedModelRequests": 1,
+      "models": [
+        {
+          "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+          "status": 200,
+          "cache": true,
+          "transferBytes": 0,
+          "cancelled": false
+        }
+      ]
+    },
+    {
+      "phase": "reentry-5",
+      "completedModelRequests": 1,
+      "models": [
+        {
+          "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+          "status": 200,
+          "cache": true,
+          "transferBytes": 0,
+          "cancelled": false
+        }
+      ]
+    },
+    {
+      "phase": "reload-world",
+      "completedModelRequests": 1,
+      "models": [
+        {
+          "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+          "status": 200,
+          "cache": true,
+          "transferBytes": 0,
+          "cancelled": false
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "checks": [
+    {
+      "name": "No uncaught page errors",
+      "status": "pass",
+      "details": []
+    },
+    {
+      "name": "Heavy model stays out of landing",
+      "status": "pass",
+      "details": {
+        "javascript": {
+          "requests": 1,
+          "encodedBytes": 64972,
+          "decodedBytes": 205102,
+          "transferBytes": 65272
+        },
+        "styles": {
+          "requests": 1,
+          "encodedBytes": 2883,
+          "decodedBytes": 10705,
+          "transferBytes": 3183
+        }
+      }
+    },
+    {
+      "name": "Actual renderer diagnostics available",
+      "status": "pass",
+      "details": {
+        "memory": {
+          "geometries": 34,
+          "textures": 1
+        },
+        "render": {
+          "frame": 42,
+          "calls": 34,
+          "triangles": 30602,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 5,
+        "pixelRatio": 1
+      }
+    },
+    {
+      "name": "Active interaction frames captured",
+      "status": "pass",
+      "details": "110 active frames; three POI transitions and a settled scene."
+    },
+    {
+      "name": "World GPU handles released after each leave",
+      "status": "pass",
+      "details": "Every cycle returned to the pre-world live-handle counts after context disposal. These are API handles, not measured GPU-resident bytes."
+    },
+    {
+      "name": "Entered GPU handles plateau after warmup",
+      "status": "pass",
+      "details": {
+        "cycles": "2–5",
+        "countSpread": {
+          "Buffer": 0,
+          "Texture": 0,
+          "Program": 0,
+          "Framebuffer": 0,
+          "Renderbuffer": 0,
+          "VertexArray": 0,
+          "Shader": 0
+        },
+        "tolerance": 0
+      }
+    },
+    {
+      "name": "Post-GC heap after leave is stable",
+      "status": "fail",
+      "details": {
+        "cycles": "2–5",
+        "heaps": [7446236, 7638512, 7760520, 7867736],
+        "growthBytes": 421500,
+        "spreadBytes": 421500,
+        "strictlyIncreasing": true,
+        "observationToleranceBytes": 262144,
+        "note": "256 KiB or 2% allows snapshot/scheduler noise. Any monotonic growth requires review even below tolerance; exceeding it while monotonic fails. This is JS heap, not total browser or GPU memory."
+      }
+    },
+    {
+      "name": "One completed GLB request per model entry",
+      "status": "pass",
+      "details": [
+        {
+          "phase": "first-world",
+          "completedModelRequests": 1,
+          "models": [
+            {
+              "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+              "status": 200,
+              "networkStatus": 200,
+              "cache": false,
+              "transferBytes": 211235,
+              "cancelled": false
+            }
+          ]
+        },
+        {
+          "phase": "reentry-1",
+          "completedModelRequests": 1,
+          "models": [
+            {
+              "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+              "status": 200,
+              "cache": true,
+              "transferBytes": 0,
+              "cancelled": false
+            }
+          ]
+        },
+        {
+          "phase": "reentry-2",
+          "completedModelRequests": 1,
+          "models": [
+            {
+              "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+              "status": 200,
+              "cache": true,
+              "transferBytes": 0,
+              "cancelled": false
+            }
+          ]
+        },
+        {
+          "phase": "reentry-3",
+          "completedModelRequests": 1,
+          "models": [
+            {
+              "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+              "status": 200,
+              "cache": true,
+              "transferBytes": 0,
+              "cancelled": false
+            }
+          ]
+        },
+        {
+          "phase": "reentry-4",
+          "completedModelRequests": 1,
+          "models": [
+            {
+              "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+              "status": 200,
+              "cache": true,
+              "transferBytes": 0,
+              "cancelled": false
+            }
+          ]
+        },
+        {
+          "phase": "reentry-5",
+          "completedModelRequests": 1,
+          "models": [
+            {
+              "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+              "status": 200,
+              "cache": true,
+              "transferBytes": 0,
+              "cancelled": false
+            }
+          ]
+        },
+        {
+          "phase": "reload-world",
+          "completedModelRequests": 1,
+          "models": [
+            {
+              "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+              "status": 200,
+              "cache": true,
+              "transferBytes": 0,
+              "cancelled": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Re-entry/reload cache behavior observed",
+      "status": "pass",
+      "details": {
+        "requests": [
+          {
+            "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+            "status": 200,
+            "cache": true,
+            "transferBytes": 0,
+            "cancelled": false
+          },
+          {
+            "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+            "status": 200,
+            "cache": true,
+            "transferBytes": 0,
+            "cancelled": false
+          },
+          {
+            "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+            "status": 200,
+            "cache": true,
+            "transferBytes": 0,
+            "cancelled": false
+          },
+          {
+            "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+            "status": 200,
+            "cache": true,
+            "transferBytes": 0,
+            "cancelled": false
+          },
+          {
+            "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+            "status": 200,
+            "cache": true,
+            "transferBytes": 0,
+            "cancelled": false
+          },
+          {
+            "url": "http://127.0.0.1:4182/models/pittsburgh-1892.glb.gz?v=cee5ce9ad370",
+            "status": 200,
+            "cache": true,
+            "transferBytes": 0,
+            "cancelled": false
+          }
+        ],
+        "note": "Disk/memory-cache hits or HTTP 304 revalidation count as cache reuse. Full 200 transfers on every repeat require review of actual server headers. No cache hit is inferred from a repeated URL alone."
+      }
+    },
+    {
+      "name": "Reload returns the same renderer allocation counts",
+      "status": "pass",
+      "details": {
+        "before": {
+          "geometries": 34,
+          "textures": 1
+        },
+        "reloaded": {
+          "geometries": 34,
+          "textures": 1
+        }
+      }
+    },
+    {
+      "name": "No unexpected failed network requests",
+      "status": "pass",
+      "details": []
+    },
+    {
+      "name": "Requested GPU backend matches observed renderer",
+      "status": "pass",
+      "details": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "name": "Physical mobile FPS certification",
+      "status": "not-measured",
+      "details": "Mobile viewport/touch emulation is not a representative physical mobile device."
+    },
+    {
+      "name": "Agreed laptop 45+ FPS target",
+      "status": "not-measured",
+      "details": "SwiftShader and mobile viewport measurements cannot certify the laptop target."
+    }
+  ]
+}

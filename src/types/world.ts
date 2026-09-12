@@ -32,6 +32,8 @@ export interface ScenePrimitive {
 /** A complete, self-contained GLB scene; primitives remain its usable fallback. */
 export interface SceneModel {
   url: string;
+  /** Optional gzip transport; unsupported browsers or failed transport retry url. */
+  compressedUrl?: string;
   position?: Vec3;
   /** Euler XYZ angles, in radians. */
   rotation?: Vec3;

@@ -94,7 +94,7 @@ export function useImmersiveView() {
       if (event.key !== 'Tab') return;
       const controls = [
         ...element.querySelectorAll<HTMLElement>(
-          'button:not(:disabled), a[href], summary, [tabindex="0"]',
+          'button:not(:disabled), select:not(:disabled), a[href], summary, [tabindex="0"]',
         ),
       ].filter(
         (control) =>

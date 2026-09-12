@@ -17,8 +17,10 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "assets:fixture": "node scripts/generate-model-fixture.mjs",
-    "assets:validate": "vitest run src/components/world/modelAsset.test.ts",
-    "assets:hero": "node scripts/generate-pittsburgh-model.js"
+    "assets:validate": "vitest run src/components/world/modelAsset.test.ts src/components/world/heroModel.test.ts",
+    "assets:hero": "node scripts/generate-pittsburgh-model.js",
+    "profile:world": "node scripts/profile-world.mjs",
+    "assets:budget": "node scripts/asset-budgets.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",
