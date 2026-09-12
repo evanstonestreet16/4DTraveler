@@ -1,10 +1,6 @@
-# Project Goal
+# Contributor and Agent Rules
 
-4DTraveler is an interactive historical 3D explorer built with React, strict TypeScript, and React Three Fiber / Three.js. Worlds conform to shared contracts. Favor reliable hackathon vertical slices over generalized infrastructure.
-
-## Current Scope
-
-Dummy v0 supports Pittsburgh / 1892: location → era → overview → POI → object → info → narration. Add speculative functionality only when explicitly needed.
+Rules for anyone (human or agent) contributing to 4DTraveler. For the project's goal, current scope, and what is out of scope, see [PROJECT_STATUS.md](PROJECT_STATUS.md); update that file whenever project information changes.
 
 ## Architectural Rules
 
@@ -15,10 +11,6 @@ Dummy v0 supports Pittsburgh / 1892: location → era → overview → POI → o
 - Blender is an optional future authoring pipeline; GLB files are runtime assets. Do not couple the frontend to Blender.
 - Avoid premature backend/database abstractions and unnecessary dependencies.
 - Preserve clear integration boundaries for contributors; avoid monolithic scene components.
-
-## Out of Scope Unless Explicitly Requested
-
-MongoDB, authentication, multiplayer, WASD, physics, NPCs, character interactions, dynamic city generation, Gemini/Grok integration, ElevenLabs live generation, historical preview video, and Blender automation.
 
 ## Development Rules
 
