@@ -183,35 +183,39 @@ function validateEra(raw: unknown, path: string): GeneratedEra {
     ),
   };
 
-  // Cross-reference checks: every object.sceneObjectId must match a
-  // primitive.id, and every poi.objectIds must reference a known object.
+  // Cross-reference repair. LLMs regularly drift on which id namespace
+  // they are in. Rather than fail the whole generation, drop orphan
+  // references silently and only fail if the era ends up empty.
   const primitiveIds = new Set(era.primitives.map((primitive) => primitive.id));
-  const objectIds = new Set(era.objects.map((object) => object.id));
   const poiIds = new Set(era.pois.map((poi) => poi.id));
-  era.objects.forEach((object, index) => {
-    if (!primitiveIds.has(object.sceneObjectId)) {
-      throw new GeneratedProfileError(
-        `sceneObjectId "${object.sceneObjectId}" has no matching primitive`,
-        `${path}.objects[${index}].sceneObjectId`,
-      );
-    }
-    if (!poiIds.has(object.poiId)) {
-      throw new GeneratedProfileError(
-        `poiId "${object.poiId}" has no matching POI`,
-        `${path}.objects[${index}].poiId`,
-      );
-    }
-  });
-  era.pois.forEach((poi, index) => {
-    poi.objectIds.forEach((objectId, objectIndex) => {
-      if (!objectIds.has(objectId)) {
-        throw new GeneratedProfileError(
-          `objectIds[${objectIndex}] "${objectId}" has no matching object`,
-          `${path}.pois[${index}].objectIds`,
-        );
-      }
-    });
-  });
+
+  // Drop objects whose sceneObjectId or poiId are unresolvable.
+  era.objects = era.objects.filter(
+    (object) =>
+      primitiveIds.has(object.sceneObjectId) && poiIds.has(object.poiId),
+  );
+  const validObjectIds = new Set(era.objects.map((object) => object.id));
+
+  // Filter POI objectIds down to ones that resolve; drop POIs left empty.
+  era.pois = era.pois
+    .map((poi) => ({
+      ...poi,
+      objectIds: poi.objectIds.filter((id) => validObjectIds.has(id)),
+    }))
+    .filter((poi) => poi.objectIds.length > 0);
+  const survivingPoiIds = new Set(era.pois.map((poi) => poi.id));
+
+  // Drop any object whose owning POI got pruned above.
+  era.objects = era.objects.filter((object) =>
+    survivingPoiIds.has(object.poiId),
+  );
+
+  if (era.pois.length === 0 || era.objects.length === 0) {
+    throw new GeneratedProfileError(
+      'era has no valid POIs or objects after cross-reference repair',
+      path,
+    );
+  }
   return era;
 }
 

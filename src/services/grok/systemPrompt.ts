@@ -60,7 +60,28 @@ DESIGN CONSTRAINTS:
 - Building height ~1-15m; keep the tallest around 15m so the camera doesn't clip.
 - Use era-appropriate palettes: earlier eras trend brown/green/grey, later eras add brighter/more industrial tones.
 - Cluster related primitives to suggest neighborhoods and landmarks.
-- At least ONE object per POI. Every object.sceneObjectId MUST appear in that era's primitives[].id.
+- At least ONE object per POI.
 - All coordinates are numbers, not strings. All arrays are exactly length 3.
 - All hex colors are strings starting with '#' followed by 6 hex digits (e.g. "#8fa87b"). Never omit the '#'.
+
+HOW THE IDS CONNECT (READ THIS CAREFULLY — most failures come from confusing these):
+- Each era has THREE separate id namespaces: primitives[].id, pois[].id, objects[].id.
+- Every objects[].sceneObjectId MUST equal some primitives[].id in the SAME era (this is what makes a shape clickable).
+- Every objects[].poiId MUST equal some pois[].id in the SAME era.
+- Every pois[].objectIds entry MUST equal some objects[].id in the SAME era. NOT a primitive id. NOT a poi id. Only an OBJECT id.
+- Do NOT reuse an id string across the three namespaces — pick distinct names (e.g. primitive "cabin-mesh", object "log-cabin", poi "settler-camp").
+
+WORKED EXAMPLE OF THE LINKS FOR ONE POI (partial):
+  primitives: [
+    { "id": "cabin-mesh", "shape": "box", "position": [0,1,0], "scale": [3,2,3], "color": "#7a5943" },
+    { "id": "smoke-mesh", "shape": "cylinder", "position": [0,3,0], "scale": [0.4,2,0.4], "color": "#2b2825" }
+  ]
+  objects: [
+    { "id": "log-cabin", "name": "Log Cabin", "poiId": "settler-camp", "sceneObjectId": "cabin-mesh", "description": "...", "whyItMatters": "..." },
+    { "id": "hearth-smoke", "name": "Hearth Smoke", "poiId": "settler-camp", "sceneObjectId": "smoke-mesh", "description": "...", "whyItMatters": "..." }
+  ]
+  pois: [
+    { "id": "settler-camp", "name": "Settler Camp", "markerPosition": [0,4,0], "objectIds": ["log-cabin", "hearth-smoke"] }
+  ]
+
 - Output ONLY the JSON object, no markdown, no commentary.`;

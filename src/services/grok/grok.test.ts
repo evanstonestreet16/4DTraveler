@@ -8,9 +8,33 @@ describe('validateHistoryProfile', () => {
     expect(() => validateHistoryProfile(seattleFixture)).not.toThrow();
   });
 
-  it('rejects missing cross-references between primitives and objects', () => {
+  it('drops orphan objects whose sceneObjectId does not resolve', () => {
     const broken = structuredClone(seattleFixture);
+    const originalObjectCount = broken.eras[0].objects.length;
     broken.eras[0].objects[0].sceneObjectId = 'does-not-exist';
+    const validated = validateHistoryProfile(broken);
+    expect(validated.eras[0].objects).toHaveLength(originalObjectCount - 1);
+  });
+
+  it('drops POI.objectIds that do not resolve to any object', () => {
+    const broken = structuredClone(seattleFixture);
+    broken.eras[0].pois[0].objectIds.push('phantom-object');
+    const validated = validateHistoryProfile(broken);
+    for (const poi of validated.eras[0].pois) {
+      for (const id of poi.objectIds) {
+        expect(
+          validated.eras[0].objects.some((object) => object.id === id),
+        ).toBe(true);
+      }
+    }
+  });
+
+  it('rejects an era whose repair leaves it empty', () => {
+    const broken = structuredClone(seattleFixture);
+    // Nuke every sceneObjectId so no object can resolve to a primitive.
+    for (const object of broken.eras[0].objects) {
+      object.sceneObjectId = 'nope';
+    }
     expect(() => validateHistoryProfile(broken)).toThrow(GeneratedProfileError);
   });
 

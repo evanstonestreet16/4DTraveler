@@ -105,7 +105,7 @@ export function grokProxyPlugin(options: GrokProxyOptions): Plugin {
               },
               body: JSON.stringify({
                 model,
-                temperature: 0.4,
+                temperature: 0.2,
                 response_format: { type: 'json_object' },
                 messages: [
                   {
