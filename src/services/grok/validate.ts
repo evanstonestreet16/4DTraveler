@@ -4,9 +4,19 @@ import type {
   GeneratedObject,
   GeneratedPOI,
   ObjectPart,
+  PrimitiveShape,
   ScenePrimitive,
   Vec3,
 } from '../../types/world';
+
+const SUPPORTED_SHAPES: readonly PrimitiveShape[] = [
+  'box',
+  'cylinder',
+  'cone',
+  'pyramid',
+  'sphere',
+  'torus',
+];
 
 /**
  * Runtime validator for the Grok JSON output. Strict about shapes and
@@ -98,15 +108,28 @@ function assertArray(
   return value;
 }
 
-function assertShape(value: unknown, path: string): 'box' | 'cylinder' {
+function assertShape(value: unknown, path: string): PrimitiveShape {
   const shape = assertString(value, path);
-  if (shape !== 'box' && shape !== 'cylinder') {
+  if (!SUPPORTED_SHAPES.includes(shape as PrimitiveShape)) {
     throw new GeneratedProfileError(
-      `expected "box" or "cylinder", got "${shape}"`,
+      `expected one of ${SUPPORTED_SHAPES.map((s) => `"${s}"`).join(', ')}, got "${shape}"`,
       path,
     );
   }
-  return shape;
+  return shape as PrimitiveShape;
+}
+
+/**
+ * Optional Euler XYZ rotation in degrees. Missing/null returns
+ * `undefined` so the renderer can skip applying a rotation prop and
+ * keep the mesh at its identity transform.
+ */
+function validateOptionalRotation(
+  value: unknown,
+  path: string,
+): Vec3 | undefined {
+  if (value === undefined || value === null) return undefined;
+  return assertVec3(value, path);
 }
 
 function validateScenery(raw: unknown, path: string): ScenePrimitive {
@@ -120,10 +143,17 @@ function validateScenery(raw: unknown, path: string): ScenePrimitive {
     position: assertVec3(record.position, `${path}.position`),
     scale: assertPositiveVec3(record.scale, `${path}.scale`),
     color: assertHex(record.color, `${path}.color`),
+    rotation: validateOptionalRotation(record.rotation, `${path}.rotation`),
   };
 }
 
-const MAX_PARTS = 5;
+/**
+ * Ceiling on how many extra silhouette primitives a single object can
+ * contribute. 20 gives Grok enough room to draft an ambitious landmark
+ * (Space Needle wants ~12, a cathedral wants ~10) while still keeping
+ * the primitive budget bounded on the renderer side.
+ */
+const MAX_PARTS = 20;
 
 function validatePart(raw: unknown, path: string): ObjectPart {
   if (typeof raw !== 'object' || raw === null) {
@@ -135,6 +165,7 @@ function validatePart(raw: unknown, path: string): ObjectPart {
     position: assertVec3(record.position, `${path}.position`),
     scale: assertPositiveVec3(record.scale, `${path}.scale`),
     color: assertHex(record.color, `${path}.color`),
+    rotation: validateOptionalRotation(record.rotation, `${path}.rotation`),
   };
 }
 
@@ -170,6 +201,7 @@ function validateObject(raw: unknown, path: string): GeneratedObject {
     position: assertVec3(record.position, `${path}.position`),
     scale: assertPositiveVec3(record.scale, `${path}.scale`),
     color: assertHex(record.color, `${path}.color`),
+    rotation: validateOptionalRotation(record.rotation, `${path}.rotation`),
     parts,
     iconic: iconic || undefined,
     tripoPrompt,

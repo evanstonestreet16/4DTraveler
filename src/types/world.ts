@@ -20,13 +20,30 @@ export interface Location {
   eras: Era[];
 }
 
+/**
+ * Supported primitive silhouette shapes. `scale` interpretation is
+ * shape-dependent — keep this table in sync with the Grok system prompt
+ * and the renderer:
+ *
+ *   box      — full extents          [width, height, depth]
+ *   cylinder — cylinder              [radius, height, radius]
+ *   cone     — cone (round taper)    [radius, height, radius]
+ *   pyramid  — 4-sided pyramid       [baseHalfSize, height, baseHalfSize]
+ *   sphere   — ellipsoid             [radiusX, radiusY, radiusZ]
+ *   torus    — ring                  [ringOuterRadius, tubeThickness, ringOuterRadius]
+ */
+export type PrimitiveShape =
+  'box' | 'cylinder' | 'cone' | 'pyramid' | 'sphere' | 'torus';
+
 /** Temporary geometry adapter. Metadata/selection IDs survive replacement with GLBs. */
 export interface ScenePrimitive {
   id: string;
-  shape: 'box' | 'cylinder';
+  shape: PrimitiveShape;
   position: Vec3;
   scale: Vec3;
   color: string;
+  /** Euler XYZ angles in degrees. Defaults to [0, 0, 0] when omitted. */
+  rotation?: Vec3;
 }
 
 /** A complete, self-contained GLB scene; primitives remain its usable fallback. */
@@ -147,20 +164,22 @@ export interface GeneratedPOI {
  * selectable (with metadata). No cross-references — the shape lives right
  * next to the description.
  *
- * The top-level `shape/position/scale/color` fields define the object's
- * **primary** (clickable) primitive. For iconic landmarks the model may
- * also supply `parts[]` — 1–5 extra primitives with absolute world
- * positions that together sketch a recognizable silhouette (e.g. Eiffel
- * Tower legs + platforms + spire). Parts are decorative; only the
- * primary primitive participates in click-to-select.
+ * The top-level `shape/position/scale/color/rotation` fields define the
+ * object's **primary** (clickable) primitive. The model may also supply
+ * `parts[]` — up to 20 extra primitives with absolute world positions
+ * that together sketch a recognizable silhouette (e.g. Space Needle
+ * tripod legs + observation deck ring + antenna). Parts are decorative;
+ * only the primary primitive participates in click-to-select.
  */
 export interface GeneratedObject {
   id: string;
   name: string;
-  shape: 'box' | 'cylinder';
+  shape: PrimitiveShape;
   position: Vec3;
   scale: Vec3;
   color: string;
+  /** Euler XYZ angles in degrees. Defaults to [0, 0, 0] when omitted. */
+  rotation?: Vec3;
   parts?: ObjectPart[];
   /**
    * If true, the client will kick off a Tripo text-to-3D request in the
@@ -180,8 +199,10 @@ export interface GeneratedObject {
  * Grok never has to reason about local frames.
  */
 export interface ObjectPart {
-  shape: 'box' | 'cylinder';
+  shape: PrimitiveShape;
   position: Vec3;
   scale: Vec3;
   color: string;
+  /** Euler XYZ angles in degrees. Defaults to [0, 0, 0] when omitted. */
+  rotation?: Vec3;
 }

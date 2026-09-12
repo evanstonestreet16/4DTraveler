@@ -12,15 +12,74 @@ describe('validateHistoryProfile', () => {
     expect(seattleFixture.eras).toHaveLength(2);
   });
 
-  it('caps parts to at most 5 entries silently', () => {
+  it('caps parts to at most 20 entries silently', () => {
     const drifted = structuredClone(seattleFixture);
     const target = drifted.eras[1].pois[1].objects[0];
     const basePart = target.parts?.[0];
     expect(basePart).toBeDefined();
     if (!basePart) return;
-    target.parts = Array.from({ length: 8 }, () => ({ ...basePart }));
+    target.parts = Array.from({ length: 30 }, () => ({ ...basePart }));
     const validated = validateHistoryProfile(drifted);
-    expect(validated.eras[1].pois[1].objects[0].parts).toHaveLength(5);
+    expect(validated.eras[1].pois[1].objects[0].parts).toHaveLength(20);
+  });
+
+  it('accepts every supported primitive shape on the primary object', () => {
+    for (const shape of [
+      'box',
+      'cylinder',
+      'cone',
+      'pyramid',
+      'sphere',
+      'torus',
+    ] as const) {
+      const drifted = structuredClone(seattleFixture);
+      drifted.eras[0].pois[0].objects[0].shape = shape;
+      expect(() => validateHistoryProfile(drifted)).not.toThrow();
+    }
+  });
+
+  it('accepts new shapes on scenery and on parts', () => {
+    const drifted = structuredClone(seattleFixture);
+    drifted.eras[1].scenery[0].shape = 'sphere';
+    const target = drifted.eras[1].pois[1].objects[0];
+    if (target.parts?.[0]) {
+      target.parts[0].shape = 'torus';
+    }
+    expect(() => validateHistoryProfile(drifted)).not.toThrow();
+  });
+
+  it('rejects a bogus shape string', () => {
+    const broken = structuredClone(seattleFixture) as unknown as {
+      eras: { pois: { objects: { shape: string }[] }[] }[];
+    };
+    broken.eras[0].pois[0].objects[0].shape = 'tetrahedron';
+    expect(() => validateHistoryProfile(broken)).toThrow(GeneratedProfileError);
+  });
+
+  it('accepts an optional rotation Vec3 in degrees on objects, parts, and scenery', () => {
+    const drifted = structuredClone(seattleFixture);
+    drifted.eras[0].pois[0].objects[0].rotation = [0, 45, 0];
+    drifted.eras[1].scenery[0].rotation = [15, 0, 0];
+    const target = drifted.eras[1].pois[1].objects[0];
+    if (target.parts?.[0]) {
+      target.parts[0].rotation = [90, 0, 0];
+    }
+    const validated = validateHistoryProfile(drifted);
+    expect(validated.eras[0].pois[0].objects[0].rotation).toEqual([0, 45, 0]);
+    expect(validated.eras[1].scenery[0].rotation).toEqual([15, 0, 0]);
+    expect(validated.eras[1].pois[1].objects[0].parts?.[0].rotation).toEqual([
+      90, 0, 0,
+    ]);
+  });
+
+  it('rejects a rotation that is not a length-3 numeric vector', () => {
+    const broken = structuredClone(seattleFixture) as unknown as {
+      eras: { pois: { objects: { rotation?: unknown }[] }[] }[];
+    };
+    broken.eras[0].pois[0].objects[0].rotation = [0, 'twenty', 0];
+    expect(() => validateHistoryProfile(broken)).toThrow(GeneratedProfileError);
+    broken.eras[0].pois[0].objects[0].rotation = [0, 0];
+    expect(() => validateHistoryProfile(broken)).toThrow(GeneratedProfileError);
   });
 
   it('rejects negative scale components', () => {
@@ -156,6 +215,46 @@ describe('deriveWorldsFromProfile', () => {
         ),
       ).toBe(false);
     }
+  });
+
+  it('propagates rotation from GeneratedObject and ObjectPart into ScenePrimitive', () => {
+    const drifted = structuredClone(seattleFixture);
+    // Primary rotation on an arbitrary object in era 0.
+    drifted.eras[0].pois[0].objects[0].rotation = [12, 34, 56];
+    // Part rotation on the Space Needle (era 1, POI index 1, object 0).
+    const spaceNeedle = drifted.eras[1].pois[1].objects[0];
+    if (spaceNeedle.parts?.[0]) {
+      spaceNeedle.parts[0].rotation = [10, 20, 30];
+    }
+    const derived = deriveWorldsFromProfile(drifted, {
+      locationId: 'generated:seattle',
+    });
+    const primary = derived[0].scene.primitives.find(
+      (primitive) => primitive.id === drifted.eras[0].pois[0].objects[0].id,
+    );
+    expect(primary?.rotation).toEqual([12, 34, 56]);
+    const firstPart = derived[1].scene.primitives.find(
+      (primitive) => primitive.id === `${spaceNeedle.id}-part-0`,
+    );
+    expect(firstPart?.rotation).toEqual([10, 20, 30]);
+  });
+
+  it('bundled Space Needle exercises the extended shape vocabulary', () => {
+    const spaceNeedleWorld = worlds[1];
+    const parts = spaceNeedleWorld.scene.primitives.filter((primitive) =>
+      primitive.id.startsWith('space-needle-part-'),
+    );
+    const shapes = new Set(parts.map((primitive) => primitive.shape));
+    // Space Needle demo must showcase at least one of the newer shapes
+    // (cone/torus) so the fallback demo reads as more than boxes+cylinders.
+    expect(shapes.has('torus') || shapes.has('cone')).toBe(true);
+    // At least one part carries a non-identity rotation (the tripod legs).
+    const anyRotated = parts.some(
+      (primitive) =>
+        Array.isArray(primitive.rotation) &&
+        primitive.rotation.some((component) => component !== 0),
+    );
+    expect(anyRotated).toBe(true);
   });
 
   it('de-duplicates ids that collide between scenery and objects', () => {

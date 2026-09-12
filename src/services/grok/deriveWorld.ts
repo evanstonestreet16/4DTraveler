@@ -144,6 +144,7 @@ export function deriveWorldFromEra(
         position: object.position,
         scale: object.scale,
         color: object.color,
+        rotation: object.rotation,
       });
       // Extra silhouette parts (Eiffel legs, Space Needle disk, etc.)
       // render as decorative scenery. They are visually part of the
@@ -157,6 +158,7 @@ export function deriveWorldFromEra(
             position: part.position,
             scale: part.scale,
             color: part.color,
+            rotation: part.rotation,
           });
         });
       }

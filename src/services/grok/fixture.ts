@@ -217,27 +217,71 @@ export const seattleFixture: GeneratedHistoryProfile = {
             {
               id: 'space-needle',
               name: 'Space Needle',
+              // Primary is the central shaft — the clickable primitive.
               shape: 'cylinder',
-              position: [-2, 6, 10],
-              scale: [0.7, 12, 0.7],
+              position: [-2, 5, 10],
+              scale: [0.45, 10, 0.45],
               color: '#d0cfc9',
               parts: [
+                // Three tripod legs, tilted outward from the shaft.
                 {
                   shape: 'cylinder',
-                  position: [-2, 12, 10],
-                  scale: [2.6, 0.9, 2.6],
-                  color: '#e4b26b',
+                  position: [-3.3, 3, 10],
+                  scale: [0.28, 6, 0.28],
+                  color: '#c9c4bb',
+                  rotation: [0, 0, 15],
                 },
                 {
                   shape: 'cylinder',
-                  position: [-2, 12.7, 10],
-                  scale: [0.25, 2.8, 0.25],
+                  position: [-0.7, 3, 10],
+                  scale: [0.28, 6, 0.28],
+                  color: '#c9c4bb',
+                  rotation: [0, 0, -15],
+                },
+                {
+                  shape: 'cylinder',
+                  position: [-2, 3, 11.4],
+                  scale: [0.28, 6, 0.28],
+                  color: '#c9c4bb',
+                  rotation: [15, 0, 0],
+                },
+                // Saucer main disc (golden) and the outer ring rim.
+                {
+                  shape: 'cylinder',
+                  position: [-2, 10.4, 10],
+                  scale: [2.2, 0.5, 2.2],
+                  color: '#e4b26b',
+                },
+                {
+                  shape: 'torus',
+                  position: [-2, 10.6, 10],
+                  scale: [2.5, 0.14, 2.5],
+                  color: '#c8934a',
+                },
+                // Observation deck cabin above the saucer.
+                {
+                  shape: 'cylinder',
+                  position: [-2, 11.2, 10],
+                  scale: [1.2, 0.7, 1.2],
+                  color: '#efc98a',
+                },
+                // Cone base + slim antenna tip.
+                {
+                  shape: 'cone',
+                  position: [-2, 12.4, 10],
+                  scale: [0.35, 1.4, 0.35],
                   color: '#d0cfc9',
+                },
+                {
+                  shape: 'cylinder',
+                  position: [-2, 13.8, 10],
+                  scale: [0.07, 1.6, 0.07],
+                  color: '#c9c4bb',
                 },
               ],
               iconic: true,
               tripoPrompt:
-                'low-poly miniature diorama model of the Space Needle in Seattle, 1962 futurism, thin white central shaft, wide golden saucer at the top, small antenna spire, clay-shaded, isometric, white background',
+                'low-poly miniature diorama model of the Space Needle in Seattle, 1962 futurism, thin white central shaft, three tripod legs, wide golden saucer at the top, thin antenna spire, clay-shaded, isometric, white background',
               description:
                 "The 1962 World's Fair tower, now the city's unmistakable civic logo.",
               whyItMatters:
