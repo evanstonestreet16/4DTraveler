@@ -50,10 +50,16 @@ describe('validateHistoryProfile', () => {
     expect(() => validateHistoryProfile(broken)).toThrow(GeneratedProfileError);
   });
 
-  it('rejects duplicate ids within an era across scenery/pois/objects', () => {
+  it('accepts an object id that collides with a scenery id (derive de-duplicates)', () => {
+    const drifted = structuredClone(seattleFixture);
+    drifted.eras[0].pois[0].objects[0].id = drifted.eras[0].scenery[0].id;
+    expect(() => validateHistoryProfile(drifted)).not.toThrow();
+  });
+
+  it('still rejects two objects in the same era with the same id', () => {
     const broken = structuredClone(seattleFixture);
-    // Set an object.id equal to a scenery.id in the same era.
-    broken.eras[0].pois[0].objects[0].id = broken.eras[0].scenery[0].id;
+    // Force two objects in different POIs to share an id.
+    broken.eras[0].pois[1].objects[0].id = broken.eras[0].pois[0].objects[0].id;
     expect(() => validateHistoryProfile(broken)).toThrow(GeneratedProfileError);
   });
 

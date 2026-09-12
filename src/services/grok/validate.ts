@@ -226,22 +226,44 @@ function validateEra(raw: unknown, path: string): GeneratedEra {
     ),
   };
 
-  // Uniqueness check across every id we will use as a stable renderer key.
-  const allIds = new Set<string>();
-  const track = (id: string, where: string) => {
-    if (allIds.has(id)) {
-      throw new GeneratedProfileError(`duplicate id "${id}"`, where);
-    }
-    allIds.add(id);
+  // Uniqueness within each namespace only. Cross-namespace collisions
+  // (e.g. a scenery id matching an object id) are handled by
+  // `deriveWorld` via automatic suffixing, so we don't need to fail the
+  // whole run for that class of drift.
+  const trackWithin = (
+    kind: string,
+    entries: { id: string }[],
+    pathPrefix: string,
+  ) => {
+    const seen = new Set<string>();
+    entries.forEach((entry, index) => {
+      if (seen.has(entry.id)) {
+        throw new GeneratedProfileError(
+          `duplicate ${kind} id "${entry.id}"`,
+          `${pathPrefix}[${index}].id`,
+        );
+      }
+      seen.add(entry.id);
+    });
   };
-  era.scenery.forEach((primitive, index) =>
-    track(primitive.id, `${path}.scenery[${index}].id`),
+  trackWithin('scenery', era.scenery, `${path}.scenery`);
+  trackWithin('poi', era.pois, `${path}.pois`);
+  const flatObjects = era.pois.flatMap((poi, poiIndex) =>
+    poi.objects.map((object, objectIndex) => ({
+      id: object.id,
+      objectIndex,
+      poiIndex,
+    })),
   );
-  era.pois.forEach((poi, poiIndex) => {
-    track(poi.id, `${path}.pois[${poiIndex}].id`);
-    poi.objects.forEach((object, objectIndex) =>
-      track(object.id, `${path}.pois[${poiIndex}].objects[${objectIndex}].id`),
-    );
+  const seenObjectIds = new Set<string>();
+  flatObjects.forEach((entry) => {
+    if (seenObjectIds.has(entry.id)) {
+      throw new GeneratedProfileError(
+        `duplicate object id "${entry.id}"`,
+        `${path}.pois[${entry.poiIndex}].objects[${entry.objectIndex}].id`,
+      );
+    }
+    seenObjectIds.add(entry.id);
   });
 
   return era;
