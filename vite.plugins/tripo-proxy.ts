@@ -13,7 +13,11 @@ import type { Plugin } from 'vite';
  */
 export interface TripoProxyOptions {
   apiKey: string | undefined;
-  /** Defaults to `P1-20260311` (low-poly Smart Mesh, 2–10 s per generation). */
+  /**
+   * Defaults to `v3.1-20260211` (Tripo docs' recommended text-to-model
+   * default). P1-20260311 is documented as image-to-model in the
+   * game-ready character workflow.
+   */
   model?: string;
   /** Base URL for Tripo's REST API. */
   endpoint?: string;
@@ -49,7 +53,7 @@ function respondJson(res: ServerResponse, status: number, body: unknown) {
 }
 
 export function tripoProxyPlugin(options: TripoProxyOptions): Plugin {
-  const model = options.model ?? 'P1-20260311';
+  const model = options.model ?? 'v3.1-20260211';
   const endpoint = options.endpoint ?? 'https://openapi.tripo3d.ai';
   return {
     name: '4dtraveler:tripo-proxy',
