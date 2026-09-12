@@ -2,11 +2,14 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { Plugin } from 'vite';
 
 /**
- * Vite dev-server middleware that mirrors two Tripo v3 endpoints so the
- * browser never sees the API key:
+ * Vite dev-server middleware that mirrors three Tripo v3 endpoints so
+ * the browser never sees the API key AND never has to fetch cross-origin
+ * from Tripo's CloudFront (which responds without any
+ * Access-Control-Allow-Origin header):
  *
  *   POST /api/tripo/generate           -> POST /v3/generation/text-to-model
  *   GET  /api/tripo/task/:id           -> GET  /v3/tasks/:id
+ *   GET  /api/tripo/model?url=<signed> -> streams the GLB same-origin
  *
  * Production port to a real server is the same follow-up as the Grok
  * proxy — dev-only until we deploy.
@@ -165,13 +168,86 @@ export function tripoProxyPlugin(options: TripoProxyOptions): Plugin {
             });
           }
           const data = json.data ?? {};
+          // Tripo's CloudFront-signed model URLs are served without
+          // Access-Control-Allow-Origin headers, so the browser will
+          // block a direct fetch. Rewrite through our own streaming
+          // route so useGLTF sees a same-origin URL.
+          const rewriteModelUrl = (u?: string) =>
+            typeof u === 'string' && u.length > 0
+              ? `/api/tripo/model?url=${encodeURIComponent(u)}`
+              : u;
           return respondJson(res, 200, {
             status: data.status,
             progress: data.progress,
-            model_url: data.output?.model_url,
-            rendered_image_url: data.output?.rendered_image_url,
+            model_url: rewriteModelUrl(data.output?.model_url),
+            rendered_image_url: rewriteModelUrl(
+              data.output?.rendered_image_url,
+            ),
             error: data.error,
           });
+        } catch (error) {
+          return respondJson(res, 500, {
+            error: 'Proxy failure',
+            detail: error instanceof Error ? error.message : String(error),
+          });
+        }
+      });
+
+      // GET /api/tripo/model?url=<signed cloudfront url> -> stream the
+      // GLB body (or rendered image) back to the browser same-origin.
+      // Only URLs whose host is under tripo3d.com are proxied to avoid
+      // turning this into an open SSRF forwarder.
+      server.middlewares.use('/api/tripo/model', async (req, res, next) => {
+        if (req.method !== 'GET') return next();
+        const rawUrl = req.url ?? '';
+        const qs = rawUrl.split('?')[1] ?? '';
+        const params = new URLSearchParams(qs);
+        const target = params.get('url');
+        if (!target) {
+          return respondJson(res, 400, { error: 'url is required' });
+        }
+        let parsed: URL;
+        try {
+          parsed = new URL(target);
+        } catch (error) {
+          return respondJson(res, 400, {
+            error: 'invalid url',
+            detail: error instanceof Error ? error.message : String(error),
+          });
+        }
+        if (
+          parsed.protocol !== 'https:' ||
+          !parsed.hostname.endsWith('tripo3d.com')
+        ) {
+          return respondJson(res, 400, {
+            error: 'url host must be *.tripo3d.com',
+            detail: parsed.hostname,
+          });
+        }
+        try {
+          const upstream = await fetch(parsed.toString());
+          if (!upstream.ok || !upstream.body) {
+            return respondJson(res, 502, {
+              error: `Tripo asset upstream ${upstream.status}`,
+              detail: upstream.statusText,
+            });
+          }
+          res.statusCode = 200;
+          const contentType =
+            upstream.headers.get('content-type') ?? 'application/octet-stream';
+          res.setHeader('Content-Type', contentType);
+          const contentLength = upstream.headers.get('content-length');
+          if (contentLength) res.setHeader('Content-Length', contentLength);
+          res.setHeader('Cache-Control', 'private, max-age=240');
+          // Tripo GLBs are typically <5 MB. Pipe rather than buffering
+          // so first bytes reach the browser immediately.
+          const reader = upstream.body.getReader();
+          for (;;) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            if (value) res.write(Buffer.from(value));
+          }
+          res.end();
         } catch (error) {
           return respondJson(res, 500, {
             error: 'Proxy failure',
