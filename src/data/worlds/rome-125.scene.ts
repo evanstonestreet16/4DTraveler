@@ -1,9 +1,11 @@
+import renderedImages from '../../../public/images/rome-125/manifest.json' with { type: 'json' };
 import pantheonMetrics from '../../../public/models/rome-125/pantheon-forecourt.metrics.json' with { type: 'json' };
 import overviewMetrics from '../../../public/models/rome-125/overview.metrics.json' with { type: 'json' };
 import forumMetrics from '../../../public/models/rome-125/forum-trajan.metrics.json' with { type: 'json' };
 import valleyMetrics from '../../../public/models/rome-125/colosseum-valley.metrics.json' with { type: 'json' };
 import type {
   HistoricalWorld,
+  OverviewImage,
   PointOfInterest,
   ScenePrimitive,
   WorldEnvironment,
@@ -24,9 +26,25 @@ const forumEnvironment: WorldEnvironment = {
   exposure: 1.1,
 };
 
+/** Coordinates follow each delivered overview image before responsive cover cropping. */
+const renderedOverview: OverviewImage = {
+  ...renderedImages.overview,
+  markers: Object.fromEntries(
+    Object.entries(renderedImages.overview.markers).map(([id, marker]) => [
+      id,
+      {
+        desktop: [marker.desktop[0], marker.desktop[1]] as [number, number],
+        mobile: [marker.mobile[0], marker.mobile[1]] as [number, number],
+      },
+    ]),
+  ),
+};
+
 /** Metres; Forum center is origin, +X east, +Y up, +Z south. */
 export const rome125Scene: HistoricalWorld['scene'] = {
   presentation: 'immersive-city',
+  overviewTransition: { group: 'rome-central', durationMs: 2200 },
+  overviewImage: renderedOverview,
   overviewCamera: {
     position: [-1450, 1250, 1650],
     target: [50, 40, 180],
@@ -82,6 +100,7 @@ export const rome125POILayout: PointOfInterest[] = [
       'dacian-prisoner-statue',
     ],
     immersive: {
+      panorama: renderedImages.panoramas['forum-trajan'],
       background: '#d6dfdf',
       environment: forumEnvironment,
       look: { minPitch: (-35 * Math.PI) / 180, maxPitch: (55 * Math.PI) / 180 },
@@ -128,6 +147,7 @@ export const rome125POILayout: PointOfInterest[] = [
       'pantheon-forecourt-colonnade',
     ],
     immersive: {
+      panorama: renderedImages.panoramas['pantheon-forecourt'],
       background: '#d6dfdf',
       environment: forumEnvironment,
       look: { minPitch: (-35 * Math.PI) / 180, maxPitch: (65 * Math.PI) / 180 },
@@ -182,6 +202,7 @@ export const rome125POILayout: PointOfInterest[] = [
     camera: { position: [0, 1.65, 0], target: [80, 18, 0], far: 1800 },
     objectIds: ['colosseum-outer-arcade', 'meta-sudans', 'venus-roma-worksite'],
     immersive: {
+      panorama: renderedImages.panoramas['colosseum-valley'],
       background: '#d6dfdf',
       environment: forumEnvironment,
       look: { minPitch: (-35 * Math.PI) / 180, maxPitch: (60 * Math.PI) / 180 },

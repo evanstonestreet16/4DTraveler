@@ -1241,6 +1241,24 @@ h1 {
   padding: 40px 6% 56px;
   min-height: calc(100vh - 162px);
 }
+.globe-stage.globe-landing {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 0;
+}
+.globe-landing > .globe-cta {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding: 20px clamp(16px, 4vw, 56px);
+  background: #faf8f1f2;
+}
+.curated-city-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 .globe-stage {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr);

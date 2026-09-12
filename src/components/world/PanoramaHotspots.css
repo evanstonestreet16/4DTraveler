@@ -1,0 +1,56 @@
+.panorama-hotspot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 2px solid #fff4d9;
+  border-radius: 50%;
+  background: #24291de8;
+  box-shadow: 0 2px 14px #161c2466;
+  color: #fff4d9;
+  font:
+    600 16px/1 system-ui,
+    sans-serif;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+}
+
+.panorama-hotspot:hover,
+.panorama-hotspot:focus-visible,
+.panorama-hotspot[aria-pressed='true'] {
+  background: #edb95d;
+  color: #24291d;
+  border-color: #fff8e4;
+}
+
+.panorama-hotspot:focus-visible {
+  outline: 3px solid #edb95d;
+  outline-offset: 4px;
+}
+
+.panorama-hotspot-label {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: min(240px, 60vw);
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #20261ff2;
+  color: #fff4d9;
+  font:
+    500 13px/1.3 system-ui,
+    sans-serif;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.panorama-hotspot:hover .panorama-hotspot-label,
+.panorama-hotspot:focus-visible .panorama-hotspot-label,
+.panorama-hotspot[aria-pressed='true'] .panorama-hotspot-label {
+  opacity: 1;
+}

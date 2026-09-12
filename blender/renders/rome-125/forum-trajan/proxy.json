@@ -1,0 +1,90 @@
+{
+  "$comment": "REFERENCE EXAMPLE. Hand-written from existing scene data so streetview generation can build against the contract before the first proxy render lands. render_rome.py --proxy will emit this file for real.",
+  "scene": "forum-trajan",
+  "city": "rome",
+  "year": 125,
+  "generator": "blender/scripts/render_rome.py --proxy",
+  "projection": "equirectangular; center north (-Z), +yaw west (-X), +pitch up; radians",
+  "resolution": [2048, 1024],
+  "camera": {
+    "eye": [0, 1.65, 30],
+    "initialTarget": [0, 12, -40]
+  },
+  "hotspots": [
+    {
+      "objectId": "trajan-equestrian-statue",
+      "yaw": 0.0,
+      "pitch": 0.1309136,
+      "idColor": "#ff0000"
+    },
+    {
+      "objectId": "basilica-ulpia-facade",
+      "yaw": 0.3196802,
+      "pitch": 0.1983544,
+      "idColor": "#00ff00"
+    },
+    {
+      "objectId": "dacian-prisoner-statue",
+      "yaw": -0.8224183,
+      "pitch": 0.0357521,
+      "idColor": "#0000ff"
+    }
+  ],
+  "entities": [
+    {
+      "id": "basilica-ulpia",
+      "name": "Basilica Ulpia",
+      "state": "complete",
+      "since": 112,
+      "claims": [
+        {
+          "attribute": "material",
+          "value": "marble revetment over brick-faced concrete",
+          "confidence": "inferred",
+          "sourceId": "rome-r1"
+        },
+        {
+          "attribute": "roof",
+          "value": "gilded bronze tile",
+          "confidence": "inferred",
+          "sourceId": "rome-r1"
+        }
+      ]
+    },
+    {
+      "id": "trajan-equestrian-statue",
+      "name": "Equestrian Statue of Trajan",
+      "state": "complete",
+      "claims": [
+        {
+          "attribute": "material",
+          "value": "gilt bronze",
+          "confidence": "documented",
+          "sourceId": "rome-r1"
+        }
+      ]
+    },
+    {
+      "id": "dacian-prisoner-statue",
+      "name": "Dacian Prisoner Statue",
+      "state": "complete",
+      "claims": [
+        {
+          "attribute": "material",
+          "value": "red porphyry body with white marble head and extremities",
+          "confidence": "documented",
+          "sourceId": "rome-r3"
+        }
+      ]
+    }
+  ],
+  "prompt": {
+    "positive": "Photorealistic ground-level view inside the Forum of Trajan, Rome, 125 CE, late afternoon Mediterranean sun. Newly built and maintained imperial architecture: bright polished marble revetment, crisp carved detail, painted and gilded surfaces, colored stone columns. Everyday Romans in tunics and togas at natural scale. Preserve the input image's architecture, proportions, camera and layout exactly.",
+    "negative": "ruins, rubble, broken columns, weathered crumbling stone, moss, overgrowth, bare unfinished brickwork, tourists, modern clothing, modern signage, Arch of Constantine, Christian crosses, church, campanile, Renaissance or Baroque building, cars, asphalt, text, watermark",
+    "negativeSource": "entities where city=rome and inception > 125; see docs/POI_REALISM_PIPELINE.md",
+    "structuralConstraint": "Input is the exact geometry, camera and landmark placement reference. Do not move, add or remove architecture; interactive hotspots are mapped to these angles."
+  },
+  "sources": ["rome-r1", "rome-r3"],
+  "historicalEvidence": false,
+  "provenance": "Blender proxy supplies geometry, placement, scale and date from sourced claims. Surface appearance, atmosphere, staffage and vegetation are AI-generated interpretation."
+}

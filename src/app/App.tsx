@@ -75,7 +75,13 @@ export function App() {
             </button>
           </div>
         ) : (
-          <SceneErrorBoundary key={state.activeWorld.id}>
+          <SceneErrorBoundary
+            key={
+              state.activeWorld.scene.overviewTransition
+                ? `${state.activeWorld.locationId}:${state.activeWorld.scene.overviewTransition.group}`
+                : state.activeWorld.id
+            }
+          >
             <Suspense
               fallback={
                 <div

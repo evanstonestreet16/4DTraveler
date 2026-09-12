@@ -53,7 +53,7 @@ export function LocationSelector() {
 
   return (
     <section
-      className={`globe-stage${morphed ? ' is-globe' : ''}`}
+      className={`globe-stage globe-landing${morphed ? ' is-globe' : ''}`}
       aria-labelledby="location-heading"
     >
       <h1 id="location-heading" className="visually-hidden">

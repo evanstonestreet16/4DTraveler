@@ -1,12 +1,18 @@
 # Rome / 125 CE — immersive city generation plan
 
-**Status:** P0–P2 implemented in three dependency-ordered PRs\
+**Status:** P0–P2 implemented; rendered overview/panorama milestone implemented\
 **Consumes:** [`IMMERSIVE_CITY_PLAN.md`](./IMMERSIVE_CITY_PLAN.md)  
 **World ID:** `rome-125`  
 **Historical frame:** Rome during the reign of Hadrian, in 125 CE  
 **Delivery priority:** Overview and Forum first, followed by Pantheon and Colosseum; all three are implemented
 
+**Rendered delivery:** Rome now uses desktop/portrait overview stills and three 6K equirectangular panoramas, with 4K mobile variants, nine camera-authored hotspots and compressed still fallbacks. Navigation, content, IDs, fixed viewpoints, written narration and object lists are preserved. See [asset delivery](./visual/ROME_125_ASSETS.md) for rebuilding and budgets. These are detailed stylized interpretations; photorealism and specialist reconstruction certification are not claimed.
+
 ## 1. Experience thesis
+
+**Owner's clarified quality target (2026-09-12):** the supplied photographic Roman architectural reference sets the realism bar. Current stylized renders do not meet it. Establish one photorealistic Forum view before expanding the art pass to 360° and the remaining locations. Match the reference's physical detail, material variation, atmospheric depth and lighting; its ruined state and later surroundings are not evidence for the 125 CE reconstruction.
+
+**Authorized atmosphere pass:** use AI-assisted imagery for nonhistorical skies/background appearance and increase detail across the current overview and three POIs. Generated sky and generic stone inputs stay in the offline authoring pipeline with documented prompts/provenance; architecture, camera positions and hotspot anchors remain authored and stable. This pass advances the current assets without closing the photographic quality target.
 
 Rome in 125 CE should feel like a living capital layered across time, not a collection of isolated ruins. The visitor enters an oblique bird's-eye view of the monumental center, then descends into bounded public spaces that work naturally as fixed-position 360-degree sets.
 
@@ -17,6 +23,8 @@ The experience should emphasize three simultaneous conditions:
 - The Temple of Venus and Roma has been under construction since 121 CE and is not yet the completed temple known from later reconstructions.
 
 This is a selective, source-aware interpretation of central Rome. It is not a surveyed reconstruction of every street or a claim that uncertain colors, crowds, temporary structures, and minor buildings are known exactly.
+
+The retained GLBs establish composition, scale, camera positions, objects, and the complete interaction path. The rendered delivery adds materials, lighting, people, plants and architectural detail in Blender, so that work does not become browser geometry. Runtime imagery and hotspots use the additive shared contract documented in the general plan.
 
 ## 2. Scope and cut line
 
@@ -77,7 +85,7 @@ The city remains at 1:1 scale. Compression happens through reduced architectural
 
 ### Camera and marker blockout
 
-These are proposed integration values. Freeze them only after desktop and mobile Blender previews confirm marker separation and no exposed scene boundary.
+These are the retained GLB blockout values. Desktop and portrait source-camera poses are recorded in `public/images/rome-125/manifest.json`; `sourceProjectedMarkers` retains their projections and `markers` records reviewed positions on the enhanced overview images. The portrait image uses a separate composition to keep all three markers visible after phone cropping. Ground-level eye anchors remain in Rome world data.
 
 | Element                     | Proposed position     | Target / purpose                                                                 |
 | --------------------------- | --------------------- | -------------------------------------------------------------------------------- |
@@ -259,15 +267,15 @@ All audio waits for an explicit visitor action. Ambience should loop quietly und
 5. Add POI proxy bounds and verify marker occlusion in the browser.
 6. Merge background geometry by material while preserving landmark groups.
 
-### POV build
+### POV build and final render
 
 1. Start each POV in its own `.blend` file with camera at 1.65 m.
 2. Build a 60–120 m detail ring around the camera and a cheaper 120–250 m closure ring.
-3. Name selectable parent groups exactly as defined in this plan.
-4. Give each selectable group only its visible meshes; do not use detached invisible hit boxes.
-5. Render north, east, south, and west from the exact runtime camera and pitch limits.
-6. Correct exposed backs, intersections, scale cues, and repetitive modules before export.
-7. Export one self-contained GLB per scene and validate in the real renderer.
+3. Keep named object anchors matching the stable object IDs.
+4. Render north, east, south, and west from the exact runtime camera and pitch limits.
+5. Correct exposed backs, intersections, scale cues, and repetitive modules.
+6. Render one equirectangular 360° panorama per POI, then compress it for desktop and mobile.
+7. Record each object anchor as yaw/pitch hotspot data and verify it in the browser viewer.
 
 ### Proposed source and runtime paths
 
@@ -281,6 +289,12 @@ public/models/rome-125/overview.glb
 public/models/rome-125/forum-trajan.glb
 public/models/rome-125/pantheon-forecourt.glb
 public/models/rome-125/colosseum-valley.glb
+
+# Preferred final runtime visuals
+public/images/rome-125/overview.webp
+public/images/rome-125/forum-trajan-360.webp
+public/images/rome-125/pantheon-forecourt-360.webp
+public/images/rome-125/colosseum-valley-360.webp
 
 public/audio/rome-125/overview.wav
 public/audio/rome-125/forum-trajan.wav
@@ -296,18 +310,18 @@ src/data/worlds/rome-125.content.ts
 src/data/worlds/rome-125.ts
 ```
 
-This plan does not authorize a Rome-only workaround in the current `HistoricalWorld` contract. Implement the shared contract change first, with the required integration review.
+Add the smallest shared panorama/hotspot fields needed by Rome and Kyoto. Keep the current GLB fields temporarily for migration and remove them only after the panorama path works.
 
-## 12. Budgets
+## 12. Runtime image budgets
 
-| Asset          | Raw GLB ceiling | Triangle ceiling | Material batches | Texture direction                                                                             |
-| -------------- | --------------: | ---------------: | ---------------: | --------------------------------------------------------------------------------------------- |
-| Overview       |            8 MB |          100,000 |               50 | One 1K shared city atlas plus small landmark trim/decal atlas                                 |
-| Forum hero POV |           10 MB |          150,000 |               50 | 1K shared surfaces; selective 2K relief/inscription atlas only if browser review proves value |
-| Pantheon POV   |            9 MB |          130,000 |               45 | Reuse shared stone/plaster; one compact inscription decal                                     |
-| Colosseum POV  |           10 MB |          150,000 |               50 | Reuse arch, stone, timber, and roof materials                                                 |
+| Asset                    | Target                                                   |
+| ------------------------ | -------------------------------------------------------- |
+| Overview                 | WebP/AVIF, 1.5 MB or less                                |
+| Desktop POI panorama     | 4K–8K equirectangular, 6 MB or less after visual testing |
+| Mobile POI panorama      | 2K–4K equirectangular, 3 MB or less                      |
+| Decoded detailed visuals | Overview plus one active panorama                        |
 
-Keep only the overview and active detailed POV loaded by default. Cache the hero POV during the Rome session if measured memory permits. Decorative figures, carts, awnings, and tools are the first cuts; silhouette, selectable objects, complete 360-degree closure, and stable performance are not cuts.
+Spend offline render complexity where it improves the image. At runtime keep only the overview and active panorama decoded by default. If a deadline cut is needed, reduce panorama resolution or number of POVs before cutting the hero composition, historical objects, or complete 360° closure.
 
 ## 13. Evidence, confidence, and reuse
 
@@ -338,14 +352,23 @@ Before modeling fine architectural details, add plan/elevation references for ea
 
 - Confirm the shared city/overview/immersive-POI contract described by `IMMERSIVE_CITY_PLAN.md`.
 - Freeze world, POI, object, and `sceneObjectId` values from this plan.
-- Add validation tests before parallel content and model work rely on the IDs.
+- Add one focused validation test for panorama paths and hotspot IDs.
 
 ### Workstream 1 — visual pipeline
 
-- Produce the Rome overview blockout and Forum four-direction renders.
-- Build the shared Rome kit and hero selectable groups.
-- Record GLB bytes, triangles, material batches, texture sizes, bounds, and node-name validation.
-- Proceed to Pantheon and Colosseum only at the cut line above.
+- Upgrade the Rome overview and Forum composition for offline rendering first.
+- Render and compress the overview and Forum panorama, then add Pantheon and the valley only if time permits.
+- Record final image dimensions/file sizes and hotspot yaw/pitch values.
+
+#### Next milestone — dedicated Rome bird's-eye detail agent
+
+**Status (2026-09-12): completed and integrated by the dedicated overview agent and integration owner.** The new desktop/portrait images were reviewed against Kyoto's delivered overview and add denser architecture, surface detail, vegetation and riverfront life. Editable Blender layout and exact image-enhancement prompts are retained. All overview variants meet image budgets; build, focused asset validation and desktop/mobile smoke tests passed. See [delivery and regeneration](./visual/ROME_125_ASSETS.md).
+
+- **Independent assignment:** a dedicated overview agent within Workstream 1 runs alongside the Forum/POI realism pass, Kyoto work, and runtime work; it does not depend on completing the Forum reference frame.
+- **Visual scope:** compare both overviews at matching desktop and portrait sizes, then improve Rome's urban density, varied roofs and blocks, street/courtyard definition, landmark detail, terrain and riverbanks, vegetation, material variation, lighting, and atmospheric depth. Preserve geographic scale and the historical exclusions in section 3. Kyoto sets the detail benchmark, not Rome's architectural style.
+- **Exclusive ownership:** `blender/source/rome-125/overview.blend`, overview-only render outputs, and `public/images/rome-125/overview*` assets. Use overview-specific helper files if needed; leave shared renderer/packager scripts, shared texture inputs, POI scenes/panoramas, Kyoto assets, viewer code, prose, and audio to their existing owners.
+- **Integration boundary:** preserve current overview camera framing, stable IDs, asset paths, and marker positions where practical. Hand any necessary camera/marker or image-metadata changes to the integration owner as exact values; that owner alone updates `src/data/worlds/rome-125.scene.ts` and the shared image manifest. No shared contract changes are expected. Stage overview outputs separately so a POI render/package run cannot overwrite them.
+- **Deliverable and acceptance:** editable overview source plus compressed desktop, portrait, and fallback images within existing budgets. Review Rome and Kyoto side by side for comparable visible detail and finish; all three Rome landmarks and markers must remain clear, with no exposed scene edges. On integration, verify asset loading at desktop and mobile sizes and one Rome path: city selection → overview → POI → object → return. The integration owner runs the production build and smoke test if runtime/data integration changes are required.
 
 ### Workstream 2 — navigation
 
@@ -355,8 +378,8 @@ Before modeling fine architectural details, add plan/elevation references for ea
 
 ### Workstream 3 — objects
 
-- Validate each exact node-to-content mapping.
-- Ensure drag-look does not trigger the large façade or ground-adjacent nodes.
+- Validate each exact hotspot-to-content mapping.
+- Ensure drag-look does not activate a hotspot.
 - Provide accessible object lists in the same order as this plan's object tables.
 
 ### Workstream 4 — content/audio/reliability
@@ -369,18 +392,18 @@ Before modeling fine architectural details, add plan/elevation references for ea
 
 - The overview is recognizably central Rome from silhouette and topography before labels appear.
 - All overview geography and camera values live in Rome world data, not generic UI components.
-- The Forum POV contains the three exact selectable node names in this plan.
+- The Forum POV contains hotspots for the three exact object IDs in this plan.
 - No direction from any POV exposes a set boundary, missing back face, modern skyline, or unfinished façade.
 - Trajan's Column is not incorrectly visible through the Basilica Ulpia from the main piazza.
 - The Pantheon scene contains no modern fountain/obelisk and preserves the ancient stepped approach.
 - The Colosseum is intact, the Arch of Constantine is absent, and the Temple of Venus and Roma is visibly incomplete.
 - Uncertain reconstructions are labeled inferred or illustrative in content and review materials.
 - Narration remains silent until explicitly started, and transcripts work without audio.
-- Overview → Forum → object inspection → narration/transcript → overview works twice in succession without resetting city selection or retaining duplicate GPU resources.
-- `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`, and available browser tests pass after implementation.
+- Overview → Forum → object inspection → narration/transcript → overview works once without resetting city selection or retaining the inactive panorama.
+- Run `npm run typecheck`, `npm run build`, the focused hotspot test, and one browser smoke path. Run broader tests only for shared runtime changes or release diagnosis.
 
 ## 16. Definition of done
 
-Rome is ready for the hackathon demo when a visitor can select **Rome — 125 CE**, recognize the monumental center from a full-screen aerial view, enter the Forum of Trajan, look through a complete fixed-position 360-degree set, inspect the equestrian statue, Basilica Ulpia, and Dacian figure, hear or read a reviewed narration, and return to the unchanged overview.
+Rome is ready for the hackathon demo when a visitor can select **Rome — 125 CE**, recognize the monumental center from a realistic full-screen rendered overview, enter the Forum of Trajan panorama, look through a complete fixed-position 360° view, inspect the equestrian statue, Basilica Ulpia, and Dacian figure through hotspots, hear or read a reviewed narration, and return to the unchanged overview.
 
 Pantheon and Colosseum strengthen the date-specific story, but they do not block the Rome vertical slice. A polished, accurate Forum experience is preferable to three partially finished reconstructions.

@@ -2,20 +2,27 @@
 
 Rules for anyone (human or agent) contributing to 4DTraveler. For the project's goal, current scope, and what is out of scope, see [PROJECT_STATUS.md](PROJECT_STATUS.md); update that file whenever project information changes.
 
+## Active Scope and Deadline
+
+- Active product work is Rome / 125 CE and Kyoto / circa 1700.
+- Pittsburgh is legacy code pending deletion. Do not edit, extend, document, or test Pittsburgh unless the project owner explicitly asks for it.
+- Optimize for a convincing, reliable demo under a tight deadline. Prefer rendered overview images and equirectangular 360° POI panoramas with hotspots when they produce better visuals faster than browser-rendered geometry.
+- Do not add process artifacts, broad abstractions, speculative features, or exhaustive evidence that does not directly improve the active demo.
+
 ## Architectural Rules
 
 - Keep historical content and world layout in `src/data/`, separate from rendering.
 - Centralize contracts in `src/types/world.ts`; update consumers and docs together when changing them.
 - Centralize camera movement in `CameraController`; camera positions belong in world data.
 - Keep generic UI free of Pittsburgh-specific assumptions and components small and focused.
-- Blender is an optional future authoring pipeline; GLB files are runtime assets. Do not couple the frontend to Blender.
+- Blender is an offline authoring and rendering tool. Runtime assets may be rendered images/panoramas or GLBs; do not couple the frontend to Blender.
 - Avoid premature backend/database abstractions and unnecessary dependencies.
 - Preserve clear integration boundaries for contributors; avoid monolithic scene components.
 
 ## Development Rules
 
 - Keep TypeScript strict; avoid `any` unless unavoidable and documented.
-- Run formatting, lint, typecheck, tests, and build before completing code changes.
+- Run the smallest checks that directly cover the changed code. For documentation-only changes, check formatting only when needed. Run the production build and one primary-path browser smoke test at release time or after a runtime integration change.
 - Do not silently change the world contract or scatter camera mutation across components.
 - Never commit secrets. Use `.env` and `.env.example` if environment configuration becomes necessary.
 - Keep future external integrations behind small adapters/modules.
@@ -26,17 +33,17 @@ Use four workstreams after Dummy v0 is merged. Each workstream owns its listed f
 
 ### Workstream 1 — Project Owner + Astra: 3D World / Visual Pipeline
 
-**Main deliverable:** a high-quality hero historical world and a repeatable asset path from Blender or another authoring tool into the browser.
+**Main deliverable:** a high-quality hero historical view and a repeatable path from Blender or another authoring tool into the browser.
 
 **Owns:**
 
-- `public/models/`, model textures, material assets, and asset-pipeline documentation.
-- Components that load and compose GLB assets in `src/components/world/`.
+- `public/models/`, rendered panoramas, textures, material assets, and concise asset-pipeline documentation.
+- Components that load GLBs or display rendered overview/panorama assets in `src/components/world/`.
 - World geometry, scale, coordinates, lighting, fog, atmosphere, shadows, and scene performance.
-- The visual placement of POIs and selectable meshes, including each mesh's `sceneObjectId` mapping.
-- Model export settings, compression, browser budgets, loading validation, and visual fallback assets.
+- The visual placement of POIs and selectable meshes or panorama hotspots, including stable object mappings.
+- Render/export settings, compression, browser budgets, loading validation, and visual fallback assets.
 
-**Boundary:** this workstream supplies POI camera positions and targets as world data, but Workstream 2 owns the transition behavior and navigation UX. It exposes selectable scene nodes by stable IDs, but Workstream 3 owns what selection does. It does not own historical prose or narration scripts.
+**Boundary:** this workstream supplies POI camera positions and targets as world data, but Workstream 2 owns the transition behavior and navigation UX. It exposes hotspots or selectable scene nodes by stable IDs, but Workstream 3 owns what selection does. It does not own historical prose or narration scripts.
 
 ### Workstream 2 — Person 2: Core Experience / Navigation
 
@@ -50,7 +57,7 @@ Use four workstreams after Dummy v0 is merged. Each workstream owns its listed f
 - Responsive layout and transitions around the world canvas, excluding object information and narration content.
 - User-facing recovery when a world or model cannot load.
 
-**Boundary:** consume camera presets from world data; do not place Pittsburgh-specific camera coordinates in UI code. Do not edit GLB geometry or asset composition. Selecting a POI may update shared state, but object selection and information behavior belong to Workstream 3.
+**Boundary:** consume camera presets from world data; do not place city-specific camera coordinates in UI code. Do not edit visual asset composition. Selecting a POI may update shared state, but object selection and information behavior belong to Workstream 3.
 
 ### Workstream 3 — Person 3: Objects + Intelligence
 
@@ -87,13 +94,13 @@ Shared integration contracts are:
 
 - Types in `src/types/world.ts`.
 - World IDs, location IDs, era IDs, POI IDs, object IDs, and `sceneObjectId` values.
-- Model, texture, audio, and source-reference paths.
+- Panorama, model, texture, audio, and source-reference paths.
 - Camera presets and coordinate conventions.
 - App state/action shapes used across workstreams.
 
-Before changing a shared contract, open a small contract PR or agree on the exact change with every affected workstream. The contract PR must update types, example world data, all current consumers, validation tests, and relevant docs together. Do not merge parallel PRs that each invent a different version of the same contract.
+Before changing a shared contract, agree on the smallest exact change with affected active workstreams. Update the active Rome/Kyoto consumers and a focused validation test together. A separate contract PR is optional and should be used only when it reduces integration risk.
 
-Keep world data split into scene and content modules with one composition module, as in `src/data/worlds/pittsburgh-1892.{scene,content}.ts` and `pittsburgh-1892.ts`. Preserve the exported `HistoricalWorld` and all stable IDs. Workstream 1 owns scene fields and shared geography; Workstream 4 owns prose, sources, and narration fields.
+Keep active world data split into scene and content modules with one composition module, as in `src/data/worlds/rome-125.{scene,content}.ts` and `rome-125.ts`. Preserve active Rome/Kyoto stable IDs. Workstream 1 owns scene fields and shared geography; Workstream 4 owns prose, sources, and narration fields.
 
 Prefer this integration order when work is dependent:
 
@@ -102,8 +109,8 @@ Prefer this integration order when work is dependent:
 3. 3D loading/composition and feature adapters.
 4. Experience integration and release verification.
 
-Keep PRs scoped to one workstream or one agreed contract change. In every PR description, name the owning workstream, list shared IDs/contracts changed, link dependent PRs, and state how the primary user path was tested. Rebase or update from `main` before final verification. Avoid drive-by edits in another workstream's files; request a small follow-up from that owner when practical.
+Keep changes scoped to one milestone. Create a PR only when requested or when collaboration requires review. Keep its description to a short statement of the result, material contract/ID changes, dependency if any, and validation performed. Avoid screenshots, long histories, exhaustive metrics, and repeated verification notes unless they are needed to review a visual or risky change.
 
 ## Verification
 
-Run `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm test`, and `npm run build`. Manually verify the complete browser path, including visible object highlighting, repeated POI transitions, narration play/pause, and return to overview. Use `npm run test:e2e` for browser regression coverage when available.
+For ordinary code changes, run the relevant focused test plus `npm run typecheck`; add lint or build when the changed surface warrants it. For asset/content changes, manually check the affected Rome/Kyoto path and asset loading. Before a demo or merge of a runtime integration, run one smoke path covering city selection → overview → POI → object → return. Run the full suite only after shared runtime changes, before a release, or when a failure suggests broader impact. Do not run Pittsburgh-specific checks.

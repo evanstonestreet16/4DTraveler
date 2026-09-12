@@ -48,7 +48,7 @@ The park’s indexed source text was reviewed after direct fetch timeouts. The e
 
 The checked-in file is 24 seconds, mono, 22,050 Hz, 16-bit PCM, 1,058,444 bytes. Its peak amplitude is about 0.1251 of full scale, with no clipping. A smooth 650 ms fade at either end reaches zero to prevent clicks when looping. The player sets a volume of 0.18, starts only after Play ambience, and stops on leaving the scene. Returning to the valley requires another explicit Play action.
 
-`tests/rome-ambience.spec.ts` checks real browser playback, duration, volume ceiling, pause, repeated return/exit cleanup, no request before consent, and recovery from a missing audio file while text and object information remain usable. These tests must run against the final P2 production build; the asset’s generation checks alone do not certify browser playback or subjective sound quality on demo speakers.
+`tests/rome-ambience.spec.ts` checks real browser playback, duration, volume ceiling, pause, repeated return/exit cleanup, no request before consent, and recovery from a missing audio file while text and object information remain usable. These tests must run against the final Rome production build; the asset’s generation checks alone do not certify browser playback or subjective sound quality on demo speakers.
 
 ## Narration delivery
 
@@ -60,4 +60,4 @@ Ambient audio has an independent manual play/pause control and a low volume ceil
 
 ## Verification scope
 
-Focused browser tests cover narration no-autoplay, progress, pause, replay, recovery after a failed request, and cleanup on exit. Existing complete-path tests additionally cover narration alongside mesh selection and repeated camera transitions. Desktop/mobile visual and release evidence belongs in the milestone review; this source review does not claim measured graphics performance or specialist reconstruction approval.
+Focused browser tests cover narration no-autoplay, progress, pause, replay, recovery after a failed request, and cleanup on exit. `tests/rome-panoramas.spec.ts` covers all nine panorama hotspot/list mappings, source links, confidence notes, reviewed location transcripts, and return to the overview, including image and WebGL failure paths. The rendered-image migration preserves the reviewed prose and stable object IDs. Desktop/mobile visual and release evidence belongs in the milestone review; this source review does not claim measured graphics performance or specialist reconstruction approval.

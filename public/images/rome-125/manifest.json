@@ -1,0 +1,389 @@
+{
+  "generator": "blender/scripts/render_rome.py + package_rome_renders.py",
+  "projection": "equirectangular; center north (-Z), +yaw west (-X), +pitch up; radians",
+  "provenance": "POI panoramas are interpretive reconstructions with authored geometry, people, foliage and physical lighting. Their AI-generated sky and generic stone surface art are offline appearance inputs, not historical evidence; POI architecture and object placement are not AI-generated. The separately authored overview may use additional enhancement; consult overview.provenance for its image-specific process.",
+  "overview": {
+    "desktop": {
+      "url": "/images/rome-125/overview.webp?v=488694b9e61a",
+      "width": 1586,
+      "height": 992,
+      "bytes": 734218,
+      "sha256": "488694b9e61a7a10f7573e87a2968b98c39b0f75cf937a3ac8030b09fa0e1173"
+    },
+    "mobile": {
+      "url": "/images/rome-125/overview-mobile.webp?v=9e4b4f480d75",
+      "width": 954,
+      "height": 1649,
+      "bytes": 677850,
+      "sha256": "9e4b4f480d75f83afb32abc78e6a2718e1c5ba7ef3f46c61be4c721a9aff4926"
+    },
+    "fallback": {
+      "url": "/images/rome-125/overview-fallback.webp?v=0b37861116df",
+      "width": 1279,
+      "height": 800,
+      "bytes": 381334,
+      "sha256": "0b37861116df5a61544910f19013bc1c8f90b157bf299459494648dbc68cf62b"
+    },
+    "markers": {
+      "forum-trajan": {
+        "desktop": [
+          0.416,
+          0.422
+        ],
+        "mobile": [
+          0.572,
+          0.466
+        ]
+      },
+      "pantheon-forecourt": {
+        "desktop": [
+          0.113,
+          0.51
+        ],
+        "mobile": [
+          0.462,
+          0.324
+        ]
+      },
+      "colosseum-valley": {
+        "desktop": [
+          0.85,
+          0.398
+        ],
+        "mobile": [
+          0.613,
+          0.685
+        ]
+      }
+    },
+    "cameras": {
+      "desktop": {
+        "eye": [
+          -1450.0,
+          1250.0,
+          1650.0
+        ],
+        "target": [
+          50,
+          40,
+          180
+        ],
+        "projection": "PERSP",
+        "lensMm": 42.0,
+        "orthoScale": null
+      },
+      "mobile": {
+        "eye": [
+          1450.0,
+          3300.0,
+          1650.0
+        ],
+        "target": [
+          0,
+          0,
+          180
+        ],
+        "projection": "ORTHO",
+        "lensMm": 36.0,
+        "orthoScale": 2250.0
+      }
+    },
+    "sourceProjectedMarkers": {
+      "forum-trajan": {
+        "desktop": [
+          0.423707,
+          0.465071
+        ],
+        "mobile": [
+          0.55618,
+          0.462181
+        ]
+      },
+      "pantheon-forecourt": {
+        "desktop": [
+          0.101117,
+          0.540411
+        ],
+        "mobile": [
+          0.463128,
+          0.306874
+        ]
+      },
+      "colosseum-valley": {
+        "desktop": [
+          0.851987,
+          0.432296
+        ],
+        "mobile": [
+          0.574713,
+          0.684986
+        ]
+      }
+    },
+    "generator": "Original Blender layout plus Codex built-in image generation; package_rome_overview_detail.py",
+    "provenance": "Illustrative reconstruction of Rome in 125 CE. Editable Blender source retains geographic layout, ten procedural building families and authored landmarks. Final desktop and portrait images use AI-generated architectural surface and environment detail guided by that layout; those fine details are illustrative and are not fully represented by the Blender meshes. Cameras and sourceProjectedMarkers describe the authored layouts; markers are reviewed positions on the final generated images. Stable IDs and world-space coordinates are unchanged. Kyoto was a finish reference only.",
+    "illustrationSources": [
+      "blender/source/rome-125/overview-detail-desktop.png",
+      "blender/source/rome-125/overview-detail-mobile.png"
+    ],
+    "layoutSource": "blender/source/rome-125/overview.blend",
+    "promptSource": "blender/source/rome-125/overview-detail-prompts.json"
+  },
+  "panoramas": {
+    "forum-trajan": {
+      "desktop": {
+        "url": "/images/rome-125/forum-trajan-360.webp?v=62bd0cf8833b",
+        "width": 6144,
+        "height": 3072,
+        "bytes": 1167950,
+        "sha256": "62bd0cf8833b711b4ecebb65c812d33bf636e2daa195874ab86524c49e82da4c"
+      },
+      "mobile": {
+        "url": "/images/rome-125/forum-trajan-360-mobile.webp?v=848e80ca2b8b",
+        "width": 4096,
+        "height": 2048,
+        "bytes": 451464,
+        "sha256": "848e80ca2b8b02252cb47bc2399e2fab8d3f6c51a4248e10c9e4c427c8847cce"
+      },
+      "fallback": {
+        "url": "/images/rome-125/forum-trajan-fallback.webp?v=c4b9fec75ad9",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 67614,
+        "sha256": "c4b9fec75ad97c242196705c5cde75e7d95f3592c666356d233169f82c306efc"
+      },
+      "hotspots": [
+        {
+          "objectId": "trajan-equestrian-statue",
+          "yaw": 0.0,
+          "pitch": 0.1309136
+        },
+        {
+          "objectId": "basilica-ulpia-facade",
+          "yaw": 0.3196802,
+          "pitch": 0.1983544
+        },
+        {
+          "objectId": "dacian-prisoner-statue",
+          "yaw": -0.8224183,
+          "pitch": 0.0357521
+        }
+      ],
+      "eye": [
+        0,
+        1.65,
+        30
+      ],
+      "initialTarget": [
+        0,
+        12,
+        -40
+      ],
+      "anchors": {
+        "trajan-equestrian-statue": [
+          0,
+          5.6,
+          0
+        ],
+        "basilica-ulpia-facade": [
+          -24,
+          17,
+          -42.5
+        ],
+        "dacian-prisoner-statue": [
+          42,
+          3.7,
+          -9
+        ]
+      },
+      "seamMeanRGBDifference": 1.833,
+      "review": "Cardinal views and longitudinal seam measured from final delivered pixels; see authored render folder."
+    },
+    "pantheon-forecourt": {
+      "desktop": {
+        "url": "/images/rome-125/pantheon-forecourt-360.webp?v=87704527f6ce",
+        "width": 6144,
+        "height": 3072,
+        "bytes": 1119016,
+        "sha256": "87704527f6ce3198b63fc0031938d0939344fe28d81669048052bb88d72e23c3"
+      },
+      "mobile": {
+        "url": "/images/rome-125/pantheon-forecourt-360-mobile.webp?v=748c7c610c65",
+        "width": 4096,
+        "height": 2048,
+        "bytes": 418958,
+        "sha256": "748c7c610c6592909774cf83fde313296d85cfde6287f5819b59c094845916f9"
+      },
+      "fallback": {
+        "url": "/images/rome-125/pantheon-forecourt-fallback.webp?v=ab74465774ed",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 64180,
+        "sha256": "ab74465774ed0b2d85bc1c4a328111dda5013affa8945604d7fac0d102f39207"
+      },
+      "hotspots": [
+        {
+          "objectId": "pantheon-agrippa-inscription",
+          "yaw": 3.1415927,
+          "pitch": 0.4558505
+        },
+        {
+          "objectId": "pantheon-granite-columns",
+          "yaw": 2.8437102,
+          "pitch": 0.175666
+        },
+        {
+          "objectId": "pantheon-forecourt-colonnade",
+          "yaw": -1.6092389,
+          "pitch": 0.2211562
+        }
+      ],
+      "eye": [
+        0,
+        1.65,
+        -42
+      ],
+      "initialTarget": [
+        0,
+        13,
+        0
+      ],
+      "anchors": {
+        "pantheon-agrippa-inscription": [
+          0,
+          16.8,
+          -11.1
+        ],
+        "pantheon-granite-columns": [
+          -10.5,
+          8,
+          -7.8
+        ],
+        "pantheon-forecourt-colonnade": [
+          26,
+          7.5,
+          -41
+        ]
+      },
+      "seamMeanRGBDifference": 2.48,
+      "review": "Cardinal views and longitudinal seam measured from final delivered pixels; see authored render folder."
+    },
+    "colosseum-valley": {
+      "desktop": {
+        "url": "/images/rome-125/colosseum-valley-360.webp?v=5f188df4ccd8",
+        "width": 6144,
+        "height": 3072,
+        "bytes": 932040,
+        "sha256": "5f188df4ccd8b0fca97e9c1f4f275f596e6c76804baaf28497e28d7cf0969356"
+      },
+      "mobile": {
+        "url": "/images/rome-125/colosseum-valley-360-mobile.webp?v=5442a13f4556",
+        "width": 4096,
+        "height": 2048,
+        "bytes": 361030,
+        "sha256": "5442a13f455654e9f09bd9cde663e9266b90777f53b80c9a03356497046ce080"
+      },
+      "fallback": {
+        "url": "/images/rome-125/colosseum-valley-fallback.webp?v=561a7af9ffbc",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 67558,
+        "sha256": "561a7af9ffbc5e3ccba42ab0e9c9db774c5b1616d32adff1567bd29075ad9364"
+      },
+      "hotspots": [
+        {
+          "objectId": "colosseum-outer-arcade",
+          "yaw": -1.5707963,
+          "pitch": 0.2344941
+        },
+        {
+          "objectId": "meta-sudans",
+          "yaw": -2.7233683,
+          "pitch": 0.1598116
+        },
+        {
+          "objectId": "venus-roma-worksite",
+          "yaw": 1.3386925,
+          "pitch": 0.0768186
+        }
+      ],
+      "eye": [
+        0,
+        1.65,
+        0
+      ],
+      "initialTarget": [
+        80,
+        18,
+        0
+      ],
+      "anchors": {
+        "colosseum-outer-arcade": [
+          81,
+          21,
+          0
+        ],
+        "meta-sudans": [
+          16,
+          8,
+          36
+        ],
+        "venus-roma-worksite": [
+          -55,
+          6,
+          -13
+        ]
+      },
+      "seamMeanRGBDifference": 1.992,
+      "review": "Cardinal views and longitudinal seam measured from final delivered pixels; see authored render folder."
+    }
+  },
+  "aiInputs": [
+    {
+      "path": "blender/assets/rome-125/ai/mediterranean-sky.png",
+      "role": "sky-background",
+      "generator": "Codex built-in image generation",
+      "historicalEvidence": false,
+      "sha256": "daf5839da2699fa3cd727c62416736d6875e5835b5bd3dad619da4136de1eae6"
+    },
+    {
+      "path": "blender/assets/rome-125/ai/travertine-albedo.png",
+      "role": "generic-stone-albedo",
+      "generator": "Codex built-in image generation",
+      "historicalEvidence": false,
+      "sha256": "5fa73056ac01f57ec229dc33679b0a8828c6cc2a97defb17bddbe62ebc827a88"
+    }
+  ],
+  "references": [
+    {
+      "id": "R1",
+      "url": "https://www.uffizi.it/en/online-exhibitions/following-in-trajan-s-footsteps-hypervision",
+      "supports": "Forum plan/envelope and monument relationships",
+      "reuse": "Link-only research; no copied source images or geometry"
+    },
+    {
+      "id": "R6",
+      "url": "https://smarthistory.org/the-pantheon/",
+      "supports": "Pantheon forecourt, porch proportions and granite column context",
+      "reuse": "Link-only research; original interpreted model"
+    },
+    {
+      "id": "R7",
+      "url": "https://colosseo.it/en/area/the-colosseum/",
+      "supports": "Amphitheatre architectural system and intact Flavian silhouette",
+      "reuse": "Link-only research; original interpreted model"
+    },
+    {
+      "id": "R8",
+      "url": "https://colosseo.it/en/area/arch-of-constantine-and-meta-sudans/",
+      "supports": "Meta Sudans general fountain form",
+      "reuse": "Link-only research; later Arch of Constantine excluded"
+    },
+    {
+      "id": "R9",
+      "url": "https://colosseo.it/en/marvels/temple-of-venus-and-roma/",
+      "supports": "Temple project chronology; exact 125 construction stage is illustrative",
+      "reuse": "Link-only research; original interpreted worksite"
+    }
+  ]
+}

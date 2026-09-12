@@ -1,5 +1,49 @@
 # Rome / 125 CE asset delivery
 
+## Offline image delivery after P2
+
+Rome now uses an authored overview still and true equirectangular panoramas for all three POIs. Original runtime GLBs remain unchanged as the migration baseline. The checked-in `.blend` sources now contain the render-only material, architecture, civic-figure, foliage and lighting pass; `build_rome.py` can still rebuild the original blockouts separately.
+
+```sh
+/Applications/Blender.app/Contents/MacOS/Blender --background --python blender/scripts/render_rome.py -- --scene panoramas
+python3 blender/scripts/package_rome_renders.py --panoramas-only
+```
+
+The renderer requires Blender 5.2 (tested 5.2.1), uses Cycles with Metal when available and CPU otherwise, and has no downloaded asset dependencies. Packaging requires Python 3 with Pillow and NumPy. `--scene overview`, a POI ID, or `panoramas` limits rendering; `--preview` makes smaller review renders without replacing the canonical `.blend` files. Generated PNGs and cardinal-review contact sheets stay in the ignored `blender/source/rome-125/renders/` directory. Runtime WebPs and the compact provenance/budget manifest are in `public/images/rome-125/`.
+
+For independent POI updates, render with `--scene panoramas` and package with `python3 blender/scripts/package_rome_renders.py --panoramas-only`. This preserves the delivered overview images and `manifest.overview` metadata.
+
+The visual pass adds stone grain and roof tiles, stone edge bevels, portico coffers and projecting ornament, a refined equestrian silhouette, sparse figures for scale, and construction bracing. The aerial uses varied courtyard/terrace/insula families, articulated palace courts, green slopes and atmospheric depth. The result remains an interpretive reconstruction; exact ornament, materials, people, urban fabric and construction staging require specialist review, and photographic realism is still an outstanding quality target.
+
+The atmosphere/detail pass uses two checked-in AI art inputs: a Mediterranean sky panorama and a generic travertine color texture. Both were generated with Codex's built-in image tool; [source files and full prompts](../../blender/assets/rome-125/ai/README.md) document their scope. The sky is an LDR background, with physical sky lighting retained in Blender. Generated texture detail supplies surface appearance rather than historical architecture. The runtime receives the final rendered WebPs and makes no AI service calls. `manifest.aiInputs` records roles, source paths and SHA-256 hashes separately from link-only historical research references.
+
+The upgraded overview is 1586 × 992 on desktop and a separately composed 954 × 1649 portrait image on mobile. It combines a denser editable Blender layout with illustrative AI image enhancement, using Kyoto's delivered overview as the detail/finish reference. The portrait source camera looks from the southeast to spread the landmark axis vertically through a narrow cover crop. `manifest.overview.cameras` and `sourceProjectedMarkers` record the retained Blender layout; `markers` records reviewed positions on the finished images, including forecourt anchors that keep the Pantheon label clear of the phone navigation panel. World coordinates, stable IDs and POI cameras are unchanged. The runtime applies the same responsive cover transform to image and markers.
+
+The overview-specific authoring and packaging commands are:
+
+```sh
+/Applications/Blender.app/Contents/MacOS/Blender --background --python blender/scripts/render_rome_overview_detail.py
+python3 blender/scripts/package_rome_overview_detail.py
+```
+
+The first command rebuilds the editable overview layout and base renders. The second compresses the selected `blender/source/rome-125/overview-detail-{desktop,mobile}.png` illustrations into `blender/source/rome-125/renders/overview-detail/`, with `overview.delivery.json` ready to merge into `manifest.overview`. The integration owner copies the three staged WebPs to `public/images/rome-125/` and replaces only that manifest section. The final illustrated details are not fully represented by the Blender meshes; [exact built-in image-generation prompts](../../blender/source/rome-125/overview-detail-prompts.json) and both selected PNGs preserve that part of the workflow. Use `package_rome_renders.py --panoramas-only` for independent POI delivery so it preserves the upgraded overview.
+
+Overview validation (2026-09-12): desktop/mobile/fallback WebPs are 734,218 / 677,850 / 381,334 bytes. Build/typecheck and the focused overview hash/budget/marker test passed, followed by desktop all-nine-object and portrait navigation smoke tests. Browser review checked desktop and phone composition and moved the phone Pantheon marker clear of navigation. The editable source is 86 MiB; final image detail comes from the retained illustrations rather than shipping this geometry to the browser.
+
+Every desktop panorama is 6144 × 3072; mobile variants are 4096 × 2048 to retain surface detail in tall portrait views. The 4K sphere uses about 32 MiB of decoded RGBA pixels before GPU overhead; only one panorama is retained, and compressed still recovery remains available. The nine exact object IDs retain their plan order. Source eyes and initial targets are unchanged. Panorama center is geographic north (`-Z`), positive yaw turns west (`-X`), positive pitch looks up, and angles are radians. For a camera-relative anchor `(dx, dy, dz)`, yaw is `atan2(-dx, -dz)` and pitch is `atan2(dy, hypot(dx, dz))`; its image coordinate is `(0.5 - yaw / 2π, 0.5 - pitch / π)`. The manifest records the underlying camera-relative inputs and final angles. The Basilica hotspot uses an off-center visible façade anchor to remain separate from the equestrian statue on phones.
+
+The packager checks the actual encoded budgets: overview ≤1.5 MB, each desktop panorama ≤6 MB, each mobile panorama ≤3 MB, and every still fallback ≤0.5 MB. It writes actual dimensions, byte counts and SHA-256 versions for every image. Compressed first-view fallback stills are generated from the same panorama. Cardinal contact sheets and seam measurements are projected from the encoded desktop pixels, not from a separate review camera.
+
+For the actual browser review after starting a production preview:
+
+```sh
+node scripts/review-rome.mjs http://127.0.0.1:4173 /tmp/rome-review forum-trajan
+```
+
+Repeat with `pantheon-forecourt` and `colosseum-valley`. Check north/east/south/west closure, initial object anchors, portrait marker separation and return to overview. The offline pass preserves the opaque Basilica/Column relationship, stepped ancient Pantheon approach without the modern fountain or obelisk, intact amphitheatre, absent Arch of Constantine and visibly unfinished temple works. A continuous distant valley backdrop closes a southeast gap previously concealed by runtime fog.
+
+## Original P0–P2 GLB delivery
+
 P0 is an agreed integration change across the four workstreams in AGENTS.md. The three feature owners agreed the additive contract before implementation: `ScenePresentation`, optional `scene.presentation = 'immersive-city'`, optional per-POI `immersive` set and radian look limits, `preview`, camera `near`/`far`, and object `sources`/`confidence`. Existing `HistoricalWorld`, Pittsburgh IDs, scene/content split and camera behavior remain supported.
 
 ## Rebuild

@@ -8,7 +8,7 @@ async function enterRome(page: Page) {
   await page.goto('/');
   await page.getByRole('button', { name: /Italy.*Rome/ }).click();
   await page.getByRole('button', { name: /125 CE/ }).click();
-  await expect(page.locator('[data-model-status="ready"]')).toHaveCount(1);
+  await expect(page.locator('[data-image-status="ready"]')).toHaveCount(1);
 }
 
 async function enterValley(page: Page) {

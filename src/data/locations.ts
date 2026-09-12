@@ -1,9 +1,10 @@
 import { rome125 } from './worlds/rome-125';
+import { romePresent } from './worlds/rome-present';
 import type { Location } from '../types/world';
 import { pittsburgh1892 } from './worlds/pittsburgh-1892';
 import { pittsburgh1850 } from './worlds/pittsburgh-1850';
 
-export const worlds = [rome125, pittsburgh1892, pittsburgh1850];
+export const worlds = [rome125, romePresent, pittsburgh1892, pittsburgh1850];
 export const locations: Location[] = [
   {
     id: rome125.locationId,
@@ -11,7 +12,7 @@ export const locations: Location[] = [
     region: 'Italy · Ancient Mediterranean',
     description:
       'Enter the living capital of Hadrian: marble forums, a new Pantheon, and the Flavian Amphitheatre.',
-    eras: [rome125.era],
+    eras: [rome125.era, romePresent.era],
     globe: { countryIsoA3: 'ITA', coordinates: { lat: 41.895, lng: 12.485 } },
   },
   {
