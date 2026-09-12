@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { GlobeLogo } from './globe/GlobeLogo';
+import { useApp } from '../../app/AppContext';
 
 // Deferred: react-globe.gl/three-globe are heavy, and the logo intro gives them time to load in the background.
 const GlobeView = lazy(() =>
@@ -25,7 +26,19 @@ function markIntroPlayed() {
   }
 }
 
+/**
+ * Landing page: an intro logo that morphs into an interactive 3D globe
+ * (Workstream 2 — Andrew Liu). Clicking a country with an anchored
+ * location on the globe dispatches straight into that fixed historical
+ * world.
+ *
+ * The secondary "Explore any city" CTA switches into `globe` app-mode,
+ * which mounts our R3F pin-globe (Workstream 1) and hands the picked
+ * city off to the Grok + Tripo + procedural-fill pipeline — so users
+ * can time-travel a city that isn't in our curated catalog yet.
+ */
 export function LocationSelector() {
+  const { dispatch } = useApp();
   const [morphed, setMorphed] = useState(hasPlayedIntro);
 
   useEffect(() => {
@@ -53,12 +66,21 @@ export function LocationSelector() {
       <div className="globe-logo-layer" aria-hidden={morphed}>
         <GlobeLogo />
       </div>
-<<<<<<< HEAD
-      <p className="muted">
-        An early exploration of how places change through time.
-      </p>
-=======
->>>>>>> b058d1a (glboe half done)
+      {morphed && (
+        <div className="globe-cta">
+          <button
+            className="pill-button"
+            onClick={() => dispatch({ type: 'mode', mode: 'globe' })}
+          >
+            Explore any city with the globe
+            <span aria-hidden="true"> ✳</span>
+          </button>
+          <span className="muted">
+            Not in the catalog? Pick any city and Grok will draft two historical
+            eras for it in seconds.
+          </span>
+        </div>
+      )}
     </section>
   );
 }

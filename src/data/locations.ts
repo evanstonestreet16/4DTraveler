@@ -10,15 +10,11 @@ export const locations: Location[] = [
     region: 'Pennsylvania, United States',
     description:
       'Follow the rivers into a city of mills, railroads, and industry.',
-<<<<<<< HEAD
     eras: [pittsburgh1892.era, pittsburgh1850.era],
-=======
-    eras: [pittsburgh1892.era],
     globe: {
       countryIsoA3: 'USA',
       coordinates: { lat: 40.4406, lng: -79.9959 },
     },
->>>>>>> b058d1a (glboe half done)
   },
 ];
 
