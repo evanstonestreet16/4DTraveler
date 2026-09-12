@@ -29,6 +29,19 @@ export interface ScenePrimitive {
   color: string;
 }
 
+/** A complete, self-contained GLB scene; primitives remain its usable fallback. */
+export interface SceneModel {
+  url: string;
+  position?: Vec3;
+  /** Euler XYZ angles, in radians. */
+  rotation?: Vec3;
+  scale?: Vec3;
+  /** Stable sceneObjectId -> unique imported node name (mesh or group). */
+  selectableNodes: Record<string, string>;
+  loadingLabel?: string;
+  fallbackLabel?: string;
+}
+
 export interface PointOfInterest {
   id: string;
   name: string;
@@ -57,6 +70,7 @@ export interface HistoricalWorld {
     narrationAudio?: string;
     narrationTranscript?: string;
     primitives: ScenePrimitive[];
+    model?: SceneModel;
   };
   pois: PointOfInterest[];
   objects: HistoricalObject[];
