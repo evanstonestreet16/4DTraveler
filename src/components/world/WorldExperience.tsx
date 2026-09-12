@@ -3,9 +3,12 @@ import type { HistoricalWorld } from '../../types/world';
 import { ObjectInfoPanel } from '../info/ObjectInfoPanel';
 import { WorldCanvas } from './WorldCanvas';
 import { NarrationControls } from '../audio/NarrationControls';
+import { useImmersiveView } from './useImmersiveView';
+import { WorldViewport } from './WorldViewport';
 
 export default function WorldExperience({ world }: { world: HistoricalWorld }) {
   const { state, dispatch } = useApp();
+  const view = useImmersiveView();
   const poi = world.pois.find((poi) => poi.id === state.activePOIId);
   const selectedObject = world.objects.find(
     (object) => object.id === state.selectedObjectId,
@@ -14,7 +17,13 @@ export default function WorldExperience({ world }: { world: HistoricalWorld }) {
     ? world.objects.filter((object) => poi.objectIds.includes(object.id))
     : [];
   return (
-    <section className="world-experience" aria-labelledby="world-heading">
+    <section
+      ref={view.containerRef}
+      className={`world-experience${view.immersive ? ' is-immersive' : ''}`}
+      role={view.immersive ? 'dialog' : undefined}
+      aria-modal={view.immersive ? true : undefined}
+      aria-labelledby="world-heading"
+    >
       <div className="world-heading">
         <div>
           <button
@@ -27,10 +36,20 @@ export default function WorldExperience({ world }: { world: HistoricalWorld }) {
             {world.locationName} <span>/ {world.era.label}</span>
           </h1>
         </div>
-        <p className="muted">
-          {world.era.subtitle}
-          <br />A moment to explore
-        </p>
+        <div className="world-heading-actions">
+          <p className="muted">
+            {world.era.subtitle}
+            <br />A moment to explore
+          </p>
+          <button
+            ref={view.toggleRef}
+            className="small-button immersive-toggle"
+            aria-pressed={view.immersive}
+            onClick={view.toggle}
+          >
+            {view.immersive ? 'Exit immersive view' : 'Enter immersive view'}
+          </button>
+        </div>
       </div>
       <div className="world-layout">
         <div className="scene-column">
@@ -46,7 +65,12 @@ export default function WorldExperience({ world }: { world: HistoricalWorld }) {
               Return to overview
             </button>
           </div>
-          <WorldCanvas world={world} />
+          <WorldViewport
+            layout={view.immersive ? 'immersive' : 'standard'}
+            informationOpen={!!selectedObject}
+          >
+            <WorldCanvas world={world} />
+          </WorldViewport>
           <div className="scene-caption">
             <span>
               <span className="gold-dot" />
@@ -109,6 +133,9 @@ export default function WorldExperience({ world }: { world: HistoricalWorld }) {
         src={world.scene.narrationAudio}
         transcript={world.scene.narrationTranscript}
       />
+      <p className="sr-only" role="status" aria-live="polite">
+        {view.announcement}
+      </p>
     </section>
   );
 }

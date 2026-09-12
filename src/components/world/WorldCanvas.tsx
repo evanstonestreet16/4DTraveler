@@ -3,6 +3,7 @@ import { Canvas, useThree } from '@react-three/fiber';
 import type { HistoricalWorld } from '../../types/world';
 import { WorldScene } from './WorldScene';
 import { SceneErrorBoundary } from './SceneErrorBoundary';
+import { ViewportDpr } from './ViewportDpr';
 import { useSceneActivity } from './useSceneActivity';
 import type { ModelAssetState } from './modelAsset';
 
@@ -69,6 +70,7 @@ export function WorldCanvas({ world }: { world: HistoricalWorld }) {
             }
           >
             <ContextGuard onLost={() => setLost(true)} />
+            <ViewportDpr maximum={1.75} />
             <WorldScene
               world={world}
               onAssetState={setAssetState}
