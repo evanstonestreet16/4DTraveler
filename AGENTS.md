@@ -93,7 +93,7 @@ Shared integration contracts are:
 
 Before changing a shared contract, open a small contract PR or agree on the exact change with every affected workstream. The contract PR must update types, example world data, all current consumers, validation tests, and relevant docs together. Do not merge parallel PRs that each invent a different version of the same contract.
 
-The current `src/data/worlds/pittsburgh-1892.ts` contains both scene layout and historical content. If Workstreams 1 and 4 need to edit it concurrently, first split it into scene and content modules with one composition module; preserve the exported `HistoricalWorld` and all stable IDs. Workstream 1 then owns scene fields, while Workstream 4 owns prose, sources, and narration fields.
+Keep world data split into scene and content modules with one composition module, as in `src/data/worlds/pittsburgh-1892.{scene,content}.ts` and `pittsburgh-1892.ts`. Preserve the exported `HistoricalWorld` and all stable IDs. Workstream 1 owns scene fields and shared geography; Workstream 4 owns prose, sources, and narration fields.
 
 Prefer this integration order when work is dependent:
 

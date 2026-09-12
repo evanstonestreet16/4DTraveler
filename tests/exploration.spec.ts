@@ -2,6 +2,7 @@ import { expect, test, type Page } from '@playwright/test';
 import { PerspectiveCamera, Vector3 } from 'three';
 import { pittsburgh1892 as world } from '../src/data/worlds/pittsburgh-1892';
 import { fitCameraPosition } from '../src/utils/camera';
+import type { PointOfInterest } from '../src/types/world';
 
 async function enterWorld(page: Page) {
   await page.goto('/');
@@ -19,9 +20,42 @@ async function enterWorld(page: Page) {
     ).toBeVisible();
 }
 
-async function settleCamera(page: Page) {
-  // Wait for the documented 950ms transition, including software-rendering overhead.
-  await page.waitForTimeout(1600);
+async function settleCamera(page: Page, poi?: PointOfInterest) {
+  // A fixed sleep can finish before a delta-capped transition on software WebGL.
+  // Observe the authored target through the marker's actual DOM projection.
+  const anchor = poi ?? world.pois[0];
+  const view = poi?.camera ?? world.scene.overviewCamera;
+  await expect
+    .poll(async () => {
+      const canvas = await page.locator('canvas').boundingBox();
+      const marker = await page
+        .locator('.poi-marker')
+        .filter({ hasText: anchor.name })
+        .evaluate((element) => {
+          const { x, y, width, height } = element.getBoundingClientRect();
+          return { x, y, width, height };
+        });
+      if (!canvas) return Infinity;
+      const camera = new PerspectiveCamera(
+        48,
+        canvas.width / canvas.height,
+        0.1,
+        400,
+      );
+      camera.position.set(...fitCameraPosition(view, camera.aspect));
+      camera.lookAt(...view.target);
+      camera.updateMatrixWorld();
+      const point = new Vector3(...anchor.markerPosition).project(camera);
+      return Math.hypot(
+        canvas.x +
+          ((point.x + 1) * canvas.width) / 2 -
+          (marker.x + marker.width / 2),
+        canvas.y +
+          ((1 - point.y) * canvas.height) / 2 -
+          (marker.y + marker.height / 2),
+      );
+    })
+    .toBeLessThan(1);
 }
 
 test('complete demo: scene markers, real mesh clicks, metadata, audio, and reset', async ({
@@ -44,7 +78,7 @@ test('complete demo: scene markers, real mesh clicks, metadata, audio, and reset
   await expect(
     page.getByText('Exploring Steel Mill', { exact: true }),
   ).toBeVisible();
-  await settleCamera(page);
+  await settleCamera(page, world.pois[0]);
   const after = await marker.boundingBox();
   expect(
     Math.abs(after!.x - before!.x) + Math.abs(after!.y - before!.y),
@@ -138,7 +172,7 @@ test('complete demo: scene markers, real mesh clicks, metadata, audio, and reset
     const object = world.objects.find(
       (object) => object.id === poi.objectIds[0],
     )!;
-    await settleCamera(page);
+    await settleCamera(page, poi);
     const poiCamera = new PerspectiveCamera(
       48,
       bounds.width / bounds.height,

@@ -35,7 +35,7 @@ export function LocationSelector() {
         ))}
       </div>
       <p className="muted">
-        One city. One moment in time. An early exploration of what comes next.
+        An early exploration of how places change through time.
       </p>
     </section>
   );

@@ -28,7 +28,7 @@ export function App() {
           </span>
         </button>
         <span className="version-label">
-          Historical world explorer <span className="badge">Dummy v0</span>
+          Historical world explorer <span className="badge">World preview</span>
         </span>
       </header>
       <main>
