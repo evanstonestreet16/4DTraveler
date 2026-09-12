@@ -18,6 +18,17 @@ export default defineConfig(({ mode }) => {
       tripoProxyPlugin({
         apiKey: env.TRIPO_API_KEY,
         model: env.TRIPO_MODEL,
+        geometryQuality:
+          env.TRIPO_GEOMETRY_QUALITY === 'standard' ||
+          env.TRIPO_GEOMETRY_QUALITY === 'detailed'
+            ? env.TRIPO_GEOMETRY_QUALITY
+            : undefined,
+        textureQuality:
+          env.TRIPO_TEXTURE_QUALITY === 'standard' ||
+          env.TRIPO_TEXTURE_QUALITY === 'detailed' ||
+          env.TRIPO_TEXTURE_QUALITY === 'extreme'
+            ? env.TRIPO_TEXTURE_QUALITY
+            : undefined,
       }),
     ],
     build: {

@@ -17,15 +17,28 @@ import type { Plugin } from 'vite';
 export interface TripoProxyOptions {
   apiKey: string | undefined;
   /**
-   * Defaults to `P1-20260311` — Tripo's low-poly Smart Mesh model.
-   * Measured latency:
-   *   P1-20260311  ~57 s per prompt (Space Needle, same wording)
-   *   v3.1-20260211 ~119 s per prompt (same wording)
-   * The docs claim 2–10 s for P1 but that appears to be marketing.
-   * P1 accepts text prompts via /v3/generation/text-to-model despite
-   * the docs listing it under image-to-model workflows.
+   * Which Tripo text-to-model version to invoke. Defaults to
+   * `v3.1-20260211` (the H3.1 flagship model, PBR textures, up to
+   * 2 M faces, supports the `geometry_quality: 'detailed'` Ultra mode).
+   *
+   * Measured latency for the same one-sentence Space Needle prompt:
+   *   P1-20260311            ~57 s   (low-poly Smart Mesh, game-asset look)
+   *   v3.1-20260211 default  ~119 s  (PBR, medium detail)
+   *   v3.1 + detailed geo    ~180 s  (Ultra geo, high detail)  ← default
    */
   model?: string;
+  /**
+   * Geometry quality passed to v3.x models. Valid: 'standard' |
+   * 'detailed'. `detailed` enables Ultra mode (higher face count,
+   * +20 credits). Ignored for P-series models per Tripo docs.
+   */
+  geometryQuality?: 'standard' | 'detailed';
+  /**
+   * Texture quality passed to v3.x models. Valid: 'standard' |
+   * 'detailed' | 'extreme'. `detailed` = HD textures (+10 credits).
+   * `extreme` = 8K textures (more credits). Ignored for P-series.
+   */
+  textureQuality?: 'standard' | 'detailed' | 'extreme';
   /** Base URL for Tripo's REST API. */
   endpoint?: string;
 }
@@ -60,8 +73,11 @@ function respondJson(res: ServerResponse, status: number, body: unknown) {
 }
 
 export function tripoProxyPlugin(options: TripoProxyOptions): Plugin {
-  const model = options.model ?? 'P1-20260311';
+  const model = options.model ?? 'v3.1-20260211';
+  const geometryQuality = options.geometryQuality ?? 'detailed';
+  const textureQuality = options.textureQuality ?? 'standard';
   const endpoint = options.endpoint ?? 'https://openapi.tripo3d.ai';
+  const isPSeriesModel = /^P\d/i.test(model);
   return {
     name: '4dtraveler:tripo-proxy',
     configureServer(server) {
@@ -88,6 +104,21 @@ export function tripoProxyPlugin(options: TripoProxyOptions): Plugin {
           return respondJson(res, 400, { error: 'prompt is required' });
         }
         try {
+          // v3.x-only quality knobs. P-series ignores these per docs.
+          // face_limit caps polycount to something the browser can chew
+          // through (default was up to 2M triangles in Ultra mode). 80k
+          // is Tripo's "game-ready assets" recommendation and drops the
+          // download from ~56 MB to a handful of MB in practice.
+          const qualityFields = isPSeriesModel
+            ? {}
+            : {
+                geometry_quality: geometryQuality,
+                texture_quality: textureQuality,
+                pbr: true,
+                texture: true,
+                face_limit: 80_000,
+                compress: 'geometry' as const,
+              };
           const upstream = await fetch(
             `${endpoint}/v3/generation/text-to-model`,
             {
@@ -96,7 +127,7 @@ export function tripoProxyPlugin(options: TripoProxyOptions): Plugin {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${options.apiKey}`,
               },
-              body: JSON.stringify({ model, prompt }),
+              body: JSON.stringify({ model, prompt, ...qualityFields }),
             },
           );
           const json = (await upstream.json().catch(() => null)) as {

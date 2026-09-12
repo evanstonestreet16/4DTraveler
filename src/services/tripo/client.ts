@@ -107,7 +107,10 @@ export function _resetTripoCacheForTests(): void {
 export async function generateTripoMesh(
   options: TripoGenerateOptions,
 ): Promise<TripoGenerateResult> {
-  const timeoutMs = options.timeoutMs ?? 180_000;
+  // v3.1 with `geometry_quality: 'detailed'` can run 150–240 s per
+  // prompt. 5 minutes gives comfortable headroom without letting a
+  // truly hung task freeze the loading UI forever.
+  const timeoutMs = options.timeoutMs ?? 300_000;
   const pollIntervalMs = options.pollIntervalMs ?? 2_000;
 
   // Cache lookup. Serve a still-in-flight request or a fresh-enough
