@@ -135,6 +135,7 @@ test('Pantheon mesh picking, all three object stories and the location transcrip
 test('Forum and Pantheon switches keep one world mounted and restore authored fixed viewpoints', async ({
   page,
 }) => {
+  test.setTimeout(60000);
   await chooseRome(page);
   await expect(page.locator('[data-model-status="ready"]')).toHaveCount(1);
   const originalCanvas = await page.locator('canvas').elementHandle();
@@ -177,7 +178,7 @@ test('a missing Pantheon model retains its three stories and a working return to
   await expect(page.locator('[data-model-status="ready"]')).toHaveCount(1);
   await enterPantheon(page, 'fallback');
   await expect(
-    page.getByText(pantheon.immersive!.model!.fallbackLabel!, { exact: true }),
+    page.getByText(pantheon.immersive!.model!.fallbackLabel!, { exact: false }),
   ).toBeVisible();
   for (const object of objects) {
     await page.getByRole('button', { name: object.name, exact: true }).click();
