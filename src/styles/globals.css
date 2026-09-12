@@ -1283,9 +1283,18 @@ h1 {
   min-height: calc(100vh - 162px);
 }
 .globe-stage.globe-landing {
-  display: flex;
-  align-items: flex-end;
+  display: block;
+  /* Fills everything under the header: the landing page is globe and wordmark only. */
+  min-height: calc(100vh - 89px);
   margin-top: 0;
+  background: #111a24;
+}
+.globe-landing .globe-viewport {
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 .globe-landing > .globe-cta {
   position: relative;
@@ -1436,4 +1445,40 @@ h1 {
   .globe-viewport {
     min-height: 380px;
   }
+}
+
+/* Globe city pins: a small dot inside a finger-sized transparent hit area. */
+.globe-pin {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  background: none;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  /* CSS2DRenderer's container disables pointer events; re-enable per pin. */
+  pointer-events: auto;
+  transition: opacity 0.2s ease;
+}
+.globe-pin::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f2c14e;
+  box-shadow: 0 0 0 1px #0d141b66;
+  transition:
+    width 0.12s ease,
+    height 0.12s ease;
+}
+.globe-pin:hover::before,
+.globe-pin:focus-visible::before {
+  width: 12px;
+  height: 12px;
+}
+.globe-pin:focus-visible {
+  outline: 2px solid #fff3d6;
+  outline-offset: 2px;
+  border-radius: 50%;
 }

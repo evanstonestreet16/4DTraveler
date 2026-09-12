@@ -22,6 +22,8 @@ export function App() {
   const showGlobe = state.mode === 'globe' && !state.activeWorld;
   const isGeneratedWorld =
     state.selectedLocationId?.startsWith('generated:') ?? false;
+  // The landing globe is presented bare: just the globe and the wordmark.
+  const isLandingGlobe = !showGlobe && !state.selectedLocationId;
   return (
     <div className="app-shell">
       <header className="site-header">
@@ -35,9 +37,12 @@ export function App() {
             ✳
           </span>
         </button>
-        <span className="version-label">
-          Historical world explorer <span className="badge">World preview</span>
-        </span>
+        {!isLandingGlobe && (
+          <span className="version-label">
+            Historical world explorer{' '}
+            <span className="badge">World preview</span>
+          </span>
+        )}
       </header>
       <main>
         {showGlobe ? (
@@ -116,10 +121,12 @@ export function App() {
           </SceneErrorBoundary>
         )}
       </main>
-      <footer className="site-footer">
-        <span>Explore where the world was.</span>
-        <span>Illustrative historical demo · No account needed</span>
-      </footer>
+      {!isLandingGlobe && (
+        <footer className="site-footer">
+          <span>Explore where the world was.</span>
+          <span>Illustrative historical demo · No account needed</span>
+        </footer>
+      )}
     </div>
   );
 }
