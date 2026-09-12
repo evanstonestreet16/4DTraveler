@@ -30,6 +30,8 @@ Rome's POI atmosphere/detail pass is complete: generated sky and generic stone t
 
 Rome's bird's-eye overview now supports a 125 CE / Present timeline and a 2.2-second bidirectional reveal. Present has original AI-generated desktop/portrait illustrations aligned approximately to the historical compositions, with an explicit reference-grounded-reconstruction label and no present-day POIs. Destination decoding precedes travel; Skip, reduced motion, failure/retry, responsive crop changes, and resource cleanup preserve access to the endpoint images. The full historical POI/object path remains available after returning to 125 CE. See the [transition delivery and plan](docs/ROME_125_TO_PRESENT_TRANSITION_PLAN.md).
 
+Kyoto / circa 1700 provides desktop and portrait overviews plus three original Blender-rendered 360° panoramas for Nijō Castle, Kiyomizu-dera and Nishiki Fish Market. Nine sourced objects, four reviewed transcripts, responsive hotspots, fixed viewpoints and image/WebGL recovery complete the same overview → POI → object → return flow used by Rome. See [Kyoto delivery](docs/visual/KYOTO_1700_ASSETS.md).
+
 ## Planned Scope
 
 The Rome Present accuracy correction landed on 2026-09-12. The replacement desktop and portrait compositions now distinguish the modern city with the Vittoriano/Piazza Venezia, the Via dei Fori Imperiali axis, excavated fora, ruined Colosseum, green Circus Maximus and post-antique urban blocks. Official Rome references and review criteria are recorded with the source assets. The endpoint remains a reference-grounded visual reconstruction, not surveyed imagery; fine-grained geometry and building placement remain approximate.
@@ -38,7 +40,7 @@ Optional AI-generated transition video remains deferred. Present-day POIs, addit
 
 The owner clarified the Rome visual target on 2026-09-12: photographic realism comparable to the supplied warm, atmospheric Roman architectural reference. The current stylized assets do not meet that target. The rendered viewer is a working foundation; the next visual milestone is one convincing Forum frame with detailed architecture, realistic materials and vegetation, photographic lighting and historically appropriate 125 CE condition, before extending that quality through the full panorama and other POIs.
 
-The active hackathon direction is a full-viewport experience for **Rome / 125 CE** and **Kyoto / circa 1700**. Rome now supplies the shared rendered overview/panorama viewer that Kyoto can consume when its assets are authored. Kyoto implementation and recorded Rome narration remain future work. Walking, physics and runtime Blender coupling remain excluded. See the [immersive historical city plan](docs/IMMERSIVE_CITY_PLAN.md).
+The active demo uses rendered overviews and fixed-position panoramas for **Rome / 125 CE** and **Kyoto / circa 1700**. Recorded narration remains deferred; reviewed written transcripts are available. Walking, physics and runtime Blender coupling remain excluded. See the [immersive historical city plan](docs/IMMERSIVE_CITY_PLAN.md).
 
 ## Out of Scope Unless Explicitly Requested
 
@@ -47,6 +49,8 @@ MongoDB, authentication, multiplayer, WASD, physics, NPCs, character interaction
 ## Recent Updates
 
 <!-- Newest first. Format: `- YYYY-MM-DD — summary (link to PR/issue if available)` -->
+
+- 2026-09-12 — Integrated Kyoto P0–P2 with Rome's latest rendered viewer and Present transition, preserving both cities' responsive overviews, panoramic POIs, object paths and recovery behavior.
 
 - 2026-09-12 — Replaced the provisional Rome Present endpoint with reference-grounded desktop/portrait compositions centered on the Vittoriano, Via dei Fori Imperiali and the excavated archaeological landscape; refreshed asset provenance, UI copy and accuracy checks.
 

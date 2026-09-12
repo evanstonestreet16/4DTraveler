@@ -4,6 +4,8 @@ Explore a place through time: choose a city and era, visit points of interest, i
 
 **Rome / 125 CE** presents an offline-rendered city overview and eye-level 360° panoramas of the Forum of Trajan, Pantheon forecourt and Flavian Amphitheatre valley. Drag or use arrow keys on the focused view to look around, inspect three sourced objects at each place through numbered hotspots or the object list, read the narration transcript, and return to the same overview. The valley includes optional, manually started construction and water ambience. See the [Rome asset delivery](docs/visual/ROME_125_ASSETS.md) for Blender sources, budgets and reconstruction limits.
 
+**Kyoto / circa 1700** presents desktop and portrait overviews plus original Blender-rendered panoramas of Nijō Castle, Kiyomizu-dera and Nishiki Fish Market. Each place includes three sourced objects, responsive hotspots, an accessible object list and a reviewed narration transcript. See the [Kyoto asset delivery](docs/visual/KYOTO_1700_ASSETS.md) for authoring details and reconstruction limits.
+
 These scenes are illustrative composites, not surveyed city reconstructions. Lighting, materials and architectural detail are rendered in Blender; the browser displays the images with interactive hotspots. Desktop and mobile receive separate image sizes, and portrait screens have a separately composed overview.
 
 ## Run locally
@@ -15,7 +17,7 @@ npm ci
 npm run dev
 ```
 
-Choose Rome → 125 CE. Visit the Forum, Pantheon, and Flavian Amphitheatre valley; inspect the three objects at each POI, read the transcripts, try the valley ambience, and return to the overview.
+Choose Rome → 125 CE to visit the Forum, Pantheon and Flavian Amphitheatre valley, or choose Kyoto → circa 1700 to visit Nijō Castle, Kiyomizu-dera and Nishiki Fish Market. Inspect an object, read its transcript and return to the overview.
 
 ```sh
 npm run typecheck
@@ -24,9 +26,9 @@ npm run build                     # Runtime integration or release
 npm run test:e2e -- <smoke-spec>  # Runtime integration or release
 ```
 
-No API keys, database, Blender installation, remote visual assets or external audio services are required. Failed panorama loading or graphics rendering shows a compressed still, a retry control and the accessible object list. Rome narration remains available as reviewed text; recorded speech is not included.
+No API keys, database, Blender installation, remote visual assets or external audio services are required. Failed panorama loading or graphics rendering shows a compressed still, a retry control and the accessible object list. Rome and Kyoto narration remains available as reviewed text; recorded speech is not included.
 
-Use Blender offline for visual authoring. Rome's repeatable render pipeline exports the overview, equirectangular panoramas, fallback stills and camera-projected hotspot coordinates. Existing GLBs remain available for authoring and the shared viewer still supports worlds that use them.
+Use Blender offline for visual authoring. The Rome and Kyoto pipelines export overviews, equirectangular panoramas, fallback stills and camera-projected hotspot coordinates. Existing GLBs remain available for authoring and the shared viewer still supports worlds that use them.
 
 ## Structure and integration
 

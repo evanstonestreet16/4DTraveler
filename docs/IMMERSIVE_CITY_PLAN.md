@@ -1,7 +1,9 @@
 # Immersive Historical City Plan
 
-**Status:** Shared runtime and Rome P0–P2 implemented; Kyoto remains planned\
-**Initial cities:** Rome, 125 CE (Imperial Rome); Kyoto, circa 1700 (Edo period)  
+**Status:** Shared runtime plus Rome and Kyoto P0–P2 implemented
+
+**Initial cities:** Rome, 125 CE (Imperial Rome); Kyoto, circa 1700 (Edo period)
+
 **Architecture:** City-agnostic viewer with offline Blender-rendered stills/360° panoramas; real-time GLBs only where needed
 
 ## 1. Goal
@@ -379,6 +381,7 @@ The Blender scene may reference existing IDs but must not invent or rename conte
 - Establish cameras, scale, materials, lighting, atmosphere, and image budgets.
 - Record stable hotspot positions for inspectable objects.
 - Completed addition (2026-09-12): a dedicated agent upgraded Rome's bird's-eye views against Kyoto's delivered density and finish benchmark, in parallel with the POI work. Detailed desktop/portrait images, editable layout and reviewed image markers are integrated; image budgets, build and desktop/mobile smoke tests passed. Overview-only ownership and the integration handoff are defined in [Rome's delivery plan](./ROME_125_CITY_PLAN.md#next-milestone--dedicated-rome-birds-eye-detail-agent).
+- Completed addition (2026-09-12): Kyoto ships responsive overview compositions and three original Blender-rendered panoramas for Nijō Castle, Kiyomizu-dera and Nishiki Fish Market, with reviewed markers, stable hotspots and bounded image loading. See [Kyoto's delivery record](./visual/KYOTO_1700_ASSETS.md).
 
 ### Core experience and navigation
 

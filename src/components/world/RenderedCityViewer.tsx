@@ -2,6 +2,7 @@ import {
   Component,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -16,7 +17,11 @@ import {
   Texture,
 } from 'three';
 import { useApp } from '../../app/AppContext';
-import type { HistoricalWorld, RenderedImageAsset } from '../../types/world';
+import type {
+  HistoricalWorld,
+  PointOfInterest,
+  RenderedImageAsset,
+} from '../../types/world';
 import { resolvePresentation } from '../../utils/presentation';
 import type { QualityPreference } from '../../utils/quality';
 import { CameraController } from './CameraController';
@@ -34,6 +39,89 @@ import './RenderedCityViewer.css';
 
 type Viewport = { width: number; height: number };
 type Presentation = ReturnType<typeof resolvePresentation>;
+
+function OverviewMarker({
+  poi,
+  index,
+  anchor,
+  viewport,
+  onSelect,
+}: {
+  poi: PointOfInterest;
+  index: number;
+  anchor: { left: number; top: number };
+  viewport: Viewport;
+  onSelect: () => void;
+}) {
+  const button = useRef<HTMLButtonElement>(null);
+  const [size, setSize] = useState<Viewport | null>(null);
+  useLayoutEffect(() => {
+    const element = button.current;
+    if (!element) return;
+    const measure = () => {
+      const { width, height } = element.getBoundingClientRect();
+      setSize((previous) =>
+        previous?.width === width && previous.height === height
+          ? previous
+          : { width, height },
+      );
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+  const width = size?.width ?? 0;
+  const height = size?.height ?? 0;
+  const clamp = (value: number, maximum: number) =>
+    Math.max(8, Math.min(value, maximum - 8));
+  const left = clamp(anchor.left - width / 2, viewport.width - width);
+  const above = anchor.top - height - 12;
+  const top = clamp(
+    above >= 8 ? above : anchor.top + 12,
+    viewport.height - height,
+  );
+  const onscreen =
+    anchor.left >= 0 &&
+    anchor.left <= viewport.width &&
+    anchor.top >= 0 &&
+    anchor.top <= viewport.height;
+  return (
+    <>
+      {size && onscreen && (
+        <svg className="rendered-poi-stem" aria-hidden="true">
+          <line
+            x1={Math.max(left + 7, Math.min(anchor.left, left + width - 7))}
+            y1={anchor.top < top ? top : top + height}
+            x2={anchor.left}
+            y2={anchor.top}
+          />
+          <circle
+            data-overview-anchor={poi.id}
+            cx={anchor.left}
+            cy={anchor.top}
+            r="3"
+          />
+        </svg>
+      )}
+      <button
+        ref={button}
+        className="rendered-poi-marker"
+        data-overview-poi={poi.id}
+        aria-label={`Visit ${poi.name}`}
+        style={{ left, top, visibility: size ? undefined : 'hidden' }}
+        disabled={poi.preview || !poi.immersive}
+        onClick={onSelect}
+      >
+        <span className="rendered-poi-number">0{index + 1}</span>
+        <span>
+          {poi.name}
+          {poi.preview || !poi.immersive ? ' · Preview' : ''}
+        </span>
+      </button>
+    </>
+  );
+}
 
 function StillImage({
   asset,
@@ -113,21 +201,14 @@ function OverviewMarkers({
               ? (marker.mobile ?? marker.desktop)
               : marker.desktop;
           return (
-            <button
+            <OverviewMarker
               key={poi.id}
-              className="rendered-poi-marker"
-              data-overview-poi={poi.id}
-              aria-label={`Visit ${poi.name}`}
-              style={overviewMarkerPosition(point, asset, size)}
-              disabled={poi.preview || !poi.immersive}
-              onClick={() => dispatch({ type: 'poi', id: poi.id })}
-            >
-              <span className="rendered-poi-number">0{index + 1}</span>
-              <span>
-                {poi.name}
-                {poi.preview || !poi.immersive ? ' · Preview' : ''}
-              </span>
-            </button>
+              poi={poi}
+              index={index}
+              anchor={overviewMarkerPosition(point, asset, size)}
+              viewport={size}
+              onSelect={() => dispatch({ type: 'poi', id: poi.id })}
+            />
           );
         })}
     </>

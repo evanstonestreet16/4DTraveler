@@ -1,6 +1,6 @@
 # Kyoto / circa 1700 — immersive city generation plan
 
-**Status:** Panorama-based city implementation plan
+**Status:** P0, P1 and P2 implemented
 
 **Consumes:** [`IMMERSIVE_CITY_PLAN.md`](./IMMERSIVE_CITY_PLAN.md)
 
@@ -8,10 +8,13 @@
 
 **Historical frame:** Kyoto around 1700, within the Genroku era (1688–1704)
 
-**Delivery priority:** Overview plus one polished Nijō Castle POV; Kiyomizu-dera and Nishiki Market are ordered stretch work
+**Delivery:** Overview, Nijō Castle, Kiyomizu-dera and Nishiki Market are available; recorded audio remains deferred
+
 **Visual delivery:** High-quality rendered overview plus equirectangular 360° POI panoramas with hotspots
 
 **Primary milestone:** ship the rendered Kyoto overview and Nijō panorama first. Preserve the stable city, POI, and object IDs below; add Kiyomizu-dera and Nishiki only after that path works.
+
+Implementation notes: [asset delivery](visual/KYOTO_1700_ASSETS.md) and [content review](visual/KYOTO_1700_CONTENT_REVIEW.md). The original milestone order was followed: Nijō four-direction browser review, then Kiyomizu hotspot integration, then Nishiki. Runtime panorama assets are 4K/2K variants. Overview illustrations use built-in ImageGen from the authored Blender layout, with reviewed image-space markers; the POI panoramas are original Cycles renders. The overview camera was refined to `[-2800, 2200, 3800]`. The production record above supersedes proposed blockout values and draft wording below; the historical exclusions and stable IDs remain binding.
 
 ## 1. Experience thesis
 
