@@ -1,0 +1,182 @@
+{
+  "generator": "Blender Cycles panoramas; built-in ImageGen overview illustrations from Blender layouts; package_kyoto_renders.py",
+  "projection": "equirectangular; center north (-Z); positive yaw west; positive pitch up; radians",
+  "provenance": "Panoramas use original Blender geometry, shaders and static figures. Overview illustrations use built-in ImageGen with original Blender layout references. No third-party visual media copied. All fine architecture/staging is inferred or illustrative; see docs/visual/KYOTO_1700_CONTENT_REVIEW.md and KYOTO_1700_ASSETS.md.",
+  "overview": {
+    "desktop": {
+      "url": "/images/kyoto-1700/overview.webp?v=44f0f733cf4b",
+      "width": 1586,
+      "height": 992,
+      "bytes": 689244,
+      "sha256": "44f0f733cf4b499e59b865e0d6a718476214c4caa71048e6f6ed779cc5b39fc0"
+    },
+    "mobile": {
+      "url": "/images/kyoto-1700/overview-mobile.webp?v=17572205982e",
+      "width": 853,
+      "height": 1844,
+      "bytes": 540332,
+      "sha256": "17572205982effa75aa1e8bd72ad939fa848926f8215429cb3b2d001aaef823e"
+    },
+    "fallback": {
+      "url": "/images/kyoto-1700/overview-fallback.webp?v=f38c18d2e727",
+      "width": 1279,
+      "height": 800,
+      "bytes": 326700,
+      "sha256": "f38c18d2e727d6a8c52d414d3f01e145c3000fb1b92bf1c67eb43d23ad916e12"
+    },
+    "markers": {
+      "nijo-ninomaru": {
+        "desktop": [0.23, 0.62],
+        "mobile": [0.3, 0.57]
+      },
+      "kiyomizu-hillside": {
+        "desktop": [0.93, 0.235],
+        "mobile": [0.9, 0.37]
+      },
+      "nishiki-fish-market": {
+        "desktop": [0.555, 0.565],
+        "mobile": [0.61, 0.64]
+      }
+    }
+  },
+  "panoramas": {
+    "nijo-ninomaru": {
+      "desktop": {
+        "url": "/images/kyoto-1700/nijo-ninomaru-360.webp?v=98459366ef92",
+        "width": 4096,
+        "height": 2048,
+        "bytes": 509774,
+        "sha256": "98459366ef92bb6a57007969c068f2f5b7c172df69d68516e2711220aa9ff108"
+      },
+      "mobile": {
+        "url": "/images/kyoto-1700/nijo-ninomaru-360-mobile.webp?v=c66ef217d531",
+        "width": 2048,
+        "height": 1024,
+        "bytes": 120066,
+        "sha256": "c66ef217d5312134b0fb4200a2c3643a576d649acfeffc0f66f5a5f163e3aeb3"
+      },
+      "fallback": {
+        "url": "/images/kyoto-1700/nijo-ninomaru-fallback.webp?v=16c62f7acc3d",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 56512,
+        "sha256": "16c62f7acc3dfaeeb6c4ea367923756830f7b1fd7d0b26bd2be0cc186361513c"
+      },
+      "hotspots": [
+        {
+          "objectId": "nijo-karamon",
+          "yaw": 3.1415927,
+          "pitch": 0.1488899
+        },
+        {
+          "objectId": "nijo-ninomaru-palace",
+          "yaw": 0.4939414,
+          "pitch": 0.1792297
+        },
+        {
+          "objectId": "nijo-kurumayose",
+          "yaw": -0.2449787,
+          "pitch": 0.1887238
+        }
+      ],
+      "anchors": {
+        "nijo-karamon": [0, 4.2, 17],
+        "nijo-ninomaru-palace": [-14, 7, -26],
+        "nijo-kurumayose": [4, 4.8, -16]
+      },
+      "seamMeanRGBDifference": 1.573
+    },
+    "kiyomizu-hillside": {
+      "desktop": {
+        "url": "/images/kyoto-1700/kiyomizu-hillside-360.webp?v=690fae24c65a",
+        "width": 4096,
+        "height": 2048,
+        "bytes": 768422,
+        "sha256": "690fae24c65adfc1a5836de7e347a2b32601e67a544cc886faa8b96b7bb3a30c"
+      },
+      "mobile": {
+        "url": "/images/kyoto-1700/kiyomizu-hillside-360-mobile.webp?v=8cf59229650a",
+        "width": 2048,
+        "height": 1024,
+        "bytes": 201748,
+        "sha256": "8cf59229650a578fd96cce2487a16838ebeb0abc43124eb54c223c3930c1d3cc"
+      },
+      "fallback": {
+        "url": "/images/kyoto-1700/kiyomizu-hillside-fallback.webp?v=4232952113ca",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 80328,
+        "sha256": "4232952113caf0e2b4d4d822c9e0a2d539e9c587f56fe6ab243b87d3db465ee9"
+      },
+      "hotspots": [
+        {
+          "objectId": "kiyomizu-main-hall",
+          "yaw": 0.513606,
+          "pitch": 0.4265667
+        },
+        {
+          "objectId": "kiyomizu-stage",
+          "yaw": 0.8850668,
+          "pitch": 0.2197836
+        },
+        {
+          "objectId": "otowa-waterfall",
+          "yaw": -0.9770467,
+          "pitch": -0.0062163
+        }
+      ],
+      "anchors": {
+        "kiyomizu-main-hall": [-4, 22, -15],
+        "kiyomizu-stage": [-4, 8, 6],
+        "otowa-waterfall": [38, 1.5, 10.5]
+      },
+      "seamMeanRGBDifference": 2.029
+    },
+    "nishiki-fish-market": {
+      "desktop": {
+        "url": "/images/kyoto-1700/nishiki-fish-market-360.webp?v=38435deb9427",
+        "width": 4096,
+        "height": 2048,
+        "bytes": 274514,
+        "sha256": "38435deb94275006fc5722cd5494bd367f9480238b6adf83e1e56f80069890a2"
+      },
+      "mobile": {
+        "url": "/images/kyoto-1700/nishiki-fish-market-360-mobile.webp?v=7edad54a9ff5",
+        "width": 2048,
+        "height": 1024,
+        "bytes": 82820,
+        "sha256": "7edad54a9ff5f1bfbe341d98cb20e1e92704485f7daaefdd8a9b84b05b1939fa"
+      },
+      "fallback": {
+        "url": "/images/kyoto-1700/nishiki-fish-market-fallback.webp?v=602613a1e9fc",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 35218,
+        "sha256": "602613a1e9fc56dad2fb32536be1bb3aa276bc305708bd0d393299cec04812bb"
+      },
+      "hotspots": [
+        {
+          "objectId": "nishiki-fish-stall",
+          "yaw": 0.0,
+          "pitch": -0.2071545
+        },
+        {
+          "objectId": "nishiki-groundwater",
+          "yaw": -1.3200871,
+          "pitch": -0.111764
+        },
+        {
+          "objectId": "nishiki-machiya-shopfront",
+          "yaw": 1.1902899,
+          "pitch": 0.2335794
+        }
+      ],
+      "anchors": {
+        "nishiki-fish-stall": [0, 1.03, -2.95],
+        "nishiki-groundwater": [8.2, 0.7, -2.1],
+        "nishiki-machiya-shopfront": [-8, 3.7, -3.2]
+      },
+      "seamMeanRGBDifference": 1.111
+    }
+  }
+}

@@ -1,0 +1,281 @@
+{
+  "capturedAt": "2026-09-12T04:44:15.976Z",
+  "poiId": "forum-trajan",
+  "views": [
+    {
+      "name": "overview-desktop",
+      "viewport": { "width": 1440, "height": 900 },
+      "canvas": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+      "renderer": {
+        "camera": {
+          "position": [-1450, 1250, 1650],
+          "quaternion": [
+            -0.2382071785635536, -0.37419178729724417, -0.10008104285760337,
+            0.890629907009988
+          ]
+        },
+        "memory": { "geometries": 12, "textures": 0 },
+        "render": {
+          "frame": 5,
+          "calls": 12,
+          "triangles": 60220,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": [
+        {
+          "label": "Forum of Trajan",
+          "visible": true,
+          "x": 592.6082763671875,
+          "y": 409.0875549316406,
+          "width": 122.59375,
+          "height": 44
+        },
+        {
+          "label": "The New Pantheon · Preview",
+          "visible": true,
+          "x": 278.29595947265625,
+          "y": 449.8808898925781,
+          "width": 192.28125,
+          "height": 44
+        },
+        {
+          "label": "Flavian Amphitheatre Valley · Preview",
+          "visible": true,
+          "x": 904.170654296875,
+          "y": 391.3414001464844,
+          "width": 241.53125,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "name": "overview-portrait",
+      "viewport": { "width": 390, "height": 844 },
+      "canvas": { "x": 0, "y": 0, "width": 390, "height": 844 },
+      "renderer": {
+        "camera": {
+          "position": [
+            -3196.1538461538457, 2658.5641025641025, 3361.230769230769
+          ],
+          "quaternion": [
+            -0.23820717856355356, -0.37419178729724417, -0.10008104285760336,
+            0.890629907009988
+          ]
+        },
+        "memory": { "geometries": 12, "textures": 0 },
+        "render": {
+          "frame": 6,
+          "calls": 12,
+          "triangles": 60220,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": [
+        {
+          "label": "Forum of Trajan",
+          "visible": true,
+          "x": 124.87516784667969,
+          "y": 391.66619873046875,
+          "width": 82,
+          "height": 44
+        },
+        {
+          "label": "The New Pantheon · Preview",
+          "visible": true,
+          "x": 8.022571563720703,
+          "y": 406.0322570800781,
+          "width": 82,
+          "height": 50.421875
+        },
+        {
+          "label": "Flavian Amphitheatre Valley · Preview",
+          "visible": true,
+          "x": 289.1009521484375,
+          "y": 374.477294921875,
+          "width": 82,
+          "height": 62.5625
+        }
+      ]
+    },
+    {
+      "name": "overview-landscape",
+      "viewport": { "width": 844, "height": 390 },
+      "canvas": { "x": 0, "y": 0, "width": 844, "height": 390 },
+      "renderer": {
+        "camera": {
+          "position": [-1450, 1250, 1650],
+          "quaternion": [
+            -0.2382071785635536, -0.37419178729724417, -0.10008104285760337,
+            0.890629907009988
+          ]
+        },
+        "memory": { "geometries": 12, "textures": 0 },
+        "render": {
+          "frame": 7,
+          "calls": 12,
+          "triangles": 60220,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": [
+        {
+          "label": "Forum of Trajan",
+          "visible": true,
+          "x": 352.35888671875,
+          "y": 164.8046112060547,
+          "width": 82,
+          "height": 44
+        },
+        {
+          "label": "The New Pantheon · Preview",
+          "visible": true,
+          "x": 231.255859375,
+          "y": 179.27078247070312,
+          "width": 82,
+          "height": 50.421875
+        },
+        {
+          "label": "Flavian Amphitheatre Valley · Preview",
+          "visible": true,
+          "x": 513.1390380859375,
+          "y": 147.83335876464844,
+          "width": 82,
+          "height": 62.5625
+        }
+      ]
+    },
+    {
+      "name": "forum-trajan-north",
+      "viewport": { "width": 1440, "height": 900 },
+      "canvas": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+      "renderer": {
+        "camera": {
+          "position": [0, 1.65, 30],
+          "quaternion": [0.07333091250166222, 0, 0, 0.9973076643000762]
+        },
+        "memory": { "geometries": 27, "textures": 0 },
+        "render": {
+          "frame": 13,
+          "calls": 27,
+          "triangles": 68112,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": []
+    },
+    {
+      "name": "forum-trajan-east",
+      "viewport": { "width": 1440, "height": 900 },
+      "canvas": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+      "renderer": {
+        "camera": {
+          "position": [0, 1.65, 30],
+          "quaternion": [
+            0.052747035603677835, -0.692827665679336, 0.05094284015787483,
+            0.7173649022227083
+          ]
+        },
+        "memory": { "geometries": 30, "textures": 0 },
+        "render": {
+          "frame": 17,
+          "calls": 17,
+          "triangles": 65284,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": []
+    },
+    {
+      "name": "forum-trajan-south",
+      "viewport": { "width": 1440, "height": 900 },
+      "canvas": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+      "renderer": {
+        "camera": {
+          "position": [0, 1.65, 30],
+          "quaternion": [
+            0.0009682092714841175, 0.9972207317568426, -0.07332452044939028,
+            0.013167741872509985
+          ]
+        },
+        "memory": { "geometries": 30, "textures": 0 },
+        "render": {
+          "frame": 19,
+          "calls": 15,
+          "triangles": 42908,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": []
+    },
+    {
+      "name": "forum-trajan-west",
+      "viewport": { "width": 1440, "height": 900 },
+      "canvas": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+      "renderer": {
+        "camera": {
+          "position": [0, 1.65, 30],
+          "quaternion": [
+            0.051634833996305037, 0.7081547672282855, -0.052069824721238146,
+            0.7022388503376371
+          ]
+        },
+        "memory": { "geometries": 30, "textures": 0 },
+        "render": {
+          "frame": 23,
+          "calls": 17,
+          "triangles": 65284,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": []
+    },
+    {
+      "name": "forum-trajan-object-portrait",
+      "viewport": { "width": 390, "height": 844 },
+      "canvas": { "x": 0, "y": 0, "width": 390, "height": 844 },
+      "renderer": {
+        "camera": {
+          "position": [0, 1.65, 30],
+          "quaternion": [
+            0.051634833996305037, 0.7081547672282855, -0.052069824721238146,
+            0.7022388503376371
+          ]
+        },
+        "memory": { "geometries": 30, "textures": 0 },
+        "render": {
+          "frame": 25,
+          "calls": 15,
+          "triangles": 42908,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": []
+    }
+  ],
+  "errors": []
+}

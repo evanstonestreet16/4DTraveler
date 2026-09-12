@@ -7,3 +7,7 @@ dist/
 playwright-report/
 test-results/
 *.tsbuildinfo
+
+# Blender backup/cache files; canonical source .blend files are versioned.
+*.blend1
+__pycache__/

@@ -81,8 +81,12 @@ describe('Pittsburgh era composition', () => {
   });
 
   it('registers each era through the existing lookup and keeps 1892 first', () => {
-    expect(worlds).toEqual([pittsburgh1892, pittsburgh1850]);
-    expect(locations[0].eras).toEqual([pittsburgh1892.era, pittsburgh1850.era]);
+    expect(worlds.filter((world) => world.locationId === 'pittsburgh')).toEqual(
+      [pittsburgh1892, pittsburgh1850],
+    );
+    expect(
+      locations.find((location) => location.id === 'pittsburgh')?.eras,
+    ).toEqual([pittsburgh1892.era, pittsburgh1850.era]);
     expect(findWorld('pittsburgh', '1850')).toBe(pittsburgh1850);
     expect(findWorld('pittsburgh', '1892')).toBe(pittsburgh1892);
     expect(findWorld('pittsburgh', '1849')).toBeNull();

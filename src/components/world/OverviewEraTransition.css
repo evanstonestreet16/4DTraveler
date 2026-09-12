@@ -1,0 +1,47 @@
+.overview-frame-host {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.era-atmosphere {
+  position: absolute;
+  inset: -15%;
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    #fff9e9d9,
+    #ead2ad80 26%,
+    #e3d6bf30 48%,
+    transparent 70%
+  );
+  filter: blur(28px);
+  mix-blend-mode: screen;
+}
+.era-travel-status {
+  position: absolute;
+  left: 50%;
+  top: 24%;
+  transform: translateX(-50%);
+  z-index: 22;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  width: max-content;
+  max-width: calc(100% - 28px);
+  padding: 12px 18px;
+  border: 1px solid #fff7;
+  border-radius: 12px;
+  color: #263c34;
+  background: #faf7eeed;
+  box-shadow: 0 6px 28px #261c2840;
+  font-size: 13px;
+}
+@media (max-width: 700px) {
+  .era-travel-status {
+    top: 29%;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+}

@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
 
 export interface WorldPresentation {
-  layout: 'standard' | 'immersive';
+  layout: 'standard' | 'immersive' | 'city';
   informationOpen: boolean;
 }
 
-/** The renderer measures this unobstructed region; controls occupy separate grid tracks. */
+/** Legacy layouts reserve grid space; city presentations use a full viewport canvas. */
 export function WorldViewport({
   layout,
   informationOpen,

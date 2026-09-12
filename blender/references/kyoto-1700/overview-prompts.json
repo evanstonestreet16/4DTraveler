@@ -1,0 +1,29 @@
+{
+  "generator": "Built-in ImageGen tool (not CLI)",
+  "purpose": "Illustrative Kyoto circa 1700 overview backgrounds, derived from original Blender layout renders. Panorama images remain original Blender Cycles renders.",
+  "steps": [
+    {
+      "name": "Landscape overview",
+      "inputs": ["blender/source/kyoto-1700/renders/overview-desktop.png"],
+      "output": "blender/source/kyoto-1700/overview-illustration.png",
+      "prompt": "Use case: sketch-to-render, historical-scene. Edit target: the supplied original Blender aerial reconstruction of Kyoto circa 1700. Produce one finished 2560x1600 landscape background image for a historical city explorer. Preserve this exact aerial camera, overall framing, the rectangular Nijō Castle site in the lower-left quadrant, the imperial enclosure above it on the left, the diagonal Kamo River from upper-left to lower-right, and the Kiyomizu hillside to the right. Transform the coarse source into a richly detailed, believable photorealistic offline architectural visualization of early Edo Kyoto around 1700: dense irregular charcoal tiled and aged timber machiya rooftops within the real rectilinear street pattern; weathered plaster; gardens and trees within compounds; narrow earth streets; a natural shallow Kamo with gravel banks and simple timber bridges; layered densely forested realistic Higashiyama ridges replacing the smooth bare terrain. Nijō retains the five-story keep and original Honmaru roof massing, and its Ninomaru sequence. Imperial enclosure is conservatively inferred low roof massing, never the modern palace replica. Kiyomizu's recognizable timber stage and large cypress-bark main hall appear on the eastern hillside. Keep landmark locations and spatial scale intact, no oversized monuments. Early-autumn morning, still green foliage, soft oblique light, delicate distant atmospheric perspective, restrained natural color, highly detailed surfaces, immersive photographic realism rather than model/blockout appearance. No modern buildings, tourist infrastructure, colored market canopy, roads, poles, power lines, cars, bikes, rails, signs, writing, text, graphic markers, labels, borders, or watermarks. This is an illustrative historical reconstruction, not a claim to surveyed precision."
+    },
+    {
+      "name": "Portrait composition reference",
+      "inputs": [
+        "blender/source/kyoto-1700/renders/overview-mobile.png",
+        "blender/source/kyoto-1700/overview-illustration.png"
+      ],
+      "output": "blender/source/kyoto-1700/overview-mobile-reference.png",
+      "prompt": "Use case: sketch-to-render, historical-scene. Create one portrait 1170x1800 historical Kyoto circa 1700 city-overview background for a phone. Image 1 is the rough Blender layout / orientation reference; Image 2 is the approved landscape appearance, architecture, foliage, lighting, and realism reference. Match Image 2's beautiful richly detailed photorealistic early Edo Kyoto, and compose it for portrait with ALL THREE landmarks comfortably in frame: Nijō Castle moated enclosure with five-story keep at normalized x=.30 y=.57; Kiyomizu main hall and projecting timber stage on a forested hillside at x=.76 y=.39; Nishiki merchant grid district at x=.59 y=.68. Imperial enclosure appears north of Nijō. Preserve geographic relationships, a rectilinear low city west of the Kamo, river running diagonally through the middle toward lower right, mountains enclosing the northeast. Fill the frame with authentic-looking closely packed dark tile and aged wooden machiya roofs, gardens and earth streets, meandering shallow water with gravel banks and timber bridges, and realistic forested layered mountains. Top quarter atmospheric hills and pale blue sky; no empty blank half-image. Nijō includes its pre-1750 five-story keep and original Honmaru massing, not the relocated current palace. No modern buildings, cars, electricity, railways, concrete river banks, rickshaws, bikes, tourist barriers, or Nishiki roof arcade. Green early-autumn morning with subtle warm foliage variation; restrained warm light. No text, labels, markers, symbols, frame, watermark, fake tilt-shift miniatures, blocky terrain, or exposed rectangular city/terrain edges. Source-aware illustrative reconstruction with exact architecture considered inferred."
+    },
+    {
+      "name": "Narrow phone overview",
+      "inputs": ["blender/source/kyoto-1700/overview-mobile-reference.png"],
+      "output": "blender/source/kyoto-1700/overview-mobile-illustration.png",
+      "prompt": "Edit target is the supplied Kyoto circa 1700 aerial illustration. Make a NARROW, TALL PHONE WALLPAPER with exact aspect ratio 390:844 (approximately 1:2.16), ideally 1170x2532. Preserve the entire current image width and every existing landmark, city, river, architecture, and mountain detail unchanged. Extend the canvas vertically by outpainting extra natural pale blue morning sky above and more continuous early Edo machiya roof streets below. Do not crop off either side and do not zoom. Keep the complete Nijō moated castle and keep on the left and complete Kiyomizu hillside stage on the right fully inside the result. Keep both buildings recognizable and leave small horizontal margins. Match all textures, photorealism, lighting, vegetation and color. No text, labels, graphics, modern infrastructure, or new landmarks. The only requested change is more vertical canvas for the narrow phone viewport, preserving the complete scene width."
+    }
+  ],
+  "delivery": "public/images/kyoto-1700/manifest.json",
+  "review": "Overview illustrations are interpretive and not surveyed maps. Runtime marker coordinates were reviewed against the delivered images. Requested generation dimensions can differ from actual dimensions recorded in the manifest."
+}

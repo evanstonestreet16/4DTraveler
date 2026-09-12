@@ -3,6 +3,10 @@ export type Vec3 = [number, number, number];
 export interface CameraView {
   position: Vec3;
   target: Vec3;
+  /** Scene clipping distance in metres; legacy dioramas default to 400. */
+  far?: number;
+  /** Near clipping plane in metres; default 0.1 for ground-level views. */
+  near?: number;
 }
 
 export interface Era {
@@ -18,10 +22,14 @@ export interface Location {
   region: string;
   description: string;
   eras: Era[];
-  /** Real-world anchor used by the globe UI. Omit for locations not yet placeable on the globe. */
+  /**
+   * Real-world anchor used by the globe UI. `city` must match a pin baked into
+   * `src/data/geo/cities.json`; coordinates come from there, not from here.
+   * Omit for locations not yet placeable on the globe.
+   */
   globe?: {
     countryIsoA3: string;
-    coordinates: { lat: number; lng: number };
+    city: string;
   };
 }
 
@@ -67,12 +75,61 @@ export interface SceneModel {
   fallbackLabel?: string;
 }
 
+/** Offline-rendered pixels; dimensions describe the actual encoded image. */
+export interface RenderedImageAsset {
+  url: string;
+  width: number;
+  height: number;
+}
+
+export interface OverviewImage {
+  /** Visible editorial label, also used as the image's accessible description. */
+  description?: string;
+  desktop: RenderedImageAsset;
+  mobile?: RenderedImageAsset;
+  fallback: RenderedImageAsset;
+  /** Normalized coordinates in each authored image, before CSS cover cropping. */
+  markers: Record<
+    string,
+    { desktop: [number, number]; mobile?: [number, number] }
+  >;
+}
+
+export interface PanoramaHotspot {
+  objectId: string;
+  /** Radians: zero faces north (-Z); positive yaw turns west (-X). */
+  yaw: number;
+  /** Radians above the horizontal. */
+  pitch: number;
+}
+
+/** A 2:1 equirectangular image centered on north, with a composed still fallback. */
+export interface PanoramaAsset {
+  desktop: RenderedImageAsset;
+  mobile?: RenderedImageAsset;
+  fallback: RenderedImageAsset;
+  hotspots: PanoramaHotspot[];
+}
+
 export interface PointOfInterest {
   id: string;
   name: string;
   markerPosition: Vec3;
   camera: CameraView;
   objectIds: string[];
+  /** Visible overview marker whose immersive set is not available yet. */
+  preview?: boolean;
+  /** Separate local-coordinate set; camera is a fixed eye-level anchor. */
+  immersive?: ScenePresentation & {
+    /** Pitch limits in radians. Yaw is unrestricted. */
+    look: { minPitch: number; maxPitch: number };
+  };
+}
+
+export interface SourceReference {
+  id: string;
+  title: string;
+  url: string;
 }
 
 export interface HistoricalObject {
@@ -82,6 +139,9 @@ export interface HistoricalObject {
   sceneObjectId: string;
   description: string;
   whyItMatters: string;
+  sources?: SourceReference[];
+  /** Clearly distinguishes supported claims from reconstruction choices. */
+  confidence?: string;
   /** When true, the renderer will attempt a Tripo text-to-3D visual upgrade. */
   iconic?: boolean;
   /** Prompt fed to Tripo when `iconic` is true (visual style, brief). */
@@ -106,19 +166,29 @@ export interface WorldEnvironment {
   }[];
 }
 
+export interface ScenePresentation {
+  background: string;
+  overviewImage?: OverviewImage;
+  panorama?: PanoramaAsset;
+  narrationAudio?: string;
+  narrationTranscript?: string;
+  /** Optional ambient loop, played only after a visitor action. */
+  ambientAudio?: string;
+  primitives: ScenePrimitive[];
+  model?: SceneModel;
+  environment?: WorldEnvironment;
+}
+
 export interface HistoricalWorld {
   id: string;
   locationId: string;
   locationName: string;
   era: Era;
-  scene: {
+  scene: ScenePresentation & {
     overviewCamera: CameraView;
-    background: string;
-    narrationAudio?: string;
-    narrationTranscript?: string;
-    primitives: ScenePrimitive[];
-    model?: SceneModel;
-    environment?: WorldEnvironment;
+    presentation?: 'immersive-city';
+    /** Only registered overview compositions in the same group can transition. */
+    overviewTransition?: { group: string; durationMs: number };
   };
   pois: PointOfInterest[];
   objects: HistoricalObject[];

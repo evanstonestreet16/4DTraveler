@@ -75,12 +75,40 @@ export function App() {
             </button>
           </div>
         ) : (
-          <SceneErrorBoundary key={state.activeWorld.id}>
+          <SceneErrorBoundary
+            key={
+              state.activeWorld.scene.overviewTransition
+                ? `${state.activeWorld.locationId}:${state.activeWorld.scene.overviewTransition.group}`
+                : state.activeWorld.id
+            }
+          >
             <Suspense
               fallback={
-                <p className="notice" role="status">
-                  Loading your historical world…
-                </p>
+                <div
+                  className={
+                    state.activeWorld.scene.presentation === 'immersive-city'
+                      ? 'city-loading'
+                      : 'notice'
+                  }
+                  role="status"
+                >
+                  <h2>
+                    Entering {state.activeWorld.locationName} ·{' '}
+                    {state.activeWorld.era.label}
+                  </h2>
+                  <p>Preparing the historical world…</p>
+                  <button
+                    className="small-button"
+                    onClick={() =>
+                      dispatch({
+                        type: 'location',
+                        id: state.activeWorld!.locationId,
+                      })
+                    }
+                  >
+                    Choose era
+                  </button>
+                </div>
               }
             >
               <WorldExperience world={state.activeWorld} />

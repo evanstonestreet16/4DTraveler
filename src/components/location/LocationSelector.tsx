@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
+import { locations } from '../../data/locations';
 import { GlobeLogo } from './globe/GlobeLogo';
 import { useApp } from '../../app/AppContext';
 
@@ -52,7 +53,7 @@ export function LocationSelector() {
 
   return (
     <section
-      className={`globe-stage${morphed ? ' is-globe' : ''}`}
+      className={`globe-stage globe-landing${morphed ? ' is-globe' : ''}`}
       aria-labelledby="location-heading"
     >
       <h1 id="location-heading" className="visually-hidden">
@@ -68,6 +69,20 @@ export function LocationSelector() {
       </div>
       {morphed && (
         <div className="globe-cta">
+          <nav
+            className="curated-city-links"
+            aria-label="Curated historical cities"
+          >
+            {locations.map((location) => (
+              <button
+                className="pill-button"
+                key={location.id}
+                onClick={() => dispatch({ type: 'location', id: location.id })}
+              >
+                {location.region} · {location.name}
+              </button>
+            ))}
+          </nav>
           <button
             className="pill-button"
             onClick={() => dispatch({ type: 'mode', mode: 'globe' })}

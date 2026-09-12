@@ -1,0 +1,27 @@
+{
+  "scene": "nijo-ninomaru",
+  "coordinates": "+X east, +Y up, +Z south; metres. Panorama center north, positive yaw west, positive pitch up, radians.",
+  "provenance": "Original procedural mesh, shader, vegetation, figures; no copied photos, textures or models. Inferred architectural reconstruction.",
+  "eye": [0, 1.65, 0],
+  "initialTarget": [0, 6, -24],
+  "hotspots": [
+    {
+      "objectId": "nijo-karamon",
+      "yaw": 3.1415927,
+      "pitch": 0.1488899,
+      "anchor": [0, 4.2, 17]
+    },
+    {
+      "objectId": "nijo-ninomaru-palace",
+      "yaw": 0.4939414,
+      "pitch": 0.1792297,
+      "anchor": [-14, 7, -26]
+    },
+    {
+      "objectId": "nijo-kurumayose",
+      "yaw": -0.2449787,
+      "pitch": 0.1887238,
+      "anchor": [4, 4.8, -16]
+    }
+  ]
+}

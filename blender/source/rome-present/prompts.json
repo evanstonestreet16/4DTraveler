@@ -1,0 +1,29 @@
+{
+  "generator": "Codex built-in image generation",
+  "historicalEvidence": false,
+  "accuracyPass": 2,
+  "references": [
+    {
+      "title": "Via dei Fori Imperiali",
+      "url": "https://www.turismoroma.it/en/places/dei-fori-imperiali",
+      "role": "Road axis from Piazza Venezia to the Colosseum and surrounding excavations; no reference imagery was redistributed."
+    },
+    {
+      "title": "Monumento a Vittorio Emanuele II (Vittoriano)",
+      "url": "https://www.turismoroma.it/it/luoghi/monumento-vittorio-emanuele-ii-vittoriano",
+      "role": "Monument identity and placement at Piazza Venezia; no reference imagery was redistributed."
+    },
+    {
+      "title": "Piazza Venezia",
+      "url": "https://www.turismoroma.it/it/luoghi/piazza-venezia",
+      "role": "Modern square and urban context at the western terminus; no reference imagery was redistributed."
+    },
+    {
+      "title": "Archaeological area of the Imperial Fora",
+      "url": "https://www.turismoroma.it/en/places/archaeological-area-imperial-fora",
+      "role": "Present archaeological condition of the Imperial Fora; no reference imagery was redistributed."
+    }
+  ],
+  "desktop": "Use case: precise-object-edit\nAsset type: 4DTraveler present-day Rome desktop bird's-eye overview endpoint\nInput images: Image 1 is the EDIT TARGET and locked camera/composition.\nPrimary request: Correct the central urban geography so this reads unmistakably as modern Rome, not an intact ancient city. Rebuild the middle of the frame around the actual present-day monumental axis. Add the large, bright white marble Vittoriano / Altare della Patria at Piazza Venezia near the western end of the Imperial Fora, between the Pantheon and Forum area. Add the broad straight Via dei Fori Imperiali, lined by umbrella pines, running clearly from Piazza Venezia/Vittoriano through the excavated forum zone toward the Colosseum. The Roman and Imperial Fora must be open archaeological excavations with fragmented foundations, surviving columns, paths and exposed earth—not intact roofed temples or a continuous ancient neighborhood. The Colosseum must remain a partially ruined elliptical shell with its broken outer wall and visible hypogeum. Circus Maximus must remain a long green archaeological park without ancient seating. Palatine must be a green archaeological hill with ruins. Surrounding neighborhoods must be dense modern central-Rome blocks: multi-story ochre/cream stucco palazzi, realistic streets, occasional church domes, modern river embankments and tiny contemporary cars.\nStyle/medium: highly detailed photorealistic aerial architectural visualization, natural materials and believable present-day urban scale, warm clear afternoon light.\nComposition/framing: preserve Image 1's exact 1586:992 landscape aspect ratio, camera angle, projection, crop, skyline extent, Tiber course, and registered landmark centers. Pantheon remains near (0.12,0.51), Colosseum near (0.855,0.38), Trajan/Forum precinct near (0.43,0.37), Palatine near (0.60,0.64), Circus Maximus at lower right, Tiber at lower left. Make the new Vittoriano prominent near the Forum/Piazza Venezia terminus without covering the Pantheon.\nConstraints: change the inaccurate urban fabric and archaeological condition while keeping the endpoint framing and anchors locked. No text, labels, watermark, extra rivers, fantasy architecture, intact ancient city blocks, reconstructed forum roofs, intact Circus seating, or second Colosseum.",
+  "mobile": "Use case: precise-object-edit\nAsset type: 4DTraveler present-day Rome portrait bird's-eye overview endpoint\nInput images: Image 1 is the EDIT TARGET with the locked portrait camera and crop. Image 2 is the approved modern desktop CONDITION/STYLE REFERENCE only; do not copy its landscape crop.\nPrimary request: Apply the same corrected present-day geography shown in Image 2 to Image 1's portrait composition. Rebuild the central monumental area around the real modern axis: a prominent bright white marble Vittoriano / Altare della Patria at Piazza Venezia near the northwestern/western end of the Imperial Fora; a broad, straight, umbrella-pine-lined Via dei Fori Imperiali running from the Vittoriano through the excavated forum zone to the Colosseum. Show the Roman and Imperial Fora as open archaeological excavations with fragmented foundations, surviving columns, paths and exposed earth—not roofed temples or intact ancient blocks. Colosseum is a partially ruined elliptical shell with broken outer wall and visible hypogeum. Circus Maximus is a long green archaeological park without ancient seating. Palatine is a green archaeological hill with ruins. Surroundings are dense present-day central Rome: multi-story ochre/cream palazzi, realistic paved streets, church domes, modern river embankments and tiny contemporary cars.\nStyle/medium: match Image 2's detailed photorealistic aerial architectural visualization, believable present-day urban scale, warm clear afternoon light.\nComposition/framing: preserve Image 1's exact tall portrait aspect ratio, camera angle, projection, crop, Tiber course, and registered landmark centers. Pantheon remains near x .46 y .30; Trajan/Forum precinct near x .58 y .445; Colosseum near x .62 y .70; Circus Maximus near x .28 y .69; Tiber diagonal along upper left/top center. Insert the Vittoriano and Piazza Venezia beside the Forum terminus in the appropriate relationship to the straight road, without covering the Pantheon.\nConstraints: change the inaccurate urban fabric and archaeological condition while keeping the portrait endpoint framing and anchors locked. No text, labels, watermark, extra rivers, fantasy architecture, intact ancient city blocks, reconstructed forum roofs, intact Circus seating, or second Colosseum."
+}

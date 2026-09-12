@@ -1,0 +1,309 @@
+{
+  "capturedAt": "2026-09-12T05:07:15.034Z",
+  "poiId": "colosseum-valley",
+  "views": [
+    {
+      "name": "overview-desktop",
+      "viewport": { "width": 1440, "height": 900 },
+      "canvas": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+      "renderer": {
+        "camera": {
+          "position": [-1450, 1250, 1650],
+          "quaternion": [
+            -0.2382071785635536, -0.37419178729724417, -0.10008104285760337,
+            0.890629907009988
+          ]
+        },
+        "memory": { "geometries": 12, "textures": 0 },
+        "render": {
+          "frame": 5,
+          "calls": 12,
+          "triangles": 60220,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": [
+        {
+          "label": "Forum of Trajan",
+          "visible": true,
+          "x": 592.6082763671875,
+          "y": 409.0875549316406,
+          "width": 122.59375,
+          "height": 44
+        },
+        {
+          "label": "The New Pantheon",
+          "visible": true,
+          "x": 304.15533447265625,
+          "y": 449.8808898925781,
+          "width": 140.5625,
+          "height": 44
+        },
+        {
+          "label": "Flavian Amphitheatre Valley",
+          "visible": true,
+          "x": 930.030029296875,
+          "y": 391.3414001464844,
+          "width": 189.8125,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "name": "overview-portrait",
+      "viewport": { "width": 390, "height": 844 },
+      "canvas": { "x": 0, "y": 0, "width": 390, "height": 844 },
+      "renderer": {
+        "camera": {
+          "position": [
+            -3196.1538461538457, 2658.5641025641025, 3361.230769230769
+          ],
+          "quaternion": [
+            -0.23820717856355356, -0.37419178729724417, -0.10008104285760336,
+            0.890629907009988
+          ]
+        },
+        "memory": { "geometries": 12, "textures": 0 },
+        "render": {
+          "frame": 6,
+          "calls": 12,
+          "triangles": 60220,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": [
+        {
+          "label": "Forum of Trajan",
+          "visible": true,
+          "x": 124.87516784667969,
+          "y": 391.66619873046875,
+          "width": 82,
+          "height": 44
+        },
+        {
+          "label": "The New Pantheon",
+          "visible": true,
+          "x": 8.022571563720703,
+          "y": 409.2431945800781,
+          "width": 82,
+          "height": 44
+        },
+        {
+          "label": "Flavian Amphitheatre Valley",
+          "visible": true,
+          "x": 289.1009521484375,
+          "y": 380.547607421875,
+          "width": 82,
+          "height": 50.421875
+        }
+      ]
+    },
+    {
+      "name": "overview-landscape",
+      "viewport": { "width": 844, "height": 390 },
+      "canvas": { "x": 0, "y": 0, "width": 844, "height": 390 },
+      "renderer": {
+        "camera": {
+          "position": [-1450, 1250, 1650],
+          "quaternion": [
+            -0.2382071785635536, -0.37419178729724417, -0.10008104285760337,
+            0.890629907009988
+          ]
+        },
+        "memory": { "geometries": 12, "textures": 0 },
+        "render": {
+          "frame": 7,
+          "calls": 12,
+          "triangles": 60220,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": [
+        {
+          "label": "Forum of Trajan",
+          "visible": true,
+          "x": 352.35888671875,
+          "y": 164.8046112060547,
+          "width": 82,
+          "height": 44
+        },
+        {
+          "label": "The New Pantheon",
+          "visible": true,
+          "x": 231.255859375,
+          "y": 182.48171997070312,
+          "width": 82,
+          "height": 44
+        },
+        {
+          "label": "Flavian Amphitheatre Valley",
+          "visible": true,
+          "x": 513.1390380859375,
+          "y": 153.90367126464844,
+          "width": 82,
+          "height": 50.421875
+        }
+      ]
+    },
+    {
+      "name": "colosseum-valley-initial",
+      "viewport": { "width": 1440, "height": 900 },
+      "canvas": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+      "renderer": {
+        "camera": {
+          "position": [0, 1.65, 0],
+          "quaternion": [
+            0.07115527570376859, -0.7035175383311497, 0.07115527570376858,
+            0.7035175383311498
+          ]
+        },
+        "memory": { "geometries": 18, "textures": 0 },
+        "render": {
+          "frame": 12,
+          "calls": 18,
+          "triangles": 67960,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": []
+    },
+    {
+      "name": "colosseum-valley-north",
+      "viewport": { "width": 1440, "height": 900 },
+      "canvas": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+      "renderer": {
+        "camera": {
+          "position": [0, 1.65, 0],
+          "quaternion": [
+            0.10061352635337176, -0.017308977829381796, 0.0017506672150941409,
+            0.9947734680647365
+          ]
+        },
+        "memory": { "geometries": 21, "textures": 0 },
+        "render": {
+          "frame": 15,
+          "calls": 15,
+          "triangles": 11204,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": []
+    },
+    {
+      "name": "colosseum-valley-east",
+      "viewport": { "width": 1440, "height": 900 },
+      "canvas": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+      "renderer": {
+        "camera": {
+          "position": [0, 1.65, 0],
+          "quaternion": [
+            0.07115527570376859, -0.7035175383311497, 0.07115527570376858,
+            0.7035175383311498
+          ]
+        },
+        "memory": { "geometries": 21, "textures": 0 },
+        "render": {
+          "frame": 20,
+          "calls": 18,
+          "triangles": 67960,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": []
+    },
+    {
+      "name": "colosseum-valley-south",
+      "viewport": { "width": 1440, "height": 900 },
+      "canvas": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+      "renderer": {
+        "camera": {
+          "position": [0, 1.65, 0],
+          "quaternion": [
+            0.0017506672150940897, -0.9947734680647365, 0.10061352635337176,
+            0.017308977829381286
+          ]
+        },
+        "memory": { "geometries": 24, "textures": 0 },
+        "render": {
+          "frame": 23,
+          "calls": 15,
+          "triangles": 10376,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": []
+    },
+    {
+      "name": "colosseum-valley-west",
+      "viewport": { "width": 1440, "height": 900 },
+      "canvas": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+      "renderer": {
+        "camera": {
+          "position": [0, 1.65, 0],
+          "quaternion": [
+            0.07208855700458595, 0.6941674688890489, -0.07020958958685915,
+            0.7127449604277907
+          ]
+        },
+        "memory": { "geometries": 28, "textures": 0 },
+        "render": {
+          "frame": 27,
+          "calls": 18,
+          "triangles": 12736,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": []
+    },
+    {
+      "name": "colosseum-valley-object-portrait",
+      "viewport": { "width": 390, "height": 844 },
+      "canvas": { "x": 0, "y": 0, "width": 390, "height": 844 },
+      "renderer": {
+        "camera": {
+          "position": [0, 1.65, 0],
+          "quaternion": [
+            0.07208855700458595, 0.6941674688890489, -0.07020958958685915,
+            0.7127449604277907
+          ]
+        },
+        "memory": { "geometries": 28, "textures": 0 },
+        "render": {
+          "frame": 29,
+          "calls": 18,
+          "triangles": 12736,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": []
+    }
+  ],
+  "errors": []
+}

@@ -1,4 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useApp } from '../../app/AppContext';
+import { resolvePresentation } from '../../utils/presentation';
 import { Canvas, useThree } from '@react-three/fiber';
 import type { HistoricalWorld } from '../../types/world';
 import { WorldScene } from './WorldScene';
@@ -7,10 +9,20 @@ import { SceneDiagnostics } from './SceneDiagnostics';
 import { useSceneQuality } from './useSceneQuality';
 import type { QualityPreference } from '../../utils/quality';
 import { ViewportDpr } from './ViewportDpr';
+import { useCityModelPrefetch } from './useCityModelPrefetch';
 import { useSceneActivity } from './useSceneActivity';
 import type { ModelAssetState } from './modelAsset';
 import { TripoActivityBanner } from './TripoActivityBanner';
 import type { TripoStatus } from './IconicUpgrade';
+
+function SceneExposure({ value }: { value: number }) {
+  const { gl, invalidate } = useThree();
+  useEffect(() => {
+    gl.toneMappingExposure = value;
+    invalidate();
+  }, [gl, invalidate, value]);
+  return null;
+}
 
 function ContextGuard({ onLost }: { onLost: () => void }) {
   const gl = useThree((state) => state.gl);
@@ -33,12 +45,24 @@ export function WorldCanvas({
   world: HistoricalWorld;
   quality?: QualityPreference;
 }) {
+  const { state } = useApp();
+  const presentation = useMemo(
+    () => resolvePresentation(world, state.cameraMode, state.activePOIId),
+    [world, state.cameraMode, state.activePOIId],
+  );
   const [softwareRenderer, setSoftwareRenderer] = useState(false);
   const { quality, settings } = useSceneQuality(preference, softwareRenderer);
   const [lost, setLost] = useState(false);
   const container = useRef<HTMLDivElement>(null);
   const active = useSceneActivity(container);
   const [assetState, setAssetState] = useState<ModelAssetState | null>(null);
+  useCityModelPrefetch(
+    world,
+    state.cameraMode === 'OVERVIEW' &&
+      assetState?.status === 'ready' &&
+      active &&
+      !lost,
+  );
   const [tripoStatuses, setTripoStatuses] = useState<
     Record<string, TripoStatus>
   >({});
@@ -75,8 +99,8 @@ export function WorldCanvas({
             camera={{
               position: world.scene.overviewCamera.position,
               fov: 48,
-              near: 0.1,
-              far: 400,
+              near: world.scene.overviewCamera.near ?? 0.1,
+              far: world.scene.overviewCamera.far ?? 400,
             }}
             onCreated={({ camera, gl }) => {
               const context = gl.getContext();
@@ -104,6 +128,9 @@ export function WorldCanvas({
               </div>
             }
           >
+            <SceneExposure
+              value={presentation.scene.environment?.exposure ?? 1}
+            />
             <ContextGuard onLost={() => setLost(true)} />
             <ViewportDpr maximum={settings.dpr} />
             <SceneDiagnostics />
@@ -115,13 +142,13 @@ export function WorldCanvas({
               shadowMap={settings.shadowMap}
               detail={settings.detail}
               effectsReady={
-                !world.scene.model || assetState?.status === 'ready'
+                !presentation.scene.model || assetState?.status === 'ready'
               }
             />
           </Canvas>
         )}
       </SceneErrorBoundary>
-      {!lost && world.scene.model && assetState && (
+      {!lost && presentation.scene.model && assetState && (
         <div
           className={`model-status model-status-${assetState.status}`}
           role="status"

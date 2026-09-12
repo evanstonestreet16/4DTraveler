@@ -1,0 +1,80 @@
+{
+  "worldId": "rome-present",
+  "snapshotYear": 2026,
+  "overview": {
+    "desktop": {
+      "url": "/images/rome-present/overview.webp?v=cceacf7ebee4",
+      "width": 1586,
+      "height": 992,
+      "bytes": 614250,
+      "sha256": "cceacf7ebee4bdebcaf58fde5a348f5f8ea76cb221b130df733ab7dccb8b881c"
+    },
+    "mobile": {
+      "url": "/images/rome-present/overview-mobile.webp?v=b4a190383bb7",
+      "width": 954,
+      "height": 1649,
+      "bytes": 631880,
+      "sha256": "b4a190383bb7dba32e9a6fa35098b0764f72443b5ca79e9e08f2a158fd25ab91"
+    },
+    "fallback": {
+      "url": "/images/rome-present/overview-fallback.webp?v=801d33f336d3",
+      "width": 1586,
+      "height": 992,
+      "bytes": 282616,
+      "sha256": "801d33f336d3054f5c8a5e5e247f2105261cfe2d625db93b6651174dec2fb84b"
+    }
+  },
+  "inputs": [
+    {
+      "path": "blender/source/rome-present/overview-desktop.png",
+      "sha256": "0c8e590f726c5b35fcab97573c9fbd67b3759d503bb8d3d4472481e6bbd544c8"
+    },
+    {
+      "path": "blender/source/rome-present/overview-mobile.png",
+      "sha256": "195df577e3e685f08f570f0127ccd25b3d130e4f43265e4a15faa573a6307e8e"
+    },
+    {
+      "path": "blender/source/rome-present/prompts.json",
+      "sha256": "c5f5f4e0a0d806293b32af4aeb7844f965d9a67590385a832193f03e761ceeb4"
+    }
+  ],
+  "generator": "Codex built-in image generation",
+  "provenance": "Original generated edits of project-owned Rome illustrations, informed by linked official Rome references. No third-party reference imagery is redistributed.",
+  "limitation": "Reference-grounded visual reconstruction, not a surveyed aerial photograph. Landmark registration and small-scale building detail remain approximate.",
+  "cameraReference": {
+    "path": "public/images/rome-125/manifest.json",
+    "sha256": "9e9f3d1d3440fade338a47b866696a76ea0e8eb08ff68c4f6ace5ac13dddc61e"
+  },
+  "anchors": [
+    "Pantheon",
+    "Vittoriano / Piazza Venezia",
+    "Via dei Fori Imperiali",
+    "Forum/Capitoline precinct",
+    "Colosseum",
+    "Tiber course",
+    "Palatine ridge",
+    "Circus Maximus"
+  ],
+  "modernGeographyReferences": [
+    {
+      "title": "Via dei Fori Imperiali",
+      "url": "https://www.turismoroma.it/en/places/dei-fori-imperiali",
+      "role": "Road axis from Piazza Venezia to the Colosseum and surrounding excavations."
+    },
+    {
+      "title": "Monumento a Vittorio Emanuele II (Vittoriano)",
+      "url": "https://www.turismoroma.it/it/luoghi/monumento-vittorio-emanuele-ii-vittoriano",
+      "role": "Monument identity and placement at Piazza Venezia."
+    },
+    {
+      "title": "Piazza Venezia",
+      "url": "https://www.turismoroma.it/it/luoghi/piazza-venezia",
+      "role": "Modern square and urban context at the western terminus."
+    },
+    {
+      "title": "Archaeological area of the Imperial Fora",
+      "url": "https://www.turismoroma.it/en/places/archaeological-area-imperial-fora",
+      "role": "Present archaeological condition of the Imperial Fora."
+    }
+  ]
+}

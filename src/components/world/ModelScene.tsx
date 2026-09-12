@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { useThree, type ThreeEvent } from '@react-three/fiber';
 import type { HistoricalObject, SceneModel } from '../../types/world';
+import { shouldSuppressSceneClick } from '../../utils/fixedLook';
 import {
   loadModelAsset,
   resolveModelObject,
@@ -27,6 +28,7 @@ export function ModelScene({
   const [loaded, setLoaded] = useState<LoadedModelAsset | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const invalidate = useThree((state) => state.invalidate);
+  const canvas = useThree((state) => state.gl.domElement);
   useEffect(() => {
     setLoaded(null);
     setHoveredId(null);
@@ -77,11 +79,15 @@ export function ModelScene({
   }, [loaded, selectedId, hoveredId, invalidate]);
   if (!loaded) return fallback;
   const handlePointer = (event: ThreeEvent<PointerEvent>) => {
-    const object = resolveModelObject(event.object, loaded.selection);
-    if (object) {
-      event.stopPropagation();
-      setHoveredId(object.id);
+    // The nearest rendered surface occludes meshes behind it, even when that
+    // surface has no historical metadata of its own.
+    event.stopPropagation();
+    if (event.buttons && shouldSuppressSceneClick(canvas)) {
+      setHoveredId(null);
+      return;
     }
+    const object = resolveModelObject(event.object, loaded.selection);
+    setHoveredId(object?.id ?? null);
   };
   return (
     <group
@@ -93,13 +99,12 @@ export function ModelScene({
         object={loaded.scene}
         dispose={null}
         onClick={(event: ThreeEvent<MouseEvent>) => {
+          event.stopPropagation();
+          if (shouldSuppressSceneClick(canvas)) return;
           const object = resolveModelObject(event.object, loaded.selection);
-          if (object) {
-            event.stopPropagation();
-            onSelect(object.id);
-          }
+          if (object) onSelect(object.id);
         }}
-        onPointerOver={handlePointer}
+        onPointerMove={handlePointer}
         onPointerOut={() => setHoveredId(null)}
       />
     </group>

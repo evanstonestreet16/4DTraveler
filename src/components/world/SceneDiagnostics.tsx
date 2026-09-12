@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useThree } from '@react-three/fiber';
 
 export interface RendererSnapshot {
+  camera: { position: number[]; quaternion: number[] };
   memory: { geometries: number; textures: number };
   render: {
     frame: number;
@@ -21,10 +22,15 @@ export type ProfileCanvas = HTMLCanvasElement & {
 /** Read-only benchmark bridge. Renderer/scene references never leave this closure. */
 export function SceneDiagnostics() {
   const gl = useThree((state) => state.gl);
+  const camera = useThree((state) => state.camera);
   useEffect(() => {
     if (!new URLSearchParams(location.search).has('profile')) return;
     const canvas = gl.domElement as ProfileCanvas;
     canvas.__worldRendererInfo = () => ({
+      camera: {
+        position: camera.position.toArray(),
+        quaternion: camera.quaternion.toArray(),
+      },
       memory: { ...gl.info.memory },
       render: { ...gl.info.render },
       programs: gl.info.programs?.length ?? 0,
@@ -33,6 +39,6 @@ export function SceneDiagnostics() {
     return () => {
       delete canvas.__worldRendererInfo;
     };
-  }, [gl]);
+  }, [camera, gl]);
   return null;
 }

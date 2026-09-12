@@ -56,15 +56,17 @@ export function POIMarker({
         style={{ visibility: 'hidden' }}
         tabIndex={-1}
         className={`poi-marker${active ? ' active' : ''}`}
-        aria-label={`Visit ${poi.name}`}
+        aria-label={poi.preview ? `${poi.name} — preview` : `Visit ${poi.name}`}
+        disabled={poi.preview}
         aria-pressed={active}
         onClick={(event) => {
           event.stopPropagation();
-          onSelect();
+          if (!poi.preview) onSelect();
         }}
       >
         <span className="marker-dot" aria-hidden="true" />
         {poi.name}
+        {poi.preview ? ' · Preview' : ''}
       </button>
     </Html>
   );

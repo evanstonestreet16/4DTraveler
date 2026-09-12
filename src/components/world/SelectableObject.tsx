@@ -1,3 +1,5 @@
+import { useThree } from '@react-three/fiber';
+import { shouldSuppressSceneClick } from '../../utils/fixedLook';
 import { useMemo, useState } from 'react';
 import * as THREE from 'three';
 import type {
@@ -89,6 +91,7 @@ export function SelectableObject({
   hidden?: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
+  const canvas = useThree((state) => state.gl.domElement);
   return (
     <mesh
       name={primitive.id}
@@ -97,22 +100,17 @@ export function SelectableObject({
       scale={primitive.scale}
       castShadow={!hidden}
       receiveShadow={!hidden}
-      onClick={
-        object
-          ? (event) => {
-              event.stopPropagation();
-              onSelect(object.id);
-            }
-          : undefined
-      }
-      onPointerOver={
-        object
-          ? (event) => {
-              event.stopPropagation();
-              setHovered(true);
-            }
-          : undefined
-      }
+      onClick={(event) => {
+        event.stopPropagation();
+        if (!object || shouldSuppressSceneClick(canvas)) return;
+        onSelect(object.id);
+      }}
+      onPointerMove={(event) => {
+        event.stopPropagation();
+        setHovered(
+          !!object && !(event.buttons && shouldSuppressSceneClick(canvas)),
+        );
+      }}
       onPointerOut={object ? () => setHovered(false) : undefined}
     >
       <PrimitiveGeometry shape={primitive.shape} />

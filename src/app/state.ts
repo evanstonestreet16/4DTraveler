@@ -16,6 +16,7 @@ export interface AppState {
   selectedObjectId: string | null;
   cameraMode: CameraMode;
   audioState: AudioState;
+  eraTransition: { requestId: number; world: HistoricalWorld } | null;
 }
 
 export const initialState: AppState = {
@@ -27,6 +28,7 @@ export const initialState: AppState = {
   selectedObjectId: null,
   cameraMode: 'OVERVIEW',
   audioState: 'idle',
+  eraTransition: null,
 };
 
 export type AppAction =
@@ -34,12 +36,20 @@ export type AppAction =
   | { type: 'location'; id: string | null }
   | { type: 'era'; id: string; world: HistoricalWorld | null }
   | { type: 'enterWorld'; world: HistoricalWorld }
+  | { type: 'era-request'; requestId: number; world: HistoricalWorld }
+  | { type: 'era-commit'; requestId: number }
+  | { type: 'era-cancel'; requestId: number }
   | { type: 'poi'; id: string }
   | { type: 'object'; id: string | null }
   | { type: 'overview' }
   | { type: 'audio'; state: AudioState };
 
 export function appReducer(state: AppState, action: AppAction): AppState {
+  if (
+    state.eraTransition &&
+    ['poi', 'object', 'overview', 'audio'].includes(action.type)
+  )
+    return state;
   switch (action.type) {
     case 'mode':
       return { ...initialState, mode: action.mode };
@@ -71,8 +81,52 @@ export function appReducer(state: AppState, action: AppAction): AppState {
         activeWorld: world,
       };
     }
+    case 'era-request': {
+      const source = state.activeWorld;
+      const target = action.world;
+      if (
+        state.eraTransition ||
+        state.cameraMode !== 'OVERVIEW' ||
+        !source?.scene.overviewImage ||
+        !target.scene.overviewImage ||
+        source.id === target.id ||
+        target.locationId !== state.selectedLocationId ||
+        !source.scene.overviewTransition ||
+        source.scene.overviewTransition.group !==
+          target.scene.overviewTransition?.group
+      )
+        return state;
+      return {
+        ...state,
+        activePOIId: null,
+        selectedObjectId: null,
+        audioState: 'idle',
+        eraTransition: { requestId: action.requestId, world: target },
+      };
+    }
+    case 'era-commit': {
+      if (state.eraTransition?.requestId !== action.requestId) return state;
+      const world = state.eraTransition.world;
+      return {
+        ...initialState,
+        mode: state.mode,
+        selectedLocationId: world.locationId,
+        selectedEraId: world.era.id,
+        activeWorld: world,
+      };
+    }
+    case 'era-cancel':
+      return state.eraTransition?.requestId === action.requestId
+        ? { ...state, eraTransition: null }
+        : state;
     case 'poi':
-      return state.activeWorld?.pois.some((poi) => poi.id === action.id)
+      return state.activeWorld?.pois.some(
+        (poi) =>
+          poi.id === action.id &&
+          !poi.preview &&
+          (state.activeWorld?.scene.presentation !== 'immersive-city' ||
+            !!poi.immersive),
+      )
         ? {
             ...state,
             activePOIId: action.id,
@@ -88,6 +142,15 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       if (
         !object ||
         !state.activeWorld?.pois.some((poi) => poi.id === object.poiId)
+      )
+        return state;
+      const poi = state.activeWorld.pois.find((poi) => poi.id === object.poiId);
+      if (
+        state.activeWorld.scene.presentation === 'immersive-city' &&
+        (!poi?.immersive ||
+          poi.preview ||
+          state.activePOIId !== poi.id ||
+          !poi.objectIds.includes(object.id))
       )
         return state;
       return {
