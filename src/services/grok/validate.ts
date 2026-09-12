@@ -33,11 +33,25 @@ function assertString(value: unknown, path: string): string {
 }
 
 function assertHex(value: unknown, path: string): string {
-  const str = assertString(value, path);
-  if (!/^#[0-9a-fA-F]{6}$/.test(str)) {
-    throw new GeneratedProfileError(`expected #RRGGBB, got "${str}"`, path);
+  const str = assertString(value, path).trim();
+  // Accept "#RRGGBB", "RRGGBB", "#RGB", or "RGB" (common LLM slop) and
+  // normalize to the canonical "#rrggbb" form the renderer expects.
+  const match = str.match(/^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/);
+  if (!match) {
+    throw new GeneratedProfileError(
+      `expected #RRGGBB or #RGB hex color, got "${str}"`,
+      path,
+    );
   }
-  return str;
+  const digits = match[1];
+  const expanded =
+    digits.length === 3
+      ? digits
+          .split('')
+          .map((char) => char + char)
+          .join('')
+      : digits;
+  return `#${expanded.toLowerCase()}`;
 }
 
 function assertNumber(value: unknown, path: string): number {

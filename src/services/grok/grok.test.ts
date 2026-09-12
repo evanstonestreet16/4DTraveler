@@ -26,6 +26,15 @@ describe('validateHistoryProfile', () => {
     expect(() => validateHistoryProfile(broken)).toThrow(GeneratedProfileError);
   });
 
+  it('normalizes hex colors emitted without a leading "#"', () => {
+    const relaxed = structuredClone(seattleFixture);
+    relaxed.eras[0].background = '8FA87B';
+    relaxed.eras[0].primitives[0].color = 'AbC';
+    const validated = validateHistoryProfile(relaxed);
+    expect(validated.eras[0].background).toBe('#8fa87b');
+    expect(validated.eras[0].primitives[0].color).toBe('#aabbcc');
+  });
+
   it('rejects duplicate era ids', () => {
     const broken = structuredClone(seattleFixture);
     broken.eras[1].id = broken.eras[0].id;

@@ -22,14 +22,14 @@ You will be given a real-world city. Emit STRICT JSON (no prose, no code fences)
       "year": number,        // integer year
       "subtitle": string,    // 3-8 word era descriptor
       "historicalContext": string, // 2-4 sentence paragraph
-      "background": string,  // 6-digit hex, era-appropriate sky/ambient tint
+      "background": string,  // hex color WITH leading '#', e.g. "#8fa87b" — era-appropriate sky/ambient tint
       "primitives": [        // 12-24 primitives per era; visually reads as a miniature diorama
         {
           "id": string,      // kebab-case, unique WITHIN the era
           "shape": "box" | "cylinder",
           "position": [x, y, z], // meters, +Y up, ground plane at y=0
           "scale":    [x, y, z], // full extents (box) or [radius, height, radius] (cylinder), all > 0
-          "color": string    // 6-digit hex
+          "color": string    // hex color WITH leading '#', e.g. "#7a5943"
         }
       ],
       "pois": [               // 2-3 POIs per era
@@ -62,4 +62,5 @@ DESIGN CONSTRAINTS:
 - Cluster related primitives to suggest neighborhoods and landmarks.
 - At least ONE object per POI. Every object.sceneObjectId MUST appear in that era's primitives[].id.
 - All coordinates are numbers, not strings. All arrays are exactly length 3.
+- All hex colors are strings starting with '#' followed by 6 hex digits (e.g. "#8fa87b"). Never omit the '#'.
 - Output ONLY the JSON object, no markdown, no commentary.`;
