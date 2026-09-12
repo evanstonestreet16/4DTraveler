@@ -2,6 +2,7 @@ export {
   generateHistory,
   HistoryGenerationError,
   type GenerateHistoryRequest,
+  type GenerateHistoryResult,
 } from './client';
 export {
   deriveWorldFromEra,

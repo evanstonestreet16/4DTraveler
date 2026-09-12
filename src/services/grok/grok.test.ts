@@ -8,39 +8,9 @@ describe('validateHistoryProfile', () => {
     expect(() => validateHistoryProfile(seattleFixture)).not.toThrow();
   });
 
-  it('drops orphan objects whose sceneObjectId does not resolve', () => {
-    const broken = structuredClone(seattleFixture);
-    const originalObjectCount = broken.eras[0].objects.length;
-    broken.eras[0].objects[0].sceneObjectId = 'does-not-exist';
-    const validated = validateHistoryProfile(broken);
-    expect(validated.eras[0].objects).toHaveLength(originalObjectCount - 1);
-  });
-
-  it('drops POI.objectIds that do not resolve to any object', () => {
-    const broken = structuredClone(seattleFixture);
-    broken.eras[0].pois[0].objectIds.push('phantom-object');
-    const validated = validateHistoryProfile(broken);
-    for (const poi of validated.eras[0].pois) {
-      for (const id of poi.objectIds) {
-        expect(
-          validated.eras[0].objects.some((object) => object.id === id),
-        ).toBe(true);
-      }
-    }
-  });
-
-  it('rejects an era whose repair leaves it empty', () => {
-    const broken = structuredClone(seattleFixture);
-    // Nuke every sceneObjectId so no object can resolve to a primitive.
-    for (const object of broken.eras[0].objects) {
-      object.sceneObjectId = 'nope';
-    }
-    expect(() => validateHistoryProfile(broken)).toThrow(GeneratedProfileError);
-  });
-
   it('rejects negative scale components', () => {
     const broken = structuredClone(seattleFixture);
-    broken.eras[0].primitives[0].scale[0] = -1;
+    broken.eras[0].pois[0].objects[0].scale[0] = -1;
     expect(() => validateHistoryProfile(broken)).toThrow(GeneratedProfileError);
   });
 
@@ -53,16 +23,35 @@ describe('validateHistoryProfile', () => {
   it('normalizes hex colors emitted without a leading "#"', () => {
     const relaxed = structuredClone(seattleFixture);
     relaxed.eras[0].background = '8FA87B';
-    relaxed.eras[0].primitives[0].color = 'AbC';
+    relaxed.eras[0].pois[0].objects[0].color = 'AbC';
     const validated = validateHistoryProfile(relaxed);
     expect(validated.eras[0].background).toBe('#8fa87b');
-    expect(validated.eras[0].primitives[0].color).toBe('#aabbcc');
+    expect(validated.eras[0].pois[0].objects[0].color).toBe('#aabbcc');
   });
 
   it('rejects duplicate era ids', () => {
     const broken = structuredClone(seattleFixture);
     broken.eras[1].id = broken.eras[0].id;
     expect(() => validateHistoryProfile(broken)).toThrow(GeneratedProfileError);
+  });
+
+  it('rejects duplicate ids within an era across scenery/pois/objects', () => {
+    const broken = structuredClone(seattleFixture);
+    // Set an object.id equal to a scenery.id in the same era.
+    broken.eras[0].pois[0].objects[0].id = broken.eras[0].scenery[0].id;
+    expect(() => validateHistoryProfile(broken)).toThrow(GeneratedProfileError);
+  });
+
+  it('accepts "primitives" as an alias for "scenery" (nomenclature drift)', () => {
+    const drifted = structuredClone(seattleFixture) as unknown as Record<
+      string,
+      unknown
+    >;
+    const eras = drifted.eras as Record<string, unknown>[];
+    const era = eras[0];
+    era.primitives = era.scenery;
+    delete era.scenery;
+    expect(() => validateHistoryProfile(drifted)).not.toThrow();
   });
 });
 
@@ -82,7 +71,7 @@ describe('deriveWorldsFromProfile', () => {
     }
   });
 
-  it('every object.sceneObjectId matches a primitive.id', () => {
+  it('every object.sceneObjectId matches a primitive.id after explosion', () => {
     for (const world of worlds) {
       const primitiveIds = new Set(
         world.scene.primitives.map((primitive) => primitive.id),
@@ -93,7 +82,7 @@ describe('deriveWorldsFromProfile', () => {
     }
   });
 
-  it('POI objectIds only reference known objects', () => {
+  it('every POI.objectIds resolves to a known object', () => {
     for (const world of worlds) {
       const objectIds = new Set(world.objects.map((object) => object.id));
       for (const poi of world.pois) {
@@ -107,6 +96,21 @@ describe('deriveWorldsFromProfile', () => {
       const [, , tz] = world.scene.overviewCamera.target;
       expect(tz).toBeGreaterThan(-25);
       expect(tz).toBeLessThan(25);
+    }
+  });
+
+  it('de-duplicates ids that collide between scenery and objects', () => {
+    // Force a collision: rename first object to match first scenery id.
+    const drifted = structuredClone(seattleFixture);
+    drifted.eras[0].pois[0].objects[0].id = drifted.eras[0].scenery[0].id;
+    // Bypass the validator (which would reject) to test derive's guard.
+    const [firstEra] = deriveWorldsFromProfile(drifted, {
+      locationId: 'generated:test',
+    });
+    const seen = new Set<string>();
+    for (const primitive of firstEra.scene.primitives) {
+      expect(seen.has(primitive.id)).toBe(false);
+      seen.add(primitive.id);
     }
   });
 });

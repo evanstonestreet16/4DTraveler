@@ -8,12 +8,10 @@ import type {
 } from '../../types/world';
 
 /**
- * Runtime validator for the Grok JSON output. Strict enough to catch model
- * hallucinations before they crash the renderer; lenient enough to accept
- * cosmetic sloppiness (extra whitespace, integer vs float coordinates).
- *
- * Returns the parsed profile or throws with a human-readable path/reason so
- * failures surface in dev tools and can be logged from the proxy.
+ * Runtime validator for the Grok JSON output. Strict about shapes and
+ * numbers (they drive rendering math), lenient about cosmetic slop like
+ * missing '#' on hex colors. Throws with a human-readable path/reason on
+ * anything unrecoverable.
  */
 export class GeneratedProfileError extends Error {
   constructor(
@@ -99,40 +97,28 @@ function assertArray(
   return value;
 }
 
-function validatePrimitive(raw: unknown, path: string): ScenePrimitive {
+function assertShape(value: unknown, path: string): 'box' | 'cylinder' {
+  const shape = assertString(value, path);
+  if (shape !== 'box' && shape !== 'cylinder') {
+    throw new GeneratedProfileError(
+      `expected "box" or "cylinder", got "${shape}"`,
+      path,
+    );
+  }
+  return shape;
+}
+
+function validateScenery(raw: unknown, path: string): ScenePrimitive {
   if (typeof raw !== 'object' || raw === null) {
     throw new GeneratedProfileError('expected object', path);
   }
   const record = raw as Record<string, unknown>;
-  const shape = assertString(record.shape, `${path}.shape`);
-  if (shape !== 'box' && shape !== 'cylinder') {
-    throw new GeneratedProfileError(
-      `expected "box" or "cylinder"`,
-      `${path}.shape`,
-    );
-  }
   return {
     id: assertString(record.id, `${path}.id`),
-    shape,
+    shape: assertShape(record.shape, `${path}.shape`),
     position: assertVec3(record.position, `${path}.position`),
     scale: assertPositiveVec3(record.scale, `${path}.scale`),
     color: assertHex(record.color, `${path}.color`),
-  };
-}
-
-function validatePOI(raw: unknown, path: string): GeneratedPOI {
-  if (typeof raw !== 'object' || raw === null) {
-    throw new GeneratedProfileError('expected object', path);
-  }
-  const record = raw as Record<string, unknown>;
-  const objectIds = assertArray(record.objectIds, `${path}.objectIds`, 1);
-  return {
-    id: assertString(record.id, `${path}.id`),
-    name: assertString(record.name, `${path}.name`),
-    markerPosition: assertVec3(record.markerPosition, `${path}.markerPosition`),
-    objectIds: objectIds.map((value, index) =>
-      assertString(value, `${path}.objectIds[${index}]`),
-    ),
   };
 }
 
@@ -144,10 +130,28 @@ function validateObject(raw: unknown, path: string): GeneratedObject {
   return {
     id: assertString(record.id, `${path}.id`),
     name: assertString(record.name, `${path}.name`),
-    poiId: assertString(record.poiId, `${path}.poiId`),
-    sceneObjectId: assertString(record.sceneObjectId, `${path}.sceneObjectId`),
+    shape: assertShape(record.shape, `${path}.shape`),
+    position: assertVec3(record.position, `${path}.position`),
+    scale: assertPositiveVec3(record.scale, `${path}.scale`),
+    color: assertHex(record.color, `${path}.color`),
     description: assertString(record.description, `${path}.description`),
     whyItMatters: assertString(record.whyItMatters, `${path}.whyItMatters`),
+  };
+}
+
+function validatePOI(raw: unknown, path: string): GeneratedPOI {
+  if (typeof raw !== 'object' || raw === null) {
+    throw new GeneratedProfileError('expected object', path);
+  }
+  const record = raw as Record<string, unknown>;
+  const objects = assertArray(record.objects, `${path}.objects`, 1);
+  return {
+    id: assertString(record.id, `${path}.id`),
+    name: assertString(record.name, `${path}.name`),
+    markerPosition: assertVec3(record.markerPosition, `${path}.markerPosition`),
+    objects: objects.map((entry, index) =>
+      validateObject(entry, `${path}.objects[${index}]`),
+    ),
   };
 }
 
@@ -156,9 +160,12 @@ function validateEra(raw: unknown, path: string): GeneratedEra {
     throw new GeneratedProfileError('expected object', path);
   }
   const record = raw as Record<string, unknown>;
-  const primitives = assertArray(record.primitives, `${path}.primitives`, 4);
+  // Accept `scenery` (canonical) or `primitives` (LLM sometimes reverts to
+  // the older name) so a small nomenclature drift doesn't fail the run.
+  const sceneryField = record.scenery ?? record.primitives ?? [];
+  const scenery = Array.isArray(sceneryField) ? sceneryField : [];
   const pois = assertArray(record.pois, `${path}.pois`, 1);
-  const objects = assertArray(record.objects, `${path}.objects`, 1);
+
   const era: GeneratedEra = {
     id: assertString(record.id, `${path}.id`),
     label: assertString(record.label, `${path}.label`),
@@ -172,50 +179,32 @@ function validateEra(raw: unknown, path: string): GeneratedEra {
       record.background === undefined
         ? undefined
         : assertHex(record.background, `${path}.background`),
-    primitives: primitives.map((entry, index) =>
-      validatePrimitive(entry, `${path}.primitives[${index}]`),
+    scenery: scenery.map((entry, index) =>
+      validateScenery(entry, `${path}.scenery[${index}]`),
     ),
     pois: pois.map((entry, index) =>
       validatePOI(entry, `${path}.pois[${index}]`),
     ),
-    objects: objects.map((entry, index) =>
-      validateObject(entry, `${path}.objects[${index}]`),
-    ),
   };
 
-  // Cross-reference repair. LLMs regularly drift on which id namespace
-  // they are in. Rather than fail the whole generation, drop orphan
-  // references silently and only fail if the era ends up empty.
-  const primitiveIds = new Set(era.primitives.map((primitive) => primitive.id));
-  const poiIds = new Set(era.pois.map((poi) => poi.id));
-
-  // Drop objects whose sceneObjectId or poiId are unresolvable.
-  era.objects = era.objects.filter(
-    (object) =>
-      primitiveIds.has(object.sceneObjectId) && poiIds.has(object.poiId),
+  // Uniqueness check across every id we will use as a stable renderer key.
+  const allIds = new Set<string>();
+  const track = (id: string, where: string) => {
+    if (allIds.has(id)) {
+      throw new GeneratedProfileError(`duplicate id "${id}"`, where);
+    }
+    allIds.add(id);
+  };
+  era.scenery.forEach((primitive, index) =>
+    track(primitive.id, `${path}.scenery[${index}].id`),
   );
-  const validObjectIds = new Set(era.objects.map((object) => object.id));
-
-  // Filter POI objectIds down to ones that resolve; drop POIs left empty.
-  era.pois = era.pois
-    .map((poi) => ({
-      ...poi,
-      objectIds: poi.objectIds.filter((id) => validObjectIds.has(id)),
-    }))
-    .filter((poi) => poi.objectIds.length > 0);
-  const survivingPoiIds = new Set(era.pois.map((poi) => poi.id));
-
-  // Drop any object whose owning POI got pruned above.
-  era.objects = era.objects.filter((object) =>
-    survivingPoiIds.has(object.poiId),
-  );
-
-  if (era.pois.length === 0 || era.objects.length === 0) {
-    throw new GeneratedProfileError(
-      'era has no valid POIs or objects after cross-reference repair',
-      path,
+  era.pois.forEach((poi, poiIndex) => {
+    track(poi.id, `${path}.pois[${poiIndex}].id`);
+    poi.objects.forEach((object, objectIndex) =>
+      track(object.id, `${path}.pois[${poiIndex}].objects[${objectIndex}].id`),
     );
-  }
+  });
+
   return era;
 }
 

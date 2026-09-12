@@ -2,16 +2,28 @@ import type {
   CameraView,
   GeneratedEra,
   GeneratedHistoryProfile,
+  HistoricalObject,
   HistoricalWorld,
+  PointOfInterest,
+  ScenePrimitive,
   Vec3,
 } from '../../types/world';
 
 /**
  * Convert a validated `GeneratedHistoryProfile` into a list of renderable
- * `HistoricalWorld`s. The LLM does not emit cameras or environment; we
- * compute them from primitive geometry so we get consistent framing across
- * every generated city without asking the model to do cinematography math.
+ * `HistoricalWorld`s.
+ *
+ * The LLM emits a denormalized tree (era → pois → objects, each object
+ * carrying its own shape). This function *explodes* that tree into the
+ * flat runtime contract:
+ *   • `primitives[]` = era.scenery + one entry per object (id = object.id)
+ *   • `objects[]`    = flatten poi.objects with poiId and sceneObjectId
+ *   • `pois[]`       = { id, name, markerPosition, camera, objectIds }
+ *
+ * Cameras and environment defaults are computed from primitive bounds so
+ * the model doesn't have to reason about cinematography or lighting math.
  */
+
 export interface DeriveOptions {
   /** Stable, per-city identifier (e.g. "generated:seattle"). */
   locationId: string;
@@ -24,10 +36,10 @@ interface Bounds {
   radius: number;
 }
 
-function boundsFromEra(era: GeneratedEra): Bounds {
+function boundsFromPrimitives(primitives: ScenePrimitive[]): Bounds {
   const min: [number, number, number] = [Infinity, Infinity, Infinity];
   const max: [number, number, number] = [-Infinity, -Infinity, -Infinity];
-  for (const primitive of era.primitives) {
+  for (const primitive of primitives) {
     const halfX = primitive.scale[0] / 2;
     const halfY = primitive.scale[1] / 2;
     const halfZ = primitive.scale[2] / 2;
@@ -90,28 +102,71 @@ function environmentFor(
   };
 }
 
+/**
+ * Ensure a set of ids is unique by suffixing duplicates. Guards against
+ * an LLM that reused an id between scenery and an object.
+ */
+function uniqueId(id: string, taken: Set<string>): string {
+  if (!taken.has(id)) {
+    taken.add(id);
+    return id;
+  }
+  let suffix = 2;
+  while (taken.has(`${id}-${suffix}`)) suffix += 1;
+  const next = `${id}-${suffix}`;
+  taken.add(next);
+  return next;
+}
+
 export function deriveWorldFromEra(
   era: GeneratedEra,
   profile: GeneratedHistoryProfile,
   options: DeriveOptions,
 ): HistoricalWorld {
-  const bounds = boundsFromEra(era);
+  const takenIds = new Set<string>();
+  const primitives: ScenePrimitive[] = era.scenery.map((primitive) => ({
+    ...primitive,
+    id: uniqueId(primitive.id, takenIds),
+  }));
+
+  const pois: PointOfInterest[] = [];
+  const objects: HistoricalObject[] = [];
+
+  for (const poi of era.pois) {
+    const poiObjectIds: string[] = [];
+    for (const object of poi.objects) {
+      const objectId = uniqueId(object.id, takenIds);
+      // Each object contributes one primitive with the same id, so
+      // click-to-select in SelectableObject "just works".
+      primitives.push({
+        id: objectId,
+        shape: object.shape,
+        position: object.position,
+        scale: object.scale,
+        color: object.color,
+      });
+      objects.push({
+        id: objectId,
+        name: object.name,
+        poiId: poi.id,
+        sceneObjectId: objectId,
+        description: object.description,
+        whyItMatters: object.whyItMatters,
+      });
+      poiObjectIds.push(objectId);
+    }
+    pois.push({
+      id: poi.id,
+      name: poi.name,
+      markerPosition: poi.markerPosition,
+      camera: poiCameraFor(poi.markerPosition),
+      objectIds: poiObjectIds,
+    });
+  }
+
+  const bounds = boundsFromPrimitives(primitives);
   const background = era.background ?? '#dbd7c9';
-  const pois = era.pois.map((poi) => ({
-    id: poi.id,
-    name: poi.name,
-    markerPosition: poi.markerPosition,
-    camera: poiCameraFor(poi.markerPosition),
-    objectIds: poi.objectIds,
-  }));
-  const objects = era.objects.map((object) => ({
-    id: object.id,
-    name: object.name,
-    poiId: object.poiId,
-    sceneObjectId: object.sceneObjectId,
-    description: object.description,
-    whyItMatters: object.whyItMatters,
-  }));
+
   return {
     id: `${options.locationId}:${era.id}`,
     locationId: options.locationId,
@@ -125,7 +180,7 @@ export function deriveWorldFromEra(
     scene: {
       overviewCamera: overviewCameraForBounds(bounds),
       background,
-      primitives: era.primitives,
+      primitives,
       environment: environmentFor(background),
     },
     pois,

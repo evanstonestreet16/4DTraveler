@@ -11,10 +11,22 @@ export interface GenerateHistoryRequest {
   cityName: string;
   latitude: number;
   longitude: number;
-  /** If true, skip the network and return a bundled fixture (demo mode). */
+  /** If true, skip the network and return the bundled fixture directly. */
   useFixture?: boolean;
-  /** Passed through to fetch; lets the UI cancel in-flight generation. */
+  /** Cancels an in-flight generation. */
   signal?: AbortSignal;
+}
+
+export interface GenerateHistoryResult {
+  profile: GeneratedHistoryProfile;
+  /**
+   * Whether the profile came from a live LLM call ('live'), the bundled
+   * fixture requested up front ('fixture'), or a fixture fallback after a
+   * live call failed ('fallback').
+   */
+  source: 'live' | 'fixture' | 'fallback';
+  /** Underlying error when `source === 'fallback'`. */
+  fallbackReason?: string;
 }
 
 const FIXTURE_CITY_MAP: Record<string, GeneratedHistoryProfile> = {
@@ -38,14 +50,15 @@ export class HistoryGenerationError extends Error {
 
 export async function generateHistory(
   request: GenerateHistoryRequest,
-): Promise<GeneratedHistoryProfile> {
+): Promise<GenerateHistoryResult> {
   if (request.useFixture) {
     const fixture = fixtureFor(request.cityName);
-    if (fixture) return fixture;
+    if (fixture) return { profile: fixture, source: 'fixture' };
     throw new HistoryGenerationError(
       `No fixture available for "${request.cityName}"`,
     );
   }
+  let liveError: unknown = null;
   try {
     const response = await fetch('/api/generate-history', {
       method: 'POST',
@@ -64,15 +77,27 @@ export async function generateHistory(
       );
     }
     const json = (await response.json()) as unknown;
-    return validateHistoryProfile(json);
+    const validated = validateHistoryProfile(json);
+    return { profile: validated, source: 'live' };
   } catch (error) {
-    if (error instanceof HistoryGenerationError) throw error;
-    // Fall back to fixture so a broken key still lets the demo run.
-    const fixture = fixtureFor(request.cityName);
-    if (fixture) return fixture;
-    throw new HistoryGenerationError(
-      `Failed to generate history for "${request.cityName}"`,
-      error,
-    );
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      throw error;
+    }
+    liveError = error;
   }
+
+  // Live call failed. If we have a fixture for this city, use it silently
+  // (the UI will show a "bundled fallback" badge) so the demo never dies.
+  const fixture = fixtureFor(request.cityName);
+  if (fixture) {
+    const reason =
+      liveError instanceof Error ? liveError.message : String(liveError);
+    console.warn('[grok] live generation failed, using fixture:', reason);
+    return { profile: fixture, source: 'fallback', fallbackReason: reason };
+  }
+  if (liveError instanceof HistoryGenerationError) throw liveError;
+  throw new HistoryGenerationError(
+    `Failed to generate history for "${request.cityName}"`,
+    liveError,
+  );
 }

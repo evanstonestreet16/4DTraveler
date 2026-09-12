@@ -102,11 +102,14 @@ export type AudioState =
   'idle' | 'loading' | 'playing' | 'paused' | 'ended' | 'error';
 
 /**
- * LLM-generated world contract. Emitted by the Grok adapter and validated
- * before being turned into `HistoricalWorld`s via `deriveWorldFromEra`.
- * Kept intentionally lean: the client fills in overview/POI cameras and
- * environment defaults so the model does not have to reason about
- * cinematography or lighting math.
+ * LLM-generated world contract. Deliberately **denormalized** so the model
+ * never has to keep multiple id namespaces in sync — the biggest source of
+ * schema drift in practice.
+ *
+ * Instead of separate `primitives[]`, `objects[]`, and `pois[]` arrays
+ * linked by ids, each POI owns its `GeneratedObject`s and each object
+ * carries its own primitive spec inline. The client explodes this shape
+ * into the runtime `HistoricalWorld` inside `deriveWorldFromEra`.
  */
 export interface GeneratedHistoryProfile {
   cityName: string;
@@ -122,24 +125,31 @@ export interface GeneratedEra {
   subtitle: string;
   historicalContext: string;
   background?: string;
-  primitives: ScenePrimitive[];
+  /** Decorative shapes with no metadata — background, terrain, filler. */
+  scenery: ScenePrimitive[];
   pois: GeneratedPOI[];
-  objects: GeneratedObject[];
 }
 
 export interface GeneratedPOI {
   id: string;
   name: string;
   markerPosition: Vec3;
-  objectIds: string[];
+  /** Objects clustered at this POI. Each carries its own primitive spec. */
+  objects: GeneratedObject[];
 }
 
+/**
+ * One historical thing that is both rendered (as a primitive) and
+ * selectable (with metadata). No cross-references — the shape lives right
+ * next to the description.
+ */
 export interface GeneratedObject {
   id: string;
   name: string;
-  poiId: string;
-  /** Must match a `primitives[].id` for click-to-select to work. */
-  sceneObjectId: string;
+  shape: 'box' | 'cylinder';
+  position: Vec3;
+  scale: Vec3;
+  color: string;
   description: string;
   whyItMatters: string;
 }

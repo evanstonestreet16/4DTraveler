@@ -21,7 +21,8 @@ type Phase =
       city: GlobeCity;
       profile: GeneratedHistoryProfile;
       worlds: HistoricalWorld[];
-      usedFixture: boolean;
+      source: 'live' | 'fixture' | 'fallback';
+      fallbackReason?: string;
     }
   | { kind: 'error'; city: GlobeCity; message: string };
 
@@ -51,7 +52,7 @@ export function GlobeExperience() {
       abortRef.current = controller;
       setPhase({ kind: 'loading', city, useFixture });
       try {
-        const profile = await generateHistory({
+        const result = await generateHistory({
           cityName: city.name,
           latitude: city.latitude,
           longitude: city.longitude,
@@ -59,15 +60,16 @@ export function GlobeExperience() {
           signal: controller.signal,
         });
         if (controller.signal.aborted) return;
-        const worlds = deriveWorldsFromProfile(profile, {
+        const worlds = deriveWorldsFromProfile(result.profile, {
           locationId: `generated:${city.id}`,
         });
         setPhase({
           kind: 'ready',
           city,
-          profile,
+          profile: result.profile,
           worlds,
-          usedFixture: useFixture,
+          source: result.source,
+          fallbackReason: result.fallbackReason,
         });
       } catch (error) {
         if (controller.signal.aborted) return;
@@ -147,7 +149,8 @@ export function GlobeExperience() {
               city={phase.city}
               profile={phase.profile}
               worlds={phase.worlds}
-              usedFixture={phase.usedFixture}
+              source={phase.source}
+              fallbackReason={phase.fallbackReason}
               onSelectEra={handleEnterEra}
             />
           )}
@@ -241,13 +244,15 @@ function ReadyPanel({
   city,
   profile,
   worlds,
-  usedFixture,
+  source,
+  fallbackReason,
   onSelectEra,
 }: {
   city: GlobeCity;
   profile: GeneratedHistoryProfile;
   worlds: HistoricalWorld[];
-  usedFixture: boolean;
+  source: 'live' | 'fixture' | 'fallback';
+  fallbackReason?: string;
   onSelectEra: (world: HistoricalWorld) => void;
 }) {
   return (
@@ -255,9 +260,15 @@ function ReadyPanel({
       <p className="eyebrow">{profile.region}</p>
       <h2>{profile.cityName}</h2>
       <p>{profile.description}</p>
-      {usedFixture && (
+      {source === 'fixture' && (
         <p className="muted">
-          Using the bundled Seattle fixture (no API key configured).
+          Using the bundled {profile.cityName} fixture (no API key configured).
+        </p>
+      )}
+      {source === 'fallback' && (
+        <p className="muted" title={fallbackReason}>
+          Live generation failed — showing the bundled {profile.cityName}{' '}
+          fixture instead. Check the console for details.
         </p>
       )}
       <p className="eyebrow" style={{ marginTop: 18 }}>
