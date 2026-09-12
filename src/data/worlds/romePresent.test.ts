@@ -3,12 +3,13 @@ import { readFile } from 'node:fs/promises';
 import { expect, it } from 'vitest';
 import { rome125 } from './rome-125';
 import { romePresent } from './rome-present';
-import { findWorld, locations } from '../locations';
+import { findOpeningWorld, findWorld, locations } from '../locations';
 import manifest from '../../../public/images/rome-present/manifest.json' with { type: 'json' };
 import { overviewAsset } from '../../components/world/OverviewEraTransition';
 
 it('registers an overview-only present endpoint with responsive, fingerprinted images', async () => {
   expect(findWorld('rome', 'present')).toBe(romePresent);
+  expect(findOpeningWorld('rome')).toBe(romePresent);
   expect(
     locations
       .find((location) => location.id === 'rome')!

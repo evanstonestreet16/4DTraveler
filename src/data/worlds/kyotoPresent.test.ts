@@ -4,13 +4,15 @@ import { expect, it } from 'vitest';
 import { kyoto1700 } from './kyoto-1700';
 import { kyotoPresent } from './kyoto-present';
 import { romePresent } from './rome-present';
-import { findWorld } from '../locations';
+import { findOpeningWorld, findWorld } from '../locations';
 import { appReducer, initialState } from '../../app/state';
 import manifest from '../../../public/images/kyoto-present/manifest.json' with { type: 'json' };
 
 it('registers modern Kyoto with responsive assets in its own transition group', async () => {
   expect(findWorld('kyoto', 'present')).toBe(kyotoPresent);
   expect(findWorld('rome', 'present')).toBe(romePresent);
+  expect(findOpeningWorld('kyoto')).toBe(kyotoPresent);
+  expect(findOpeningWorld('rome')).toBe(romePresent);
   expect(kyotoPresent.pois).toEqual([]);
   expect(kyotoPresent.objects).toEqual([]);
   expect(kyotoPresent.scene.overviewImage?.markers).toEqual({});

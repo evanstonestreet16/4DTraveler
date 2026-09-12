@@ -3,7 +3,7 @@ import Globe, { type GlobeMethods } from 'react-globe.gl';
 import { MeshPhongMaterial } from 'three';
 import { countries, type CountryFeature } from '../../../data/geo/countries';
 import { citiesFor, findCity, type City } from '../../../data/geo/cities';
-import { locations } from '../../../data/locations';
+import { findOpeningWorld, locations } from '../../../data/locations';
 import { useApp } from '../../../app/AppContext';
 import { useElementSize } from './useElementSize';
 
@@ -50,9 +50,11 @@ export function GlobeView({ interactive }: { interactive: boolean }) {
     );
     // Every pin looks and behaves the same; one without a world is simply inert.
     if (location) {
-      pin.addEventListener('click', () =>
-        dispatch({ type: 'location', id: location.id }),
-      );
+      pin.addEventListener('click', () => {
+        const world = findOpeningWorld(location.id);
+        if (world) dispatch({ type: 'enterWorld', world });
+        else dispatch({ type: 'location', id: location.id });
+      });
     }
     return pin;
   };

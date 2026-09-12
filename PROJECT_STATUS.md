@@ -36,6 +36,8 @@ Kyoto / circa 1700 provides desktop and portrait overviews plus three original B
 
 Kyoto's era picker and overview slider now offer **circa 1700 ↔ Present**, using Rome's 2.2-second bidirectional reveal with destination decoding, Skip, reduced motion and image recovery. Present is overview-only; returning to circa 1700 restores the three historical POIs and their object paths. Modern desktop, phone and fallback BEVs preserve the historical compositions approximately while adding modern urban fabric. Prompts, references and source PNGs are in [the asset delivery](blender/source/kyoto-present/README.md).
 
+City pins on the landing globe open Rome and Kyoto in the **Present** overview. Choose era still lists every available year.
+
 ## Planned Scope
 
 The Rome Present accuracy correction landed on 2026-09-12. The replacement desktop and portrait compositions now distinguish the modern city with the Vittoriano/Piazza Venezia, the Via dei Fori Imperiali axis, excavated fora, ruined Colosseum, green Circus Maximus and post-antique urban blocks. Official Rome references and review criteria are recorded with the source assets. The endpoint remains a reference-grounded visual reconstruction, not surveyed imagery; fine-grained geometry and building placement remain approximate.
@@ -53,6 +55,8 @@ MongoDB, authentication, multiplayer, WASD, physics, NPCs, character interaction
 ## Recent Updates
 
 <!-- Newest first. Format: `- YYYY-MM-DD — summary (link to PR/issue if available)` -->
+
+- 2026-09-12 — City pins skip the era picker and open the present-day overview; Choose era still lists every year.
 
 - 2026-09-12 — Integrated Rome street-view navigation, Rome’s 500 BCE era and Kyoto Present with the latest globe-navigation and ambience changes. Preserved both sides of the status-log conflict; production build, 100 active/generic unit checks, and Rome/Kyoto globe → overview → POI → object → return browser smoke paths passed. Existing browser-test entry helpers still target the former city-list buttons.
 

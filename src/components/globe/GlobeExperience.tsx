@@ -7,7 +7,7 @@ import {
   generateHistory,
   HistoryGenerationError,
 } from '../../services/grok';
-import { locations, findWorld } from '../../data/locations';
+import { locations, findOpeningWorld } from '../../data/locations';
 import type {
   GeneratedHistoryProfile,
   HistoricalWorld,
@@ -29,9 +29,8 @@ type Phase =
 /**
  * Full globe-mode flow: rotating globe -> click city -> Grok generates
  * profile -> pick era -> hand the derived HistoricalWorld to the shared
- * app renderer via `enterWorld`. Pittsburgh is a special case: clicking
- * it dispatches into the existing static catalog so the curated demo
- * path stays intact.
+ * app renderer via `enterWorld`. Curated cities skip generation and open
+ * their present-day world when one exists.
  */
 export function GlobeExperience() {
   const { dispatch } = useApp();
@@ -92,8 +91,7 @@ export function GlobeExperience() {
           (entry) => entry.id === city.staticLocationId,
         );
         if (location) {
-          const era = location.eras[0];
-          const world = findWorld(location.id, era.id);
+          const world = findOpeningWorld(location.id);
           if (world) {
             dispatch({ type: 'enterWorld', world });
             return;
