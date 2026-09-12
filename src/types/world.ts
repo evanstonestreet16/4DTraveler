@@ -48,6 +48,40 @@ export interface SceneModel {
   fallbackLabel?: string;
 }
 
+/** Offline-rendered pixels; dimensions describe the actual encoded image. */
+export interface RenderedImageAsset {
+  url: string;
+  width: number;
+  height: number;
+}
+
+export interface OverviewImage {
+  desktop: RenderedImageAsset;
+  mobile?: RenderedImageAsset;
+  fallback: RenderedImageAsset;
+  /** Normalized coordinates in each authored image, before CSS cover cropping. */
+  markers: Record<
+    string,
+    { desktop: [number, number]; mobile?: [number, number] }
+  >;
+}
+
+export interface PanoramaHotspot {
+  objectId: string;
+  /** Radians: zero faces north (-Z); positive yaw turns west (-X). */
+  yaw: number;
+  /** Radians above the horizontal. */
+  pitch: number;
+}
+
+/** A 2:1 equirectangular image centered on north, with a composed still fallback. */
+export interface PanoramaAsset {
+  desktop: RenderedImageAsset;
+  mobile?: RenderedImageAsset;
+  fallback: RenderedImageAsset;
+  hotspots: PanoramaHotspot[];
+}
+
 export interface PointOfInterest {
   id: string;
   name: string;
@@ -101,6 +135,8 @@ export interface WorldEnvironment {
 
 export interface ScenePresentation {
   background: string;
+  overviewImage?: OverviewImage;
+  panorama?: PanoramaAsset;
   narrationAudio?: string;
   narrationTranscript?: string;
   /** Optional ambient loop, played only after a visitor action. */

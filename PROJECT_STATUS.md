@@ -18,17 +18,15 @@ For contributor rules, workstream ownership, and verification steps, see [AGENTS
 
 ## Current Scope
 
-The 3D modeling integration on `main` supports Pittsburgh / 1892 with an original GLB industrial diorama, three POIs, five selectable objects, narration, atmospheric lighting/motion, immersive presentation and adaptive scene quality. The complete primitive world remains available during model loading or failure.
-
-The user-selected **1850 · Blockout** adds a distinct market/wharf composition through the same era flow and renderer. It has two POIs, four illustrative objects, separate camera data and no narration. Existing 1892 IDs, content and cameras remain unchanged.
-
-The scoped PR stack for issues #5–#12 was merged into `main` in dependency order at the project owner's request. See the [integration runbook](docs/3D_MODELING.md) for the PR history and evidence. Historical/editorial approval, adjacent workstream review and physical-phone/browser certification remain handoffs. The performance report retains normal-browser total-heap growth and a passing JIT-disabled control; merging does not claim an unrestricted heap plateau or replace those reviews.
+Active work covers Rome / 125 CE and Kyoto / circa 1700. Pittsburgh is legacy code pending deletion.
 
 Rome / 125 CE P0 now provides a full-viewport static city overview and a Forum of Trajan fixed-position 360° scene, three sourced inspectable objects, source-reviewed transcripts, and low-detail recovery geometry. Original Blender sources and repeatable GLB exports are checked in. P1 adds the Pantheon forecourt with three sourced objects, its own transcript and selectable fallback; idle prefetch warms Forum/Pantheon assets only after the overview is interactive. P2 adds the Flavian Amphitheatre valley with three sourced landmarks, an unfinished Temple of Venus and Roma worksite, a transcript and original manually started construction/water ambience. All three Rome POIs are available. The additive immersive contract was agreed across navigation, objects and content workstreams before implementation.
 
+Kyoto / circa 1700 is implemented on `codex/kyoto-1700`: a desktop/portrait illustrated overview, three original Blender-rendered 360° panoramas (Nijō, Kiyomizu, Nishiki), nine sourced objects, four narration transcripts, mobile image variants and still/list recovery. All planned stable IDs are preserved. The shared panorama viewer is additive to the existing GLB path. See [Kyoto delivery](docs/visual/KYOTO_1700_ASSETS.md).
+
 ## Planned Scope
 
-The next hackathon direction is a city-agnostic, full-viewport experience for **Rome / 125 CE** and **Kyoto / circa 1700**. Each city will have a static bird's-eye overview plus Blender-authored POI scenes with fixed-position 360-degree looking, inspectable objects and narration. Walking, physics and runtime Blender coupling remain excluded. See the [immersive historical city plan](docs/IMMERSIVE_CITY_PLAN.md).
+The active demo uses rendered overviews and fixed-position panoramic viewpoints for convincing visuals with bounded browser loading. Recorded Kyoto narration remains deferred pending pronunciation review; written transcripts are available. Walking, physics and runtime Blender coupling remain excluded. See the [immersive historical city plan](docs/IMMERSIVE_CITY_PLAN.md).
 
 ## Out of Scope Unless Explicitly Requested
 
@@ -37,6 +35,8 @@ MongoDB, authentication, multiplayer, WASD, physics, NPCs, character interaction
 ## Recent Updates
 
 <!-- Newest first. Format: `- YYYY-MM-DD — summary (link to PR/issue if available)` -->
+
+- 2026-09-12 — Completed Kyoto P0/P1/P2 on `codex/kyoto-1700`, including Nijō, Kiyomizu and Nishiki imagery/content, panorama navigation, image/WebGL recovery, and responsive overview markers. [Delivery notes](docs/visual/KYOTO_1700_ASSETS.md).
 
 - 2026-09-12 — Completed Rome P2 valley, bringing Rome to three immersive POIs and nine sourced objects, with optional original ambience and selectable recovery scenes. See [asset delivery](docs/visual/ROME_125_ASSETS.md).
 

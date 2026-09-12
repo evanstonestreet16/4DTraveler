@@ -1,0 +1,128 @@
+.rendered-city-viewer,
+.rendered-view {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.rendered-view {
+  background: #b7ab93;
+}
+.rendered-still {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+.rendered-overview-image {
+  pointer-events: none;
+}
+.rendered-poi-marker {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: max-content;
+  max-width: min(210px, calc(100% - 16px));
+  min-height: 44px;
+  padding: 9px 13px;
+  border: 1px solid #fff9;
+  border-radius: 7px;
+  background: #fbf7eefa;
+  color: #2c372c;
+  box-shadow: 0 3px 18px #261c284a;
+  text-align: left;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+  cursor: pointer;
+}
+.rendered-poi-stem {
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.rendered-poi-stem line {
+  stroke: #fbf7ee;
+  stroke-width: 2px;
+}
+.rendered-poi-stem circle {
+  fill: #fbf7ee;
+  stroke: #345b43;
+  stroke-width: 1px;
+}
+.rendered-poi-marker:hover {
+  background: white;
+}
+.rendered-poi-marker:focus-visible {
+  outline: 3px solid #244e36;
+  outline-offset: 4px;
+}
+.rendered-poi-marker:disabled {
+  cursor: default;
+  opacity: 0.78;
+}
+.rendered-poi-number {
+  display: grid;
+  place-items: center;
+  flex: 0 0 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #345b43;
+  color: white;
+  font-size: 10px;
+}
+.rendered-image-status {
+  position: absolute;
+  z-index: 21;
+  left: 50%;
+  top: 130px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  width: max-content;
+  max-width: min(520px, calc(100% - 48px));
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: #faf7eff5;
+  color: #333d31;
+  box-shadow: 0 4px 18px #352b2326;
+  font-size: 12px;
+  text-align: center;
+}
+.city-experience:has([data-rendered-view='fallback']) .city-look-hint {
+  display: none;
+}
+@media (max-width: 700px) {
+  .rendered-poi-marker {
+    gap: 5px;
+    max-width: min(135px, calc(100% - 16px));
+    padding: 7px 9px;
+    font-size: 11px;
+  }
+  .rendered-poi-number {
+    flex-basis: 21px;
+    height: 21px;
+    font-size: 9px;
+  }
+  .rendered-image-status {
+    top: auto;
+    bottom: 170px;
+    max-width: calc(100% - 24px);
+    padding: 10px 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rendered-poi-marker {
+    transition: none;
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "scene": "overview",
+  "coordinates": "+X east, +Y up, +Z south; metres. Panorama center north, positive yaw west, positive pitch up, radians.",
+  "provenance": "Original procedural mesh, shader, vegetation, figures; no copied photos, textures or models. Inferred architectural reconstruction.",
+  "markers": {
+    "nijo-ninomaru": {
+      "desktop": [0.227967, 0.595814],
+      "mobile": [0.321235, 0.525579]
+    },
+    "kiyomizu-hillside": {
+      "desktop": [0.862054, 0.408738],
+      "mobile": [0.737921, 0.475636]
+    },
+    "nishiki-fish-market": {
+      "desktop": [0.552562, 0.528875],
+      "mobile": [0.534541, 0.507708]
+    }
+  },
+  "eye": [-2800, 2200, 3800],
+  "initialTarget": [1400, 100, 700]
+}

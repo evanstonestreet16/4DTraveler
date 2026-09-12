@@ -16,13 +16,17 @@ export function CameraController({
   initialView,
   fixedLook,
   staticView = false,
+  hotspotInput = false,
 }: {
   view: CameraView;
   initialView: CameraView;
   fixedLook?: LookLimits;
   staticView?: boolean;
+  /** Include projected HTML hotspot buttons in the same look gesture surface. */
+  hotspotInput?: boolean;
 }) {
   const { camera, size, invalidate, gl } = useThree();
+  const eventSurface = useThree((state) => state.events.connected);
   const target = useRef(new Vector3(...initialView.target));
   const transition = useRef<{
     fromPosition: Vector3;
@@ -83,6 +87,13 @@ export function CameraController({
   useEffect(() => {
     if (!fixedLook) return;
     const canvas = gl.domElement;
+    // Drei Html portals into R3F's connected event surface, which can sit outside
+    // the canvas measurement div. Use that same surface for marker drags.
+    const input = hotspotInput
+      ? eventSurface instanceof HTMLElement
+        ? eventSurface
+        : (canvas.parentElement ?? canvas)
+      : canvas;
     const previousTabIndex = canvas.tabIndex;
     const previousLabel = canvas.getAttribute('aria-label');
     let direction = initialLook(view, fixedLook);
@@ -119,7 +130,8 @@ export function CameraController({
         y: event.clientY,
         dragging: false,
       };
-      canvas.setPointerCapture(event.pointerId);
+      // Leave short button presses native; take capture only once they become drags.
+      if (event.target === canvas) canvas.setPointerCapture(event.pointerId);
     };
     const move = (event: PointerEvent) => {
       if (!pointer || event.pointerId !== pointer.id) return;
@@ -128,6 +140,8 @@ export function CameraController({
         event.clientY - pointer.startY,
       );
       if (pointer.dragging) {
+        if (!canvas.hasPointerCapture(event.pointerId))
+          canvas.setPointerCapture(event.pointerId);
         setSceneClickSuppressed(canvas, true);
         direction = moveLook(
           direction,
@@ -160,16 +174,16 @@ export function CameraController({
       direction = moveLook(direction, movement[0], movement[1], fixedLook);
       applyLook();
     };
-    canvas.addEventListener('pointerdown', down, true);
-    canvas.addEventListener('pointermove', move, true);
-    canvas.addEventListener('pointerup', up, true);
-    canvas.addEventListener('pointercancel', up, true);
+    input.addEventListener('pointerdown', down, true);
+    input.addEventListener('pointermove', move, true);
+    input.addEventListener('pointerup', up, true);
+    input.addEventListener('pointercancel', up, true);
     canvas.addEventListener('keydown', keydown);
     return () => {
-      canvas.removeEventListener('pointerdown', down, true);
-      canvas.removeEventListener('pointermove', move, true);
-      canvas.removeEventListener('pointerup', up, true);
-      canvas.removeEventListener('pointercancel', up, true);
+      input.removeEventListener('pointerdown', down, true);
+      input.removeEventListener('pointermove', move, true);
+      input.removeEventListener('pointerup', up, true);
+      input.removeEventListener('pointercancel', up, true);
       canvas.removeEventListener('keydown', keydown);
       if (pointer && canvas.hasPointerCapture(pointer.id))
         canvas.releasePointerCapture(pointer.id);
@@ -179,7 +193,7 @@ export function CameraController({
       if (previousLabel) canvas.setAttribute('aria-label', previousLabel);
       else canvas.removeAttribute('aria-label');
     };
-  }, [camera, fixedLook, gl, invalidate, view]);
+  }, [camera, eventSurface, fixedLook, gl, hotspotInput, invalidate, view]);
 
   useFrame((_, delta) => {
     const movement = transition.current;

@@ -6,6 +6,7 @@ import { NarrationControls } from '../audio/NarrationControls';
 import { AmbientControls } from '../audio/AmbientControls';
 import { ObjectInfoPanel } from '../info/ObjectInfoPanel';
 import { WorldCanvas } from './WorldCanvas';
+import { RenderedCityViewer } from './RenderedCityViewer';
 import { WorldViewport } from './WorldViewport';
 
 /** City presentations keep the canvas at viewport size while controls float above it. */
@@ -111,7 +112,11 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
       aria-labelledby="world-heading"
     >
       <WorldViewport layout="city" informationOpen={!!selectedObject}>
-        <WorldCanvas world={world} quality={quality} />
+        {(poi ? presentation.panorama : presentation.overviewImage) ? (
+          <RenderedCityViewer world={world} quality={quality} />
+        ) : (
+          <WorldCanvas world={world} quality={quality} />
+        )}
       </WorldViewport>
       <header className="city-heading">
         <div>

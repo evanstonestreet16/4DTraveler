@@ -1,0 +1,27 @@
+{
+  "scene": "nishiki-fish-market",
+  "coordinates": "+X east, +Y up, +Z south; metres. Panorama center north, positive yaw west, positive pitch up, radians.",
+  "provenance": "Original procedural mesh, shader, vegetation, figures; no copied photos, textures or models. Inferred architectural reconstruction.",
+  "eye": [0, 1.65, 0],
+  "initialTarget": [0, 1.8, -18],
+  "hotspots": [
+    {
+      "objectId": "nishiki-fish-stall",
+      "yaw": 0.0,
+      "pitch": -0.2071545,
+      "anchor": [0, 1.03, -2.95]
+    },
+    {
+      "objectId": "nishiki-groundwater",
+      "yaw": -1.3200871,
+      "pitch": -0.111764,
+      "anchor": [8.2, 0.7, -2.1]
+    },
+    {
+      "objectId": "nishiki-machiya-shopfront",
+      "yaw": 1.1902899,
+      "pitch": 0.2335794,
+      "anchor": [-8, 3.7, -3.2]
+    }
+  ]
+}

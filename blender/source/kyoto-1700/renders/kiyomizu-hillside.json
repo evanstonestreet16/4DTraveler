@@ -1,0 +1,27 @@
+{
+  "scene": "kiyomizu-hillside",
+  "coordinates": "+X east, +Y up, +Z south; metres. Panorama center north, positive yaw west, positive pitch up, radians.",
+  "provenance": "Original procedural mesh, shader, vegetation, figures; no copied photos, textures or models. Inferred architectural reconstruction.",
+  "eye": [18, 1.65, 24],
+  "initialTarget": [0, 10, 0],
+  "hotspots": [
+    {
+      "objectId": "kiyomizu-main-hall",
+      "yaw": 0.513606,
+      "pitch": 0.4265667,
+      "anchor": [-4, 22, -15]
+    },
+    {
+      "objectId": "kiyomizu-stage",
+      "yaw": 0.8850668,
+      "pitch": 0.2197836,
+      "anchor": [-4, 8, 6]
+    },
+    {
+      "objectId": "otowa-waterfall",
+      "yaw": -0.9770467,
+      "pitch": -0.0062163,
+      "anchor": [38, 1.5, 10.5]
+    }
+  ]
+}
