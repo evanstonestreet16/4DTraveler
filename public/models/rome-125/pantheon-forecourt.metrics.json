@@ -1,0 +1,21 @@
+{
+  "asset": "/models/rome-125/pantheon-forecourt.glb",
+  "generator": "blender/scripts/build_rome.py",
+  "sha256": "94b5b084ee7de1914fa1e0dee5706410e2d32306267e71cc1092509006285911",
+  "bytes": 2525112,
+  "triangles": 48844,
+  "materialBatches": 24,
+  "textures": 0,
+  "externalResources": 0,
+  "groups": [
+    "scenery",
+    "rome125_pantheon_granite_columns",
+    "rome125_pantheon_agrippa_inscription",
+    "rome125_pantheon_forecourt_colonnade"
+  ],
+  "bounds": {
+    "min": [-600.0, -1.149999976158142, -600.0],
+    "max": [600.0, 43.0, 600.0]
+  },
+  "confidence": "Source-aware interpretive reconstruction; original procedural geometry, no third-party assets."
+}

@@ -1,3 +1,4 @@
+import pantheonMetrics from '../../../public/models/rome-125/pantheon-forecourt.metrics.json' with { type: 'json' };
 import overviewMetrics from '../../../public/models/rome-125/overview.metrics.json' with { type: 'json' };
 import forumMetrics from '../../../public/models/rome-125/forum-trajan.metrics.json' with { type: 'json' };
 import type {
@@ -119,9 +120,59 @@ export const rome125POILayout: PointOfInterest[] = [
     id: 'pantheon-forecourt',
     name: 'The New Pantheon',
     markerPosition: [-590, 52, -300],
-    camera: { position: [0, 1.65, -32], target: [0, 11, 0], far: 1800 },
-    objectIds: [],
-    preview: true,
+    camera: { position: [0, 1.65, -42], target: [0, 13, 0], far: 1800 },
+    objectIds: [
+      'pantheon-agrippa-inscription',
+      'pantheon-granite-columns',
+      'pantheon-forecourt-colonnade',
+    ],
+    immersive: {
+      background: '#d6dfdf',
+      environment: forumEnvironment,
+      look: { minPitch: (-35 * Math.PI) / 180, maxPitch: (65 * Math.PI) / 180 },
+      model: {
+        url: `/models/rome-125/pantheon-forecourt.glb?v=${pantheonMetrics.sha256.slice(0, 12)}`,
+        selectableNodes: {
+          rome125_pantheon_agrippa_inscription:
+            'rome125_pantheon_agrippa_inscription',
+          rome125_pantheon_granite_columns: 'rome125_pantheon_granite_columns',
+          rome125_pantheon_forecourt_colonnade:
+            'rome125_pantheon_forecourt_colonnade',
+        },
+        loadingLabel: 'Entering the Pantheon forecourt',
+        fallbackLabel:
+          'The detailed Pantheon could not load. Explore its simplified forecourt and objects.',
+      },
+      primitives: [
+        box('pantheon-paving', [0, -0.3, 0], [1200, 0.6, 1200], '#bdae93'),
+        {
+          id: 'pantheon-rotunda',
+          shape: 'cylinder',
+          position: [0, 20, 28],
+          scale: [44, 40, 44],
+          color: '#ac967c',
+        },
+        box(
+          'rome125_pantheon_agrippa_inscription',
+          [0, 16.6, -9.6],
+          [36, 1.6, 2.8],
+        ),
+        box(
+          'rome125_pantheon_granite_columns',
+          [-14.7, 8, -7],
+          [1.6, 13, 1.6],
+          '#ac967c',
+        ),
+        box(
+          'rome125_pantheon_forecourt_colonnade',
+          [31, 7, -35],
+          [12, 14, 110],
+        ),
+        box('pantheon-west-portico', [-31, 7, -35], [12, 14, 110]),
+        box('pantheon-entry', [0, 10, -105], [145, 20, 20]),
+        box('pantheon-porch', [0, 17.5, 1], [37, 1, 25]),
+      ],
+    },
   },
   {
     id: 'colosseum-valley',

@@ -6,6 +6,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { chromium } from '@playwright/test';
 import { format } from 'prettier';
+import { Euler, Quaternion } from 'three';
 
 // Normal visitor controls plus the existing read-only profile bridge produce a repeatable review.
 // Usage: node scripts/review-rome.mjs http://127.0.0.1:4173 docs/evidence/rome-p0 forum-trajan
@@ -60,6 +61,31 @@ async function capture(name) {
   );
 }
 
+async function faceCardinal(targetYaw) {
+  // Read camera orientation, then use the same arrow controls available to a visitor.
+  // This handles south-facing and east-facing entry cameras without relabeling their views.
+  for (let step = 0; step < 100; step++) {
+    const quaternion = await page
+      .locator('canvas')
+      .evaluate((canvas) => canvas.__worldRendererInfo?.().camera.quaternion);
+    if (!quaternion)
+      throw new Error('The read-only camera profile is unavailable.');
+    const yaw = new Euler().setFromQuaternion(
+      new Quaternion(...quaternion),
+      'YXZ',
+    ).y;
+    const delta = Math.atan2(
+      Math.sin(targetYaw - yaw),
+      Math.cos(targetYaw - yaw),
+    );
+    if (Math.abs(delta) < Math.PI / 60) return;
+    await page.keyboard.press(delta > 0 ? 'ArrowLeft' : 'ArrowRight');
+  }
+  throw new Error(
+    'Arrow-key looking did not reach the requested review direction.',
+  );
+}
+
 try {
   const url = new URL(base);
   url.searchParams.set('profile', '1');
@@ -92,14 +118,14 @@ try {
     .click();
   await page.locator('[data-model-status="ready"]').waitFor();
   await page.locator('canvas').focus();
-  await capture(`${poiId}-north`);
-  for (const [direction, steps] of [
-    ['east', 16],
-    ['south', 17],
-    ['west', 16],
+  await capture(`${poiId}-initial`);
+  for (const [direction, yaw] of [
+    ['north', 0],
+    ['east', -Math.PI / 2],
+    ['south', Math.PI],
+    ['west', Math.PI / 2],
   ]) {
-    for (let step = 0; step < steps; step++)
-      await page.keyboard.press('ArrowRight');
+    await faceCardinal(yaw);
     await capture(`${poiId}-${direction}`);
   }
   await page.setViewportSize({ width: 390, height: 844 });

@@ -1,0 +1,309 @@
+{
+  "capturedAt": "2026-09-12T04:53:45.935Z",
+  "poiId": "pantheon-forecourt",
+  "views": [
+    {
+      "name": "overview-desktop",
+      "viewport": { "width": 1440, "height": 900 },
+      "canvas": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+      "renderer": {
+        "camera": {
+          "position": [-1450, 1250, 1650],
+          "quaternion": [
+            -0.2382071785635536, -0.37419178729724417, -0.10008104285760337,
+            0.890629907009988
+          ]
+        },
+        "memory": { "geometries": 12, "textures": 0 },
+        "render": {
+          "frame": 5,
+          "calls": 12,
+          "triangles": 60220,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": [
+        {
+          "label": "Forum of Trajan",
+          "visible": true,
+          "x": 592.6082763671875,
+          "y": 409.0875549316406,
+          "width": 122.59375,
+          "height": 44
+        },
+        {
+          "label": "The New Pantheon",
+          "visible": true,
+          "x": 304.15533447265625,
+          "y": 449.8808898925781,
+          "width": 140.5625,
+          "height": 44
+        },
+        {
+          "label": "Flavian Amphitheatre Valley · Preview",
+          "visible": true,
+          "x": 904.170654296875,
+          "y": 391.3414001464844,
+          "width": 241.53125,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "name": "overview-portrait",
+      "viewport": { "width": 390, "height": 844 },
+      "canvas": { "x": 0, "y": 0, "width": 390, "height": 844 },
+      "renderer": {
+        "camera": {
+          "position": [
+            -3196.1538461538457, 2658.5641025641025, 3361.230769230769
+          ],
+          "quaternion": [
+            -0.23820717856355356, -0.37419178729724417, -0.10008104285760336,
+            0.890629907009988
+          ]
+        },
+        "memory": { "geometries": 12, "textures": 0 },
+        "render": {
+          "frame": 6,
+          "calls": 12,
+          "triangles": 60220,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": [
+        {
+          "label": "Forum of Trajan",
+          "visible": true,
+          "x": 124.87516784667969,
+          "y": 391.66619873046875,
+          "width": 82,
+          "height": 44
+        },
+        {
+          "label": "The New Pantheon",
+          "visible": true,
+          "x": 8.022571563720703,
+          "y": 409.2431945800781,
+          "width": 82,
+          "height": 44
+        },
+        {
+          "label": "Flavian Amphitheatre Valley · Preview",
+          "visible": true,
+          "x": 289.1009521484375,
+          "y": 374.477294921875,
+          "width": 82,
+          "height": 62.5625
+        }
+      ]
+    },
+    {
+      "name": "overview-landscape",
+      "viewport": { "width": 844, "height": 390 },
+      "canvas": { "x": 0, "y": 0, "width": 844, "height": 390 },
+      "renderer": {
+        "camera": {
+          "position": [-1450, 1250, 1650],
+          "quaternion": [
+            -0.2382071785635536, -0.37419178729724417, -0.10008104285760337,
+            0.890629907009988
+          ]
+        },
+        "memory": { "geometries": 12, "textures": 0 },
+        "render": {
+          "frame": 7,
+          "calls": 12,
+          "triangles": 60220,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": [
+        {
+          "label": "Forum of Trajan",
+          "visible": true,
+          "x": 352.35888671875,
+          "y": 164.8046112060547,
+          "width": 82,
+          "height": 44
+        },
+        {
+          "label": "The New Pantheon",
+          "visible": true,
+          "x": 231.255859375,
+          "y": 182.48171997070312,
+          "width": 82,
+          "height": 44
+        },
+        {
+          "label": "Flavian Amphitheatre Valley · Preview",
+          "visible": true,
+          "x": 513.1390380859375,
+          "y": 147.83335876464844,
+          "width": 82,
+          "height": 62.5625
+        }
+      ]
+    },
+    {
+      "name": "pantheon-forecourt-initial",
+      "viewport": { "width": 1440, "height": 900 },
+      "canvas": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+      "renderer": {
+        "camera": {
+          "position": [0, 1.65, -42],
+          "quaternion": [
+            8.057206218320658e-18, -0.9913050024975558, 0.13158416326944877,
+            6.069992491436954e-17
+          ]
+        },
+        "memory": { "geometries": 24, "textures": 0 },
+        "render": {
+          "frame": 13,
+          "calls": 24,
+          "triangles": 48844,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": []
+    },
+    {
+      "name": "pantheon-forecourt-north",
+      "viewport": { "width": 1440, "height": 900 },
+      "canvas": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+      "renderer": {
+        "camera": {
+          "position": [0, 1.65, -42],
+          "quaternion": [
+            0.1315726934428629, 0.013088486990598482, -0.0017373438092028726,
+            0.9912185931897041
+          ]
+        },
+        "memory": { "geometries": 24, "textures": 0 },
+        "render": {
+          "frame": 18,
+          "calls": 16,
+          "triangles": 32756,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": []
+    },
+    {
+      "name": "pantheon-forecourt-east",
+      "viewport": { "width": 1440, "height": 900 },
+      "canvas": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+      "renderer": {
+        "camera": {
+          "position": [0, 1.65, -42],
+          "quaternion": [
+            0.09141125847290239, -0.7130471785641186, 0.09464868645533957,
+            0.6886576283745277
+          ]
+        },
+        "memory": { "geometries": 24, "textures": 0 },
+        "render": {
+          "frame": 21,
+          "calls": 16,
+          "triangles": 32756,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": []
+    },
+    {
+      "name": "pantheon-forecourt-south",
+      "viewport": { "width": 1440, "height": 900 },
+      "canvas": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+      "renderer": {
+        "camera": {
+          "position": [0, 1.65, -42],
+          "quaternion": [
+            8.057206218320658e-18, -0.9913050024975558, 0.13158416326944877,
+            6.069992491436954e-17
+          ]
+        },
+        "memory": { "geometries": 24, "textures": 0 },
+        "render": {
+          "frame": 24,
+          "calls": 24,
+          "triangles": 48844,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": []
+    },
+    {
+      "name": "pantheon-forecourt-west",
+      "viewport": { "width": 1440, "height": 900 },
+      "canvas": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+      "renderer": {
+        "camera": {
+          "position": [0, 1.65, -42],
+          "quaternion": [
+            0.09141125847290239, 0.7130471785641187, -0.09464868645533958,
+            0.6886576283745277
+          ]
+        },
+        "memory": { "geometries": 24, "textures": 0 },
+        "render": {
+          "frame": 27,
+          "calls": 16,
+          "triangles": 32756,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": []
+    },
+    {
+      "name": "pantheon-forecourt-object-portrait",
+      "viewport": { "width": 390, "height": 844 },
+      "canvas": { "x": 0, "y": 0, "width": 390, "height": 844 },
+      "renderer": {
+        "camera": {
+          "position": [0, 1.65, -42],
+          "quaternion": [
+            0.09141125847290239, 0.7130471785641187, -0.09464868645533958,
+            0.6886576283745277
+          ]
+        },
+        "memory": { "geometries": 24, "textures": 0 },
+        "render": {
+          "frame": 29,
+          "calls": 16,
+          "triangles": 32756,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 1,
+        "pixelRatio": 1
+      },
+      "markers": []
+    }
+  ],
+  "errors": []
+}
