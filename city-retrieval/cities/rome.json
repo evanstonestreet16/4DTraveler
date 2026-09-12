@@ -1,0 +1,159 @@
+{
+  "cityId": "rome",
+  "name": "Rome",
+  "country": "Italy",
+  "region": "Lazio",
+  "description": "Rome preserves layers of Republican, imperial, late antique, and modern history in the same urban landscape.",
+  "eras": [
+    {
+      "eraId": "imperial-rome",
+      "label": "Imperial Rome",
+      "year": 117,
+      "summary": "Under Emperor Hadrian, Rome was the center of an empire connected by roads, trade, and military power.",
+      "buildings": [
+        {
+          "buildingId": "colosseum",
+          "name": "Colosseum",
+          "status": "active amphitheatre",
+          "description": "The Flavian Amphitheatre hosted public spectacles, including gladiatorial contests and animal hunts. Completed under Emperor Titus in 80 CE and expanded under Domitian, it was one of the largest public buildings in the Roman world.",
+          "whyItMatters": "Its scale shows how imperial architecture, engineering, and public entertainment were used to express Roman power.",
+          "sceneObjectId": "colosseum",
+          "sources": [
+            {
+              "title": "Parco archeologico del Colosseo",
+              "url": "https://colosseo.it/en/area/colosseum/"
+            }
+          ]
+        },
+        {
+          "buildingId": "pantheon",
+          "name": "Pantheon",
+          "status": "newly rebuilt temple",
+          "description": "The Pantheon was rebuilt during Hadrian's reign after earlier structures on the site burned. Its concrete dome and oculus created an unprecedented interior space dedicated to the gods.",
+          "whyItMatters": "The dome demonstrates Roman mastery of concrete construction and remains one of the best-preserved major Roman buildings.",
+          "sceneObjectId": "pantheon",
+          "sources": [
+            {
+              "title": "Encyclopaedia Britannica, Pantheon",
+              "url": "https://www.britannica.com/topic/Pantheon-building-Rome-Italy"
+            }
+          ]
+        },
+        {
+          "buildingId": "roman-forum",
+          "name": "Roman Forum",
+          "status": "political and religious center",
+          "description": "The Roman Forum contained temples, basilicas, speaker's platforms, and administrative buildings. In the second century CE it remained the ceremonial and civic heart of Rome, even as imperial forums added new public space nearby.",
+          "whyItMatters": "The Forum reveals how Roman political, legal, religious, and commercial life shared one urban center.",
+          "sceneObjectId": "roman-forum",
+          "sources": [
+            {
+              "title": "Parco archeologico del Colosseo, Roman Forum",
+              "url": "https://colosseo.it/en/area/roman-forum/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "eraId": "late-antiquity",
+      "label": "Late Antiquity",
+      "year": 400,
+      "summary": "Rome remained symbolically important while political power and population shifted across the empire.",
+      "buildings": [
+        {
+          "buildingId": "colosseum",
+          "name": "Colosseum",
+          "status": "still in use, increasingly vulnerable",
+          "description": "The Colosseum continued to host spectacles in late antiquity, although the frequency and scale of events declined as the western empire faced political and economic pressure. Its surrounding infrastructure was no longer maintained at the level of the high empire.",
+          "whyItMatters": "The building's changing use reflects the wider transition from the high Roman Empire to late antique society.",
+          "sceneObjectId": "colosseum",
+          "sources": [
+            {
+              "title": "Parco archeologico del Colosseo",
+              "url": "https://colosseo.it/en/area/colosseum/"
+            }
+          ]
+        },
+        {
+          "buildingId": "pantheon",
+          "name": "Pantheon",
+          "status": "preserved monument",
+          "description": "The Pantheon's dome and portico remained prominent landmarks as Rome's religious and political landscape changed. The building was later converted into the Christian church of Saint Mary and the Martyrs in 609 CE.",
+          "whyItMatters": "Its survival shows how reuse allowed an ancient monument to remain part of Rome's active urban life.",
+          "sceneObjectId": "pantheon",
+          "sources": [
+            {
+              "title": "Encyclopaedia Britannica, Pantheon",
+              "url": "https://www.britannica.com/topic/Pantheon-building-Rome-Italy"
+            }
+          ]
+        },
+        {
+          "buildingId": "roman-forum",
+          "name": "Roman Forum",
+          "status": "declining civic center",
+          "description": "The Forum's ancient institutions lost importance as imperial administration moved toward new centers and Christianity reshaped public life. Temples and civic buildings still stood, but maintenance and daily activity declined compared with earlier centuries.",
+          "whyItMatters": "The Forum makes the shift from pagan civic traditions to a Christian and late imperial city visible in the surviving landscape.",
+          "sceneObjectId": "roman-forum",
+          "sources": [
+            {
+              "title": "Parco archeologico del Colosseo, Roman Forum",
+              "url": "https://colosseo.it/en/area/roman-forum/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "eraId": "modern-rome",
+      "label": "Modern Rome",
+      "year": 2026,
+      "summary": "Rome is Italy's capital and an archaeological city where ancient monuments are protected, studied, and visited alongside modern neighborhoods.",
+      "buildings": [
+        {
+          "buildingId": "colosseum",
+          "name": "Colosseum",
+          "status": "archaeological monument and museum site",
+          "description": "The Colosseum is conserved as an archaeological monument and is one of Rome's most visited sites. Earthquakes, stone reuse, restoration, and modern conservation have all shaped the structure visible today.",
+          "whyItMatters": "It connects the engineering and public culture of imperial Rome with modern debates about preservation, access, and heritage.",
+          "sceneObjectId": "colosseum",
+          "sources": [
+            {
+              "title": "Parco archeologico del Colosseo",
+              "url": "https://colosseo.it/en/area/colosseum/"
+            }
+          ]
+        },
+        {
+          "buildingId": "pantheon",
+          "name": "Pantheon",
+          "status": "active church and heritage site",
+          "description": "The Pantheon remains an active Catholic church as well as a historic monument. Its ancient concrete dome, marble interior, tombs, and oculus continue to shape how visitors understand Roman architectural history.",
+          "whyItMatters": "It is an unusually complete example of ancient Roman architecture that has remained in continuous use through major religious and political changes.",
+          "sceneObjectId": "pantheon",
+          "sources": [
+            {
+              "title": "Encyclopaedia Britannica, Pantheon",
+              "url": "https://www.britannica.com/topic/Pantheon-building-Rome-Italy"
+            }
+          ]
+        },
+        {
+          "buildingId": "roman-forum",
+          "name": "Roman Forum",
+          "status": "archaeological park",
+          "description": "The Roman Forum is preserved as an archaeological area containing the remains of temples, basilicas, roads, and monuments from several periods. Visitors can read the changing history of Rome through the layers of construction and reuse.",
+          "whyItMatters": "The Forum is a physical record of Rome's political, religious, and social transformation across more than a millennium.",
+          "sceneObjectId": "roman-forum",
+          "sources": [
+            {
+              "title": "Parco archeologico del Colosseo, Roman Forum",
+              "url": "https://colosseo.it/en/area/roman-forum/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
