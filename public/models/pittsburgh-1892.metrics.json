@@ -1,0 +1,63 @@
+{
+  "asset": "/models/pittsburgh-1892.glb",
+  "generator": "node scripts/generate-pittsburgh-model.js",
+  "historicalConfidence": "illustrative composite",
+  "bytes": 2192436,
+  "triangles": 30152,
+  "materialBatches": 32,
+  "materials": 12,
+  "textures": 0,
+  "externalResources": 0,
+  "compression": "none; texture-free material batches; no decoder dependency",
+  "ceilings": { "bytes": 8388608, "triangles": 100000, "materialBatches": 50 },
+  "groups": [
+    {
+      "node": "environment",
+      "selectable": false,
+      "position": [0, 0, 0],
+      "triangles": 19388,
+      "materialBatches": 12,
+      "bounds": [44, 7.62, 34]
+    },
+    {
+      "node": "furnace",
+      "selectable": true,
+      "position": [-13, 2.5, -4],
+      "triangles": 2384,
+      "materialBatches": 3,
+      "bounds": [3.8, 5.741, 5.23]
+    },
+    {
+      "node": "stack",
+      "selectable": true,
+      "position": [-8, 4, -6],
+      "triangles": 4440,
+      "materialBatches": 3,
+      "bounds": [2.15, 7.924, 2.15]
+    },
+    {
+      "node": "rail-car",
+      "selectable": true,
+      "position": [-7, 1, 0],
+      "triangles": 1448,
+      "materialBatches": 4,
+      "bounds": [6.35, 1.66, 2.127]
+    },
+    {
+      "node": "warehouse",
+      "selectable": true,
+      "position": [5, 2, -8],
+      "triangles": 1076,
+      "materialBatches": 6,
+      "bounds": [4.34, 4.77, 4.97]
+    },
+    {
+      "node": "bridge",
+      "selectable": true,
+      "position": [7, 1, 9],
+      "triangles": 1416,
+      "materialBatches": 4,
+      "bounds": [3.54, 3.125, 12.16]
+    }
+  ]
+}
