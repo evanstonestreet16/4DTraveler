@@ -13,7 +13,7 @@ Workstream 1 · parent issue #5. `codex/3d-modeling` contains the complete integ
 | 5     | #10   | [#17](https://github.com/evanstonestreet16/4DTraveler/pull/17) | Immersive renderer, native/CSS fullscreen, focus and responsive controls      |
 | 6     | #11   | [#18](https://github.com/evanstonestreet16/4DTraveler/pull/18) | Quality tiers, gzip/cache, lazy chunks and measured resource evidence         |
 | 7     | #12   | [#19](https://github.com/evanstonestreet16/4DTraveler/pull/19) | User-selected 1850 blockout and shared era layers                             |
-| 8     | #5    | This integration PR: `codex/3d-modeling`                       | Roadmap handoff, current project status and final verification                |
+| 8     | #5    | [#20](https://github.com/evanstonestreet16/4DTraveler/pull/20) | Roadmap handoff, current project status and final verification                |
 
 The stack is open for review and has not been merged. GitHub resolves the `Fixes` issue links when changes reach the default branch. Merge dependencies in this listed order. Preserve each child PR's narrow diff when retargeting; verify that its dependency is on `main` first.
 
@@ -49,7 +49,7 @@ npm run profile:world
 
 The checked-in evidence includes real frame samples, GPU resource lifecycle counts and screenshots, with the exact browser/backend noted. A desktop viewport and a mobile viewport in Chromium are regression environments; physical-device certification and editorial review require their named owners.
 
-The final integration passed formatting, lint, strict typecheck, **21 unit tests**, production build and **21 browser tests**. The two-era landing chunk is 209.22 kB raw / 66.26 kB at Vite's gzip setting; the largest JS chunk is 375.76 kB, below the 500 kB advisory. [Final build asset hashes and sizes](evidence/integration/build-assets.json) distinguish this two-era build from the frozen single-era performance comparison. No codec/runtime dependency was added.
+The final integration passed formatting, lint, strict typecheck, **21 unit tests**, production build and **21 browser tests**. The two-era landing chunk is 209.21 kB raw / 66.24 kB at Vite's gzip setting; the largest JS chunk is 375.76 kB, below the 500 kB advisory. [Final build asset hashes and sizes](evidence/integration/build-assets.json) distinguish this two-era build from the frozen single-era performance comparison. No codec/runtime dependency was added.
 
 ## Evidence and review gates
 

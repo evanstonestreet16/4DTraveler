@@ -11,12 +11,12 @@
       "sha256": "e8daad18b204a2a5b8013a2265e570259b68dc6dbd486f7bd0b518326282c6fe"
     },
     {
-      "path": "/assets/index-Dk3Oqo0d.js",
+      "path": "/assets/index-DMzgdNT4.js",
       "kind": "javascript",
-      "rawBytes": 209221,
-      "gzipBytes": 66129,
-      "brotliBytes": 61668,
-      "sha256": "1ef4dfab9ed484ec4dddf6fe2f2db95a0c0faf815e4a32a0ae1f0b48e4fe9a04"
+      "rawBytes": 209206,
+      "gzipBytes": 66113,
+      "brotliBytes": 61657,
+      "sha256": "a19b2e75d929422e8239e516cf3268534852c835f1dd068385fdf17b56f273ae"
     },
     {
       "path": "/assets/three-core-DEcG90xN.js",
@@ -35,12 +35,12 @@
       "sha256": "a0fab87a9ef6b17a0c85fa8d841ba784c957b917a734091372fafd779ccb6b77"
     },
     {
-      "path": "/assets/WorldExperience-BMAsteAL.js",
+      "path": "/assets/WorldExperience-erG9rP0g.js",
       "kind": "javascript",
       "rawBytes": 233137,
       "gzipBytes": 74229,
       "brotliBytes": 70194,
-      "sha256": "c3bd02fd536ec8307bae43d42601f969bcf53ea3dddfc044d641b35cee759eda"
+      "sha256": "cac5903ffdcfec1ac86fff68d7aabb16acc0e89af2410c7ff141571cb8fe96dd"
     },
     {
       "path": "/audio/narration.txt",
@@ -70,9 +70,9 @@
       "path": "/index.html",
       "kind": "html",
       "rawBytes": 594,
-      "gzipBytes": 359,
-      "brotliBytes": 255,
-      "sha256": "d30137cb4294add81176d7eef6adf973707ab0b04c18b23666c0ac5020933b00"
+      "gzipBytes": 365,
+      "brotliBytes": 254,
+      "sha256": "0e56aee561fb77232c321b6436f00ffd30e2bcb50fc473cc0b627e05c0329f9a"
     },
     {
       "path": "/models/pipeline-fixture.glb",
@@ -124,9 +124,9 @@
     },
     "javascript": {
       "files": 4,
-      "rawBytes": 1152651,
-      "gzipBytes": 324849,
-      "brotliBytes": 297876
+      "rawBytes": 1152636,
+      "gzipBytes": 324833,
+      "brotliBytes": 297865
     },
     "other": {
       "files": 4,
@@ -143,8 +143,8 @@
     "html": {
       "files": 1,
       "rawBytes": 594,
-      "gzipBytes": 359,
-      "brotliBytes": 255
+      "gzipBytes": 365,
+      "brotliBytes": 254
     },
     "models": {
       "files": 3,
