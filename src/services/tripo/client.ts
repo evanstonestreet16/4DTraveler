@@ -1,13 +1,19 @@
 /**
- * Browser-side client for the Tripo P1 (Smart Mesh) text-to-3D pipeline.
- * Transport goes through the Vite dev-server proxy in
- * `vite.plugins/tripo-proxy.ts` so the TRIPO_API_KEY never leaves the
- * machine.
+ * Browser-side client for the Tripo text-to-3D pipeline. Transport goes
+ * through the Vite dev-server proxy in `vite.plugins/tripo-proxy.ts` so
+ * the TRIPO_API_KEY never leaves the machine.
  *
  * Tripo is asynchronous: POST returns a task_id, then we poll the task
- * endpoint until status is `success` and a `model_url` appears. Typical
- * P1 latency is 2–10 seconds. Callers should render a placeholder until
- * the mesh URL resolves.
+ * endpoint until status is `success` and a `model_url` appears. Measured
+ * latency:
+ *   P1-20260311   ~57 s per prompt (current default)
+ *   v3.1-20260211 ~119 s per prompt
+ * Both are compute-bound diffusion pipelines — simpler prompts do not
+ * finish faster. Callers should render a placeholder for the full
+ * duration.
+ *
+ * A session-level prompt cache prevents re-firing a fresh 60-s request
+ * when a caller (e.g. IconicUpgrade) re-mounts with the same prompt.
  */
 export interface TripoProgressUpdate {
   /** Tripo task status. Typical progression: queued → running → success. */
@@ -80,26 +86,81 @@ function delay(ms: number, signal?: AbortSignal): Promise<void> {
   });
 }
 
+// Session-level cache of successful Tripo results, keyed by prompt.
+// Prevents refiring a fresh 60-s request every time IconicUpgrade
+// re-mounts (e.g. user leaves an era and comes back). Tripo model URLs
+// are documented to expire after 5 minutes, so we also stamp each entry
+// with its resolve time and refuse to serve stale hits.
+const MODEL_URL_TTL_MS = 4 * 60 * 1000;
+interface CacheEntry {
+  promise: Promise<TripoGenerateResult>;
+  resolvedAt?: number;
+  result?: TripoGenerateResult;
+}
+const promptCache = new Map<string, CacheEntry>();
+
+/** Test-only. Not part of the public surface. */
+export function _resetTripoCacheForTests(): void {
+  promptCache.clear();
+}
+
 export async function generateTripoMesh(
   options: TripoGenerateOptions,
 ): Promise<TripoGenerateResult> {
-  // v3.1-20260211 text-to-model runs in the 60–120 s range in practice,
-  // even for very simple prompts. 3 minutes is a comfortable ceiling.
   const timeoutMs = options.timeoutMs ?? 180_000;
   const pollIntervalMs = options.pollIntervalMs ?? 2_000;
 
-  const kick = (await fetchJson('/api/tripo/generate', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ prompt: options.prompt }),
-    signal: options.signal,
-  })) as { taskId?: unknown };
-  const taskId =
-    typeof kick.taskId === 'string' && kick.taskId.length > 0
-      ? kick.taskId
-      : null;
-  if (!taskId) throw new TripoError('Tripo proxy did not return a taskId');
+  // Cache lookup. Serve a still-in-flight request or a fresh-enough
+  // resolved URL, otherwise generate a new one.
+  const cached = promptCache.get(options.prompt);
+  if (cached) {
+    if (cached.result && cached.resolvedAt !== undefined) {
+      if (Date.now() - cached.resolvedAt < MODEL_URL_TTL_MS) {
+        return cached.result;
+      }
+      // Stale — fall through to a fresh generation.
+      promptCache.delete(options.prompt);
+    } else {
+      // Still in flight for the same prompt — piggy-back on it.
+      return cached.promise;
+    }
+  }
 
+  const run = (async (): Promise<TripoGenerateResult> => {
+    const kick = (await fetchJson('/api/tripo/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: options.prompt }),
+      signal: options.signal,
+    })) as { taskId?: unknown };
+    const taskId =
+      typeof kick.taskId === 'string' && kick.taskId.length > 0
+        ? kick.taskId
+        : null;
+    if (!taskId) throw new TripoError('Tripo proxy did not return a taskId');
+    return pollForResult(taskId, timeoutMs, pollIntervalMs, options);
+  })();
+
+  const entry: CacheEntry = { promise: run };
+  promptCache.set(options.prompt, entry);
+  try {
+    const result = await run;
+    entry.result = result;
+    entry.resolvedAt = Date.now();
+    return result;
+  } catch (error) {
+    // Don't cache failures — the next mount should be free to retry.
+    promptCache.delete(options.prompt);
+    throw error;
+  }
+}
+
+async function pollForResult(
+  taskId: string,
+  timeoutMs: number,
+  pollIntervalMs: number,
+  options: TripoGenerateOptions,
+): Promise<TripoGenerateResult> {
   const startedAt = Date.now();
   // Polling loop. Bail out if the task takes longer than the timeout —
   // callers can just keep showing the primitive silhouette in that case.

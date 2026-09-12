@@ -14,9 +14,13 @@ import type { Plugin } from 'vite';
 export interface TripoProxyOptions {
   apiKey: string | undefined;
   /**
-   * Defaults to `v3.1-20260211` (Tripo docs' recommended text-to-model
-   * default). P1-20260311 is documented as image-to-model in the
-   * game-ready character workflow.
+   * Defaults to `P1-20260311` — Tripo's low-poly Smart Mesh model.
+   * Measured latency:
+   *   P1-20260311  ~57 s per prompt (Space Needle, same wording)
+   *   v3.1-20260211 ~119 s per prompt (same wording)
+   * The docs claim 2–10 s for P1 but that appears to be marketing.
+   * P1 accepts text prompts via /v3/generation/text-to-model despite
+   * the docs listing it under image-to-model workflows.
    */
   model?: string;
   /** Base URL for Tripo's REST API. */
@@ -53,7 +57,7 @@ function respondJson(res: ServerResponse, status: number, body: unknown) {
 }
 
 export function tripoProxyPlugin(options: TripoProxyOptions): Plugin {
-  const model = options.model ?? 'v3.1-20260211';
+  const model = options.model ?? 'P1-20260311';
   const endpoint = options.endpoint ?? 'https://openapi.tripo3d.ai';
   return {
     name: '4dtraveler:tripo-proxy',
