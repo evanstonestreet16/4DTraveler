@@ -1,6 +1,57 @@
 # Rome / 125 CE asset delivery
 
-## Offline image delivery after P2
+## Current street-view delivery (2026-09-12)
+
+All three Rome POI buttons open the supplied street-view illustrations. The existing
+panorama viewer, fixed camera presets, overview and stable IDs are preserved.
+Desktop/mobile WebPs preserve the sources’ native 1440 × 720 pixels losslessly;
+fallback stills are projected from those same images. The viewer uses the original
+street-view module’s 75° field of view instead of the previous 62°. The input
+resolution still limits sharpness when a small portion fills the screen. These AI illustrations contain
+interpretive and anachronistic details and are not verified 125 CE reconstructions.
+
+Entry-view sources under `pano-explorer/public/images/citystreetviews/rome/`:
+
+| POI                | Source                                               |
+| ------------------ | ---------------------------------------------------- |
+| Forum of Trajan    | `trajan/Gemini_Generated_Image_jov5itjov5itjov5.jpg` |
+| Pantheon forecourt | `pantheon/pantheon_41.8990374,12.4767907.jpg`        |
+| Colosseum valley   | `colosseum/colosseum_41.8912414,12.4911149.jpg`      |
+
+Previous/next arrows connect all ten supplied images within their POI: three Forum
+views, three Pantheon views (including the interior), and four Colosseum views.
+The controls remain available during loading and image failure. Moving clears
+object selection and opens the destination at its authored viewing direction;
+leaving the POI releases the image and re-entry starts at its first view. Additional
+views have no speculative object markers, while the object list remains usable.
+These are nearby image choices, not surveyed geographic routes or continuous walking.
+
+The additive contract in `src/types/world.ts` separates `PanoramaImage` from optional
+`PanoramaAsset.viewpoints` (ordered stable IDs, labels and image/hotspot sets) and
+`fieldOfView`. The first viewpoint matches the POI entry image. Worlds without
+viewpoints retain the existing single panorama and 62° field of view, including Kyoto.
+
+Repackage with `python3 scripts/package-rome-streetviews.py` (Pillow and NumPy).
+The script preserves `manifest.overview`, records source hashes and pixel anchors,
+and wraps each image horizontally to match the original opening direction. The
+packager decodes each lossless WebP and checks pixel equality against the wrapped
+source, so the runtime panorama introduces no additional compression loss.
+Five hotspots mark visible illustrative features: the Forum basilica façade,
+Pantheon inscription/columns/colonnade, and Colosseum arcade. Objects absent from
+the new images remain available in the object list without a misleading marker.
+The supplied image edges may contain visible discontinuities when looking around.
+
+Validation: source-pixel equality, focused unit tests, TypeScript, lint and production
+build passed. Rome desktop/mobile smoke checks and the all-ten-view navigation,
+keyboard, selection-clearing, failed-image retry and re-entry test passed. Browser
+review checked the visible arrows. Kyoto's broader browser checks timed out during
+startup; its asset and navigation unit checks passed.
+
+The following sections record the **superseded Blender panorama delivery** and the
+retained overview/model authoring workflow. Running the old panorama packager will
+restore the old Blender images; use the street-view command above for current POIs.
+
+## Original offline image delivery after P2
 
 Rome now uses an authored overview still and true equirectangular panoramas for all three POIs. Original runtime GLBs remain unchanged as the migration baseline. The checked-in `.blend` sources now contain the render-only material, architecture, civic-figure, foliage and lighting pass; `build_rome.py` can still rebuild the original blockouts separately.
 

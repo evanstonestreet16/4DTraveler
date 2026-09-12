@@ -15,6 +15,7 @@ const images = manifest as unknown as {
 /** Metres from Nijō; +X east, +Y up, +Z south. Geographic anchors are approximate. */
 export const kyoto1700Scene: HistoricalWorld['scene'] = {
   presentation: 'immersive-city',
+  overviewTransition: { group: 'kyoto-central', durationMs: 2200 },
   background: '#acb7af',
   overviewCamera: {
     position: [-2800, 2200, 3800],

@@ -1,0 +1,42 @@
+{
+  "generator": "Codex built-in image generation",
+  "purpose": "Modern-day Kyoto BEV assets matching the historical Kyoto compositions using the Rome Present workflow. Asset-only delivery; timeline integration pending.",
+  "references": [
+    {
+      "title": "Agency for Cultural Affairs: Nijo-jo",
+      "url": "https://online.bunka.go.jp/suisensyo/kyoto/MAINTEXT/3b-Q.html",
+      "role": "Keep lost in 1750, original Honmaru Palace lost in 1788, replacement palace relocated in 1894; surviving Ninomaru layout."
+    },
+    {
+      "title": "Kyoto Imperial Palace — Kyoto City Official Guide",
+      "url": "https://kyoto.travel/en/destinations/kyoto-imperial-palace/",
+      "role": "Present palace within Kyoto Gyoen park."
+    },
+    {
+      "title": "Central Kyoto City (Nishiki Market) — Kyoto City Official Guide",
+      "url": "https://kyoto.travel/en/getting-around/comfortable-access-to-central-kyoto-city-nishiki-market/",
+      "role": "Nishiki shopping arcade and modern central-city context."
+    },
+    {
+      "title": "Kiyomizu-dera Temple — Kyoto City Official Guide",
+      "url": "https://kyoto.travel/en/destinations/kiyomizudera-temple/",
+      "role": "Surviving hillside temple and wooden stage."
+    }
+  ],
+  "desktop": {
+    "inputs": [
+      "blender/source/kyoto-1700/overview-illustration.png",
+      "blender/source/rome-present/overview-desktop.png"
+    ],
+    "output": "blender/source/kyoto-present/overview-desktop.png",
+    "prompt": "Use case: precise-object-edit\nAsset type: 4DTraveler modern-day Kyoto desktop bird's-eye overview endpoint, paired with a circa 1700 image.\nInput images: Image 1 is the EDIT TARGET and locked Kyoto camera/composition. Image 2 is Rome's approved present-day rendering FINISH reference only, not geography or architecture.\nPrimary request: Transform Image 1 into recognizable present-day Kyoto, circa 2026, preserving its exact aerial framing and geographic anchors. Replace the extensive early Edo urban fabric with today's dense Japanese low-rise city: a believable fine-grained mixture of two/three-story tiled homes and surviving machiya, cream/gray concrete apartments and mid-rise commercial blocks, flat roofs, roof equipment, narrow paved lanes, broader asphalt avenues with lane markings and crosswalks, tiny contemporary cars and buses. Make modernization unmistakable across the foreground and central grid, with realistic varied building heights and materials, not a sea of old wooden roofs. Preserve historic temple enclaves amid modern development. Nijō Castle remains at normalized x .23 y .62 within its rectangular moats: REMOVE the tall five-story keep entirely, replace it with the surviving low stone keep foundation, retain the low Ninomaru palace sequence, gardens, and modern low Honmaru palace massing. Imperial enclosure above it at left becomes the present Kyoto Imperial Palace inside a leafy Kyoto Gyoen park with gravel paths. Nishiki at x .555 y .565 becomes a narrow covered shopping arcade integrated into modern commercial blocks, not a huge market building. Kamo River retains its exact diagonal course from upper left toward lower right, now with embanked banks, riverside walking paths, broad gravel shallows, grassy terraces, and contemporary road bridges. Kiyomizu-dera main hall and timber stage remain on the forested upper-right hillside at x .93 y .235, with maintained temple grounds. Keep the forested Higashiyama ridgeline and natural atmosphere intact.\nStyle/medium: highly detailed photorealistic aerial architectural visualization, tangible concrete, tile, plaster, glass and foliage, same polished realistic finish as Image 2 with Japanese architecture. Restrained warm early-autumn morning sunlight matching Image 1.\nComposition/framing: preserve Image 1's exact 1586:992 landscape aspect ratio, camera angle, projection, field of view, crop, landmark centers, river bends and mountain silhouettes. All changes happen within the existing landscape. This is a reference-grounded illustration, not surveyed imagery.\nConstraints: no labels, text, symbols, watermarks, borders, fantasy towers, European architecture, extra river, giant skyscraper skyline, Kyoto Tower inserted outside the frame's geography, elevated railway through historic precincts, or rebuilt Nijō keep. Do not preserve the obsolete ancient city fabric merely by sprinkling cars onto it."
+  },
+  "mobile": {
+    "inputs": [
+      "blender/source/kyoto-1700/overview-mobile-illustration.png",
+      "blender/source/kyoto-present/overview-desktop.png"
+    ],
+    "output": "blender/source/kyoto-present/overview-mobile.png",
+    "prompt": "Use case: precise-object-edit\nAsset type: 4DTraveler present-day Kyoto narrow portrait bird's-eye overview endpoint.\nInput images: Image 1 is the EDIT TARGET and locked circa-1700 Kyoto portrait camera/crop. Image 2 is the approved modern Kyoto desktop CONDITION AND FINISH REFERENCE only; do not copy its landscape crop.\nPrimary request: Transform Image 1 into present-day Kyoto circa 2026 in the same way as Image 2. Replace early Edo residential fabric with a convincing dense modern Japanese city: varied two/three-story tiled homes and surviving machiya mixed with cream/gray concrete apartments, modest mid-rise commercial blocks, flat roofs and roof equipment, narrow paved lanes, wider asphalt avenues, small crosswalks, tiny cars and buses. Modernize the entire foreground and middle city, keeping historic temple grounds amid contemporary neighborhoods. Nijō at normalized x .30 y .57 retains its rectangular moats, low Ninomaru palace sequence, gardens, and low modern Honmaru palace: REMOVE THE FIVE-STORY KEEP, leave a low bare stone keep foundation. Imperial Palace above Nijō remains low traditional palace buildings within leafy Kyoto Gyoen park and gravel paths. Nishiki district at x .61 y .64 has a narrow covered shopping arcade among commercial blocks, no huge market hall. The diagonal Kamo River keeps the same course and widths with modern road bridges, maintained embankments, walking paths, gravel shallows and grassy terraces. Keep Kiyomizu-dera main hall and timber stage on its forested hillside at x .9 y .37, with maintained grounds. Keep the Higashiyama mountains, sky and existing distant atmospheric layers.\nStyle/medium: match Image 2's highly detailed photorealistic aerial architectural visualization, varied Japanese urban textures, natural scale, warm early autumn morning sunlight and restrained palette. No miniature tilt shift.\nComposition/framing: preserve Image 1's exact narrow tall aspect ratio 853:1844, full scene width, camera, projection, crop and skyline. Sky occupies the same top section, Nijō and Kiyomizu remain fully in frame. Do not crop either side, zoom, shift landmarks, shorten the portrait or insert a landscape image inside a portrait canvas. Update city buildings and infrastructure in place.\nConstraints: no writing, labels, markers, symbols, logos, watermarks, borders, fantasy pagodas, Nijō keep, European buildings, Tokyo-like skyscraper skyline, additional river, or Kyoto Tower in an unrelated position. This is an illustrative reconstruction with approximate inherited geography."
+  }
+}

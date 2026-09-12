@@ -104,11 +104,24 @@ export interface PanoramaHotspot {
 }
 
 /** A 2:1 equirectangular image centered on north, with a composed still fallback. */
-export interface PanoramaAsset {
+export interface PanoramaImage {
   desktop: RenderedImageAsset;
   mobile?: RenderedImageAsset;
   fallback: RenderedImageAsset;
   hotspots: PanoramaHotspot[];
+}
+
+export interface PanoramaViewpoint extends PanoramaImage {
+  /** Stable within this POI; does not replace its POI or object IDs. */
+  id: string;
+  label: string;
+}
+
+export interface PanoramaAsset extends PanoramaImage {
+  /** Vertical field of view in degrees. Defaults to the existing 62° view. */
+  fieldOfView?: number;
+  /** Ordered nearby views. The first is the POI's entry image. */
+  viewpoints?: PanoramaViewpoint[];
 }
 
 export interface PointOfInterest {

@@ -21,7 +21,13 @@ street fabric. This is a reference-grounded visual reconstruction, not a
 surveyed aerial photograph; runtime verification does not certify fine-grained
 geographic accuracy.
 
-Rome now has a `rome-present` world and a two-stop overview slider. Desktop and
+The original two-stop delivery now also includes Circa 500 BCE, using the same
+transition group and 2.2-second reveal. The timeline is Circa 500 BCE → 125 CE →
+Present; the older era's three markers are display-only previews. Its scene and
+content composition is `src/data/worlds/rome-500bce.ts`, with delivered assets
+documented in `blender/source/rome-500bce/README.md`.
+
+Rome has a `rome-present` world and an overview slider. Desktop and
 portrait present-day illustrations were generated from project-owned endpoint
 frames with the built-in image tool. They are explicitly labeled as
 reference-grounded reconstructions: broad registration and defining modern

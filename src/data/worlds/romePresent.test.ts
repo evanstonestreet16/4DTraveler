@@ -13,7 +13,7 @@ it('registers an overview-only present endpoint with responsive, fingerprinted i
     locations
       .find((location) => location.id === 'rome')!
       .eras.map((era) => era.id),
-  ).toEqual(['125', 'present']);
+  ).toEqual(['125', '500bce', 'present']);
   expect(romePresent.pois).toEqual([]);
   expect(romePresent.objects).toEqual([]);
   expect(romePresent.scene.overviewTransition).toEqual(

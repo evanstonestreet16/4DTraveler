@@ -27,33 +27,52 @@ async function checkImage(image: RenderedImageAsset, budgetMB: number) {
 }
 
 describe('Rome rendered asset delivery', () => {
-  it('identifies and fingerprints AI atmosphere and material inputs as visual interpretation', async () => {
-    const manifest: typeof renderedManifest & {
-      aiInputs?: {
-        path: string;
-        role: string;
-        generator: string;
-        historicalEvidence: boolean;
-        sha256: string;
-      }[];
-    } = renderedManifest;
-    expect(manifest.aiInputs).toBeDefined();
-    expect(manifest.aiInputs!.map((input) => input.role).sort()).toEqual([
-      'generic-stone-albedo',
-      'sky-background',
-    ]);
-    for (const input of manifest.aiInputs!) {
-      expect(input.path).toMatch(
-        /^blender\/assets\/rome-125\/ai\/[\w-]+\.png$/,
+  it('ships all ten nearby views with lossless native-resolution images and stable POI entry frames', async () => {
+    let total = 0;
+    for (const poi of rome125.pois) {
+      const panorama = poi.immersive!.panorama!;
+      const views = panorama.viewpoints!;
+      expect(panorama.fieldOfView).toBe(75);
+      expect(views.length).toBeGreaterThanOrEqual(3);
+      expect(new Set(views.map((view) => view.id)).size).toBe(views.length);
+      expect(views[0].desktop).toEqual(panorama.desktop);
+      expect(views[0].hotspots).toEqual(panorama.hotspots);
+      for (const view of views) {
+        total++;
+        await checkImage(view.desktop, 3);
+        await checkImage(view.mobile!, 3);
+        await checkImage(view.fallback, 0.5);
+        const bytes = await readFile(
+          new URL(
+            `../../../public${new URL(view.desktop.url, 'http://local').pathname}`,
+            import.meta.url,
+          ),
+        );
+        // VP8L is WebP's lossless bitstream, unlike the former lossy VP8 files.
+        expect(bytes.toString('ascii', 12, 16)).toBe('VP8L');
+        expect([view.desktop.width, view.desktop.height]).toEqual([1440, 720]);
+        expect(view.label.length).toBeGreaterThan(0);
+        for (const hotspot of view.hotspots)
+          expect(poi.objectIds).toContain(hotspot.objectId);
+      }
+    }
+    expect(total).toBe(10);
+  });
+
+  it('fingerprints the supplied street views used by each POI', async () => {
+    for (const panorama of Object.values(renderedManifest.panoramas)) {
+      const source = panorama.source;
+      expect(source.path).toMatch(
+        /^pano-explorer\/public\/images\/citystreetviews\/rome\/(trajan|pantheon|colosseum)\/.+\.jpg$/,
       );
-      expect(input.generator).toBe('Codex built-in image generation');
-      expect(input.historicalEvidence).toBe(false);
       const bytes = await readFile(
-        new URL(`../../../${input.path}`, import.meta.url),
+        new URL(`../../../${source.path}`, import.meta.url),
       );
-      expect(input.sha256).toBe(
-        createHash('sha256').update(bytes).digest('hex'),
+      expect(createHash('sha256').update(bytes).digest('hex')).toBe(
+        source.sha256,
       );
+      expect(panorama.desktop.width).toBe(source.width);
+      expect(panorama.desktop.height).toBe(source.height);
     }
   });
 
@@ -79,7 +98,7 @@ describe('Rome rendered asset delivery', () => {
     }
   });
 
-  it('ships all three 2:1 panoramas with exact stable object mappings and still fallbacks', async () => {
+  it('ships all three 2:1 panoramas with visible object mappings and matching still fallbacks', async () => {
     expect(rome125.pois).toHaveLength(3);
     for (const poi of rome125.pois) {
       const panorama = poi.immersive!.panorama!;
@@ -88,7 +107,12 @@ describe('Rome rendered asset delivery', () => {
         {
           eye: number[];
           initialTarget: number[];
-          anchors: Record<string, number[]>;
+          source: {
+            width: number;
+            height: number;
+            horizontalShiftPixels: number;
+            hotspotPixels: Record<string, number[]>;
+          };
         }
       > = renderedManifest.panoramas;
       expect(authored[poi.id].eye).toEqual(poi.camera.position);
@@ -98,35 +122,40 @@ describe('Rome rendered asset delivery', () => {
       await checkImage(panorama.desktop, 6);
       await checkImage(panorama.mobile!, 3);
       await checkImage(panorama.fallback, 0.5);
-      expect(panorama.desktop.width).toBeGreaterThanOrEqual(4096);
+      expect(panorama.desktop.width).toBeGreaterThanOrEqual(1440);
       expect(panorama.desktop.width).toBeLessThanOrEqual(8192);
-      expect(panorama.mobile!.width).toBeGreaterThanOrEqual(2048);
+      expect(panorama.mobile!.width).toBeGreaterThanOrEqual(1440);
       expect(panorama.mobile!.width).toBeLessThanOrEqual(4096);
       for (const image of [panorama.desktop, panorama.mobile!])
         expect(image.width / image.height).toBe(2);
+      const source = authored[poi.id].source;
       expect(panorama.hotspots.map((hotspot) => hotspot.objectId)).toEqual(
-        poi.objectIds,
+        Object.keys(source.hotspotPixels),
       );
       expect(
         new Set(panorama.hotspots.map((hotspot) => hotspot.objectId)).size,
-      ).toBe(3);
+      ).toBe(panorama.hotspots.length);
+      // Every original object remains discoverable even when absent from the new image.
+      expect(
+        resolvePresentation(rome125, 'POI', poi.id).objects.map(
+          (object) => object.id,
+        ),
+      ).toEqual(poi.objectIds);
       for (const hotspot of panorama.hotspots) {
         expect(Number.isFinite(hotspot.yaw)).toBe(true);
-        const anchor = authored[poi.id].anchors[hotspot.objectId];
-        expect(anchor).toHaveLength(3);
-        const [dx, dy, dz] = anchor.map(
-          (coordinate, axis) => coordinate - poi.camera.position[axis],
-        );
-        // Compare circular yaw so rounded +pi and atan2(-0, -z) agree at south.
-        const yawDifference = hotspot.yaw - Math.atan2(-dx, -dz);
-        expect(
-          Math.atan2(Math.sin(yawDifference), Math.cos(yawDifference)),
-        ).toBeCloseTo(0, 7);
-        expect(hotspot.pitch).toBeCloseTo(
-          Math.atan2(dy, Math.hypot(dx, dz)),
+        const [x, y] = source.hotspotPixels[hotspot.objectId];
+        expect(hotspot.yaw).toBeCloseTo(
+          (0.5 -
+            ((x + source.horizontalShiftPixels) % source.width) /
+              source.width) *
+            2 *
+            Math.PI,
           7,
         );
-        // The authoring export rounds radians to seven decimal places.
+        expect(hotspot.pitch).toBeCloseTo(
+          (0.5 - y / source.height) * Math.PI,
+          7,
+        );
         expect(hotspot.yaw).toBeGreaterThanOrEqual(-Math.PI - 1e-7);
         expect(hotspot.yaw).toBeLessThanOrEqual(Math.PI + 1e-7);
         expect(hotspot.pitch).toBeGreaterThan(poi.immersive!.look.minPitch);

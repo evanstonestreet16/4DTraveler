@@ -1,0 +1,84 @@
+{
+  "worldId": "kyoto-present",
+  "snapshotYear": 2026,
+  "overview": {
+    "desktop": {
+      "url": "/images/kyoto-present/overview.webp?v=d68bd78c1799",
+      "width": 1584,
+      "height": 993,
+      "bytes": 631228,
+      "sha256": "d68bd78c1799630983077ef116c7c8131ff55ca146a61866f346f2fb320bbc6c"
+    },
+    "mobile": {
+      "url": "/images/kyoto-present/overview-mobile.webp?v=2cccee9230d5",
+      "width": 853,
+      "height": 1844,
+      "bytes": 527836,
+      "sha256": "2cccee9230d5b3b117ac6a1c5febd346855efd7f9cbac66cad8055d445fe6abf"
+    },
+    "fallback": {
+      "url": "/images/kyoto-present/overview-fallback.webp?v=dde532b74f1b",
+      "width": 1584,
+      "height": 993,
+      "bytes": 288644,
+      "sha256": "dde532b74f1b236c62cfc445ff10dad774df5a4fec5143ad1196185c6cd3bde9"
+    }
+  },
+  "inputs": [
+    {
+      "path": "blender/source/kyoto-present/overview-desktop.png",
+      "sha256": "ec8f3ff63030e006310ae1c830f8ce379785cd3f327c6621eeaae78de38ba297"
+    },
+    {
+      "path": "blender/source/kyoto-present/overview-mobile.png",
+      "sha256": "6e83857f2648f2839844e7c623c4d15371e1bf25213aab2c16a7ea2659a6dbae"
+    },
+    {
+      "path": "blender/source/kyoto-present/prompts.json",
+      "sha256": "ca4db46a69c43f6c9c26cbcd266139cfd0602c4674aa91f33c5fb25972628ad9"
+    }
+  ],
+  "generator": "Codex built-in image generation",
+  "provenance": "Original generated edits of project-owned Kyoto illustrations, informed by linked institutional references. Rome Present supplied the finish reference. No third-party imagery redistributed.",
+  "limitation": "Illustrative present-day reconstruction, not a surveyed aerial photograph. Inherits approximate geography from the historical compositions; landmark alignment and individual buildings remain approximate.",
+  "cameraReferences": [
+    {
+      "path": "blender/source/kyoto-1700/overview-illustration.png",
+      "sha256": "c98050d67b45b7d69186ad0ef177e10c5e1e57470de214d27ac20deeff39cab4"
+    },
+    {
+      "path": "blender/source/kyoto-1700/overview-mobile-illustration.png",
+      "sha256": "7473f4262ea7f49c33d7874c0edb3b1133bf3c55ff88eafe44ca742a20c11ef8"
+    }
+  ],
+  "anchors": [
+    "Nijo Castle moats and low palace buildings",
+    "Kyoto Imperial Palace / Gyoen",
+    "Kamo River course",
+    "Nishiki district",
+    "Kiyomizu-dera hillside",
+    "Higashiyama ridgeline"
+  ],
+  "modernGeographyReferences": [
+    {
+      "title": "Agency for Cultural Affairs: Nijo-jo",
+      "url": "https://online.bunka.go.jp/suisensyo/kyoto/MAINTEXT/3b-Q.html",
+      "role": "Keep lost in 1750, original Honmaru Palace lost in 1788, replacement palace relocated in 1894; surviving Ninomaru layout."
+    },
+    {
+      "title": "Kyoto Imperial Palace \u2014 Kyoto City Official Guide",
+      "url": "https://kyoto.travel/en/destinations/kyoto-imperial-palace/",
+      "role": "Present palace within Kyoto Gyoen park."
+    },
+    {
+      "title": "Central Kyoto City (Nishiki Market) \u2014 Kyoto City Official Guide",
+      "url": "https://kyoto.travel/en/getting-around/comfortable-access-to-central-kyoto-city-nishiki-market/",
+      "role": "Nishiki shopping arcade and modern central-city context."
+    },
+    {
+      "title": "Kiyomizu-dera Temple \u2014 Kyoto City Official Guide",
+      "url": "https://kyoto.travel/en/destinations/kiyomizudera-temple/",
+      "role": "Surviving hillside temple and wooden stage."
+    }
+  ]
+}

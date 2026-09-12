@@ -47,10 +47,12 @@
   cursor: wait;
 }
 .time-slider-stops {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
 }
 .time-slider-stops button {
+  justify-self: center;
   min-height: 44px;
   padding: 0 10px;
   margin: -6px -10px 0;
@@ -58,6 +60,12 @@
   border: 0;
   font-size: 13px;
   border-radius: 6px;
+}
+.time-slider-stops button:first-child {
+  justify-self: start;
+}
+.time-slider-stops button:last-child {
+  justify-self: end;
 }
 .time-slider-stops button[aria-pressed='true'] {
   font-weight: 750;

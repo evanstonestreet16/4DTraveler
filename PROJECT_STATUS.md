@@ -18,25 +18,29 @@ For contributor rules, workstream ownership, and verification steps, see [AGENTS
 
 ## Current Scope
 
+Rome's timeline now includes **Circa 500 BCE → 125 CE → Present**, with the existing 2.2-second reveal in both directions. The older overview uses its delivered desktop/portrait/fallback images and three display-only Preview POIs: Capitoline Temple, Roman Forum and Circus Valley. These markers and list entries do not open viewpoints or object panels. Image registration remains approximate.
+
 Pittsburgh is legacy code pending deletion. It is outside active development, documentation, and verification scope unless the project owner explicitly reactivates it.
 
 Rome / 125 CE P0–P2 established the full-viewport overview, Forum of Trajan, Pantheon forecourt and Flavian Amphitheatre valley. All three POIs are available, with nine sourced objects, reviewed transcripts, original Blender sources and an unfinished Temple of Venus and Roma worksite. The valley has original manually started construction/water ambience. The additive immersive contract was agreed across navigation, objects and content workstreams before implementation.
 
-The rendered Rome milestone replaces the normal GLB viewing path with an offline-rendered overview, a separate portrait composition, and three 6K panoramas with 4K mobile variants. Nine camera-authored hotspots preserve the existing objects, sources, fixed eyes and narration. Materials, light, architectural detail, people and foliage are authored offline. Image retries and compressed stills keep exploration available after image or WebGL failure; only one panorama texture is retained, and idle prefetch warms encoded hero-image bytes. Original GLBs remain available. The visuals are stylized interpretations, with reviewed written narration and optional valley ambience.
+The rendered Rome milestone replaces the normal GLB viewing path with an offline-rendered overview, a separate portrait composition, and initially three 6K panoramas with 4K mobile variants (superseded by the street views below). The original nine camera-authored hotspots preserved the existing objects, sources, fixed eyes and narration. Materials, light, architectural detail, people and foliage are authored offline. Image retries and compressed stills keep exploration available after image or WebGL failure; only one panorama texture is retained, and idle prefetch warms encoded hero-image bytes. Original GLBs remain available. The visuals are stylized interpretations, with reviewed written narration and optional valley ambience.
 
 Rome's bird's-eye detail upgrade was completed on 2026-09-12 by a separate visual agent, using Kyoto's shipped overview as the finish reference. A denser editable Blender layout and AI-enhanced desktop/portrait illustrations add varied roofs, courtyards, monumental detail, greenery and riverfront activity. All three overview images fit their budgets; reviewed image markers preserve stable IDs and world coordinates. The build, focused overview asset check and desktop/mobile navigation smoke tests passed. See [overview delivery and source workflow](docs/visual/ROME_125_ASSETS.md).
 
-Rome's POI atmosphere/detail pass is complete: generated sky and generic stone texture inputs are packed into the three Blender sources, with prompts and source hashes recorded. The panoramas add richer stone, paving, foliage, façades and distance haze, with 6K desktop and sharper 4K mobile images. All nine camera-authored hotspots and fixed viewpoints are unchanged. Production build/typecheck, four asset/provenance tests, desktop/mobile smoke paths and visual seam review passed. These remain stylized reconstructions; the photographic quality target is open.
+Rome's three POIs now open ten supplied street-view illustrations from `pano-explorer/public/images/citystreetviews/rome/`: three Forum, three Pantheon and four Colosseum views. Previous/next arrows switch views within each POI, with image retry and return-to-entry behavior. Lossless WebPs preserve native 1440 × 720 source pixels on desktop/mobile, and a 75° field of view matches the original street-view module. Opening camera presets and stable IDs are preserved; five entry-image hotspots mark visible features, and all nine objects remain accessible in the object list. These AI illustrations include interpretive or anachronistic details and are not surveyed walking routes or verified 125 CE reconstructions. See [asset delivery](docs/visual/ROME_125_ASSETS.md).
 
 Rome's bird's-eye overview now supports a 125 CE / Present timeline and a 2.2-second bidirectional reveal. Present has original AI-generated desktop/portrait illustrations aligned approximately to the historical compositions, with an explicit reference-grounded-reconstruction label and no present-day POIs. Destination decoding precedes travel; Skip, reduced motion, failure/retry, responsive crop changes, and resource cleanup preserve access to the endpoint images. The full historical POI/object path remains available after returning to 125 CE. See the [transition delivery and plan](docs/ROME_125_TO_PRESENT_TRANSITION_PLAN.md).
 
 Kyoto / circa 1700 provides desktop and portrait overviews plus three original Blender-rendered 360° panoramas for Nijō Castle, Kiyomizu-dera and Nishiki Fish Market. Nine sourced objects, four reviewed transcripts, responsive hotspots, fixed viewpoints and image/WebGL recovery complete the same overview → POI → object → return flow used by Rome. See [Kyoto delivery](docs/visual/KYOTO_1700_ASSETS.md).
 
+Kyoto's era picker and overview slider now offer **circa 1700 ↔ Present**, using Rome's 2.2-second bidirectional reveal with destination decoding, Skip, reduced motion and image recovery. Present is overview-only; returning to circa 1700 restores the three historical POIs and their object paths. Modern desktop, phone and fallback BEVs preserve the historical compositions approximately while adding modern urban fabric. Prompts, references and source PNGs are in [the asset delivery](blender/source/kyoto-present/README.md).
+
 ## Planned Scope
 
 The Rome Present accuracy correction landed on 2026-09-12. The replacement desktop and portrait compositions now distinguish the modern city with the Vittoriano/Piazza Venezia, the Via dei Fori Imperiali axis, excavated fora, ruined Colosseum, green Circus Maximus and post-antique urban blocks. Official Rome references and review criteria are recorded with the source assets. The endpoint remains a reference-grounded visual reconstruction, not surveyed imagery; fine-grained geometry and building placement remain approximate.
 
-Optional AI-generated transition video remains deferred. Present-day POIs, additional periods, and transitions inside panoramas are outside the Rome time-transition milestone.
+Optional AI-generated transition video remains deferred. Present-day POIs and transitions inside panoramas remain outside the Rome time-transition milestone. The circa 500 BCE desktop, portrait and fallback assets are integrated into the timeline, with three preview-only POIs. Source PNGs, prompts and provenance are in [the asset delivery](blender/source/rome-500bce/README.md). They depict an interpretive early Republican city with open terrain and low archaic buildings; geographic alignment is approximate.
 
 The owner clarified the Rome visual target on 2026-09-12: photographic realism comparable to the supplied warm, atmospheric Roman architectural reference. The current stylized assets do not meet that target. The rendered viewer is a working foundation; the next visual milestone is one convincing Forum frame with detailed architecture, realistic materials and vegetation, photographic lighting and historically appropriate 125 CE condition, before extending that quality through the full panorama and other POIs.
 
@@ -49,6 +53,18 @@ MongoDB, authentication, multiplayer, WASD, physics, NPCs, character interaction
 ## Recent Updates
 
 <!-- Newest first. Format: `- YYYY-MM-DD — summary (link to PR/issue if available)` -->
+
+- 2026-09-12 — Integrated Kyoto Present into the era picker and overview slider, reusing Rome's bidirectional transition and recovery behavior; retained the circa 1700 POIs and object exploration.
+
+- 2026-09-12 — Added nearby-view arrows for all ten supplied Rome street views, lossless source-pixel packaging, and the original module’s wider 75° view. Existing POI/object identities and Kyoto’s default panorama behavior are preserved.
+
+- 2026-09-12 — Generated and packaged modern-day Kyoto desktop, portrait and fallback BEVs with the Rome Present workflow; reviewed the images and checked decoding, hashes and asset budgets. Timeline integration remains pending.
+
+- 2026-09-12 — Integrated circa 500 BCE into Rome's era picker and overview timeline, reusing bidirectional travel and image recovery; added three inert preview POIs with desktop/portrait marker placement. Build/typecheck, 12 focused unit tests and desktop/mobile exploration checks passed.
+
+- 2026-09-12 — Connected the three Rome POIs to the newly supplied street views, with native-resolution WebPs, matching recovery stills, and visible-feature hotspots; retained all nine object-list entries and existing overview navigation.
+
+- 2026-09-12 — Generated and packaged the Rome / circa 500 BCE desktop, portrait and fallback overviews using the existing Rome image-edit workflow; checked image decoding, hashes and budgets. Timeline integration remains pending. See [asset delivery](blender/source/rome-500bce/README.md).
 
 - 2026-09-12 — Integrated Kyoto P0–P2 with Rome's latest rendered viewer and Present transition, preserving both cities' responsive overviews, panoramic POIs, object paths and recovery behavior.
 

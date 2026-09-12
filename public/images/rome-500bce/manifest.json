@@ -1,0 +1,88 @@
+{
+  "worldId": "rome-500bce",
+  "year": -500,
+  "label": "Circa 500 BCE",
+  "overview": {
+    "desktop": {
+      "url": "/images/rome-500bce/overview.webp?v=1caacfa03ca0",
+      "width": 1584,
+      "height": 993,
+      "bytes": 522742,
+      "sha256": "1caacfa03ca063a0a61ef4d20db11738ff4afb610f887086cd92bc77d1882446"
+    },
+    "mobile": {
+      "url": "/images/rome-500bce/overview-mobile.webp?v=353eac81bd77",
+      "width": 954,
+      "height": 1649,
+      "bytes": 514002,
+      "sha256": "353eac81bd77cff623a4e9b6be91b7b6d518a347410ed83f1f7712a3e2f4fed8"
+    },
+    "fallback": {
+      "url": "/images/rome-500bce/overview-fallback.webp?v=998fd0992fcc",
+      "width": 1584,
+      "height": 993,
+      "bytes": 218280,
+      "sha256": "998fd0992fccbc59eb709757e866d999018ac422b2dc884677fe9091c86d23cb"
+    }
+  },
+  "inputs": [
+    {
+      "path": "blender/source/rome-500bce/overview-desktop.png",
+      "sha256": "84be8875e66847fc5fad3240c82f28d7f475fd7cc37e413fcc9be41ce1c55d1d"
+    },
+    {
+      "path": "blender/source/rome-500bce/overview-mobile.png",
+      "sha256": "30b0634849c839c6d4d3f73e16954d9c9d272b028ef4078e3efe9ff809291a88"
+    },
+    {
+      "path": "blender/source/rome-500bce/overview-desktop-initial.png",
+      "sha256": "3be6e0d928c3719eb6bbeac45d50de455d75668fc87746e650fa8c3ecf2634ad"
+    },
+    {
+      "path": "blender/source/rome-500bce/overview-mobile-initial.png",
+      "sha256": "ab5e95242230ebc4c38c88cbf8088f98494a86d7691358cc8dcc0320900f9f17"
+    },
+    {
+      "path": "blender/source/rome-500bce/prompts.json",
+      "sha256": "fee568c82dafd4b6c796db92ca30621243cfc9669f825d17b084d67518b62197"
+    }
+  ],
+  "generator": "Codex built-in image generation",
+  "provenance": "Original generated edits of project-owned Rome overviews, informed by linked archaeological references. No third-party reference images are redistributed.",
+  "limitation": "Interpretive reconstruction. Terrain registration, settlement density, individual buildings, streets and vegetation are approximate. Generated images are not independent historical evidence.",
+  "cameraReferences": [
+    {
+      "path": "public/images/rome-125/overview.webp",
+      "sha256": "488694b9e61a7a10f7573e87a2968b98c39b0f75cf937a3ac8030b09fa0e1173"
+    },
+    {
+      "path": "public/images/rome-125/overview-mobile.webp",
+      "sha256": "9e4b4f480d75f83afb32abc78e6a2718e1c5ba7ef3f46c61be4c721a9aff4926"
+    }
+  ],
+  "geographicAnchors": [
+    "Tiber course",
+    "Capitoline rise",
+    "Palatine ridge",
+    "Circus Maximus valley",
+    "Future Colosseum valley",
+    "Campus Martius"
+  ],
+  "historicalReferences": [
+    {
+      "title": "Temple of Capitoline Jupiter",
+      "url": "https://www.museicapitolini.org/en/sede/campidoglio_antico/tempio_di_giove_capitolino",
+      "role": "509 BCE inauguration, large tufa podium, deep porch and terracotta decoration."
+    },
+    {
+      "title": "The Roman Forum",
+      "url": "https://colosseo.it/en/area/the-roman-forum/",
+      "role": "Forum valley reclamation beginning in the late seventh century BCE."
+    },
+    {
+      "title": "Servian Walls",
+      "url": "https://www.turismoroma.it/en/places/servian-walls",
+      "role": "The surviving large stone circuit dates to the fourth century BCE; it should not be copied into 500 BCE."
+    }
+  ]
+}

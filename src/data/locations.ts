@@ -1,14 +1,18 @@
 import { rome125 } from './worlds/rome-125';
+import { rome500bce } from './worlds/rome-500bce';
 import { romePresent } from './worlds/rome-present';
 import { kyoto1700 } from './worlds/kyoto-1700';
+import { kyotoPresent } from './worlds/kyoto-present';
 import type { Location } from '../types/world';
 import { pittsburgh1892 } from './worlds/pittsburgh-1892';
 import { pittsburgh1850 } from './worlds/pittsburgh-1850';
 
 export const worlds = [
   rome125,
+  rome500bce,
   romePresent,
   kyoto1700,
+  kyotoPresent,
   pittsburgh1892,
   pittsburgh1850,
 ];
@@ -19,7 +23,7 @@ export const locations: Location[] = [
     region: 'Italy · Ancient Mediterranean',
     description:
       'Enter the living capital of Hadrian: marble forums, a new Pantheon, and the Flavian Amphitheatre.',
-    eras: [rome125.era, romePresent.era],
+    eras: [rome125.era, rome500bce.era, romePresent.era],
     globe: { countryIsoA3: 'ITA', city: 'Rome' },
   },
   {
@@ -28,7 +32,7 @@ export const locations: Location[] = [
     region: 'Japan · Kyoto basin',
     description:
       'Look across the mountain-framed capital, then step inside the guarded approach to Nijō Castle.',
-    eras: [kyoto1700.era],
+    eras: [kyoto1700.era, kyotoPresent.era],
     globe: { countryIsoA3: 'JPN', city: 'Kyoto' },
   },
   {

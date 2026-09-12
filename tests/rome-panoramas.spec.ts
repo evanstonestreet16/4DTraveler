@@ -108,15 +108,18 @@ async function visibleAndInViewport(
   return box;
 }
 
-test('Rome opens a static overview and all nine real panorama hotspots preserve stories, transcripts, and return', async ({
+test('Rome opens a static overview and all three street views and nine objects preserve stories, transcripts, and return', async ({
   page,
 }) => {
   test.setTimeout(90000);
   const modelRequests: string[] = [];
   const audioRequests: string[] = [];
+  const imageRequests: string[] = [];
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('request', (request) => {
+    if (request.url().includes('/images/rome-125/'))
+      imageRequests.push(request.url());
     if (request.url().includes('/models/rome-125/'))
       modelRequests.push(request.url());
     if (request.url().includes('/audio/rome-125/'))
@@ -147,6 +150,11 @@ test('Rome opens a static overview and all nine real panorama hotspots preserve 
 
   for (const poi of world.pois) {
     await enterPOI(page, poi);
+    expect(
+      imageRequests.some((url) =>
+        url.endsWith(poi.immersive!.panorama!.desktop.url),
+      ),
+    ).toBe(true);
     const objects = world.objects.filter((object) => object.poiId === poi.id);
     expect(objects).toHaveLength(3);
     await expect(page.locator('[data-city-object]')).toHaveCount(3);
@@ -160,24 +168,28 @@ test('Rome opens a static overview and all nine real panorama hotspots preserve 
     for (const object of objects) {
       const hotspot = poi.immersive!.panorama!.hotspots.find(
         (item) => item.objectId === object.id,
-      )!;
-      await faceHotspot(page, hotspot);
-      const direction = (await snapshot(page)).camera;
-      const marker = page.getByRole('button', {
-        name: `Inspect ${object.name}`,
-        exact: true,
-      });
-      await marker.click();
-      await expect(marker).toHaveAttribute('aria-pressed', 'true');
-      await assertObjectContent(page, object);
-      expect((await snapshot(page)).camera).toEqual(direction);
+      );
       const listButton = page.locator(`[data-city-object="${object.id}"]`);
-      await expect(listButton).toHaveAttribute('aria-pressed', 'true');
-      await page
-        .getByRole('button', { name: 'Close object information' })
-        .click();
-      await expect(listButton).toBeFocused();
-      await expect(marker).toHaveAttribute('aria-pressed', 'false');
+      if (hotspot) {
+        await faceHotspot(page, hotspot);
+        const direction = (await snapshot(page)).camera;
+        const marker = page.getByRole('button', {
+          name: `Inspect ${object.name}`,
+          exact: true,
+        });
+        await marker.click();
+        await expect(marker).toHaveAttribute('aria-pressed', 'true');
+        await assertObjectContent(page, object);
+        expect((await snapshot(page)).camera).toEqual(direction);
+        await expect(listButton).toHaveAttribute('aria-pressed', 'true');
+        await page
+          .getByRole('button', { name: 'Close object information' })
+          .click();
+        await expect(listButton).toBeFocused();
+        await expect(marker).toHaveAttribute('aria-pressed', 'false');
+      }
+      const direction = (await snapshot(page)).camera;
+      await listButton.focus();
       await listButton.press('Enter');
       await assertObjectContent(page, object);
       expect((await snapshot(page)).camera).toEqual(direction);
@@ -208,6 +220,87 @@ test('Rome opens a static overview and all nine real panorama hotspots preserve 
   expect(modelRequests).toEqual([]);
   expect(audioRequests).toEqual([]);
   expect(errors).toEqual([]);
+});
+
+test('nearby arrows visit every supplied Rome view, clear selection, recover a failed image, and reset on re-entry', async ({
+  page,
+}) => {
+  test.setTimeout(120000);
+  const requested: string[] = [];
+  page.on('request', (request) => requested.push(request.url()));
+  await enterRome(page);
+  for (const poi of world.pois) {
+    await enterPOI(page, poi);
+    const views = poi.immersive!.panorama!.viewpoints!;
+    const navigation = page.getByRole('navigation', {
+      name: 'Nearby street views',
+    });
+    await expect(navigation).toHaveAttribute('data-street-view', views[0].id);
+    await page.locator('[data-city-object]').first().click();
+    await expect(page.locator('.object-info')).toBeVisible();
+    for (let index = 1; index < views.length; index++) {
+      await navigation
+        .getByRole('button', {
+          name: `Move to ${views[index].label}`,
+          exact: true,
+        })
+        .click();
+      await expect(navigation).toHaveAttribute(
+        'data-street-view',
+        views[index].id,
+      );
+      await expect(view(page)).toHaveAttribute('data-image-status', 'ready');
+      expect(
+        requested.some((url) => url.endsWith(views[index].desktop.url)),
+      ).toBe(true);
+      await expect(page.locator('.object-info')).toHaveCount(0);
+      await expect(page.locator('[data-city-object]')).toHaveCount(3);
+      // Source-specific entry hotspots cannot float over a different image.
+      await expect(page.locator('[data-panorama-hotspot]')).toHaveCount(
+        views[index].hotspots.length,
+      );
+    }
+    await navigation
+      .getByRole('button', { name: `Move to ${views[0].label}`, exact: true })
+      .press('Enter');
+    await expect(view(page)).toHaveAttribute('data-image-status', 'ready');
+    await expect(navigation).toHaveAttribute('data-street-view', views[0].id);
+    // The left arrow wraps back to the last image as well.
+    await navigation
+      .getByRole('button', {
+        name: `Move to ${views.at(-1)!.label}`,
+        exact: true,
+      })
+      .click();
+    await expect(navigation).toHaveAttribute(
+      'data-street-view',
+      views.at(-1)!.id,
+    );
+    await returnToOverview(page);
+    await expect(navigation).toHaveCount(0);
+    await enterPOI(page, poi);
+    await expect(navigation).toHaveAttribute('data-street-view', views[0].id);
+    await returnToOverview(page);
+  }
+  // An unavailable nearby view retains both directions and an actual retry.
+  await enterPOI(page, forum);
+  const target = forum.immersive!.panorama!.viewpoints![1];
+  const failedUrl = `**${assetPath(target.desktop.url)}*`;
+  await page.route(failedUrl, (route) => route.abort());
+  await page
+    .getByRole('button', { name: `Move to ${target.label}`, exact: true })
+    .click();
+  await expect(view(page)).toHaveAttribute('data-image-status', 'fallback');
+  await assertStillLoaded(page);
+  await expect(
+    page
+      .getByRole('navigation', { name: 'Nearby street views' })
+      .getByRole('button'),
+  ).toHaveCount(2);
+  await page.unroute(failedUrl);
+  await page.getByRole('button', { name: 'Retry image', exact: true }).click();
+  await expect(view(page)).toHaveAttribute('data-image-status', 'ready');
+  await returnToOverview(page);
 });
 
 test('dragging a hotspot looks in place without selecting; keyboard pitch limits and selection preserve direction', async ({
@@ -317,8 +410,28 @@ test('portrait uses mobile images, touch look, separated markers, and reachable 
   expect(looked.position).toEqual(initial.position);
   expect(looked.quaternion).not.toEqual(initial.quaternion);
   await expect(page.locator('.object-info')).toHaveCount(0);
+  const nearby = valley.immersive!.panorama!.viewpoints!;
+  const arrow = page.getByRole('button', {
+    name: `Move to ${nearby[1].label}`,
+    exact: true,
+  });
+  await visibleAndInViewport(arrow, 390, 844);
+  await arrow.click();
+  await expect(
+    page.getByRole('navigation', { name: 'Nearby street views' }),
+  ).toHaveAttribute('data-street-view', nearby[1].id);
+  await expect(view(page)).toHaveAttribute('data-image-status', 'ready');
+  await page
+    .getByRole('button', { name: `Move to ${nearby[0].label}`, exact: true })
+    .click();
+  await expect(view(page)).toHaveAttribute('data-image-status', 'ready');
+  await expect(page.locator('canvas')).toHaveAttribute(
+    'data-fixed-look',
+    'true',
+  );
+  const returnedLook = (await snapshot(page)).camera;
   await page.locator('[data-city-object]').first().click();
-  expect((await snapshot(page)).camera).toEqual(looked);
+  expect((await snapshot(page)).camera).toEqual(returnedLook);
   const information = (await page.locator('.city-information').boundingBox())!;
   const narration = (await page.locator('.city-narration').boundingBox())!;
   expect(information.y + information.height).toBeLessThanOrEqual(narration.y);
@@ -347,7 +460,7 @@ test('portrait uses mobile images, touch look, separated markers, and reachable 
     844,
     390,
   );
-  expect((await snapshot(page)).camera).toEqual(looked);
+  expect((await snapshot(page)).camera).toEqual(returnedLook);
   await returnToOverview(page);
 });
 

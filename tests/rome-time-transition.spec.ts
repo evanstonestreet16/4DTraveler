@@ -19,7 +19,7 @@ async function landed(page: Page, present: boolean) {
     present ? 'rome-present' : 'rome-125',
   );
   await expect(view(page)).toHaveAttribute('data-transition-phase', 'idle');
-  await expect(slider(page)).toHaveValue(present ? '1' : '0');
+  await expect(slider(page)).toHaveValue(present ? '2' : '1');
   await expect(still(page)).toHaveCount(1);
   expect(
     await still(page).evaluate(
@@ -42,11 +42,49 @@ for (const viewport of [
   test(`Rome time travel and exploration at ${viewport.width}px`, async ({
     page,
   }, testInfo) => {
+    // Four era reveals plus the full panorama/object path on software-rendered CI.
+    test.setTimeout(60000);
     await page.setViewportSize(viewport);
     const errors: string[] = [];
     page.on('pageerror', (error) => errors.push(error.message));
     await enter(page);
     const timelineBefore = (await slider(page).boundingBox())!;
+    await page
+      .getByRole('button', { name: 'Circa 500 BCE', exact: true })
+      .click();
+    await expect(view(page)).toHaveAttribute(
+      'data-transition-phase',
+      'playing',
+    );
+    await expect(page.locator('[data-overview-poi]')).toHaveCount(0);
+    await expect(city(page)).toHaveAttribute('data-world-id', 'rome-500bce');
+    await expect(view(page)).toHaveAttribute('data-transition-phase', 'idle');
+    await expect(slider(page)).toHaveValue('0');
+    await expect(still(page)).toHaveCount(1);
+    await expect(still(page)).toHaveAttribute(
+      'data-asset-url',
+      viewport.width < viewport.height
+        ? /rome-500bce\/overview-mobile/
+        : /rome-500bce\/overview.webp/,
+    );
+    const previews = page.locator('[data-overview-poi]');
+    await expect(previews).toHaveCount(3);
+    for (const marker of await previews.all()) {
+      await expect(marker).toBeVisible();
+      await expect(marker).toBeDisabled();
+      // A real pointer click on the disabled marker must leave the overview intact.
+      await marker.click({ force: true });
+    }
+    await expect(city(page)).toHaveAttribute('data-city-mode', 'overview');
+    await expect(page.locator('.object-info')).toHaveCount(0);
+    await page.screenshot({ path: testInfo.outputPath('early-rome.png') });
+    await slider(page).focus();
+    await slider(page).press('ArrowRight');
+    await expect(view(page)).toHaveAttribute(
+      'data-transition-phase',
+      'playing',
+    );
+    await landed(page, false);
     await page.screenshot({ path: testInfo.outputPath('historical.png') });
     await page.getByRole('button', { name: 'Present', exact: true }).click();
     await expect(view(page)).toHaveAttribute(
@@ -95,6 +133,39 @@ for (const viewport of [
     expect(errors).toEqual([]);
   });
 }
+
+test('direct early Rome entry and failed transition recovery keep preview places inert', async ({
+  page,
+}) => {
+  test.setTimeout(90000);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  await page.getByRole('button', { name: /Italy.*Rome/ }).click();
+  await page.getByRole('button', { name: /Circa 500 BCE/ }).click();
+  await expect(view(page)).toHaveAttribute('data-image-status', 'ready');
+  await expect(slider(page)).toHaveValue('0');
+  const places = page
+    .getByRole('navigation', { name: 'Points of interest' })
+    .getByRole('button');
+  await expect(places).toHaveCount(3);
+  for (const place of await places.all()) await expect(place).toBeDisabled();
+  await page.getByRole('button', { name: '125 CE', exact: true }).click();
+  await landed(page, false);
+  await page.route(/\/images\/rome-500bce\//, (route) =>
+    route.fulfill({ status: 404, body: '' }),
+  );
+  await page
+    .getByRole('button', { name: 'Circa 500 BCE', exact: true })
+    .click();
+  await expect(page.getByText(/Could not load Circa 500 BCE/)).toBeVisible();
+  await landed(page, false);
+  await page.unroute(/\/images\/rome-500bce\//);
+  await page.getByRole('button', { name: 'Retry image' }).click();
+  await expect(city(page)).toHaveAttribute('data-world-id', 'rome-500bce');
+  await expect(view(page)).toHaveAttribute('data-image-status', 'ready');
+  await expect(page.locator('[data-overview-poi]')).toHaveCount(3);
+  expect(await page.evaluate(() => document.getAnimations().length)).toBe(0);
+});
 
 test('a delayed destination preserves the source; cancellation and retry remain usable', async ({
   page,

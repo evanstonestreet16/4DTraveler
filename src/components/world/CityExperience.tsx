@@ -219,7 +219,9 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
             <p>
               {poi
                 ? 'Drag to look around. On a keyboard, focus the scene and use the arrow keys. Select a highlighted object or use the object list.'
-                : 'Choose a marker or a place from the list to enter a fixed viewpoint.'}
+                : world.pois.every((item) => item.preview || !item.immersive)
+                  ? 'These places are overview previews. Use the timeline to travel to another era.'
+                  : 'Choose a marker or a place from the list to enter a fixed viewpoint.'}
             </p>
             <label className="quality-control">
               Scene quality

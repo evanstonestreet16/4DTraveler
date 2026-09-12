@@ -1,7 +1,7 @@
 {
-  "generator": "blender/scripts/render_rome.py + package_rome_renders.py",
-  "projection": "equirectangular; center north (-Z), +yaw west (-X), +pitch up; radians",
-  "provenance": "POI panoramas are interpretive reconstructions with authored geometry, people, foliage and physical lighting. Their AI-generated sky and generic stone surface art are offline appearance inputs, not historical evidence; POI architecture and object placement are not AI-generated. The separately authored overview may use additional enhancement; consult overview.provenance for its image-specific process.",
+  "generator": "scripts/package-rome-streetviews.py",
+  "projection": "equirectangular; runtime center -Z, +yaw -X, +pitch up; radians. Supplied views are visually aligned, not geographically registered.",
+  "provenance": "POI panoramas use the repository's supplied AI street-view illustrations. They are visual interpretations, not verified 125 CE reconstructions or surveyed imagery. Each source is packaged at native resolution with lossless WebP and horizontally wrapped to fit the existing opening camera direction. Nearby arrows switch among supplied images within each POI; they do not represent a surveyed walking route. Hotspots mark visible illustrative features; other objects remain in the object list. See overview.provenance for the separate overview workflow.",
   "overview": {
     "desktop": {
       "url": "/images/rome-125/overview.webp?v=488694b9e61a",
@@ -80,168 +80,541 @@
   "panoramas": {
     "forum-trajan": {
       "desktop": {
-        "url": "/images/rome-125/forum-trajan-360.webp?v=62bd0cf8833b",
-        "width": 6144,
-        "height": 3072,
-        "bytes": 1167950,
-        "sha256": "62bd0cf8833b711b4ecebb65c812d33bf636e2daa195874ab86524c49e82da4c"
+        "url": "/images/rome-125/forum-trajan-360.webp?v=e6206871237b",
+        "width": 1440,
+        "height": 720,
+        "bytes": 1150798,
+        "sha256": "e6206871237b7afaa22e572ab141c4c1783eed6be1cb56d8f3c891a869f36300"
       },
       "mobile": {
-        "url": "/images/rome-125/forum-trajan-360-mobile.webp?v=848e80ca2b8b",
-        "width": 4096,
-        "height": 2048,
-        "bytes": 451464,
-        "sha256": "848e80ca2b8b02252cb47bc2399e2fab8d3f6c51a4248e10c9e4c427c8847cce"
+        "url": "/images/rome-125/forum-trajan-360-mobile.webp?v=e6206871237b",
+        "width": 1440,
+        "height": 720,
+        "bytes": 1150798,
+        "sha256": "e6206871237b7afaa22e572ab141c4c1783eed6be1cb56d8f3c891a869f36300"
       },
       "fallback": {
-        "url": "/images/rome-125/forum-trajan-fallback.webp?v=c4b9fec75ad9",
-        "width": 1600,
-        "height": 1000,
-        "bytes": 67614,
-        "sha256": "c4b9fec75ad97c242196705c5cde75e7d95f3592c666356d233169f82c306efc"
+        "url": "/images/rome-125/forum-trajan-fallback.webp?v=86cbdeab28a0",
+        "width": 960,
+        "height": 600,
+        "bytes": 114894,
+        "sha256": "86cbdeab28a0e3f429f0195e4f625f498b9bd345468d88f915cfcfb5f7435338"
       },
       "hotspots": [
         {
-          "objectId": "trajan-equestrian-statue",
-          "yaw": 0.0,
-          "pitch": 0.1309136
-        },
-        {
           "objectId": "basilica-ulpia-facade",
-          "yaw": 0.3196802,
-          "pitch": 0.1983544
-        },
-        {
-          "objectId": "dacian-prisoner-statue",
-          "yaw": -0.8224183,
-          "pitch": 0.0357521
+          "yaw": -0.017453292519943233,
+          "pitch": 0.13089969389957476
         }
       ],
+      "source": {
+        "path": "pano-explorer/public/images/citystreetviews/rome/trajan/Gemini_Generated_Image_jov5itjov5itjov5.jpg",
+        "sha256": "9f646f13e1f2e2b3f31a264bf1a65e4da77cc0b90aa4449b9d90384cfa21c023",
+        "width": 1440,
+        "height": 720,
+        "horizontalShiftPixels": 0,
+        "hotspotPixels": {
+          "basilica-ulpia-facade": [724, 330]
+        },
+        "encoding": "lossless WebP; decoded source pixels preserved"
+      },
       "eye": [0, 1.65, 30],
       "initialTarget": [0, 12, -40],
-      "anchors": {
-        "trajan-equestrian-statue": [0, 5.6, 0],
-        "basilica-ulpia-facade": [-24, 17, -42.5],
-        "dacian-prisoner-statue": [42, 3.7, -9]
-      },
-      "seamMeanRGBDifference": 1.833,
-      "review": "Cardinal views and longitudinal seam measured from final delivered pixels; see authored render folder."
+      "fieldOfView": 75,
+      "viewpoints": [
+        {
+          "id": "forum-square",
+          "label": "Forum square",
+          "desktop": {
+            "url": "/images/rome-125/forum-trajan-360.webp?v=e6206871237b",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1150798,
+            "sha256": "e6206871237b7afaa22e572ab141c4c1783eed6be1cb56d8f3c891a869f36300"
+          },
+          "mobile": {
+            "url": "/images/rome-125/forum-trajan-360-mobile.webp?v=e6206871237b",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1150798,
+            "sha256": "e6206871237b7afaa22e572ab141c4c1783eed6be1cb56d8f3c891a869f36300"
+          },
+          "fallback": {
+            "url": "/images/rome-125/forum-trajan-fallback.webp?v=86cbdeab28a0",
+            "width": 960,
+            "height": 600,
+            "bytes": 114894,
+            "sha256": "86cbdeab28a0e3f429f0195e4f625f498b9bd345468d88f915cfcfb5f7435338"
+          },
+          "hotspots": [
+            {
+              "objectId": "basilica-ulpia-facade",
+              "yaw": -0.017453292519943233,
+              "pitch": 0.13089969389957476
+            }
+          ],
+          "source": {
+            "path": "pano-explorer/public/images/citystreetviews/rome/trajan/Gemini_Generated_Image_jov5itjov5itjov5.jpg",
+            "sha256": "9f646f13e1f2e2b3f31a264bf1a65e4da77cc0b90aa4449b9d90384cfa21c023",
+            "width": 1440,
+            "height": 720,
+            "horizontalShiftPixels": 0,
+            "hotspotPixels": {
+              "basilica-ulpia-facade": [724, 330]
+            },
+            "encoding": "lossless WebP; decoded source pixels preserved"
+          }
+        },
+        {
+          "id": "forum-overlook",
+          "label": "Market overlook",
+          "desktop": {
+            "url": "/images/rome-125/forum-overlook-360.webp?v=b0b0f88acf14",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1088090,
+            "sha256": "b0b0f88acf1403370b1a9730a6db16416960dbcaa8c9b370676bd4ded6b7acf2"
+          },
+          "mobile": {
+            "url": "/images/rome-125/forum-overlook-360.webp?v=b0b0f88acf14",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1088090,
+            "sha256": "b0b0f88acf1403370b1a9730a6db16416960dbcaa8c9b370676bd4ded6b7acf2"
+          },
+          "fallback": {
+            "url": "/images/rome-125/forum-overlook-fallback.webp?v=91a3a15a15f0",
+            "width": 960,
+            "height": 600,
+            "bytes": 105684,
+            "sha256": "91a3a15a15f00bd3d1773c0db23d131682cb3e2da6db8ae8b5e807f812f1ae8e"
+          },
+          "hotspots": [],
+          "source": {
+            "path": "pano-explorer/public/images/citystreetviews/rome/trajan/Gemini_Generated_Image_69tywf69tywf69ty.jpg",
+            "sha256": "4a3e0958b56be3679d818759ac258cf566c6624abbfc830eb1f1dc4931b975cb",
+            "width": 1440,
+            "height": 720,
+            "horizontalShiftPixels": 0,
+            "hotspotPixels": {},
+            "encoding": "lossless WebP; decoded source pixels preserved"
+          }
+        },
+        {
+          "id": "forum-market",
+          "label": "Market street",
+          "desktop": {
+            "url": "/images/rome-125/forum-market-360.webp?v=5a5e059e3645",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1056810,
+            "sha256": "5a5e059e3645164304216e9a6bbd39fb0953ce89dd5e7d7d8a6e3cb413821cd9"
+          },
+          "mobile": {
+            "url": "/images/rome-125/forum-market-360.webp?v=5a5e059e3645",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1056810,
+            "sha256": "5a5e059e3645164304216e9a6bbd39fb0953ce89dd5e7d7d8a6e3cb413821cd9"
+          },
+          "fallback": {
+            "url": "/images/rome-125/forum-market-fallback.webp?v=67357820a7a6",
+            "width": 960,
+            "height": 600,
+            "bytes": 98044,
+            "sha256": "67357820a7a6bee2ee87c8ca833631ab68aa3a4fa3db6252e99f4e9607482f17"
+          },
+          "hotspots": [],
+          "source": {
+            "path": "pano-explorer/public/images/citystreetviews/rome/trajan/Gemini_Generated_Image_p7ix01p7ix01p7ix.jpg",
+            "sha256": "9703640c55fa9ff561b57ed00552b6fda5af7408208b0af40b45903b47777e62",
+            "width": 1440,
+            "height": 720,
+            "horizontalShiftPixels": 0,
+            "hotspotPixels": {},
+            "encoding": "lossless WebP; decoded source pixels preserved"
+          }
+        }
+      ]
     },
     "pantheon-forecourt": {
       "desktop": {
-        "url": "/images/rome-125/pantheon-forecourt-360.webp?v=87704527f6ce",
-        "width": 6144,
-        "height": 3072,
-        "bytes": 1119016,
-        "sha256": "87704527f6ce3198b63fc0031938d0939344fe28d81669048052bb88d72e23c3"
+        "url": "/images/rome-125/pantheon-forecourt-360.webp?v=3d985d410061",
+        "width": 1440,
+        "height": 720,
+        "bytes": 1038524,
+        "sha256": "3d985d410061002c2f91afc6e1b551c32a33113e8eb9e9692d929acda2081b5c"
       },
       "mobile": {
-        "url": "/images/rome-125/pantheon-forecourt-360-mobile.webp?v=748c7c610c65",
-        "width": 4096,
-        "height": 2048,
-        "bytes": 418958,
-        "sha256": "748c7c610c6592909774cf83fde313296d85cfde6287f5819b59c094845916f9"
+        "url": "/images/rome-125/pantheon-forecourt-360-mobile.webp?v=3d985d410061",
+        "width": 1440,
+        "height": 720,
+        "bytes": 1038524,
+        "sha256": "3d985d410061002c2f91afc6e1b551c32a33113e8eb9e9692d929acda2081b5c"
       },
       "fallback": {
-        "url": "/images/rome-125/pantheon-forecourt-fallback.webp?v=ab74465774ed",
-        "width": 1600,
-        "height": 1000,
-        "bytes": 64180,
-        "sha256": "ab74465774ed0b2d85bc1c4a328111dda5013affa8945604d7fac0d102f39207"
+        "url": "/images/rome-125/pantheon-forecourt-fallback.webp?v=0ea265875568",
+        "width": 960,
+        "height": 600,
+        "bytes": 95062,
+        "sha256": "0ea265875568dc66e2370c876ff6c93c5da5ebce0c9a4b722557b72c57dd50fa"
       },
       "hotspots": [
         {
           "objectId": "pantheon-agrippa-inscription",
-          "yaw": 3.1415927,
-          "pitch": 0.4558505
+          "yaw": 3.141592653589793,
+          "pitch": 0.8159414253073489
         },
         {
           "objectId": "pantheon-granite-columns",
-          "yaw": 2.8437102,
-          "pitch": 0.175666
+          "yaw": -2.6834437249412817,
+          "pitch": 0.30543261909900765
         },
         {
           "objectId": "pantheon-forecourt-colonnade",
-          "yaw": -1.6092389,
-          "pitch": 0.2211562
+          "yaw": -0.7592182246175334,
+          "pitch": -0.06544984694978748
         }
       ],
+      "source": {
+        "path": "pano-explorer/public/images/citystreetviews/rome/pantheon/pantheon_41.8990374,12.4767907.jpg",
+        "sha256": "2a1b126c51c28501d6af300adcdacae76e726562c8ab9c2fd120c4a37588ad91",
+        "width": 1440,
+        "height": 720,
+        "horizontalShiftPixels": 720,
+        "hotspotPixels": {
+          "pantheon-agrippa-inscription": [720, 173],
+          "pantheon-granite-columns": [615, 290],
+          "pantheon-forecourt-colonnade": [174, 375]
+        },
+        "encoding": "lossless WebP; decoded source pixels preserved"
+      },
       "eye": [0, 1.65, -42],
       "initialTarget": [0, 13, 0],
-      "anchors": {
-        "pantheon-agrippa-inscription": [0, 16.8, -11.1],
-        "pantheon-granite-columns": [-10.5, 8, -7.8],
-        "pantheon-forecourt-colonnade": [26, 7.5, -41]
-      },
-      "seamMeanRGBDifference": 2.48,
-      "review": "Cardinal views and longitudinal seam measured from final delivered pixels; see authored render folder."
+      "fieldOfView": 75,
+      "viewpoints": [
+        {
+          "id": "pantheon-front",
+          "label": "Pantheon forecourt",
+          "desktop": {
+            "url": "/images/rome-125/pantheon-forecourt-360.webp?v=3d985d410061",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1038524,
+            "sha256": "3d985d410061002c2f91afc6e1b551c32a33113e8eb9e9692d929acda2081b5c"
+          },
+          "mobile": {
+            "url": "/images/rome-125/pantheon-forecourt-360-mobile.webp?v=3d985d410061",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1038524,
+            "sha256": "3d985d410061002c2f91afc6e1b551c32a33113e8eb9e9692d929acda2081b5c"
+          },
+          "fallback": {
+            "url": "/images/rome-125/pantheon-forecourt-fallback.webp?v=0ea265875568",
+            "width": 960,
+            "height": 600,
+            "bytes": 95062,
+            "sha256": "0ea265875568dc66e2370c876ff6c93c5da5ebce0c9a4b722557b72c57dd50fa"
+          },
+          "hotspots": [
+            {
+              "objectId": "pantheon-agrippa-inscription",
+              "yaw": 3.141592653589793,
+              "pitch": 0.8159414253073489
+            },
+            {
+              "objectId": "pantheon-granite-columns",
+              "yaw": -2.6834437249412817,
+              "pitch": 0.30543261909900765
+            },
+            {
+              "objectId": "pantheon-forecourt-colonnade",
+              "yaw": -0.7592182246175334,
+              "pitch": -0.06544984694978748
+            }
+          ],
+          "source": {
+            "path": "pano-explorer/public/images/citystreetviews/rome/pantheon/pantheon_41.8990374,12.4767907.jpg",
+            "sha256": "2a1b126c51c28501d6af300adcdacae76e726562c8ab9c2fd120c4a37588ad91",
+            "width": 1440,
+            "height": 720,
+            "horizontalShiftPixels": 720,
+            "hotspotPixels": {
+              "pantheon-agrippa-inscription": [720, 173],
+              "pantheon-granite-columns": [615, 290],
+              "pantheon-forecourt-colonnade": [174, 375]
+            },
+            "encoding": "lossless WebP; decoded source pixels preserved"
+          }
+        },
+        {
+          "id": "pantheon-square",
+          "label": "Across the square",
+          "desktop": {
+            "url": "/images/rome-125/pantheon-square-360.webp?v=af1c623e940f",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1082234,
+            "sha256": "af1c623e940f7b5fe3466f093edbf76a8fab4b1c18c4b00c8c43186457e04204"
+          },
+          "mobile": {
+            "url": "/images/rome-125/pantheon-square-360.webp?v=af1c623e940f",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1082234,
+            "sha256": "af1c623e940f7b5fe3466f093edbf76a8fab4b1c18c4b00c8c43186457e04204"
+          },
+          "fallback": {
+            "url": "/images/rome-125/pantheon-square-fallback.webp?v=6c11f1ada1b1",
+            "width": 960,
+            "height": 600,
+            "bytes": 91332,
+            "sha256": "6c11f1ada1b1ec6727ae0ba6639e5881d24803266f8a019f88d7cedd7f2c0e98"
+          },
+          "hotspots": [],
+          "source": {
+            "path": "pano-explorer/public/images/citystreetviews/rome/pantheon/pantheon_41.8994625,12.4769344.jpg",
+            "sha256": "27984bc6f347cae1bb99a11f1764026e0628e9777437387802366efd40d2f6b5",
+            "width": 1440,
+            "height": 720,
+            "horizontalShiftPixels": 720,
+            "hotspotPixels": {},
+            "encoding": "lossless WebP; decoded source pixels preserved"
+          }
+        },
+        {
+          "id": "pantheon-interior",
+          "label": "Inside the Pantheon",
+          "desktop": {
+            "url": "/images/rome-125/pantheon-interior-360.webp?v=187c0d936df4",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1183104,
+            "sha256": "187c0d936df4a25c8cf322db130542d54a2ef0ee799d022c56174fe78f4b21de"
+          },
+          "mobile": {
+            "url": "/images/rome-125/pantheon-interior-360.webp?v=187c0d936df4",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1183104,
+            "sha256": "187c0d936df4a25c8cf322db130542d54a2ef0ee799d022c56174fe78f4b21de"
+          },
+          "fallback": {
+            "url": "/images/rome-125/pantheon-interior-fallback.webp?v=0a2e32c8b7ea",
+            "width": 960,
+            "height": 600,
+            "bytes": 121766,
+            "sha256": "0a2e32c8b7ea856eaea6661bdf6c7df4c249715619e68054869cb3caef5679b7"
+          },
+          "hotspots": [],
+          "source": {
+            "path": "pano-explorer/public/images/citystreetviews/rome/pantheon/pantheon_41.8986032,12.4768237.jpg",
+            "sha256": "f4945bec725d5dee08767f3380564985aa4638eaa953c85794002185161b633a",
+            "width": 1440,
+            "height": 720,
+            "horizontalShiftPixels": 720,
+            "hotspotPixels": {},
+            "encoding": "lossless WebP; decoded source pixels preserved"
+          }
+        }
+      ]
     },
     "colosseum-valley": {
       "desktop": {
-        "url": "/images/rome-125/colosseum-valley-360.webp?v=5f188df4ccd8",
-        "width": 6144,
-        "height": 3072,
-        "bytes": 932040,
-        "sha256": "5f188df4ccd8b0fca97e9c1f4f275f596e6c76804baaf28497e28d7cf0969356"
+        "url": "/images/rome-125/colosseum-valley-360.webp?v=bc3e67ee4c97",
+        "width": 1440,
+        "height": 720,
+        "bytes": 1084918,
+        "sha256": "bc3e67ee4c9754ba98c75c36ec06d41b2f136cee982bb5ab09c9832e2ed8b6af"
       },
       "mobile": {
-        "url": "/images/rome-125/colosseum-valley-360-mobile.webp?v=5442a13f4556",
-        "width": 4096,
-        "height": 2048,
-        "bytes": 361030,
-        "sha256": "5442a13f455654e9f09bd9cde663e9266b90777f53b80c9a03356497046ce080"
+        "url": "/images/rome-125/colosseum-valley-360-mobile.webp?v=bc3e67ee4c97",
+        "width": 1440,
+        "height": 720,
+        "bytes": 1084918,
+        "sha256": "bc3e67ee4c9754ba98c75c36ec06d41b2f136cee982bb5ab09c9832e2ed8b6af"
       },
       "fallback": {
-        "url": "/images/rome-125/colosseum-valley-fallback.webp?v=561a7af9ffbc",
-        "width": 1600,
-        "height": 1000,
-        "bytes": 67558,
-        "sha256": "561a7af9ffbc5e3ccba42ab0e9c9db774c5b1616d32adff1567bd29075ad9364"
+        "url": "/images/rome-125/colosseum-valley-fallback.webp?v=c4f5bbed75ee",
+        "width": 960,
+        "height": 600,
+        "bytes": 97134,
+        "sha256": "c4f5bbed75eefe7a51d6d6cf43706cd0b847fb3126f678f820212a1a4df3f55a"
       },
       "hotspots": [
         {
           "objectId": "colosseum-outer-arcade",
-          "yaw": -1.5707963,
-          "pitch": 0.2344941
-        },
-        {
-          "objectId": "meta-sudans",
-          "yaw": -2.7233683,
-          "pitch": 0.1598116
-        },
-        {
-          "objectId": "venus-roma-worksite",
-          "yaw": 1.3386925,
-          "pitch": 0.0768186
+          "yaw": -1.5707963267948966,
+          "pitch": 0.2312561258892487
         }
       ],
+      "source": {
+        "path": "pano-explorer/public/images/citystreetviews/rome/colosseum/colosseum_41.8912414,12.4911149.jpg",
+        "sha256": "6566b8accee91d526a6d9077de616765406be8ba79ebaec75bc9d3988e953fd8",
+        "width": 1440,
+        "height": 720,
+        "horizontalShiftPixels": 240,
+        "hotspotPixels": {
+          "colosseum-outer-arcade": [840, 307]
+        },
+        "encoding": "lossless WebP; decoded source pixels preserved"
+      },
       "eye": [0, 1.65, 0],
       "initialTarget": [80, 18, 0],
-      "anchors": {
-        "colosseum-outer-arcade": [81, 21, 0],
-        "meta-sudans": [16, 8, 36],
-        "venus-roma-worksite": [-55, 6, -13]
-      },
-      "seamMeanRGBDifference": 1.992,
-      "review": "Cardinal views and longitudinal seam measured from final delivered pixels; see authored render folder."
+      "fieldOfView": 75,
+      "viewpoints": [
+        {
+          "id": "colosseum-front",
+          "label": "Colosseum forecourt",
+          "desktop": {
+            "url": "/images/rome-125/colosseum-valley-360.webp?v=bc3e67ee4c97",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1084918,
+            "sha256": "bc3e67ee4c9754ba98c75c36ec06d41b2f136cee982bb5ab09c9832e2ed8b6af"
+          },
+          "mobile": {
+            "url": "/images/rome-125/colosseum-valley-360-mobile.webp?v=bc3e67ee4c97",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1084918,
+            "sha256": "bc3e67ee4c9754ba98c75c36ec06d41b2f136cee982bb5ab09c9832e2ed8b6af"
+          },
+          "fallback": {
+            "url": "/images/rome-125/colosseum-valley-fallback.webp?v=c4f5bbed75ee",
+            "width": 960,
+            "height": 600,
+            "bytes": 97134,
+            "sha256": "c4f5bbed75eefe7a51d6d6cf43706cd0b847fb3126f678f820212a1a4df3f55a"
+          },
+          "hotspots": [
+            {
+              "objectId": "colosseum-outer-arcade",
+              "yaw": -1.5707963267948966,
+              "pitch": 0.2312561258892487
+            }
+          ],
+          "source": {
+            "path": "pano-explorer/public/images/citystreetviews/rome/colosseum/colosseum_41.8912414,12.4911149.jpg",
+            "sha256": "6566b8accee91d526a6d9077de616765406be8ba79ebaec75bc9d3988e953fd8",
+            "width": 1440,
+            "height": 720,
+            "horizontalShiftPixels": 240,
+            "hotspotPixels": {
+              "colosseum-outer-arcade": [840, 307]
+            },
+            "encoding": "lossless WebP; decoded source pixels preserved"
+          }
+        },
+        {
+          "id": "colosseum-approach",
+          "label": "Colosseum approach",
+          "desktop": {
+            "url": "/images/rome-125/colosseum-approach-360.webp?v=8ae824510a72",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1077988,
+            "sha256": "8ae824510a728de70f86dc8b738ba2f82a3518f98e0d13e35cc069cae07ff9f4"
+          },
+          "mobile": {
+            "url": "/images/rome-125/colosseum-approach-360.webp?v=8ae824510a72",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1077988,
+            "sha256": "8ae824510a728de70f86dc8b738ba2f82a3518f98e0d13e35cc069cae07ff9f4"
+          },
+          "fallback": {
+            "url": "/images/rome-125/colosseum-approach-fallback.webp?v=6704bc8e11b1",
+            "width": 960,
+            "height": 600,
+            "bytes": 123338,
+            "sha256": "6704bc8e11b1c666f2435c37ee4cfc08390d2f0c0272669a35fc8543dfba6abb"
+          },
+          "hotspots": [],
+          "source": {
+            "path": "pano-explorer/public/images/citystreetviews/rome/colosseum/colosseum_41.8909304,12.4908728.jpg",
+            "sha256": "184f00d3ac511d3e1ec73acdbb41ef74910749d04e855ac224fded3290084c8e",
+            "width": 1440,
+            "height": 720,
+            "horizontalShiftPixels": 680,
+            "hotspotPixels": {},
+            "encoding": "lossless WebP; decoded source pixels preserved"
+          }
+        },
+        {
+          "id": "colosseum-interior",
+          "label": "Inside the Colosseum",
+          "desktop": {
+            "url": "/images/rome-125/colosseum-interior-360.webp?v=8b274cfb5ba0",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1013894,
+            "sha256": "8b274cfb5ba0efa2026ef4a908c1f558f0a43e8a5b8109eee1815f4333a8bb39"
+          },
+          "mobile": {
+            "url": "/images/rome-125/colosseum-interior-360.webp?v=8b274cfb5ba0",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1013894,
+            "sha256": "8b274cfb5ba0efa2026ef4a908c1f558f0a43e8a5b8109eee1815f4333a8bb39"
+          },
+          "fallback": {
+            "url": "/images/rome-125/colosseum-interior-fallback.webp?v=b830385353ad",
+            "width": 960,
+            "height": 600,
+            "bytes": 89038,
+            "sha256": "b830385353ad99f62af118a7fa56ffffd459848c70573c4060013048d3512bde"
+          },
+          "hotspots": [],
+          "source": {
+            "path": "pano-explorer/public/images/citystreetviews/rome/colosseum/colosseum_41.8899982,12.492235.jpg",
+            "sha256": "60d06f24368dbcfc09523a1d7c7ce9574f08eb54d1b252108f1b1a0d9948ab97",
+            "width": 1440,
+            "height": 720,
+            "horizontalShiftPixels": 360,
+            "hotspotPixels": {},
+            "encoding": "lossless WebP; decoded source pixels preserved"
+          }
+        },
+        {
+          "id": "colosseum-southwest",
+          "label": "Southwest square",
+          "desktop": {
+            "url": "/images/rome-125/colosseum-southwest-360.webp?v=7e962b066f26",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1176428,
+            "sha256": "7e962b066f26f941c6749f94c87c962ef44c224494feb9d5ab6be5095a1d9599"
+          },
+          "mobile": {
+            "url": "/images/rome-125/colosseum-southwest-360.webp?v=7e962b066f26",
+            "width": 1440,
+            "height": 720,
+            "bytes": 1176428,
+            "sha256": "7e962b066f26f941c6749f94c87c962ef44c224494feb9d5ab6be5095a1d9599"
+          },
+          "fallback": {
+            "url": "/images/rome-125/colosseum-southwest-fallback.webp?v=665967d07de2",
+            "width": 960,
+            "height": 600,
+            "bytes": 96286,
+            "sha256": "665967d07de2c7fee937b8f4a980639c087db61d6877ad57f0420cb97b2cea6c"
+          },
+          "hotspots": [],
+          "source": {
+            "path": "pano-explorer/public/images/citystreetviews/rome/colosseum/colosseum_41.8899144,12.4905981.jpg",
+            "sha256": "4458968004a5f6d8b00a9aad2cd855bea26229c35a215417261dbd6a8a8f0b10",
+            "width": 1440,
+            "height": 720,
+            "horizontalShiftPixels": 1150,
+            "hotspotPixels": {},
+            "encoding": "lossless WebP; decoded source pixels preserved"
+          }
+        }
+      ]
     }
   },
-  "aiInputs": [
-    {
-      "path": "blender/assets/rome-125/ai/mediterranean-sky.png",
-      "role": "sky-background",
-      "generator": "Codex built-in image generation",
-      "historicalEvidence": false,
-      "sha256": "daf5839da2699fa3cd727c62416736d6875e5835b5bd3dad619da4136de1eae6"
-    },
-    {
-      "path": "blender/assets/rome-125/ai/travertine-albedo.png",
-      "role": "generic-stone-albedo",
-      "generator": "Codex built-in image generation",
-      "historicalEvidence": false,
-      "sha256": "5fa73056ac01f57ec229dc33679b0a8828c6cc2a97defb17bddbe62ebc827a88"
-    }
-  ],
   "references": [
     {
       "id": "R1",

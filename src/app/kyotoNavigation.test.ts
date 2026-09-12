@@ -1,13 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { findWorld, locations } from '../data/locations';
 import { kyoto1700 } from '../data/worlds/kyoto-1700';
+import { kyotoPresent } from '../data/worlds/kyoto-present';
 import { resolvePresentation } from '../utils/presentation';
 import { appReducer, initialState } from './state';
 
 describe('Kyoto location and era navigation', () => {
   it('enters the registered Kyoto era and returns from object inspection to the same overview', () => {
     const location = locations.find((item) => item.id === 'kyoto');
-    expect(location?.eras).toEqual([kyoto1700.era]);
+    expect(location?.eras).toEqual([kyoto1700.era, kyotoPresent.era]);
     expect(findWorld('kyoto', '1700')).toBe(kyoto1700);
     expect(findWorld('kyoto', '125')).toBeNull();
 
