@@ -11,6 +11,10 @@ export const locations: Location[] = [
     description:
       'Follow the rivers into a city of mills, railroads, and industry.',
     eras: [pittsburgh1892.era, pittsburgh1850.era],
+    globe: {
+      countryIsoA3: 'USA',
+      coordinates: { lat: 40.4406, lng: -79.9959 },
+    },
   },
 ];
 

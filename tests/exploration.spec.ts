@@ -6,9 +6,16 @@ import type { PointOfInterest } from '../src/types/world';
 
 async function enterWorld(page: Page) {
   await page.goto('/');
-  await page
-    .getByRole('button', { name: /Pennsylvania, United States Pittsburgh/ })
-    .click();
+  // The globe defaults its camera to the one supported location (Pittsburgh, USA),
+  // so once the intro morph finishes, clicking the canvas center hits that country.
+  // The country's polygon mesh can finish building a moment after the canvas itself
+  // becomes clickable, so retry until the click actually registers.
+  await expect(async () => {
+    await page.locator('canvas').click();
+    await expect(
+      page.getByRole('button', { name: /1892 An industrial city/ }),
+    ).toBeVisible({ timeout: 2000 });
+  }).toPass({ timeout: 25000 });
   await page.getByRole('button', { name: /1892 An industrial city/ }).click();
   await expect(
     page.getByRole('heading', { name: 'Pittsburgh / 1892' }),

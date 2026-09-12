@@ -18,6 +18,11 @@ export interface Location {
   region: string;
   description: string;
   eras: Era[];
+  /** Real-world anchor used by the globe UI. Omit for locations not yet placeable on the globe. */
+  globe?: {
+    countryIsoA3: string;
+    coordinates: { lat: number; lng: number };
+  };
 }
 
 /**

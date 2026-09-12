@@ -1,0 +1,29 @@
+[
+  {
+    "id": "toronto-overview",
+    "city": "Toronto",
+    "country": "Canada",
+    "category": "overview",
+    "title": "Toronto demo city guide",
+    "source_url": "sample://toronto-overview",
+    "text": "Toronto sits on the northwestern shore of Lake Ontario. Downtown attractions include the CN Tower and the waterfront. The Toronto Islands offer parkland, beaches, and views of the skyline. Visitors interested in art and history can explore the Art Gallery of Ontario and the Royal Ontario Museum. Kensington Market is known for independent shops and diverse food. The Distillery District contains restored industrial buildings and pedestrian streets. Toronto has subway, streetcar, and bus services. Union Station connects local transit with regional and intercity rail. Walking works well for exploring individual downtown neighbourhoods. Cycling paths follow parts of the waterfront. The city contains many ravines and green spaces, including High Park. Winter conditions can be cold and snowy, while summer is generally warm. This is an authored demonstration document, not a live travel feed. Verify opening hours, transport schedules, admission costs, and service availability before planning a visit. For a museum-focused day, group nearby attractions and allow time for transit between neighbourhoods. For an outdoor day, consider the waterfront and parks. Food-focused visitors can explore distinct neighbourhoods rather than relying on a single restaurant district."
+  },
+  {
+    "id": "montreal-overview",
+    "city": "Montreal",
+    "country": "Canada",
+    "category": "overview",
+    "title": "Montreal demo city guide",
+    "source_url": "sample://montreal-overview",
+    "text": "Montreal is a city in Quebec on an island in the Saint Lawrence River. French is central to its culture. Old Montreal contains historic streets and buildings near the Old Port. Mount Royal provides walking routes and viewpoints over the city. The Plateau neighbourhood is associated with cafes, outdoor staircases, and residential streets. Montreal is known for bagels and smoked meat. The Metro and bus network connect many neighbourhoods. Visitors interested in architecture, food, and urban walking can combine the historic centre with local neighbourhoods. Winters are cold and snowy. This authored demonstration text is not a live guide; check current schedules and opening hours before travelling."
+  },
+  {
+    "id": "vancouver-overview",
+    "city": "Vancouver",
+    "country": "Canada",
+    "category": "overview",
+    "title": "Vancouver demo city guide",
+    "source_url": "sample://vancouver-overview",
+    "text": "Vancouver is a coastal city in British Columbia with mountain and ocean scenery. Stanley Park contains forest trails and a seawall popular for walking and cycling. Granville Island is known for its public market and arts spaces. Beaches and waterfront paths provide outdoor recreation close to the urban centre. The North Shore offers access to mountain landscapes. SkyTrain, buses, and the SeaBus connect parts of the region. Vancouver has a relatively mild and rainy winter climate compared with many Canadian cities. Visitors interested in ocean views, parks, and outdoor activities may enjoy exploring the waterfront. This authored sample is for retrieval demonstrations; it does not contain current weather, trail safety, ticket prices, or transport schedules."
+  }
+]
