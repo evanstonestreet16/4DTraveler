@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { appReducer, initialState } from './state';
 import { pittsburgh1892 as world } from '../data/worlds/pittsburgh-1892';
 import { findWorld } from '../data/locations';
+import { deriveWorldsFromProfile, seattleFixture } from '../services/grok';
 
 const locationState = appReducer(initialState, {
   type: 'location',
@@ -63,6 +64,40 @@ describe('exploration state', () => {
       appReducer(locationState, { type: 'era', id: '404', world: null })
         .activeWorld,
     ).toBeNull();
+  });
+});
+
+describe('globe-mode transitions', () => {
+  it('switches into globe mode and clears prior selections', () => {
+    const inGlobe = appReducer(worldState, { type: 'mode', mode: 'globe' });
+    expect(inGlobe.mode).toBe('globe');
+    expect(inGlobe.selectedLocationId).toBeNull();
+    expect(inGlobe.activeWorld).toBeNull();
+  });
+
+  it('enterWorld loads a generated world without needing a static catalog entry', () => {
+    const [firstEra] = deriveWorldsFromProfile(seattleFixture, {
+      locationId: 'generated:seattle',
+    });
+    const inGlobe = appReducer(initialState, { type: 'mode', mode: 'globe' });
+    const entered = appReducer(inGlobe, {
+      type: 'enterWorld',
+      world: firstEra,
+    });
+    expect(entered.mode).toBe('globe');
+    expect(entered.activeWorld).toBe(firstEra);
+    expect(entered.selectedLocationId).toBe('generated:seattle');
+    expect(entered.selectedEraId).toBe(firstEra.era.id);
+    expect(entered.cameraMode).toBe('OVERVIEW');
+  });
+
+  it('returning to catalog mode resets all selections', () => {
+    const inGlobe = appReducer(worldState, { type: 'mode', mode: 'globe' });
+    const backToCatalog = appReducer(inGlobe, {
+      type: 'mode',
+      mode: 'catalog',
+    });
+    expect(backToCatalog).toEqual(initialState);
   });
 });
 

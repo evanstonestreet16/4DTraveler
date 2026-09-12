@@ -34,6 +34,18 @@ export function LocationSelector() {
           </button>
         ))}
       </div>
+      <div className="globe-cta">
+        <button
+          className="pill-button"
+          onClick={() => dispatch({ type: 'mode', mode: 'globe' })}
+        >
+          Explore any city with the globe
+          <span aria-hidden="true"> ✳</span>
+        </button>
+        <span className="muted">
+          Pick a pin on a spinning globe and Grok drafts three historical eras.
+        </span>
+      </div>
       <p className="muted">
         An early exploration of how places change through time.
       </p>

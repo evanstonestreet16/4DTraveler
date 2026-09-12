@@ -100,3 +100,46 @@ export interface HistoricalWorld {
 export type CameraMode = 'OVERVIEW' | 'POI';
 export type AudioState =
   'idle' | 'loading' | 'playing' | 'paused' | 'ended' | 'error';
+
+/**
+ * LLM-generated world contract. Emitted by the Grok adapter and validated
+ * before being turned into `HistoricalWorld`s via `deriveWorldFromEra`.
+ * Kept intentionally lean: the client fills in overview/POI cameras and
+ * environment defaults so the model does not have to reason about
+ * cinematography or lighting math.
+ */
+export interface GeneratedHistoryProfile {
+  cityName: string;
+  region: string;
+  description: string;
+  eras: GeneratedEra[];
+}
+
+export interface GeneratedEra {
+  id: string;
+  label: string;
+  year: number;
+  subtitle: string;
+  historicalContext: string;
+  background?: string;
+  primitives: ScenePrimitive[];
+  pois: GeneratedPOI[];
+  objects: GeneratedObject[];
+}
+
+export interface GeneratedPOI {
+  id: string;
+  name: string;
+  markerPosition: Vec3;
+  objectIds: string[];
+}
+
+export interface GeneratedObject {
+  id: string;
+  name: string;
+  poiId: string;
+  /** Must match a `primitives[].id` for click-to-select to work. */
+  sceneObjectId: string;
+  description: string;
+  whyItMatters: string;
+}
