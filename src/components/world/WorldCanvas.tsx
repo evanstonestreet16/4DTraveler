@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
 import type { HistoricalWorld } from '../../types/world';
 import { WorldScene } from './WorldScene';
@@ -9,6 +9,8 @@ import type { QualityPreference } from '../../utils/quality';
 import { ViewportDpr } from './ViewportDpr';
 import { useSceneActivity } from './useSceneActivity';
 import type { ModelAssetState } from './modelAsset';
+import { TripoActivityBanner } from './TripoActivityBanner';
+import type { TripoStatus } from './IconicUpgrade';
 
 function ContextGuard({ onLost }: { onLost: () => void }) {
   const gl = useThree((state) => state.gl);
@@ -37,6 +39,17 @@ export function WorldCanvas({
   const container = useRef<HTMLDivElement>(null);
   const active = useSceneActivity(container);
   const [assetState, setAssetState] = useState<ModelAssetState | null>(null);
+  const [tripoStatuses, setTripoStatuses] = useState<
+    Record<string, TripoStatus>
+  >({});
+  const handleTripoStatus = useCallback((status: TripoStatus) => {
+    setTripoStatuses((prev) => ({ ...prev, [status.objectId]: status }));
+  }, []);
+  // Reset the aggregated status whenever the active world changes so we
+  // don't carry stale banners across Seattle → Pittsburgh, etc.
+  useEffect(() => {
+    setTripoStatuses({});
+  }, [world.id]);
   return (
     <div
       ref={container}
@@ -97,6 +110,7 @@ export function WorldCanvas({
             <WorldScene
               world={world}
               onAssetState={setAssetState}
+              onTripoStatus={handleTripoStatus}
               animated={active && settings.motion}
               shadowMap={settings.shadowMap}
               detail={settings.detail}
@@ -120,6 +134,7 @@ export function WorldCanvas({
             : ''}
         </div>
       )}
+      {!lost && <TripoActivityBanner statuses={tripoStatuses} />}
     </div>
   );
 }

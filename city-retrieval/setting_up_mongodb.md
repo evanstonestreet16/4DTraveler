@@ -58,8 +58,13 @@ Paste the contents of `vector_index.json` as the index definition:
 ```json
 {
   "fields": [
-    {"type": "vector", "path": "embedding", "numDimensions": 1536, "similarity": "cosine"},
-    {"type": "filter", "path": "city"}
+    {
+      "type": "vector",
+      "path": "embedding",
+      "numDimensions": 1536,
+      "similarity": "cosine"
+    },
+    { "type": "filter", "path": "city" }
   ]
 }
 ```

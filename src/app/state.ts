@@ -1,6 +1,14 @@
 import type { AudioState, CameraMode, HistoricalWorld } from '../types/world';
 
+/**
+ * Which entry surface the user is on. `catalog` is the curated Pittsburgh
+ * path; `globe` is the LLM-generated flow. The distinction stays local to
+ * the app shell — downstream world rendering does not branch on it.
+ */
+export type EntryMode = 'catalog' | 'globe';
+
 export interface AppState {
+  mode: EntryMode;
   selectedLocationId: string | null;
   selectedEraId: string | null;
   activeWorld: HistoricalWorld | null;
@@ -11,6 +19,7 @@ export interface AppState {
 }
 
 export const initialState: AppState = {
+  mode: 'catalog',
   selectedLocationId: null,
   selectedEraId: null,
   activeWorld: null,
@@ -21,8 +30,10 @@ export const initialState: AppState = {
 };
 
 export type AppAction =
+  | { type: 'mode'; mode: EntryMode }
   | { type: 'location'; id: string | null }
   | { type: 'era'; id: string; world: HistoricalWorld | null }
+  | { type: 'enterWorld'; world: HistoricalWorld }
   | { type: 'poi'; id: string }
   | { type: 'object'; id: string | null }
   | { type: 'overview' }
@@ -30,8 +41,22 @@ export type AppAction =
 
 export function appReducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
+    case 'mode':
+      return { ...initialState, mode: action.mode };
     case 'location':
-      return { ...initialState, selectedLocationId: action.id };
+      return {
+        ...initialState,
+        mode: state.mode,
+        selectedLocationId: action.id,
+      };
+    case 'enterWorld':
+      return {
+        ...initialState,
+        mode: state.mode,
+        selectedLocationId: action.world.locationId,
+        selectedEraId: action.world.era.id,
+        activeWorld: action.world,
+      };
     case 'era': {
       const world =
         action.world?.locationId === state.selectedLocationId &&
@@ -40,6 +65,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
           : null;
       return {
         ...initialState,
+        mode: state.mode,
         selectedLocationId: state.selectedLocationId,
         selectedEraId: action.id,
         activeWorld: world,
