@@ -1,4 +1,20 @@
-# Dummy v0 verification
+# Verification
+
+## 3D modeling integration · 2026-09-11
+
+The `codex/3d-modeling` integration covers issues #5–#12 and includes the user-selected **1850 · Blockout**. The [integration runbook](3D_MODELING.md) links each scoped PR, measured evidence and owner review handoffs. The stack was updated from `main` at `875a841` before final verification.
+
+Formatting, lint, strict typecheck, 21 unit tests, production build and all 21 Chromium browser tests pass. Asset tests validate all five hero mappings, material isolation, GLB/gzip integrity, content-version keys and failed/cancelled loading. The full 1892 world data matches the benchmark digest after shared geography extraction.
+
+Browser coverage exercises actual hero and blockout mesh selection, gold highlights, all POIs, repeated camera transitions, narration play/pause, overview return, context recovery, slow/missing/compressed-model fallbacks, quality switching, native/CSS immersive presentation, keyboard focus, portrait/landscape layouts, reduced motion, and repeated 1850 ↔ 1892 transitions with selection/audio/resource reset. Screenshots were visually reviewed for composition, selection and readable desktop/mobile controls.
+
+Representative Apple M3 Metal High measurements report 17.6 ms active-frame p95 and 883 ms hero readiness, compared with 1511 ms before delivery optimization. The gzip model payload is 210,934 bytes and repeat visits transfer zero network bytes. GPU handles return to baseline after each leave; retained world-object counts stay flat. Total JavaScript heap grows during the normal-browser warmup control, so a total-heap plateau is not claimed. A separate JIT-disabled control passes the unchanged heap check and verifies stable application allocations. See the [performance evidence](evidence/performance/after/README.md) for raw flags, exact measured revisions and investigation.
+
+Physical-phone frame pacing, Safari/Firefox, display switching and named adjacent-owner approvals remain manual review handoffs. Historical framing is illustrative; 1850 remains explicitly labeled Blockout pending Content review. These limitations are also stated in the PRs.
+
+## Historical Dummy v0 record
+
+The following records the original milestone and its then-current limitations; it is retained for comparison.
 
 Verified locally on macOS with Node 22.20.0, npm 10.9.3, Chromium, and the Codex in-app browser.
 

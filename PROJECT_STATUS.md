@@ -18,7 +18,11 @@ For contributor rules, workstream ownership, and verification steps, see [AGENTS
 
 ## Current Scope
 
-Dummy v0 supports Pittsburgh / 1892: location → era → overview → POI → object → info → narration. Add speculative functionality only when explicitly needed.
+The 3D modeling integration on `codex/3d-modeling` supports Pittsburgh / 1892 with an original GLB industrial diorama, three POIs, five selectable objects, narration, atmospheric lighting/motion, immersive presentation and adaptive scene quality. The complete primitive world remains available during model loading or failure.
+
+The user-selected **1850 · Blockout** adds a distinct market/wharf composition through the same era flow and renderer. It has two POIs, four illustrative objects, separate camera data and no narration. Existing 1892 IDs, content and cameras remain unchanged.
+
+The scoped PR stack for issues #5–#12 is open for review; it has not been merged. See the [integration runbook](docs/3D_MODELING.md) for evidence and merge order. Historical/editorial approval, adjacent workstream review and physical-phone/browser certification remain handoffs. The performance report retains normal-browser total-heap growth and a passing JIT-disabled control; it does not claim an unrestricted heap plateau.
 
 ## Out of Scope Unless Explicitly Requested
 
@@ -28,4 +32,4 @@ MongoDB, authentication, multiplayer, WASD, physics, NPCs, character interaction
 
 <!-- Newest first. Format: `- YYYY-MM-DD — summary (link to PR/issue if available)` -->
 
-- _No entries yet. Add the first one when project state changes._
+- 2026-09-11 — Implemented the [3D modeling roadmap #5](https://github.com/evanstonestreet16/4DTraveler/issues/5) in a scoped PR stack, including the 1892 hero pipeline and user-selected 1850 blockout. Published measurements, resource-lifecycle investigation and desktop/mobile browser evidence; review gates remain explicit.

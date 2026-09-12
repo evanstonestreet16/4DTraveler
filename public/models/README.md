@@ -1,7 +1,7 @@
-# Runtime model assets
+# Runtime models
 
-`pipeline-fixture.glb` is an original, generated integration fixture (12,844 bytes). It reproduces the complete Dummy v0 layout and five selectable objects. It is illustrative geometry, not a historical reconstruction or final hero asset.
+`pittsburgh-1892.glb` is the original modular hero, with `pittsburgh-1892.glb.gz` providing its native gzip transport. The plain file is retained as a browser/transport fallback. `pittsburgh-1892.metrics.json` records exported geometry/material/byte budgets. `pipeline-fixture.glb` is the small deterministic selection/loading contract fixture; it is not loaded by the hero path.
 
-Regenerate with `npm run assets:fixture`; validate with `npm run assets:validate`. The generator uses the repository's scene data and Three.js primitive geometry, with no downloaded assets or third-party textures. Project contributors may use and modify this original fixture with the project.
+The five selectable group names are `furnace`, `stack`, `rail-car`, `warehouse` and `bridge`. No historical object IDs are renamed. The complete primitive geometry remains in world data for loading/error fallback. The 1850 blockout shares the data-defined geography and needs no duplicate GLB.
 
-See [the asset pipeline](../../docs/ASSET_PIPELINE.md) for units, transforms, stable node names, Blender export settings, material conventions, fallback behavior and verification. Blender remains an optional authoring tool, never a runtime dependency.
+Regenerate with `npm run assets:fixture` and `npm run assets:hero`; check with `npm run assets:validate`. After modifying the hero, update both URLs' SHA-256 version prefix in scene data. Sources, export conventions, provenance and budgets are in [asset pipeline](../../docs/ASSET_PIPELINE.md), [hero notes](../../docs/visual/HERO_ASSET.md), and [performance measurements](../../docs/PERFORMANCE.md). The offline kit under `scripts/` is not served in the runtime build. No third-party models or textures are bundled.
