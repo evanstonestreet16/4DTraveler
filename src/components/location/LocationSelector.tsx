@@ -22,7 +22,8 @@ export function LocationSelector() {
             onClick={() => dispatch({ type: 'location', id: location.id })}
           >
             <span className="card-art" aria-hidden="true">
-              1892<span className="city-line">▥ ▥ ▥</span>
+              {location.eras[0]?.label}
+              <span className="city-line">▥ ▥ ▥</span>
             </span>
             <span className="card-body">
               <span className="eyebrow">{location.region}</span>

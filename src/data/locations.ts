@@ -1,9 +1,18 @@
+import { rome125 } from './worlds/rome-125';
 import type { Location } from '../types/world';
 import { pittsburgh1892 } from './worlds/pittsburgh-1892';
 import { pittsburgh1850 } from './worlds/pittsburgh-1850';
 
-export const worlds = [pittsburgh1892, pittsburgh1850];
+export const worlds = [rome125, pittsburgh1892, pittsburgh1850];
 export const locations: Location[] = [
+  {
+    id: rome125.locationId,
+    name: rome125.locationName,
+    region: 'Italy · Ancient Mediterranean',
+    description:
+      'Enter the living capital of Hadrian: marble forums, a new Pantheon, and the Flavian Amphitheatre.',
+    eras: [rome125.era],
+  },
   {
     id: pittsburgh1892.locationId,
     name: pittsburgh1892.locationName,

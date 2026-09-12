@@ -46,7 +46,13 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       };
     }
     case 'poi':
-      return state.activeWorld?.pois.some((poi) => poi.id === action.id)
+      return state.activeWorld?.pois.some(
+        (poi) =>
+          poi.id === action.id &&
+          !poi.preview &&
+          (state.activeWorld?.scene.presentation !== 'immersive-city' ||
+            !!poi.immersive),
+      )
         ? {
             ...state,
             activePOIId: action.id,
@@ -62,6 +68,15 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       if (
         !object ||
         !state.activeWorld?.pois.some((poi) => poi.id === object.poiId)
+      )
+        return state;
+      const poi = state.activeWorld.pois.find((poi) => poi.id === object.poiId);
+      if (
+        state.activeWorld.scene.presentation === 'immersive-city' &&
+        (!poi?.immersive ||
+          poi.preview ||
+          state.activePOIId !== poi.id ||
+          !poi.objectIds.includes(object.id))
       )
         return state;
       return {

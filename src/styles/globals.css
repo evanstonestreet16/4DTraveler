@@ -749,3 +749,364 @@ h1 {
     flex: 1;
   }
 }
+
+/* City scenes always occupy the viewport; their controls are independent overlays. */
+.world-experience.city-experience {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  width: 100vw;
+  height: 100dvh;
+  padding: 0;
+  overflow: hidden;
+  background: #ddcaaa;
+}
+.city-experience .world-viewport,
+.city-experience .world-canvas {
+  width: 100%;
+  height: 100%;
+}
+.city-experience .world-viewport {
+  position: absolute;
+  inset: 0;
+}
+.city-experience canvas[data-fixed-look='true'] {
+  cursor: grab;
+}
+.city-experience canvas[data-fixed-look='true']:active {
+  cursor: grabbing;
+}
+.city-experience button,
+.city-experience summary,
+.city-experience select {
+  min-height: 44px;
+}
+.city-heading {
+  position: absolute;
+  z-index: 30;
+  inset: 0 0 auto;
+  padding: max(20px, env(safe-area-inset-top))
+    max(24px, env(safe-area-inset-right)) 32px
+    max(24px, env(safe-area-inset-left));
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  background: linear-gradient(#f7f0e8eb, #f7f0e899 70%, transparent);
+  pointer-events: none;
+}
+.city-heading h1 {
+  margin: 6px 0;
+  font-size: 42px;
+}
+.city-heading .eyebrow {
+  margin: 0;
+}
+.city-location {
+  margin: 0;
+  font-size: 13px;
+}
+.city-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  pointer-events: auto;
+}
+.city-explorer {
+  position: absolute;
+  z-index: 30;
+  top: 150px;
+  left: max(24px, env(safe-area-inset-left));
+  width: 250px;
+  max-height: calc(100dvh - 350px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid #d3c9b9;
+  border-radius: 8px;
+  background: #faf7efeb;
+  box-shadow: 0 4px 24px #3b2f2310;
+}
+.city-explorer details + details {
+  border-top: 1px solid #d3c9b9;
+}
+.city-explorer summary {
+  padding: 12px 14px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  align-content: center;
+}
+.city-explorer .poi-list {
+  grid-template-columns: minmax(0, 1fr);
+  margin: 0 10px 12px;
+}
+.city-explorer .poi-list button {
+  padding: 10px 8px;
+  font-size: 11px;
+  gap: 6px;
+}
+.city-explorer .poi-list button > span:last-child {
+  font-size: 10px;
+}
+.city-explorer .poi-number {
+  display: none;
+}
+.city-explorer .object-list {
+  margin: 0 10px 12px;
+}
+.city-explorer .object-list > div {
+  display: grid;
+}
+.city-explorer .object-list button {
+  text-align: left;
+}
+.city-help p {
+  margin: 0 14px 10px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.city-help .quality-control {
+  margin: 0 14px 14px;
+}
+.city-look-hint {
+  position: absolute;
+  z-index: 25;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 30px;
+  padding: 9px 14px;
+  background: #faf7efcc;
+  font-size: 11px;
+  pointer-events: none;
+}
+.city-information {
+  position: absolute;
+  z-index: 40;
+  top: 120px;
+  right: max(24px, env(safe-area-inset-right));
+  width: min(360px, calc(100vw - 48px));
+  max-height: calc(100dvh - 300px);
+  padding: 4px 20px 20px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid #d3c9b9;
+  border-radius: 8px;
+  background: #faf7eff5;
+  box-shadow: 0 8px 32px #3b2f2320;
+}
+.city-information .object-info {
+  border-top: 0;
+  margin-top: 0;
+}
+.city-narration {
+  position: absolute;
+  z-index: 35;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  left: max(24px, env(safe-area-inset-left));
+  width: min(720px, calc(100vw - 48px));
+}
+.city-narration .narration {
+  margin: 0;
+  max-height: 32dvh;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 10px 16px;
+  background: #faf7eff2;
+  border-color: #d3c9b9;
+}
+.city-narration .narration-main {
+  gap: 8px 20px;
+}
+.city-experience .model-status:not(.model-status-ready) {
+  z-index: 21;
+  left: 50%;
+  bottom: auto;
+  top: 140px;
+  transform: translateX(-50%);
+}
+.city-experience .scene-fallback {
+  position: absolute;
+  z-index: 22;
+  inset: 150px 20% 180px;
+  overflow: auto;
+  background: #faf7eff5;
+  border-radius: 8px;
+}
+@media (max-width: 700px) {
+  .city-heading {
+    padding: max(12px, env(safe-area-inset-top)) 12px 28px;
+    gap: 12px;
+  }
+  .city-heading h1 {
+    font-size: 32px;
+  }
+  .city-heading .eyebrow {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+  .city-location {
+    max-width: 200px;
+    font-size: 11px;
+  }
+  .city-navigation {
+    max-width: 150px;
+    gap: 4px;
+  }
+  .city-navigation button {
+    font-size: 10px;
+  }
+  .city-explorer {
+    top: 128px;
+    left: 12px;
+    width: 208px;
+    max-height: calc(100dvh - 360px);
+  }
+  .city-explorer summary {
+    font-size: 11px;
+    padding: 10px 12px;
+  }
+  .city-experience[data-city-mode='pov'] .city-explorer {
+    max-height: 220px;
+  }
+  .city-look-hint {
+    top: auto;
+    bottom: 200px;
+    white-space: nowrap;
+    font-size: 10px;
+  }
+  .city-information {
+    top: auto;
+    bottom: 160px;
+    right: 12px;
+    width: calc(100vw - 24px);
+    max-height: 42dvh;
+    padding: 0 16px 16px;
+  }
+  .city-narration {
+    left: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    width: calc(100vw - 24px);
+  }
+  .city-narration .narration {
+    max-height: 138px;
+    padding: 8px 12px;
+  }
+  .city-narration .narration-main > div:first-child {
+    display: none;
+  }
+  .city-narration .audio-status {
+    min-width: 0;
+    font-size: 10px;
+    flex-basis: 100%;
+  }
+  .city-narration .transcript {
+    margin-top: 4px;
+  }
+  .city-experience .scene-fallback {
+    inset: 128px 12px 164px;
+    padding: 20px;
+  }
+  .city-experience .model-status:not(.model-status-ready) {
+    top: auto;
+    bottom: 164px;
+  }
+}
+@media (max-height: 600px) and (min-width: 701px) {
+  .city-heading h1 {
+    font-size: 28px;
+  }
+  .city-explorer {
+    top: 122px;
+    max-height: calc(100dvh - 268px);
+  }
+  .city-information {
+    top: 90px;
+    max-height: calc(100dvh - 238px);
+  }
+  .city-narration .narration {
+    max-height: 120px;
+  }
+  .city-look-hint {
+    display: none;
+  }
+}
+.city-narration .narration-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  font-size: 10px;
+}
+.city-narration .narration-progress progress {
+  flex: 1;
+  accent-color: #365540;
+}
+.city-narration .ambient-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 4px 10px;
+  border-radius: 5px;
+  background: #faf7eff2;
+  font-size: 11px;
+}
+.city-loading {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 16px;
+  padding: 24px;
+  text-align: center;
+  background: #efe6d6;
+}
+.city-loading h2 {
+  margin: 0;
+  font:
+    36px Georgia,
+    serif;
+}
+.city-loading p {
+  margin: 0;
+  font-size: 13px;
+}
+/* Recovery and the static exploration list remain independently reachable. */
+.city-experience .scene-fallback {
+  inset: 150px 24px 180px auto;
+  width: min(420px, calc(100vw - 324px));
+}
+@media (max-width: 700px) {
+  .city-experience .scene-fallback {
+    inset: 128px 12px auto;
+    width: auto;
+    max-height: 220px;
+  }
+  .city-experience:has(.world-canvas > .scene-fallback) .city-explorer {
+    top: 360px;
+    max-height: max(80px, calc(100dvh - 530px));
+  }
+}
+@media (max-width: 600px), (max-height: 600px) {
+  .city-experience .poi-marker {
+    width: 82px;
+    max-width: 82px;
+    padding: 6px;
+    white-space: normal;
+    font-size: 9px;
+    line-height: 1.35;
+  }
+  .city-experience .marker-dot {
+    margin-right: 4px;
+  }
+}
+
+@media (min-width: 701px) and (max-height: 600px) {
+  .city-explorer {
+    width: 180px;
+  }
+}

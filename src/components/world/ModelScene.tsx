@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { useThree, type ThreeEvent } from '@react-three/fiber';
 import type { HistoricalObject, SceneModel } from '../../types/world';
+import { shouldSuppressSceneClick } from '../../utils/fixedLook';
 import {
   loadModelAsset,
   resolveModelObject,
@@ -27,6 +28,7 @@ export function ModelScene({
   const [loaded, setLoaded] = useState<LoadedModelAsset | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const invalidate = useThree((state) => state.invalidate);
+  const canvas = useThree((state) => state.gl.domElement);
   useEffect(() => {
     setLoaded(null);
     setHoveredId(null);
@@ -77,6 +79,7 @@ export function ModelScene({
   }, [loaded, selectedId, hoveredId, invalidate]);
   if (!loaded) return fallback;
   const handlePointer = (event: ThreeEvent<PointerEvent>) => {
+    if (shouldSuppressSceneClick(canvas)) return;
     const object = resolveModelObject(event.object, loaded.selection);
     if (object) {
       event.stopPropagation();
@@ -96,6 +99,7 @@ export function ModelScene({
           const object = resolveModelObject(event.object, loaded.selection);
           if (object) {
             event.stopPropagation();
+            if (shouldSuppressSceneClick(canvas)) return;
             onSelect(object.id);
           }
         }}

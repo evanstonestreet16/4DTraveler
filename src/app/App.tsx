@@ -56,9 +56,28 @@ export function App() {
           <SceneErrorBoundary key={state.activeWorld.id}>
             <Suspense
               fallback={
-                <p className="notice" role="status">
-                  Loading your historical world…
-                </p>
+                <div
+                  className={
+                    state.activeWorld.scene.presentation === 'immersive-city'
+                      ? 'city-loading'
+                      : 'notice'
+                  }
+                  role="status"
+                >
+                  <h2>
+                    Entering {state.activeWorld.locationName} ·{' '}
+                    {state.activeWorld.era.label}
+                  </h2>
+                  <p>Preparing the historical world…</p>
+                  <button
+                    className="small-button"
+                    onClick={() =>
+                      dispatch({ type: 'location', id: location.id })
+                    }
+                  >
+                    Choose era
+                  </button>
+                </div>
               }
             >
               <WorldExperience world={state.activeWorld} />

@@ -1,6 +1,8 @@
 # 4DTraveler
 
-Explore a place through time: choose Pittsburgh and an era, enter a 3D world, visit points of interest, inspect objects, and hear narration. **Pittsburgh / 1892** is a detailed, original industrial diorama with five selectable objects, atmospheric lighting and motion, quality controls, and immersive fullscreen. **1850** is an explicitly labeled illustrative blockout that proves the same data/rendering pipeline can host another era.
+Explore a place through time: choose Rome or Pittsburgh and an era, enter a 3D world, visit points of interest, inspect objects, and hear narration. **Pittsburgh / 1892** is a detailed, original industrial diorama with five selectable objects, atmospheric lighting and motion, quality controls, and immersive fullscreen. **1850** is an explicitly labeled illustrative blockout that proves the same data/rendering pipeline can host another era.
+
+**Rome / 125 CE** adds a full-viewport city overview and an eye-level Forum of Trajan scene. Drag or use arrow keys on the focused canvas to look through 360°, inspect three sourced objects, read the narration transcript, and return to the same overview. Pantheon and Colosseum are preview markers in P0. See the [Rome asset delivery](docs/visual/ROME_125_ASSETS.md) for Blender sources, budgets and reconstruction limits.
 
 These scenes are illustrative composites, not surveyed city reconstructions. The [visual brief](docs/visual/PITTSBURGH_1892_BRIEF.md) distinguishes historical references from modeling choices.
 
@@ -38,7 +40,7 @@ npm run assets:budget     # Production raw/gzip/Brotli sizes and hashes
 npm run profile:world    # Run with production preview on 4174
 ```
 
-The hero is 30,152 triangles across 32 material batches, uses no textures, and transfers as a roughly 211KB gzip asset when native decompression is available (2.09MiB plain GLB fallback). A content-hash URL version prevents stale byte caches; after changing the generated model, update the version in scene data as described in the [asset pipeline](docs/ASSET_PIPELINE.md). The landing flow does not load the heavy renderer or model before era selection.
+The Pittsburgh hero is 30,152 triangles across 32 material batches, uses no textures, and transfers as a roughly 211KB gzip asset when native decompression is available (2.09MiB plain GLB fallback). A content-hash URL version prevents stale byte caches; after changing the generated model, update the version in scene data as described in the [asset pipeline](docs/ASSET_PIPELINE.md). The landing flow does not load the heavy renderer or model before era selection.
 
 See [performance measurements](docs/PERFORMANCE.md) for real Apple M3/SwiftShader traces, resource lifecycle checks, DPR/shadow tiers and measurement limits. A mobile viewport in Chromium is not a physical-phone certification.
 

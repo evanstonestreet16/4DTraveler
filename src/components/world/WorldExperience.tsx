@@ -7,8 +7,17 @@ import { WorldCanvas } from './WorldCanvas';
 import { NarrationControls } from '../audio/NarrationControls';
 import { useImmersiveView } from './useImmersiveView';
 import { WorldViewport } from './WorldViewport';
+import { CityExperience } from './CityExperience';
 
 export default function WorldExperience({ world }: { world: HistoricalWorld }) {
+  return world.scene.presentation === 'immersive-city' ? (
+    <CityExperience world={world} />
+  ) : (
+    <LegacyWorldExperience world={world} />
+  );
+}
+
+function LegacyWorldExperience({ world }: { world: HistoricalWorld }) {
   const { state, dispatch } = useApp();
   const [quality, setQuality] = useState<QualityPreference>('auto');
   const view = useImmersiveView();

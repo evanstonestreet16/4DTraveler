@@ -6,6 +6,7 @@ import {
   Color,
   Group,
   Mesh,
+  MeshBasicMaterial,
   MeshStandardMaterial,
   Texture,
 } from 'three';
@@ -96,6 +97,46 @@ describe('GLB asset contract', () => {
     disposeModelScenes([scene]);
   });
 
+  it('validates only the active presentation objects and ignores scenery outside its mapping', () => {
+    const scene = new Group();
+    const furnace = new Mesh(new BoxGeometry(), new MeshStandardMaterial());
+    furnace.name = 'furnace';
+    const scenery = new Mesh(new BoxGeometry(), new MeshStandardMaterial());
+    scenery.name = 'distant-roof';
+    scene.add(furnace, scenery);
+    const selection = validateModelNodes(
+      scene,
+      { url: 'active-poi.glb', selectableNodes: { furnace: 'furnace' } },
+      [world.objects[0]],
+    );
+    expect(resolveModelObject(furnace, selection)).toBe(world.objects[0]);
+    expect(resolveModelObject(scenery, selection)).toBeUndefined();
+    expect(selection.size).toBe(1);
+    disposeModelScenes([scene]);
+  });
+
+  it('rejects invisible selection colliders even beside a visible mesh', () => {
+    const scene = new Group();
+    const furnace = new Group();
+    furnace.name = 'furnace';
+    const visible = new Mesh(new BoxGeometry(), new MeshStandardMaterial());
+    const collider = new Mesh(
+      new BoxGeometry(),
+      new MeshBasicMaterial({ transparent: true, opacity: 0 }),
+    );
+    furnace.add(visible, collider);
+    scene.add(furnace);
+    expect(() =>
+      validateModelNodes(scene, world.scene.model!, [world.objects[0]]),
+    ).toThrow('hidden selection geometry');
+    collider.material.opacity = 1;
+    furnace.visible = false;
+    expect(() =>
+      validateModelNodes(scene, world.scene.model!, [world.objects[0]]),
+    ).toThrow('no mesh geometry that is visible');
+    disposeModelScenes([scene]);
+  });
+
   it('highlights every child mesh without tinting another object sharing its source material, and restores original colors', () => {
     const scene = new Group();
     const furnace = new Group();
@@ -142,6 +183,24 @@ describe('GLB asset contract', () => {
     expect(disposeGeometry).toHaveBeenCalledTimes(1);
     expect(disposeMaterial).toHaveBeenCalledTimes(1);
     expect(disposeTexture).toHaveBeenCalledTimes(1);
+  });
+
+  it('makes unlit meshes visibly hoverable and restores them without mutating shared materials', () => {
+    const scene = new Group();
+    const source = new MeshBasicMaterial({ color: '#786d61' });
+    const object = new Mesh(new BoxGeometry(), source);
+    object.name = 'furnace';
+    scene.add(object);
+    const { highlights, originals } = prepareModelSelection(
+      scene,
+      validateModelNodes(scene, world.scene.model!, [world.objects[0]]),
+    );
+    updateModelHighlights(highlights, null, world.objects[0].id);
+    expect(object.material.color.getHexString()).not.toBe('786d61');
+    expect(source.color.getHexString()).toBe('786d61');
+    updateModelHighlights(highlights, null, null);
+    expect(object.material.color.getHexString()).toBe('786d61');
+    disposeModelScenes([scene], originals);
   });
 
   it('rejects corrupt GLB bytes before parsing', async () => {

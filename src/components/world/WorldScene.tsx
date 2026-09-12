@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+import { resolvePresentation } from '../../utils/presentation';
 import { EnvironmentEffects } from './EnvironmentEffects';
 import { useApp } from '../../app/AppContext';
 import type { HistoricalWorld } from '../../types/world';
@@ -23,12 +25,16 @@ export function WorldScene({
   detail?: boolean;
 }) {
   const { state, dispatch } = useApp();
-  const environment = world.scene.environment;
-  const poi = world.pois.find((poi) => poi.id === state.activePOIId);
-  const view =
-    state.cameraMode === 'POI' && poi ? poi.camera : world.scene.overviewCamera;
-  const primitives = world.scene.primitives.map((primitive) => {
-    const object = world.objects.find(
+  const presentation = useMemo(
+    () => resolvePresentation(world, state.cameraMode, state.activePOIId),
+    [world, state.cameraMode, state.activePOIId],
+  );
+  const { scene, camera: view, look, objects, showMarkers } = presentation;
+  const city = world.scene.presentation === 'immersive-city';
+  const environment = scene.environment;
+  const shadowExtent = city ? (look ? 100 : 1600) : 25;
+  const primitives = scene.primitives.map((primitive) => {
+    const object = objects.find(
       (object) => object.sceneObjectId === primitive.id,
     );
     return (
@@ -43,7 +49,7 @@ export function WorldScene({
   });
   return (
     <>
-      <color attach="background" args={[world.scene.background]} />
+      <color attach="background" args={[scene.background]} />
       <ambientLight intensity={environment?.ambientIntensity ?? 1.4} />
       {environment && (
         <>
@@ -72,20 +78,26 @@ export function WorldScene({
         position={environment?.keyLight.position ?? [12, 30, 14]}
         color={environment?.keyLight.color ?? '#ffffff'}
         intensity={environment?.keyLight.intensity ?? 2.2}
-        castShadow={shadowMap > 0}
+        castShadow={shadowMap > 0 && (!city || !!look)}
         shadow-mapSize={[shadowMap || 512, shadowMap || 512]}
-        shadow-camera-left={-25}
-        shadow-camera-right={25}
-        shadow-camera-top={25}
-        shadow-camera-bottom={-25}
+        shadow-camera-left={-shadowExtent}
+        shadow-camera-right={shadowExtent}
+        shadow-camera-top={shadowExtent}
+        shadow-camera-bottom={-shadowExtent}
+        shadow-camera-far={city ? 4000 : 500}
         shadow-normalBias={0.05}
       />
-      <CameraController view={view} initialView={world.scene.overviewCamera} />
-      {world.scene.model ? (
+      <CameraController
+        view={view}
+        initialView={world.scene.overviewCamera}
+        fixedLook={look}
+        staticView={city}
+      />
+      {scene.model ? (
         <ModelScene
-          key={`${world.id}:${world.scene.model.url}`}
-          model={world.scene.model}
-          objects={world.objects}
+          key={`${world.id}:${scene.model.url}`}
+          model={scene.model}
+          objects={objects}
           selectedId={state.selectedObjectId}
           onSelect={(id) => dispatch({ type: 'object', id })}
           onAssetState={onAssetState}
@@ -94,14 +106,15 @@ export function WorldScene({
       ) : (
         primitives
       )}
-      {world.pois.map((poi) => (
-        <POIMarker
-          key={poi.id}
-          poi={poi}
-          active={poi.id === state.activePOIId}
-          onSelect={() => dispatch({ type: 'poi', id: poi.id })}
-        />
-      ))}
+      {showMarkers &&
+        world.pois.map((poi) => (
+          <POIMarker
+            key={poi.id}
+            poi={poi}
+            active={poi.id === state.activePOIId}
+            onSelect={() => dispatch({ type: 'poi', id: poi.id })}
+          />
+        ))}
     </>
   );
 }

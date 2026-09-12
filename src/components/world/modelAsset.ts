@@ -15,6 +15,22 @@ export type ModelAssetState = {
   progress?: number;
 };
 
+function hasVisibleSurface(mesh: Mesh) {
+  for (let node: Object3D | null = mesh; node; node = node.parent)
+    if (!node.visible) return false;
+  const materials = Array.isArray(mesh.material)
+    ? mesh.material
+    : [mesh.material];
+  return (
+    !!mesh.geometry.getAttribute('position')?.count &&
+    mesh.geometry.drawRange.count !== 0 &&
+    materials.some(
+      (material) =>
+        material.visible && (!material.transparent || material.opacity > 0),
+    )
+  );
+}
+
 /** Every selectable group must exist once and own visible geometry. */
 export function validateModelNodes(
   scene: Object3D,
@@ -36,15 +52,20 @@ export function validateModelNodes(
     if (selection.has(node))
       throw new Error(`Node "${name}" maps to multiple objects.`);
     let hasMesh = false;
+    let hasHiddenMesh = false;
     node.traverse((child) => {
-      if (
-        child instanceof Mesh &&
-        child.geometry.getAttribute('position')?.count
-      )
-        hasMesh = true;
+      if (!(child instanceof Mesh)) return;
+      if (hasVisibleSurface(child)) hasMesh = true;
+      else hasHiddenMesh = true;
     });
     if (!hasMesh)
-      throw new Error(`Required node "${name}" has no mesh geometry.`);
+      throw new Error(
+        `Required node "${name}" has no mesh geometry that is visible.`,
+      );
+    if (hasHiddenMesh)
+      throw new Error(
+        `Required node "${name}" contains hidden selection geometry.`,
+      );
     selection.set(node, object);
   }
   for (const node of selection.keys()) {
@@ -131,7 +152,11 @@ export function updateModelHighlights(
     const selected = binding.objectId === selectedId;
     const hovered = binding.objectId === hoveredId;
     binding.material.color.copy(
-      selected ? new Color('#efb759') : binding.color,
+      selected
+        ? new Color('#efb759')
+        : hovered && !binding.material.emissive
+          ? binding.color.clone().lerp(new Color('#c7d4a3'), 0.35)
+          : binding.color,
     );
     if (binding.material.emissive && binding.emissive) {
       binding.material.emissive.copy(

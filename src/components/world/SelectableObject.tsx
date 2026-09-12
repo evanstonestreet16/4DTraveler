@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useThree } from '@react-three/fiber';
+import { shouldSuppressSceneClick } from '../../utils/fixedLook';
 import type { HistoricalObject, ScenePrimitive } from '../../types/world';
 
 export function SelectableObject({
@@ -13,6 +15,7 @@ export function SelectableObject({
   onSelect: (id: string) => void;
 }) {
   const [hovered, setHovered] = useState(false);
+  const canvas = useThree((state) => state.gl.domElement);
   return (
     <mesh
       name={primitive.id}
@@ -24,6 +27,7 @@ export function SelectableObject({
         object
           ? (event) => {
               event.stopPropagation();
+              if (shouldSuppressSceneClick(canvas)) return;
               onSelect(object.id);
             }
           : undefined
@@ -32,6 +36,7 @@ export function SelectableObject({
         object
           ? (event) => {
               event.stopPropagation();
+              if (shouldSuppressSceneClick(canvas)) return;
               setHovered(true);
             }
           : undefined

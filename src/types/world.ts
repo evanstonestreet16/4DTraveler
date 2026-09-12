@@ -3,6 +3,10 @@ export type Vec3 = [number, number, number];
 export interface CameraView {
   position: Vec3;
   target: Vec3;
+  /** Scene clipping distance in metres; legacy dioramas default to 400. */
+  far?: number;
+  /** Near clipping plane in metres; default 0.1 for ground-level views. */
+  near?: number;
 }
 
 export interface Era {
@@ -50,6 +54,19 @@ export interface PointOfInterest {
   markerPosition: Vec3;
   camera: CameraView;
   objectIds: string[];
+  /** Visible overview marker whose immersive set is not available yet. */
+  preview?: boolean;
+  /** Separate local-coordinate set; camera is a fixed eye-level anchor. */
+  immersive?: ScenePresentation & {
+    /** Pitch limits in radians. Yaw is unrestricted. */
+    look: { minPitch: number; maxPitch: number };
+  };
+}
+
+export interface SourceReference {
+  id: string;
+  title: string;
+  url: string;
 }
 
 export interface HistoricalObject {
@@ -59,6 +76,9 @@ export interface HistoricalObject {
   sceneObjectId: string;
   description: string;
   whyItMatters: string;
+  sources?: SourceReference[];
+  /** Clearly distinguishes supported claims from reconstruction choices. */
+  confidence?: string;
 }
 
 /** Scene-owned atmosphere and audio authoring locations; no playback policy. */
@@ -79,19 +99,25 @@ export interface WorldEnvironment {
   }[];
 }
 
+export interface ScenePresentation {
+  background: string;
+  narrationAudio?: string;
+  narrationTranscript?: string;
+  /** Optional ambient loop, played only after a visitor action. */
+  ambientAudio?: string;
+  primitives: ScenePrimitive[];
+  model?: SceneModel;
+  environment?: WorldEnvironment;
+}
+
 export interface HistoricalWorld {
   id: string;
   locationId: string;
   locationName: string;
   era: Era;
-  scene: {
+  scene: ScenePresentation & {
     overviewCamera: CameraView;
-    background: string;
-    narrationAudio?: string;
-    narrationTranscript?: string;
-    primitives: ScenePrimitive[];
-    model?: SceneModel;
-    environment?: WorldEnvironment;
+    presentation?: 'immersive-city';
   };
   pois: PointOfInterest[];
   objects: HistoricalObject[];
