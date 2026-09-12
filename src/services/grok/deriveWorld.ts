@@ -167,6 +167,8 @@ export function deriveWorldFromEra(
         sceneObjectId: objectId,
         description: object.description,
         whyItMatters: object.whyItMatters,
+        iconic: object.iconic,
+        tripoPrompt: object.tripoPrompt,
       });
       poiObjectIds.push(objectId);
     }

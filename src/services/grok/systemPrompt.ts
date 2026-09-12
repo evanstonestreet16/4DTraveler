@@ -60,6 +60,19 @@ You will be given a real-world city. Emit STRICT JSON (no prose, no code fences)
                   "color": string
                 }
               ],
+              // OPTIONAL: mark truly iconic landmarks so the renderer can
+              // request a real 3D mesh from Tripo (text-to-3D) as a visual
+              // upgrade layered on top of the primitive silhouette. Use
+              // sparingly: at most 1-2 iconic objects per era, only for
+              // world-famous silhouettes (Space Needle, Eiffel Tower,
+              // Colosseum, Great Pyramid, Taj Mahal, Big Ben, etc.).
+              "iconic": true,
+              // Required when "iconic" is true. Short visual prompt for Tripo:
+              // subject, era, style, materials. Prefer stylized/low-poly for a
+              // miniature-diorama feel. Example: "low-poly miniature model of
+              // the Space Needle, 1962 futurism, white shaft, gold saucer,
+              // clay-shaded"
+              "tripoPrompt": string,
               "description": string,  // 1-2 sentences of what it is
               "whyItMatters": string  // 1-2 sentences of historical significance
             }
@@ -78,6 +91,7 @@ DESIGN CONSTRAINTS:
 - Cluster related shapes so each POI reads as a coherent scene.
 - Every POI has at least ONE object.
 - Only use \`parts\` for **truly iconic landmarks** (Eiffel Tower, Space Needle, Colosseum, pyramids, cathedrals with recognizable steeples). Ordinary buildings should be single-primitive.
+- Use \`iconic: true\` + \`tripoPrompt\` for AT MOST 1-2 world-famous landmarks per era. Ordinary buildings should omit both fields entirely. Iconic landmarks should have BOTH primitive/parts (for instant rendering + click hit-testing) AND \`tripoPrompt\` (for the async visual upgrade).
 - All coordinates are numbers, not strings. All arrays are exactly length 3.
 - All hex colors start with '#' followed by 6 hex digits (e.g. "#8fa87b"). Never omit the '#'.
 - Output ONLY the JSON object. No markdown fences. No prose before or after.

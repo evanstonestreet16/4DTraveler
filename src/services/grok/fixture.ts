@@ -235,6 +235,9 @@ export const seattleFixture: GeneratedHistoryProfile = {
                   color: '#d0cfc9',
                 },
               ],
+              iconic: true,
+              tripoPrompt:
+                'low-poly miniature diorama model of the Space Needle in Seattle, 1962 futurism, thin white central shaft, wide golden saucer at the top, small antenna spire, clay-shaded, isometric, white background',
               description:
                 "The 1962 World's Fair tower, now the city's unmistakable civic logo.",
               whyItMatters:

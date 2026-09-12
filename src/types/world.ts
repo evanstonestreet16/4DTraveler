@@ -59,6 +59,10 @@ export interface HistoricalObject {
   sceneObjectId: string;
   description: string;
   whyItMatters: string;
+  /** When true, the renderer will attempt a Tripo text-to-3D visual upgrade. */
+  iconic?: boolean;
+  /** Prompt fed to Tripo when `iconic` is true (visual style, brief). */
+  tripoPrompt?: string;
 }
 
 /** Scene-owned atmosphere and audio authoring locations; no playback policy. */
@@ -158,6 +162,14 @@ export interface GeneratedObject {
   scale: Vec3;
   color: string;
   parts?: ObjectPart[];
+  /**
+   * If true, the client will kick off a Tripo text-to-3D request in the
+   * background using `tripoPrompt` and swap the primitive silhouette for
+   * the generated mesh once it arrives. Reserve for real landmarks.
+   */
+  iconic?: boolean;
+  /** Short, visual prompt for Tripo when `iconic` is true. */
+  tripoPrompt?: string;
   description: string;
   whyItMatters: string;
 }

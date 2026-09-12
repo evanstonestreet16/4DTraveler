@@ -158,6 +158,11 @@ function validateObject(raw: unknown, path: string): GeneratedObject {
       .map((entry, index) => validatePart(entry, `${path}.parts[${index}]`));
     if (parts.length === 0) parts = undefined;
   }
+  const iconic = record.iconic === true;
+  let tripoPrompt: string | undefined;
+  if (typeof record.tripoPrompt === 'string' && record.tripoPrompt.length > 0) {
+    tripoPrompt = record.tripoPrompt;
+  }
   return {
     id: assertString(record.id, `${path}.id`),
     name: assertString(record.name, `${path}.name`),
@@ -166,6 +171,8 @@ function validateObject(raw: unknown, path: string): GeneratedObject {
     scale: assertPositiveVec3(record.scale, `${path}.scale`),
     color: assertHex(record.color, `${path}.color`),
     parts,
+    iconic: iconic || undefined,
+    tripoPrompt,
     description: assertString(record.description, `${path}.description`),
     whyItMatters: assertString(record.whyItMatters, `${path}.whyItMatters`),
   };

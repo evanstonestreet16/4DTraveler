@@ -1,11 +1,12 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { grokProxyPlugin } from './vite.plugins/grok-proxy';
+import { tripoProxyPlugin } from './vite.plugins/tripo-proxy';
 
 export default defineConfig(({ mode }) => {
-  // Load .env / .env.local etc. Server-side only variables (like GROK_API_KEY,
-  // which is NOT prefixed with VITE_) are read here and injected into the dev
-  // middleware — they never reach the browser bundle.
+  // Load .env / .env.local etc. Server-side only variables (like GROK_API_KEY
+  // and TRIPO_API_KEY, which are NOT prefixed with VITE_) are read here and
+  // injected into the dev middleware — they never reach the browser bundle.
   const env = loadEnv(mode, process.cwd(), '');
   return {
     plugins: [
@@ -13,6 +14,10 @@ export default defineConfig(({ mode }) => {
       grokProxyPlugin({
         apiKey: env.GROK_API_KEY,
         model: env.GROK_MODEL,
+      }),
+      tripoProxyPlugin({
+        apiKey: env.TRIPO_API_KEY,
+        model: env.TRIPO_MODEL,
       }),
     ],
     build: {

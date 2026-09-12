@@ -114,6 +114,16 @@ describe('deriveWorldsFromProfile', () => {
     }
   });
 
+  it('propagates iconic + tripoPrompt from GeneratedObject to HistoricalObject', () => {
+    const spaceNeedleWorld = worlds[1];
+    const spaceNeedle = spaceNeedleWorld.objects.find(
+      (object) => object.id === 'space-needle',
+    );
+    expect(spaceNeedle?.iconic).toBe(true);
+    expect(typeof spaceNeedle?.tripoPrompt).toBe('string');
+    expect((spaceNeedle?.tripoPrompt ?? '').length).toBeGreaterThan(10);
+  });
+
   it('explodes object.parts into extra decorative primitives that keep the primary clickable', () => {
     const spaceNeedleWorld = worlds[1];
     const spaceNeedle = spaceNeedleWorld.objects.find(
