@@ -9,6 +9,14 @@
  * P1 latency is 2–10 seconds. Callers should render a placeholder until
  * the mesh URL resolves.
  */
+export interface TripoProgressUpdate {
+  /** Tripo task status. Typical progression: queued → running → success. */
+  status: string;
+  /** Tripo-reported percent (0–100). */
+  progress: number;
+  taskId: string;
+}
+
 export interface TripoGenerateOptions {
   prompt: string;
   /** Aborts polling. The task on Tripo's side keeps running (best-effort). */
@@ -17,6 +25,11 @@ export interface TripoGenerateOptions {
   timeoutMs?: number;
   /** Milliseconds between successive polls. */
   pollIntervalMs?: number;
+  /**
+   * Called on every successful poll before the task reaches a terminal
+   * state. Useful for driving a loading UI while the mesh generates.
+   */
+  onProgress?: (update: TripoProgressUpdate) => void;
 }
 
 export interface TripoGenerateResult {
@@ -70,7 +83,9 @@ function delay(ms: number, signal?: AbortSignal): Promise<void> {
 export async function generateTripoMesh(
   options: TripoGenerateOptions,
 ): Promise<TripoGenerateResult> {
-  const timeoutMs = options.timeoutMs ?? 60_000;
+  // v3.1-20260211 text-to-model runs in the 60–120 s range in practice,
+  // even for very simple prompts. 3 minutes is a comfortable ceiling.
+  const timeoutMs = options.timeoutMs ?? 180_000;
   const pollIntervalMs = options.pollIntervalMs ?? 2_000;
 
   const kick = (await fetchJson('/api/tripo/generate', {
@@ -110,6 +125,12 @@ export async function generateTripoMesh(
         }`,
       );
     }
-    // Any other status ("running", "queued", "processing", ...) → keep polling.
+    // Any other status ("running", "queued", "processing", ...) → notify
+    // and keep polling.
+    options.onProgress?.({
+      status: typeof status === 'string' ? status : 'unknown',
+      progress: typeof envelope.progress === 'number' ? envelope.progress : 0,
+      taskId,
+    });
   }
 }

@@ -39,15 +39,24 @@ describe('generateTripoMesh', () => {
           model_url: 'https://cdn.tripo/model.glb',
         }),
     ]);
+    const progress: { status: string; percent: number }[] = [];
     const result = await generateTripoMesh({
       prompt: 'a low-poly cabin',
       pollIntervalMs: 1,
       timeoutMs: 5_000,
+      onProgress: (update) =>
+        progress.push({ status: update.status, percent: update.progress }),
     });
     expect(result).toEqual({
       modelUrl: 'https://cdn.tripo/model.glb',
       taskId: 'task_abc',
     });
+    // The final "success" poll does not trigger onProgress; only the
+    // non-terminal polls do.
+    expect(progress).toEqual([
+      { status: 'queued', percent: 0 },
+      { status: 'running', percent: 40 },
+    ]);
   });
 
   it('throws TripoError when the task reports failed', async () => {

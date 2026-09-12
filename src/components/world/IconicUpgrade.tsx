@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
-import { useGLTF } from '@react-three/drei';
+import { Html, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import type { HistoricalObject, ScenePrimitive, Vec3 } from '../../types/world';
 import { generateTripoMesh, TripoError } from '../../services/tripo';
@@ -31,17 +31,31 @@ export function IconicUpgrade({
   onMeshReady: (objectId: string) => void;
 }) {
   const [modelUrl, setModelUrl] = useState<string | null>(null);
+  const [progress, setProgress] = useState<{
+    status: string;
+    percent: number;
+  } | null>(null);
+  const [failed, setFailed] = useState(false);
   const notifiedRef = useRef(false);
 
   useEffect(() => {
     if (!object.iconic || !object.tripoPrompt) return;
     const controller = new AbortController();
+    console.info(`[tripo] requesting iconic mesh for "${object.id}"`);
+    setProgress({ status: 'queued', percent: 0 });
     generateTripoMesh({
       prompt: object.tripoPrompt,
       signal: controller.signal,
+      onProgress: (update) => {
+        if (controller.signal.aborted) return;
+        setProgress({ status: update.status, percent: update.progress });
+      },
     })
       .then((result) => {
         if (controller.signal.aborted) return;
+        console.info(
+          `[tripo] mesh ready for "${object.id}" (task ${result.taskId})`,
+        );
         setModelUrl(result.modelUrl);
       })
       .catch((error) => {
@@ -58,11 +72,51 @@ export function IconicUpgrade({
           `[tripo] iconic upgrade failed for "${object.id}", keeping primitive silhouette:`,
           reason,
         );
+        setFailed(true);
+        setProgress(null);
       });
     return () => controller.abort();
   }, [object.id, object.iconic, object.tripoPrompt]);
 
-  if (!modelUrl) return null;
+  // While the mesh is being generated, float a small label above the
+  // primitive so the user sees the progress instead of an unchanged
+  // silhouette.
+  const labelPosition: Vec3 = [
+    primitive.position[0],
+    primitive.position[1] + primitive.scale[1] / 2 + 1.5,
+    primitive.position[2],
+  ];
+
+  if (!modelUrl) {
+    if (failed || !progress) return null;
+    return (
+      <Html
+        position={labelPosition}
+        center
+        distanceFactor={12}
+        style={{ pointerEvents: 'none' }}
+      >
+        <div
+          style={{
+            padding: '4px 8px',
+            borderRadius: 4,
+            background: 'rgba(0, 0, 0, 0.65)',
+            color: 'white',
+            fontFamily: 'system-ui, -apple-system, "Segoe UI", sans-serif',
+            fontSize: 11,
+            letterSpacing: 0.3,
+            whiteSpace: 'nowrap',
+            textAlign: 'center',
+          }}
+        >
+          Generating {object.name}…
+          <div style={{ opacity: 0.7, fontSize: 10 }}>
+            {progress.status} {progress.percent}%
+          </div>
+        </div>
+      </Html>
+    );
+  }
 
   return (
     <Suspense fallback={null}>
