@@ -8,6 +8,7 @@ import type {
   ScenePrimitive,
   Vec3,
 } from '../../types/world';
+import { cityFillAsPrimitives } from '../procedural/cityFill';
 
 /**
  * Convert a validated `GeneratedHistoryProfile` into a list of renderable
@@ -124,10 +125,26 @@ export function deriveWorldFromEra(
   options: DeriveOptions,
 ): HistoricalWorld {
   const takenIds = new Set<string>();
-  const primitives: ScenePrimitive[] = era.scenery.map((primitive) => ({
+  // Procedural city fill: deterministic streets, distant buildings, and
+  // vegetation seeded by city+era. Prepended so it renders "underneath"
+  // the Grok-authored scenery and POIs in draw order. Ids are prefixed
+  // with `fill-` and never match an object.sceneObjectId, so these
+  // primitives are decorative-only (not selectable).
+  const fill: ScenePrimitive[] = cityFillAsPrimitives({
+    seed: `${profile.cityName}-${era.id}`,
+    year: era.year,
+    background: era.background,
+  }).map((primitive) => ({
     ...primitive,
     id: uniqueId(primitive.id, takenIds),
   }));
+  const primitives: ScenePrimitive[] = [
+    ...fill,
+    ...era.scenery.map((primitive) => ({
+      ...primitive,
+      id: uniqueId(primitive.id, takenIds),
+    })),
+  ];
 
   const pois: PointOfInterest[] = [];
   const objects: HistoricalObject[] = [];

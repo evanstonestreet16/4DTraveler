@@ -257,6 +257,30 @@ describe('deriveWorldsFromProfile', () => {
     expect(anyRotated).toBe(true);
   });
 
+  it('prepends deterministic procedural fill primitives (fill-* ids) that do not clash with Grok content', () => {
+    const world = worlds[0];
+    const fillPrimitives = world.scene.primitives.filter((primitive) =>
+      primitive.id.startsWith('fill-'),
+    );
+    expect(fillPrimitives.length).toBeGreaterThan(20);
+    // Fill primitives must never match a selectable object.
+    for (const primitive of fillPrimitives) {
+      expect(
+        world.objects.some((object) => object.sceneObjectId === primitive.id),
+      ).toBe(false);
+    }
+    // Same fixture derives the same fill set on a second call.
+    const again = deriveWorldsFromProfile(seattleFixture, {
+      locationId: 'generated:seattle',
+    });
+    const firstIds = fillPrimitives.map((p) => p.id).sort();
+    const secondIds = again[0].scene.primitives
+      .filter((p) => p.id.startsWith('fill-'))
+      .map((p) => p.id)
+      .sort();
+    expect(secondIds).toEqual(firstIds);
+  });
+
   it('de-duplicates ids that collide between scenery and objects', () => {
     // Force a collision: rename first object to match first scenery id.
     const drifted = structuredClone(seattleFixture);

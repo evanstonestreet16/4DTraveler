@@ -25,7 +25,7 @@ You will be given a real-world city. Emit STRICT JSON (no prose, no code fences)
       "subtitle": string,     // 3-8 word descriptor of the era
       "historicalContext": string, // 2-4 sentences of context
       "background": string,   // hex color WITH leading '#', e.g. "#8fa87b"
-      "scenery": [            // 6-15 decorative primitives with no metadata (terrain, background buildings, filler)
+      "scenery": [            // 20-60 decorative primitives with no metadata: terrain plates, mid-ground buildings, streets, rooflines, water, plazas. The renderer already scatters distant filler (a procedural street grid + trees + skyline) around you; your job is the CHARACTERFUL middle-ground: neighborhood blocks, market squares, factories, cathedrals-in-the-distance, harbor cranes, city walls, aqueducts, monorail tracks, freeways, etc. Aim for a city that reads at a glance.
         {
           "id": string,       // kebab-case, unique within this era's scenery
           "shape": PrimitiveShape,
