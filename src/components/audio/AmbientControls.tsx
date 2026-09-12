@@ -1,13 +1,44 @@
 import { useEffect, useRef, useState } from 'react';
+import { fetchSceneAmbience } from '../../services/cityRetrieval';
 
-/** Ambient sources change with the view and always require a fresh Play action. */
-export function AmbientControls({ src }: { src?: string }) {
-  return src ? <AmbientTrack key={src} src={src} /> : null;
+/** Ambient sources are generated for the current place and always need Play. */
+export function AmbientControls({
+  city,
+  place,
+  year,
+  hint,
+}: {
+  city?: string;
+  place?: string;
+  year?: number;
+  hint?: string;
+}) {
+  if (!city || !place) return null;
+  return (
+    <AmbientTrack
+      key={`${city}:${place}:${year ?? ''}`}
+      city={city}
+      place={place}
+      year={year}
+      hint={hint}
+    />
+  );
 }
 
-function AmbientTrack({ src }: { src: string }) {
+function AmbientTrack({
+  city,
+  place,
+  year,
+  hint,
+}: {
+  city: string;
+  place: string;
+  year?: number;
+  hint?: string;
+}) {
   const audio = useRef<HTMLAudioElement>(null);
   const session = useRef({ active: false, request: 0 });
+  const urlRef = useRef<string | null>(null);
   const [status, setStatus] = useState<
     'idle' | 'loading' | 'playing' | 'error'
   >('idle');
@@ -17,11 +48,13 @@ function AmbientTrack({ src }: { src: string }) {
     const element = audio.current;
     const lifecycle = session.current;
     lifecycle.active = true;
-    if (element) element.volume = 0.18;
+    if (element) element.volume = 0.45;
     return () => {
       lifecycle.active = false;
       lifecycle.request++;
       element?.pause();
+      if (urlRef.current) URL.revokeObjectURL(urlRef.current);
+      urlRef.current = null;
     };
   }, []);
 
@@ -36,8 +69,21 @@ function AmbientTrack({ src }: { src: string }) {
     }
     setStatus('loading');
     try {
-      if (!element.getAttribute('src')) element.src = src;
-      else if (element.error) element.load();
+      element.muted = false;
+      element.volume = 0.45;
+      if (!urlRef.current) {
+        const url = await fetchSceneAmbience({ city, place, year, hint });
+        if (!session.current.active || request !== session.current.request)
+          return;
+        if (!url) {
+          setStatus('error');
+          return;
+        }
+        urlRef.current = url;
+        element.src = url;
+      } else if (element.error) {
+        element.load();
+      }
       await element.play();
     } catch {
       if (session.current.active && request === session.current.request)
@@ -60,13 +106,14 @@ function AmbientTrack({ src }: { src: string }) {
           : status === 'playing'
             ? 'Quiet ambience playing'
             : status === 'loading'
-              ? 'Loading ambience…'
+              ? 'Drafting the street…'
               : 'Ambience is off'}
       </span>
       <audio
         ref={audio}
         data-ambient-audio
         preload="none"
+        playsInline
         loop
         onPlaying={(event) => {
           if (session.current.active && !event.currentTarget.paused)

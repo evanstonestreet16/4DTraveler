@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from pydantic import BaseModel, Field
 
+from ambience import synthesize_scene_ambience
 from query import (
     ask_grok,
     find_ticket_links,
@@ -60,6 +61,13 @@ class MonumentResponse(BaseModel):
 class TtsRequest(BaseModel):
     text: str
     voice_id: str = Field(default="ara")
+
+
+class AmbienceRequest(BaseModel):
+    city: str
+    place: str
+    year: int | None = None
+    hint: str = ""
 
 
 @app.get("/api/cities/{city_id}/eras/{era_id}/buildings/{building_id}")
@@ -159,6 +167,22 @@ def monument_summary(payload: MonumentRequest):
             answer = summary_future.result()
             tickets = tickets_future.result()
         return MonumentResponse(answer=answer, tickets=tickets)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/ambience")
+def scene_ambience(payload: AmbienceRequest):
+    """Grok-designed looping street bed with period crowd speech."""
+    city = payload.city.strip()
+    place = payload.place.strip()
+    if not city or not place:
+        raise HTTPException(status_code=400, detail="city and place are required.")
+    try:
+        audio = synthesize_scene_ambience(
+            city, place, payload.year, payload.hint, XAI_API_KEY
+        )
+        return Response(content=audio, media_type="audio/wav")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

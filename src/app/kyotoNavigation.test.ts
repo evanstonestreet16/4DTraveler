@@ -43,6 +43,11 @@ describe('Kyoto location and era navigation', () => {
       resolvePresentation(kyoto1700, returned.cameraMode, returned.activePOIId)
         .scene,
     ).toBe(kyoto1700.scene);
+
+    expect(appReducer(overview, { type: 'mode', mode: 'catalog' })).toEqual({
+      ...initialState,
+      mode: 'catalog',
+    });
   });
 
   it('rejects unavailable viewpoints and keeps object selection within the active place', () => {

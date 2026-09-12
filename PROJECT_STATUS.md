@@ -54,6 +54,8 @@ MongoDB, authentication, multiplayer, WASD, physics, NPCs, character interaction
 
 <!-- Newest first. Format: `- YYYY-MM-DD — summary (link to PR/issue if available)` -->
 
+- 2026-09-12 — Integrated Rome street-view navigation, Rome’s 500 BCE era and Kyoto Present with the latest globe-navigation and ambience changes. Preserved both sides of the status-log conflict; production build, 100 active/generic unit checks, and Rome/Kyoto globe → overview → POI → object → return browser smoke paths passed. Existing browser-test entry helpers still target the former city-list buttons.
+
 - 2026-09-12 — Integrated Kyoto Present into the era picker and overview slider, reusing Rome's bidirectional transition and recovery behavior; retained the circa 1700 POIs and object exploration.
 
 - 2026-09-12 — Added nearby-view arrows for all ten supplied Rome street views, lossless source-pixel packaging, and the original module’s wider 75° view. Existing POI/object identities and Kyoto’s default panorama behavior are preserved.
@@ -65,6 +67,7 @@ MongoDB, authentication, multiplayer, WASD, physics, NPCs, character interaction
 - 2026-09-12 — Connected the three Rome POIs to the newly supplied street views, with native-resolution WebPs, matching recovery stills, and visible-feature hotspots; retained all nine object-list entries and existing overview navigation.
 
 - 2026-09-12 — Generated and packaged the Rome / circa 500 BCE desktop, portrait and fallback overviews using the existing Rome image-edit workflow; checked image decoding, hashes and budgets. Timeline integration remains pending. See [asset delivery](blender/source/rome-500bce/README.md).
+- 2026-09-12 — Generate looping street ambience from city, year, and place (period crowd speech included), shrink the ambience control, and add Back to globe on bird’s-eye overview.
 
 - 2026-09-12 — Integrated Kyoto P0–P2 with Rome's latest rendered viewer and Present transition, preserving both cities' responsive overviews, panoramic POIs, object paths and recovery behavior.
 

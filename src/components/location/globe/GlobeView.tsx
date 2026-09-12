@@ -11,7 +11,6 @@ const WATER_COLOR = '#1d4e6b';
 const LAND_COLOR = '#3a7d44';
 const HOVER_LAND_COLOR = '#5fae70';
 const HOVER_STROKE_COLOR = '#f2c14e';
-const PIN_COLOR = '#f2c14e';
 
 const globeMaterial = new MeshPhongMaterial({ color: WATER_COLOR });
 
@@ -38,6 +37,25 @@ export function GlobeView({ interactive }: { interactive: boolean }) {
 
   const [containerRef, size] = useElementSize<HTMLDivElement>();
   const hoveredIso = hovered?.properties.isoA3 ?? null;
+
+  const makePin = (city: City) => {
+    const location = locationByCity.get(`${city.isoA3}:${city.name}`);
+    const pin = document.createElement('button');
+    pin.className = 'globe-pin';
+    pin.type = 'button';
+    pin.title = city.name;
+    pin.setAttribute(
+      'aria-label',
+      location ? `Explore ${city.name}` : city.name,
+    );
+    // Every pin looks and behaves the same; one without a world is simply inert.
+    if (location) {
+      pin.addEventListener('click', () =>
+        dispatch({ type: 'location', id: location.id }),
+      );
+    }
+    return pin;
+  };
   const cities = citiesFor(interactive ? pinnedIso : null);
 
   return (
@@ -85,22 +103,20 @@ export function GlobeView({ interactive }: { interactive: boolean }) {
             setHovered(country);
             if (country) setPinnedIso(country.properties.isoA3);
           }}
-          pointsData={cities}
-          pointLat={(city) => (city as City).lat}
-          pointLng={(city) => (city as City).lng}
-          pointLabel={(city) => (city as City).name}
-          pointColor={() => PIN_COLOR}
-          pointAltitude={0.012}
-          // Degrees, so pins scale with zoom.
-          pointRadius={0.3}
-          pointsTransitionDuration={0}
-          onPointClick={(point) => {
-            if (!interactive) return;
-            const city = point as City;
-            const location = locationByCity.get(`${city.isoA3}:${city.name}`);
-            if (location) dispatch({ type: 'location', id: location.id });
+          // Pins are DOM elements rather than `pointsData` so the dot can stay small
+          // while the button around it keeps a finger-sized hit area — a degrees-based
+          // pointRadius has to grow the visible dot to stay clickable. They are real
+          // buttons, so they are also keyboard reachable.
+          htmlElementsData={cities}
+          htmlLat={(city) => (city as City).lat}
+          htmlLng={(city) => (city as City).lng}
+          htmlAltitude={0.012}
+          htmlTransitionDuration={0}
+          htmlElement={(data) => makePin(data as City)}
+          htmlElementVisibilityModifier={(element, isVisible) => {
+            element.style.opacity = isVisible ? '1' : '0';
+            element.style.pointerEvents = isVisible ? 'auto' : 'none';
           }}
-          showPointerCursor={(objType) => interactive && objType === 'point'}
           enablePointerInteraction={interactive}
           onGlobeReady={() => {
             if (!heroCity) return;
