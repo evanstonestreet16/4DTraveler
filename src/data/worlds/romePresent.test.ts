@@ -5,9 +5,8 @@ import { rome125 } from './rome-125';
 import { romePresent } from './rome-present';
 import { findOpeningWorld, findWorld, locations } from '../locations';
 import manifest from '../../../public/images/rome-present/manifest.json' with { type: 'json' };
-import { overviewAsset } from '../../components/world/OverviewEraTransition';
 
-it('registers an overview-only present endpoint with responsive, fingerprinted images', async () => {
+it('registers an overview-only present endpoint with fingerprinted images', async () => {
   expect(findWorld('rome', 'present')).toBe(romePresent);
   expect(findOpeningWorld('rome')).toBe(romePresent);
   expect(
@@ -36,7 +35,7 @@ it('registers an overview-only present endpoint with responsive, fingerprinted i
       reference.url.startsWith('https://www.turismoroma.it/'),
     ),
   ).toBe(true);
-  for (const variant of ['desktop', 'mobile', 'fallback'] as const) {
+  for (const variant of ['desktop', 'fallback'] as const) {
     const asset = manifest.overview[variant];
     const bytes = await readFile(
       new URL(
@@ -52,8 +51,8 @@ it('registers an overview-only present endpoint with responsive, fingerprinted i
     expect(bytes.toString('ascii', 8, 12)).toBe('WEBP');
     if (variant !== 'fallback') {
       expect([asset.width, asset.height]).toEqual([
-        rome125.scene.overviewImage![variant]!.width,
-        rome125.scene.overviewImage![variant]!.height,
+        rome125.scene.overviewImage!.desktop.width,
+        rome125.scene.overviewImage!.desktop.height,
       ]);
     }
   }
@@ -63,10 +62,7 @@ it('registers an overview-only present endpoint with responsive, fingerprinted i
     );
     expect(createHash('sha256').update(bytes).digest('hex')).toBe(input.sha256);
   }
-  expect(overviewAsset(romePresent.scene.overviewImage!, true)).toEqual(
-    manifest.overview.mobile,
-  );
-  expect(overviewAsset(romePresent.scene.overviewImage!, false)).toEqual(
+  expect(romePresent.scene.overviewImage!.desktop).toEqual(
     manifest.overview.desktop,
   );
 });

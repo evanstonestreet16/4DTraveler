@@ -14,9 +14,6 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
   const { state, dispatch } = useApp();
   const transitioning = !!state.eraTransition;
   const [quality, setQuality] = useState<QualityPreference>('auto');
-  const [compactPortrait, setCompactPortrait] = useState(
-    () => matchMedia('(max-width: 700px) and (orientation: portrait)').matches,
-  );
   const container = useRef<HTMLElement>(null);
   const returnButton = useRef<HTMLButtonElement>(null);
   const poi = world.pois.find((item) => item.id === state.activePOIId);
@@ -36,13 +33,6 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
   const objects = world.objects.filter((object) =>
     poi?.objectIds.includes(object.id),
   );
-
-  useEffect(() => {
-    const media = matchMedia('(max-width: 700px) and (orientation: portrait)');
-    const update = () => setCompactPortrait(media.matches);
-    media.addEventListener('change', update);
-    return () => media.removeEventListener('change', update);
-  }, []);
 
   useEffect(() => {
     const element = container.current;
@@ -182,7 +172,7 @@ export function CityExperience({ world }: { world: HistoricalWorld }) {
           <details
             key={poi?.id ?? 'overview'}
             className="city-places"
-            open={!poi && !compactPortrait}
+            open={!poi}
           >
             <summary>Places in this world</summary>
             <nav className="poi-list" aria-label="Points of interest">

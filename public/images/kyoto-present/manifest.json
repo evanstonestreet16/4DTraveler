@@ -9,13 +9,6 @@
       "bytes": 631228,
       "sha256": "d68bd78c1799630983077ef116c7c8131ff55ca146a61866f346f2fb320bbc6c"
     },
-    "mobile": {
-      "url": "/images/kyoto-present/overview-mobile.webp?v=2cccee9230d5",
-      "width": 853,
-      "height": 1844,
-      "bytes": 527836,
-      "sha256": "2cccee9230d5b3b117ac6a1c5febd346855efd7f9cbac66cad8055d445fe6abf"
-    },
     "fallback": {
       "url": "/images/kyoto-present/overview-fallback.webp?v=dde532b74f1b",
       "width": 1584,

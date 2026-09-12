@@ -91,13 +91,12 @@ it('ships bounded panorama and still assets with complete overview marker mappin
   expect(Object.keys(overview.markers)).toEqual(
     world.pois.map((poi) => poi.id),
   );
-  for (const marker of Object.values(overview.markers)) {
-    expect(marker.mobile).toBeDefined();
-    for (const point of [marker.desktop, marker.mobile!])
-      for (const coordinate of point) {
-        expect(coordinate).toBeGreaterThan(0);
-        expect(coordinate).toBeLessThan(1);
-      }
+  for (const point of Object.values(overview.markers)) {
+    expect(point).toHaveLength(2);
+    for (const coordinate of point) {
+      expect(coordinate).toBeGreaterThan(0);
+      expect(coordinate).toBeLessThan(1);
+    }
   }
 
   async function checkAsset(asset: RenderedImageAsset, megabytes: number) {
@@ -113,16 +112,12 @@ it('ships bounded panorama and still assets with complete overview marker mappin
   }
 
   await checkAsset(overview.desktop, 1.5);
-  await checkAsset(overview.mobile!, 1.5);
   await checkAsset(overview.fallback, 1.5);
   for (const poi of world.pois) {
     const panorama = poi.immersive!.panorama!;
-    for (const asset of [panorama.desktop, panorama.mobile!])
-      expect(asset.width).toBe(asset.height * 2);
+    expect(panorama.desktop.width).toBe(panorama.desktop.height * 2);
     expect(panorama.desktop.width).toBeGreaterThanOrEqual(4096);
-    expect(panorama.mobile!.width).toBeGreaterThanOrEqual(2048);
     await checkAsset(panorama.desktop, 6);
-    await checkAsset(panorama.mobile!, 3);
     await checkAsset(panorama.fallback, 1.5);
   }
 });

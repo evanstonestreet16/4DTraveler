@@ -1,7 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import { PerspectiveCamera, Vector3 } from 'three';
 import { pittsburgh1892 as world } from '../src/data/worlds/pittsburgh-1892';
-import { fitCameraPosition } from '../src/utils/camera';
 import type { PointOfInterest } from '../src/types/world';
 
 async function enterWorld(page: Page) {
@@ -49,7 +48,7 @@ async function settleCamera(page: Page, poi?: PointOfInterest) {
         0.1,
         400,
       );
-      camera.position.set(...fitCameraPosition(view, camera.aspect));
+      camera.position.set(...view.position);
       camera.lookAt(...view.target);
       camera.updateMatrixWorld();
       const point = new Vector3(...anchor.markerPosition).project(camera);
@@ -102,7 +101,7 @@ test('complete demo: scene markers, real mesh clicks, metadata, audio, and reset
     0.1,
     400,
   );
-  camera.position.set(...fitCameraPosition(view, camera.aspect));
+  camera.position.set(...view.position);
   camera.lookAt(...view.target);
   camera.updateMatrixWorld();
   for (const id of world.pois[0].objectIds) {
@@ -153,7 +152,7 @@ test('complete demo: scene markers, real mesh clicks, metadata, audio, and reset
       0.1,
       400,
     );
-    poiCamera.position.set(...fitCameraPosition(poi.camera, poiCamera.aspect));
+    poiCamera.position.set(...poi.camera.position);
     poiCamera.lookAt(...poi.camera.target);
     poiCamera.updateMatrixWorld();
     const primitive = world.scene.primitives.find(
@@ -189,10 +188,9 @@ test('complete demo: scene markers, real mesh clicks, metadata, audio, and reset
   expect(errors).toEqual([]);
 });
 
-test('mobile layout, keyboard selection, rapid navigation, and reduced motion', async ({
+test('keyboard selection, rapid navigation, and reduced motion', async ({
   page,
 }, testInfo) => {
-  await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await enterWorld(page);
   expect(
@@ -222,7 +220,7 @@ test('mobile layout, keyboard selection, rapid navigation, and reduced motion', 
     page.getByRole('heading', { name: 'Blast Furnace' }),
   ).toBeVisible();
   await page.screenshot({
-    path: testInfo.outputPath('mobile.png'),
+    path: testInfo.outputPath('layout.png'),
     fullPage: true,
   });
   await page

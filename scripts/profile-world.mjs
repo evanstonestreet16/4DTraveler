@@ -13,15 +13,14 @@ if (process.argv.includes('--help')) {
   console.log(`Profile a separately built/served production 4DTraveler site.
 PROFILE_URL=http://127.0.0.1:4174 PROFILE_OUTPUT=docs/evidence/performance/after node scripts/profile-world.mjs
 Options: PROFILE_DIST=dist, PROFILE_BACKEND=software|hardware, PROFILE_HEADED=1,
-PROFILE_VIEWPORTS=desktop,mobile, PROFILE_DPR=1, PROFILE_QUALITY=auto|low|medium|high,
+PROFILE_VIEWPORTS=desktop, PROFILE_DPR=1, PROFILE_QUALITY=auto|low|medium|high,
 PROFILE_BASELINE=docs/evidence/performance/baseline, PROFILE_REPO=., PROFILE_ERA=1892,
 PROFILE_REVISION=<exact build commit when serving a frozen snapshot>,
 PROFILE_HEAP_SNAPSHOTS=1 (large local diagnostic files at post-leave cycles 2 and 5),
 PROFILE_WARMUP_CYCLES=5 (same cycle path before the five measured cycles; default 0),
 PROFILE_MODEL_EXPECTED=0 (only for primitive baseline), PROFILE_NOTE="measurement context".
 Hardware requests the browser's default GPU; the report verifies the actual renderer.
-Exit 0: checks pass; 1: failed check/run; 2: measurements need review.
-Mobile means viewport/touch simulation, never physical mobile certification.`);
+Exit 0: checks pass; 1: failed check/run; 2: measurements need review.`);
   process.exit(0);
 }
 
@@ -40,12 +39,11 @@ const expectModel = process.env.PROFILE_MODEL_EXPECTED !== '0';
 const warmupCount = Number(process.env.PROFILE_WARMUP_CYCLES || 0);
 if (!Number.isInteger(warmupCount) || warmupCount < 0 || warmupCount > 10)
   throw new Error('PROFILE_WARMUP_CYCLES must be an integer from 0 to 10');
-const requestedViewports = (
-  process.env.PROFILE_VIEWPORTS || 'desktop,mobile'
-).split(',');
+const requestedViewports = (process.env.PROFILE_VIEWPORTS || 'desktop').split(
+  ',',
+);
 const sizes = {
   desktop: { width: 1440, height: 1000 },
-  mobile: { width: 390, height: 844 },
 };
 for (const name of requestedViewports)
   if (!sizes[name]) throw new Error(`Unknown viewport ${name}`);
@@ -591,11 +589,7 @@ function assess(result) {
     !software && softwareObserved ? 'review' : 'pass',
     allRenderers,
   );
-  check(
-    'Physical mobile FPS certification',
-    'not-measured',
-    'Mobile viewport/touch emulation is not a representative physical mobile device.',
-  );
+  check('not-measured');
   check(
     'Agreed laptop 45+ FPS target',
     !softwareObserved && result.name === 'desktop'
@@ -605,7 +599,7 @@ function assess(result) {
       : 'not-measured',
     !softwareObserved && result.name === 'desktop'
       ? `Active-frame p95 ${result.frameSummary.p95Ms.toFixed(2)}ms on the reported GPU; browser scheduling proxy, not a GPU timer.`
-      : 'SwiftShader and mobile viewport measurements cannot certify the laptop target.',
+      : 'SwiftShader measurements cannot certify the laptop target.',
   );
   return checks;
 }
@@ -628,8 +622,6 @@ try {
     const context = await browser.newContext({
       viewport: sizes[name],
       deviceScaleFactor: dpr,
-      isMobile: name === 'mobile',
-      hasTouch: name === 'mobile',
     });
     const page = await context.newPage();
     page.setDefaultTimeout(30000);
@@ -836,8 +828,6 @@ try {
       schemaVersion: 2,
       name,
       environment,
-      deviceNote:
-        'Mobile is viewport/touch simulation, not physical-device certification.',
       viewport: sizes[name],
       beforeWorld,
       initial,
@@ -911,7 +901,7 @@ try {
   const checks = reports.flatMap((report) =>
     report.checks.map((check) => ({ ...check, viewport: report.name })),
   );
-  const markdown = `# Performance measurement\n\nRecorded ${environment.timestamp}. Source ${environment.sourceRevision}; see each JSON for source status and exact environment. Production file hashes are in build-assets.json.\n\n| Viewport | Run / observed renderer | Hero readiness ms | Active frame p50 ms | Active frame p95 ms | Peak submitted draws | Peak submitted triangles |\n|---|---|---:|---:|---:|---:|---:|\n${rows.join('\n')}\n\nBaseline directory: ${baselineDirectory}. The checked-in default is historical Dummy v0 on SwiftShader. Confirm comparable scene, GPU, viewport, DPR and quality before interpreting any difference; hardware and software results are not an equivalent-device speedup comparison. Active RAF intervals are a scheduling proxy, not GPU timer-query duration. Mobile rows are viewport/touch emulation, never physical-device certification.\n\n${checks.map((c) => `- **${c.status}** (${c.viewport}) ${c.name}`).join('\n')}\n\nRaw frame traces, per-cycle forced-GC heaps, resource/context generations, actual Three renderer.info, and HTTP/cache events are in the viewport JSON files.\n`;
+  const markdown = `# Performance measurement\n\nRecorded ${environment.timestamp}. Source ${environment.sourceRevision}; see each JSON for source status and exact environment. Production file hashes are in build-assets.json.\n\n| Viewport | Run / observed renderer | Hero readiness ms | Active frame p50 ms | Active frame p95 ms | Peak submitted draws | Peak submitted triangles |\n|---|---|---:|---:|---:|---:|---:|\n${rows.join('\n')}\n\nBaseline directory: ${baselineDirectory}. The checked-in default is historical Dummy v0 on SwiftShader. Confirm comparable scene, GPU, viewport, DPR and quality before interpreting any difference; hardware and software results are not an equivalent-device speedup comparison. Active RAF intervals are a scheduling proxy, not GPU timer-query duration.\n\n${checks.map((c) => `- **${c.status}** (${c.viewport}) ${c.name}`).join('\n')}\n\nRaw frame traces, per-cycle forced-GC heaps, resource/context generations, actual Three renderer.info, and HTTP/cache events are in the viewport JSON files.\n`;
   await writeFile(resolve(output, 'SUMMARY.md'), markdown);
   process.exitCode = checks.some((c) => c.status === 'fail')
     ? 1

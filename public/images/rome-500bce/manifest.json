@@ -10,13 +10,6 @@
       "bytes": 522742,
       "sha256": "1caacfa03ca063a0a61ef4d20db11738ff4afb610f887086cd92bc77d1882446"
     },
-    "mobile": {
-      "url": "/images/rome-500bce/overview-mobile.webp?v=353eac81bd77",
-      "width": 954,
-      "height": 1649,
-      "bytes": 514002,
-      "sha256": "353eac81bd77cff623a4e9b6be91b7b6d518a347410ed83f1f7712a3e2f4fed8"
-    },
     "fallback": {
       "url": "/images/rome-500bce/overview-fallback.webp?v=998fd0992fcc",
       "width": 1584,

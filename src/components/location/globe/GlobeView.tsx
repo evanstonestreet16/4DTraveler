@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import Globe, { type GlobeMethods } from 'react-globe.gl';
 import { MeshPhongMaterial } from 'three';
 import { countries, type CountryFeature } from '../../../data/geo/countries';
@@ -25,6 +25,18 @@ const locationByCity = new Map(
 
 const heroGlobe = locations.find((location) => location.globe)?.globe;
 const heroCity = heroGlobe && findCity(heroGlobe.countryIsoA3, heroGlobe.city);
+const START_ALTITUDE = 1.8;
+const MIN_ALTITUDE = 0.35;
+const MAX_ALTITUDE = 3.6;
+
+function configureGlobeControls(globe: GlobeMethods) {
+  const controls = globe.controls();
+  const radius = globe.getGlobeRadius();
+  controls.enableZoom = true;
+  controls.zoomSpeed = 0.85;
+  controls.minDistance = radius * (1 + MIN_ALTITUDE);
+  controls.maxDistance = radius * (1 + MAX_ALTITUDE);
+}
 
 export function GlobeView({ interactive }: { interactive: boolean }) {
   const { dispatch } = useApp();
@@ -35,7 +47,15 @@ export function GlobeView({ interactive }: { interactive: boolean }) {
   // the pin from under the cursor. Pins persist until a different country is hovered.
   const [pinnedIso, setPinnedIso] = useState<string | null>(null);
 
-  const [containerRef, size] = useElementSize<HTMLDivElement>();
+  const viewportNode = useRef<HTMLDivElement | null>(null);
+  const [sizeRef, size] = useElementSize<HTMLDivElement>();
+  const containerRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      viewportNode.current = node;
+      return sizeRef(node);
+    },
+    [sizeRef],
+  );
   const hoveredIso = hovered?.properties.isoA3 ?? null;
 
   const makePin = (city: City) => {
@@ -65,7 +85,8 @@ export function GlobeView({ interactive }: { interactive: boolean }) {
       className="globe-viewport"
       ref={containerRef}
       role="group"
-      aria-label="Interactive globe. Hover a country to see its name, and its cities where available."
+      aria-label="Interactive globe. Hover a country to see its name, and its cities where available. Scroll to zoom."
+      onWheel={(event) => event.preventDefault()}
     >
       {size.width > 0 && (
         <Globe
@@ -120,11 +141,28 @@ export function GlobeView({ interactive }: { interactive: boolean }) {
             element.style.pointerEvents = isVisible ? 'auto' : 'none';
           }}
           enablePointerInteraction={interactive}
+          onZoom={(pov) => {
+            viewportNode.current?.setAttribute(
+              'data-altitude',
+              pov.altitude.toFixed(2),
+            );
+          }}
           onGlobeReady={() => {
+            const globe = globeRef.current;
+            if (!globe) return;
+            configureGlobeControls(globe);
             if (!heroCity) return;
-            globeRef.current?.pointOfView(
-              { lat: heroCity.lat, lng: heroCity.lng, altitude: 1.8 },
+            globe.pointOfView(
+              {
+                lat: heroCity.lat,
+                lng: heroCity.lng,
+                altitude: START_ALTITUDE,
+              },
               0,
+            );
+            viewportNode.current?.setAttribute(
+              'data-altitude',
+              String(START_ALTITUDE),
             );
           }}
         />

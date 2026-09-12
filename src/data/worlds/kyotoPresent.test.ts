@@ -26,7 +26,7 @@ it('registers modern Kyoto with responsive assets in its own transition group', 
   expect(kyotoPresent.scene.overviewCamera).toEqual(
     kyoto1700.scene.overviewCamera,
   );
-  for (const variant of ['desktop', 'mobile', 'fallback'] as const) {
+  for (const variant of ['desktop', 'fallback'] as const) {
     const asset = kyotoPresent.scene.overviewImage![variant]!;
     expect(asset).toEqual(manifest.overview[variant]);
     const bytes = await readFile(

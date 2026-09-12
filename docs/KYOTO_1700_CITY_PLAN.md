@@ -14,7 +14,7 @@
 
 **Primary milestone:** ship the rendered Kyoto overview and Nijō panorama first. Preserve the stable city, POI, and object IDs below; add Kiyomizu-dera and Nishiki only after that path works.
 
-Implementation notes: [asset delivery](visual/KYOTO_1700_ASSETS.md) and [content review](visual/KYOTO_1700_CONTENT_REVIEW.md). The original milestone order was followed: Nijō four-direction browser review, then Kiyomizu hotspot integration, then Nishiki. Runtime panorama assets are 4K/2K variants. Overview illustrations use built-in ImageGen from the authored Blender layout, with reviewed image-space markers; the POI panoramas are original Cycles renders. The overview camera was refined to `[-2800, 2200, 3800]`. The production record above supersedes proposed blockout values and draft wording below; the historical exclusions and stable IDs remain binding.
+Implementation notes: [asset delivery](visual/KYOTO_1700_ASSETS.md) and [content review](visual/KYOTO_1700_CONTENT_REVIEW.md). The original milestone order was followed: Nijō four-direction browser review, then Kiyomizu hotspot integration, then Nishiki. Runtime panorama assets are 4K. The overview illustration uses built-in ImageGen from the authored Blender layout, with reviewed image-space markers; the POI panoramas are original Cycles renders. The overview camera was refined to `[-2800, 2200, 3800]`. The production record above supersedes proposed blockout values and draft wording below; the historical exclusions and stable IDs remain binding.
 
 ## 1. Experience thesis
 
@@ -92,7 +92,7 @@ The city remains at 1:1 scale. Simplify buildings and crop the city rather than 
 
 ### Camera and marker blockout
 
-These values are proposed for blockout. Freeze them only after Blender renders and browser markers pass desktop and mobile review.
+These values are proposed for blockout. Freeze them only after Blender renders and browser markers pass desktop review.
 
 | Element                      | Proposed position     | Target / purpose                                                                   |
 | ---------------------------- | --------------------- | ---------------------------------------------------------------------------------- |
@@ -110,7 +110,7 @@ Validate the POI anchors against an approved geospatial reference before freezin
 - Keep Nijō's rectangular moats, the Imperial Palace enclosure, Kiyomizu's elevated stage, and the Higashiyama ridge legible before labels appear.
 - Include Nijō's five-story keep in 1700 overview massing; the empty modern base is anachronistic for this date.
 - Use atmospheric perspective to simplify eastern foothill temples and distant urban fabric.
-- Keep all three marker stems clear of roofs at 390 px portrait and 1440 × 900 desktop.
+- Keep all three marker stems clear of roofs at 1440 × 900 desktop.
 - No camera angle may expose the cropped terrain edge, an empty mountain back, or the underside of the Kamo surface.
 
 ### Overview layers
@@ -287,7 +287,7 @@ No generic shakuhachi or koto track should be used merely to signal “Japan.”
 1. Establish the metric world frame and three POI anchor empties.
 2. Block mountain basin, Kamo River, Nijō moats, the palace enclosure, and Kiyomizu elevation.
 3. Add Nijō's 1700 keep and original Honmaru massing from reviewed historical evidence.
-4. Render the production camera at desktop and one mobile aspect ratio before filling the grid.
+4. Render the production camera at the desktop aspect ratio before filling the grid.
 5. Fill visible gaps with instanced urban families and selected temple/pagoda silhouettes.
 6. Test POI marker occlusion in the actual browser overlay.
 7. Render and compress the final overview image after marker placement is approved.
@@ -299,7 +299,7 @@ No generic shakuhachi or koto track should be used merely to signal “Japan.”
 3. Keep named object anchors matching the stable object IDs.
 4. Render geographic or local north, east, south, and west from the exact camera and pitch limits.
 5. Check roof backs, eaves, terrain undersides, drainage gaps, repeated façades, and vegetation from every direction.
-6. Render one equirectangular 360° panorama per POI, then compress desktop and mobile variants.
+6. Render one equirectangular 360° panorama per POI, then compress it for the desktop viewer.
 7. Record each object anchor as yaw/pitch hotspot data and verify alignment in the browser viewer.
 
 ### Proposed source and runtime paths
@@ -337,8 +337,7 @@ Reuse the smallest shared panorama/hotspot contract established for Rome and kee
 | Asset                    | Target                                                   |
 | ------------------------ | -------------------------------------------------------- |
 | Overview                 | WebP/AVIF, 1.5 MB or less                                |
-| Desktop POI panorama     | 4K–8K equirectangular, 6 MB or less after visual testing |
-| Mobile POI panorama      | 2K–4K equirectangular, 3 MB or less                      |
+| POI panorama             | 4K–8K equirectangular, 6 MB or less after visual testing |
 | Decoded detailed visuals | Overview plus one active panorama                        |
 
 Spend offline render complexity where it improves the image. At runtime keep only the overview and active panorama decoded by default. If a deadline cut is needed, reduce panorama resolution or omit a stretch POV before cutting Nijō's hero composition, its three objects, or complete 360° closure.
@@ -380,7 +379,7 @@ Before modeling fine architecture, add dimensioned plan/elevation references for
 
 - Add Kyoto content, the rendered overview, Nijō panorama, three hotspots, transcript, and fallback image/object list.
 - Wire city selection, loading, POI entry, object panels, and return to overview in the same milestone when that avoids coordination overhead.
-- Review the overview at desktop and one mobile viewport; review all four Nijō directions in the actual panorama viewer.
+- Review the overview at the desktop viewport; review all four Nijō directions in the actual panorama viewer.
 - Run the production build and one browser smoke path: Kyoto → overview → Nijō → one object → transcript/audio → overview.
 
 ### Milestone C — stretch only if time remains

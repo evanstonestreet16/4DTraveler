@@ -16,16 +16,14 @@ it('loads the delivered early Rome images and provides a marker for every previe
   expect(Object.keys(overview.markers).sort()).toEqual(
     rome500bce.pois.map((poi) => poi.id).sort(),
   );
-  for (const marker of Object.values(overview.markers)) {
-    for (const point of [marker.desktop, marker.mobile!]) {
-      expect(point).toHaveLength(2);
-      for (const coordinate of point) {
-        expect(coordinate).toBeGreaterThan(0);
-        expect(coordinate).toBeLessThan(1);
-      }
+  for (const point of Object.values(overview.markers)) {
+    expect(point).toHaveLength(2);
+    for (const coordinate of point) {
+      expect(coordinate).toBeGreaterThan(0);
+      expect(coordinate).toBeLessThan(1);
     }
   }
-  for (const variant of ['desktop', 'mobile', 'fallback'] as const) {
+  for (const variant of ['desktop', 'fallback'] as const) {
     const asset = manifest.overview[variant];
     const bytes = await readFile(
       new URL(`../../../public${asset.url.split('?')[0]}`, import.meta.url),

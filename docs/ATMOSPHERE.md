@@ -12,6 +12,6 @@ World data exposes ambient audio cue regions with IDs, centers, radii and a cue 
 
 Loading renders the complete primitive scene first. Decorative effects appear with the detailed model; failures keep the simplified scene and its visible status message. Ready overview, active POI and selected-object states share one environment; they do not switch lights or generate flicker.
 
-See checked-in desktop/mobile before/after captures and JSON frame traces linked in the PR. Software-rendered Chromium is a reproducible regression environment, not evidence of physical demo-laptop or mobile FPS.
+See checked-in desktop/mobile before/after captures and JSON frame traces linked in the PR. Software-rendered Chromium is a reproducible regression environment, not evidence of physical demo-laptop FPS.
 
 Verified: formatting, lint, typecheck, 14 unit tests, production build and all nine browser tests pass. The new browser case changes reduced-motion preferences live, confirms effects pause offscreen, and verifies object selection remains available. [Desktop after](evidence/atmosphere/overview.png), [selected object](evidence/atmosphere/selected-object.png) and [mobile after](evidence/atmosphere/mobile.png) were inspected against [desktop before](evidence/hero/overview.png) and [mobile before](evidence/hero/mobile.png). Lighting remains static across selection states; gold highlighting is legible and the smoke plume stays clear of the object centers. Performance traces from this exact hero/effects build are linked in the performance evidence produced for #11.

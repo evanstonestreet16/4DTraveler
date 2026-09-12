@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { PerspectiveCamera, Vector3 } from 'three';
 import type { CameraView } from '../../types/world';
-import { fitCameraPosition, smoothStep } from '../../utils/camera';
+import { smoothStep } from '../../utils/camera';
 import {
   initialLook,
   isLookDrag,
@@ -25,7 +25,7 @@ export function CameraController({
   /** Include projected HTML hotspot buttons in the same look gesture surface. */
   hotspotInput?: boolean;
 }) {
-  const { camera, size, invalidate, gl } = useThree();
+  const { camera, invalidate, gl } = useThree();
   const eventSurface = useThree((state) => state.events.connected);
   const target = useRef(new Vector3(...initialView.target));
   const transition = useRef<{
@@ -33,10 +33,7 @@ export function CameraController({
     fromTarget: Vector3;
     elapsed: number;
   } | null>(null);
-  const destination = useMemo(
-    () => new Vector3(...fitCameraPosition(view, size.width / size.height)),
-    [view, size.width, size.height],
-  );
+  const destination = useMemo(() => new Vector3(...view.position), [view]);
   const destinationTarget = useMemo(() => new Vector3(...view.target), [view]);
   const reducedMotion = useRef(false);
 

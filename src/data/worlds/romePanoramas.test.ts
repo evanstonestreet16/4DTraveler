@@ -40,7 +40,6 @@ describe('Rome rendered asset delivery', () => {
       for (const view of views) {
         total++;
         await checkImage(view.desktop, 3);
-        await checkImage(view.mobile!, 3);
         await checkImage(view.fallback, 0.5);
         const bytes = await readFile(
           new URL(
@@ -76,24 +75,20 @@ describe('Rome rendered asset delivery', () => {
     }
   });
 
-  it('ships a budgeted overview with authored desktop and portrait markers', async () => {
+  it('ships a budgeted landscape overview with authored markers', async () => {
     const overview = rome125.scene.overviewImage!;
     expect(overview).toBeDefined();
     await checkImage(overview.desktop, 1.5);
-    await checkImage(overview.mobile!, 1.5);
     await checkImage(overview.fallback, 0.5);
     expect(overview.desktop.width).toBeGreaterThan(overview.desktop.height);
-    expect(overview.mobile!.height).toBeGreaterThan(overview.mobile!.width);
     expect(Object.keys(overview.markers).sort()).toEqual(
       rome125.pois.map((poi) => poi.id).sort(),
     );
-    for (const marker of Object.values(overview.markers)) {
-      for (const point of [marker.desktop, marker.mobile!]) {
-        expect(point).toHaveLength(2);
-        for (const coordinate of point) {
-          expect(coordinate).toBeGreaterThan(0);
-          expect(coordinate).toBeLessThan(1);
-        }
+    for (const point of Object.values(overview.markers)) {
+      expect(point).toHaveLength(2);
+      for (const coordinate of point) {
+        expect(coordinate).toBeGreaterThan(0);
+        expect(coordinate).toBeLessThan(1);
       }
     }
   });
@@ -120,14 +115,10 @@ describe('Rome rendered asset delivery', () => {
       expect(panorama).toBeDefined();
       expect(poi.preview).not.toBe(true);
       await checkImage(panorama.desktop, 6);
-      await checkImage(panorama.mobile!, 3);
       await checkImage(panorama.fallback, 0.5);
       expect(panorama.desktop.width).toBeGreaterThanOrEqual(1440);
       expect(panorama.desktop.width).toBeLessThanOrEqual(8192);
-      expect(panorama.mobile!.width).toBeGreaterThanOrEqual(1440);
-      expect(panorama.mobile!.width).toBeLessThanOrEqual(4096);
-      for (const image of [panorama.desktop, panorama.mobile!])
-        expect(image.width / image.height).toBe(2);
+      expect(panorama.desktop.width / panorama.desktop.height).toBe(2);
       const source = authored[poi.id].source;
       expect(panorama.hotspots.map((hotspot) => hotspot.objectId)).toEqual(
         Object.keys(source.hotspotPixels),

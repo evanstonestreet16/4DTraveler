@@ -25,8 +25,8 @@ export function App() {
   // The landing globe is presented bare: just the globe and the wordmark.
   const isLandingGlobe = !showGlobe && !state.selectedLocationId;
   return (
-    <div className="app-shell">
-      <header className="site-header">
+    <div className={`app-shell${isLandingGlobe ? ' is-landing' : ''}`}>
+      <header className={`site-header${isLandingGlobe ? ' is-overlay' : ''}`}>
         <button
           className="wordmark"
           aria-label="4DTraveler home"

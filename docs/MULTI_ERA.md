@@ -1,6 +1,6 @@
 # Pittsburgh era composition
 
-Issue #12 adds **1850 · Blockout**, building on the 1892 hero, immersive presentation, and measured quality-tier work. The user selected 1850. It is a lightweight scene for evaluating the era pipeline, not an approved historical reconstruction. Content signoff and a separate visual-production plan are still required. The existing 1892 world remains the polished benchmark and appears first in the era picker. This extension does not certify all performance gates: raw total heap still fails its strict growth threshold despite stable retained world/GPU resources, and physical-phone verification remains outstanding.
+Issue #12 adds **1850 · Blockout**, building on the 1892 hero, immersive presentation, and measured quality-tier work. The user selected 1850. It is a lightweight scene for evaluating the era pipeline, not an approved historical reconstruction. Content signoff and a separate visual-production plan are still required. The existing 1892 world remains the polished benchmark and appears first in the era picker. This extension does not certify all performance gates: raw total heap still fails its strict growth threshold despite stable retained world/GPU resources.
 
 ## Ownership and boundaries
 
@@ -27,7 +27,7 @@ An object absent from an era must be absent from its object array, POI membershi
 
 ## Historical review status
 
-All 1850 footprints, density, dimensions, materials, street/wharf placement, and object identities are illustrative. Its market and landing are conceptual review locations. The era label includes **Blockout** in both the picker and world heading, including mobile and immersive layouts. Object descriptions explain the uncertainty. No particular operator, commodity, shipment, or named historical building is claimed.
+All 1850 footprints, density, dimensions, materials, street/wharf placement, and object identities are illustrative. Its market and landing are conceptual review locations. The era label includes **Blockout** in both the picker and world heading, including the immersive layout. Object descriptions explain the uncertainty. No particular operator, commodity, shipment, or named historical building is claimed.
 
 The primary reference lead is the University of Pittsburgh's [1850 Map of the County of Allegheny, Pennsylvania](https://historicpittsburgh.org/islandora/object/pitt%3ADARMAP0090). The catalog confirms an inset showing parts of Pittsburgh and Allegheny, and labels its rights **Copyright Not Evaluated**. No map imagery has been copied or traced. This reference establishes a review source, not the blockout's building footprints.
 
@@ -39,4 +39,4 @@ The existing world boundary is keyed by world ID. Leaving an era unmounts its ca
 
 `multiEra.test.ts` checks the complete 1892 world against a golden digest captured from `c87afe3`, shared geometry identity and unique IDs, registration, distinct cameras, absent 1850 narration, reference membership, and every foreign selection ID in both directions. Changes to that digest require an intentional review of a new 1892 benchmark.
 
-`tests/multi-era.spec.ts` covers the existing selection path, actual blockout mesh selection, desktop/mobile labeling, repeated transitions and teardown, leaving a slow 1892 load, missing model → 1850 → recovered 1892, and mobile immersive/orientation controls. Run after `npm run build` with `npm run test:e2e -- tests/multi-era.spec.ts`; run the existing 1892 suite before release.
+`tests/multi-era.spec.ts` covers the existing selection path, actual blockout mesh selection, era labeling, repeated transitions and teardown, leaving a slow 1892 load, and missing model → 1850 → recovered 1892. Run after `npm run build` with `npm run test:e2e -- tests/multi-era.spec.ts`; run the existing 1892 suite before release.

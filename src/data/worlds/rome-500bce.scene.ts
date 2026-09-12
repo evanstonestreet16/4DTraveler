@@ -14,18 +14,9 @@ export const rome500bceScene: HistoricalWorld['scene'] = {
       'Circa 500 BCE · Interpretive reconstruction · Places shown as previews',
     // Reviewed on the separately authored images; registration is approximate.
     markers: {
-      '500bce-capitoline-temple': {
-        desktop: [0.511, 0.507],
-        mobile: [0.445, 0.433],
-      },
-      '500bce-forum-valley': {
-        desktop: [0.485, 0.403],
-        mobile: [0.603, 0.367],
-      },
-      '500bce-circus-valley': {
-        desktop: [0.904, 0.711],
-        mobile: [0.253, 0.677],
-      },
+      '500bce-capitoline-temple': [0.511, 0.507],
+      '500bce-forum-valley': [0.485, 0.403],
+      '500bce-circus-valley': [0.904, 0.711],
     },
   },
 };

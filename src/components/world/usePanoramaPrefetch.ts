@@ -2,11 +2,7 @@ import { useEffect, useMemo } from 'react';
 import type { HistoricalWorld } from '../../types/world';
 import { createPanoramaPrefetchSession } from './panoramaPrefetch';
 
-export function usePanoramaPrefetch(
-  world: HistoricalWorld,
-  ready: boolean,
-  mobile: boolean,
-) {
+export function usePanoramaPrefetch(world: HistoricalWorld, ready: boolean) {
   const session = useMemo(() => createPanoramaPrefetchSession(world), [world]);
   useEffect(() => {
     const connection = (
@@ -20,7 +16,7 @@ export function usePanoramaPrefetch(
       if (controller.signal.aborted || document.hidden) return;
       deadline = window.setTimeout(() => controller.abort(), 15000);
       void session
-        .run(mobile, controller.signal)
+        .run(controller.signal)
         .finally(() => window.clearTimeout(deadline));
     };
     const delay = window.setTimeout(() => {
@@ -39,5 +35,5 @@ export function usePanoramaPrefetch(
       document.removeEventListener('visibilitychange', hidden);
       controller.abort();
     };
-  }, [session, ready, mobile]);
+  }, [session, ready]);
 }

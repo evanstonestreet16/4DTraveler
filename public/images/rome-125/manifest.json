@@ -10,13 +10,6 @@
       "bytes": 734218,
       "sha256": "488694b9e61a7a10f7573e87a2968b98c39b0f75cf937a3ac8030b09fa0e1173"
     },
-    "mobile": {
-      "url": "/images/rome-125/overview-mobile.webp?v=9e4b4f480d75",
-      "width": 954,
-      "height": 1649,
-      "bytes": 677850,
-      "sha256": "9e4b4f480d75f83afb32abc78e6a2718e1c5ba7ef3f46c61be4c721a9aff4926"
-    },
     "fallback": {
       "url": "/images/rome-125/overview-fallback.webp?v=0b37861116df",
       "width": 1279,
@@ -25,47 +18,54 @@
       "sha256": "0b37861116df5a61544910f19013bc1c8f90b157bf299459494648dbc68cf62b"
     },
     "markers": {
-      "forum-trajan": {
-        "desktop": [0.416, 0.422],
-        "mobile": [0.572, 0.466]
-      },
-      "pantheon-forecourt": {
-        "desktop": [0.113, 0.51],
-        "mobile": [0.462, 0.324]
-      },
-      "colosseum-valley": {
-        "desktop": [0.85, 0.398],
-        "mobile": [0.613, 0.685]
-      }
+      "forum-trajan": [
+        0.416,
+        0.422
+      ],
+      "pantheon-forecourt": [
+        0.113,
+        0.51
+      ],
+      "colosseum-valley": [
+        0.85,
+        0.398
+      ]
     },
     "cameras": {
       "desktop": {
-        "eye": [-1450.0, 1250.0, 1650.0],
-        "target": [50, 40, 180],
+        "eye": [
+          -1450.0,
+          1250.0,
+          1650.0
+        ],
+        "target": [
+          50,
+          40,
+          180
+        ],
         "projection": "PERSP",
         "lensMm": 42.0,
         "orthoScale": null
-      },
-      "mobile": {
-        "eye": [1450.0, 3300.0, 1650.0],
-        "target": [0, 0, 180],
-        "projection": "ORTHO",
-        "lensMm": 36.0,
-        "orthoScale": 2250.0
       }
     },
     "sourceProjectedMarkers": {
       "forum-trajan": {
-        "desktop": [0.423707, 0.465071],
-        "mobile": [0.55618, 0.462181]
+        "desktop": [
+          0.423707,
+          0.465071
+        ]
       },
       "pantheon-forecourt": {
-        "desktop": [0.101117, 0.540411],
-        "mobile": [0.463128, 0.306874]
+        "desktop": [
+          0.101117,
+          0.540411
+        ]
       },
       "colosseum-valley": {
-        "desktop": [0.851987, 0.432296],
-        "mobile": [0.574713, 0.684986]
+        "desktop": [
+          0.851987,
+          0.432296
+        ]
       }
     },
     "generator": "Original Blender layout plus Codex built-in image generation; package_rome_overview_detail.py",
@@ -81,13 +81,6 @@
     "forum-trajan": {
       "desktop": {
         "url": "/images/rome-125/forum-trajan-360.webp?v=e6206871237b",
-        "width": 1440,
-        "height": 720,
-        "bytes": 1150798,
-        "sha256": "e6206871237b7afaa22e572ab141c4c1783eed6be1cb56d8f3c891a869f36300"
-      },
-      "mobile": {
-        "url": "/images/rome-125/forum-trajan-360-mobile.webp?v=e6206871237b",
         "width": 1440,
         "height": 720,
         "bytes": 1150798,
@@ -114,12 +107,23 @@
         "height": 720,
         "horizontalShiftPixels": 0,
         "hotspotPixels": {
-          "basilica-ulpia-facade": [724, 330]
+          "basilica-ulpia-facade": [
+            724,
+            330
+          ]
         },
         "encoding": "lossless WebP; decoded source pixels preserved"
       },
-      "eye": [0, 1.65, 30],
-      "initialTarget": [0, 12, -40],
+      "eye": [
+        0,
+        1.65,
+        30
+      ],
+      "initialTarget": [
+        0,
+        12,
+        -40
+      ],
       "fieldOfView": 75,
       "viewpoints": [
         {
@@ -127,13 +131,6 @@
           "label": "Forum square",
           "desktop": {
             "url": "/images/rome-125/forum-trajan-360.webp?v=e6206871237b",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1150798,
-            "sha256": "e6206871237b7afaa22e572ab141c4c1783eed6be1cb56d8f3c891a869f36300"
-          },
-          "mobile": {
-            "url": "/images/rome-125/forum-trajan-360-mobile.webp?v=e6206871237b",
             "width": 1440,
             "height": 720,
             "bytes": 1150798,
@@ -160,7 +157,10 @@
             "height": 720,
             "horizontalShiftPixels": 0,
             "hotspotPixels": {
-              "basilica-ulpia-facade": [724, 330]
+              "basilica-ulpia-facade": [
+                724,
+                330
+              ]
             },
             "encoding": "lossless WebP; decoded source pixels preserved"
           }
@@ -169,13 +169,6 @@
           "id": "forum-overlook",
           "label": "Market overlook",
           "desktop": {
-            "url": "/images/rome-125/forum-overlook-360.webp?v=b0b0f88acf14",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1088090,
-            "sha256": "b0b0f88acf1403370b1a9730a6db16416960dbcaa8c9b370676bd4ded6b7acf2"
-          },
-          "mobile": {
             "url": "/images/rome-125/forum-overlook-360.webp?v=b0b0f88acf14",
             "width": 1440,
             "height": 720,
@@ -210,13 +203,6 @@
             "bytes": 1056810,
             "sha256": "5a5e059e3645164304216e9a6bbd39fb0953ce89dd5e7d7d8a6e3cb413821cd9"
           },
-          "mobile": {
-            "url": "/images/rome-125/forum-market-360.webp?v=5a5e059e3645",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1056810,
-            "sha256": "5a5e059e3645164304216e9a6bbd39fb0953ce89dd5e7d7d8a6e3cb413821cd9"
-          },
           "fallback": {
             "url": "/images/rome-125/forum-market-fallback.webp?v=67357820a7a6",
             "width": 960,
@@ -240,13 +226,6 @@
     "pantheon-forecourt": {
       "desktop": {
         "url": "/images/rome-125/pantheon-forecourt-360.webp?v=3d985d410061",
-        "width": 1440,
-        "height": 720,
-        "bytes": 1038524,
-        "sha256": "3d985d410061002c2f91afc6e1b551c32a33113e8eb9e9692d929acda2081b5c"
-      },
-      "mobile": {
-        "url": "/images/rome-125/pantheon-forecourt-360-mobile.webp?v=3d985d410061",
         "width": 1440,
         "height": 720,
         "bytes": 1038524,
@@ -283,14 +262,31 @@
         "height": 720,
         "horizontalShiftPixels": 720,
         "hotspotPixels": {
-          "pantheon-agrippa-inscription": [720, 173],
-          "pantheon-granite-columns": [615, 290],
-          "pantheon-forecourt-colonnade": [174, 375]
+          "pantheon-agrippa-inscription": [
+            720,
+            173
+          ],
+          "pantheon-granite-columns": [
+            615,
+            290
+          ],
+          "pantheon-forecourt-colonnade": [
+            174,
+            375
+          ]
         },
         "encoding": "lossless WebP; decoded source pixels preserved"
       },
-      "eye": [0, 1.65, -42],
-      "initialTarget": [0, 13, 0],
+      "eye": [
+        0,
+        1.65,
+        -42
+      ],
+      "initialTarget": [
+        0,
+        13,
+        0
+      ],
       "fieldOfView": 75,
       "viewpoints": [
         {
@@ -298,13 +294,6 @@
           "label": "Pantheon forecourt",
           "desktop": {
             "url": "/images/rome-125/pantheon-forecourt-360.webp?v=3d985d410061",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1038524,
-            "sha256": "3d985d410061002c2f91afc6e1b551c32a33113e8eb9e9692d929acda2081b5c"
-          },
-          "mobile": {
-            "url": "/images/rome-125/pantheon-forecourt-360-mobile.webp?v=3d985d410061",
             "width": 1440,
             "height": 720,
             "bytes": 1038524,
@@ -341,9 +330,18 @@
             "height": 720,
             "horizontalShiftPixels": 720,
             "hotspotPixels": {
-              "pantheon-agrippa-inscription": [720, 173],
-              "pantheon-granite-columns": [615, 290],
-              "pantheon-forecourt-colonnade": [174, 375]
+              "pantheon-agrippa-inscription": [
+                720,
+                173
+              ],
+              "pantheon-granite-columns": [
+                615,
+                290
+              ],
+              "pantheon-forecourt-colonnade": [
+                174,
+                375
+              ]
             },
             "encoding": "lossless WebP; decoded source pixels preserved"
           }
@@ -352,13 +350,6 @@
           "id": "pantheon-square",
           "label": "Across the square",
           "desktop": {
-            "url": "/images/rome-125/pantheon-square-360.webp?v=af1c623e940f",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1082234,
-            "sha256": "af1c623e940f7b5fe3466f093edbf76a8fab4b1c18c4b00c8c43186457e04204"
-          },
-          "mobile": {
             "url": "/images/rome-125/pantheon-square-360.webp?v=af1c623e940f",
             "width": 1440,
             "height": 720,
@@ -393,13 +384,6 @@
             "bytes": 1183104,
             "sha256": "187c0d936df4a25c8cf322db130542d54a2ef0ee799d022c56174fe78f4b21de"
           },
-          "mobile": {
-            "url": "/images/rome-125/pantheon-interior-360.webp?v=187c0d936df4",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1183104,
-            "sha256": "187c0d936df4a25c8cf322db130542d54a2ef0ee799d022c56174fe78f4b21de"
-          },
           "fallback": {
             "url": "/images/rome-125/pantheon-interior-fallback.webp?v=0a2e32c8b7ea",
             "width": 960,
@@ -428,13 +412,6 @@
         "bytes": 1084918,
         "sha256": "bc3e67ee4c9754ba98c75c36ec06d41b2f136cee982bb5ab09c9832e2ed8b6af"
       },
-      "mobile": {
-        "url": "/images/rome-125/colosseum-valley-360-mobile.webp?v=bc3e67ee4c97",
-        "width": 1440,
-        "height": 720,
-        "bytes": 1084918,
-        "sha256": "bc3e67ee4c9754ba98c75c36ec06d41b2f136cee982bb5ab09c9832e2ed8b6af"
-      },
       "fallback": {
         "url": "/images/rome-125/colosseum-valley-fallback.webp?v=c4f5bbed75ee",
         "width": 960,
@@ -456,12 +433,23 @@
         "height": 720,
         "horizontalShiftPixels": 240,
         "hotspotPixels": {
-          "colosseum-outer-arcade": [840, 307]
+          "colosseum-outer-arcade": [
+            840,
+            307
+          ]
         },
         "encoding": "lossless WebP; decoded source pixels preserved"
       },
-      "eye": [0, 1.65, 0],
-      "initialTarget": [80, 18, 0],
+      "eye": [
+        0,
+        1.65,
+        0
+      ],
+      "initialTarget": [
+        80,
+        18,
+        0
+      ],
       "fieldOfView": 75,
       "viewpoints": [
         {
@@ -469,13 +457,6 @@
           "label": "Colosseum forecourt",
           "desktop": {
             "url": "/images/rome-125/colosseum-valley-360.webp?v=bc3e67ee4c97",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1084918,
-            "sha256": "bc3e67ee4c9754ba98c75c36ec06d41b2f136cee982bb5ab09c9832e2ed8b6af"
-          },
-          "mobile": {
-            "url": "/images/rome-125/colosseum-valley-360-mobile.webp?v=bc3e67ee4c97",
             "width": 1440,
             "height": 720,
             "bytes": 1084918,
@@ -502,7 +483,10 @@
             "height": 720,
             "horizontalShiftPixels": 240,
             "hotspotPixels": {
-              "colosseum-outer-arcade": [840, 307]
+              "colosseum-outer-arcade": [
+                840,
+                307
+              ]
             },
             "encoding": "lossless WebP; decoded source pixels preserved"
           }
@@ -511,13 +495,6 @@
           "id": "colosseum-approach",
           "label": "Colosseum approach",
           "desktop": {
-            "url": "/images/rome-125/colosseum-approach-360.webp?v=8ae824510a72",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1077988,
-            "sha256": "8ae824510a728de70f86dc8b738ba2f82a3518f98e0d13e35cc069cae07ff9f4"
-          },
-          "mobile": {
             "url": "/images/rome-125/colosseum-approach-360.webp?v=8ae824510a72",
             "width": 1440,
             "height": 720,
@@ -552,13 +529,6 @@
             "bytes": 1013894,
             "sha256": "8b274cfb5ba0efa2026ef4a908c1f558f0a43e8a5b8109eee1815f4333a8bb39"
           },
-          "mobile": {
-            "url": "/images/rome-125/colosseum-interior-360.webp?v=8b274cfb5ba0",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1013894,
-            "sha256": "8b274cfb5ba0efa2026ef4a908c1f558f0a43e8a5b8109eee1815f4333a8bb39"
-          },
           "fallback": {
             "url": "/images/rome-125/colosseum-interior-fallback.webp?v=b830385353ad",
             "width": 960,
@@ -581,13 +551,6 @@
           "id": "colosseum-southwest",
           "label": "Southwest square",
           "desktop": {
-            "url": "/images/rome-125/colosseum-southwest-360.webp?v=7e962b066f26",
-            "width": 1440,
-            "height": 720,
-            "bytes": 1176428,
-            "sha256": "7e962b066f26f941c6749f94c87c962ef44c224494feb9d5ab6be5095a1d9599"
-          },
-          "mobile": {
             "url": "/images/rome-125/colosseum-southwest-360.webp?v=7e962b066f26",
             "width": 1440,
             "height": 720,

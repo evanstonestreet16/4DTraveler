@@ -2,7 +2,6 @@ import { expect, test, type Page } from '@playwright/test';
 import { PerspectiveCamera, Vector3 } from 'three';
 import { pittsburgh1850 } from '../src/data/worlds/pittsburgh-1850';
 import type { ProfileCanvas } from '../src/components/world/SceneDiagnostics';
-import { fitCameraPosition } from '../src/utils/camera';
 
 async function chooseLocation(page: Page) {
   await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -82,7 +81,7 @@ test('1850 loads from the existing era picker and real mesh selection uses its o
         0.1,
         400,
       );
-      camera.position.set(...fitCameraPosition(poi.camera, camera.aspect));
+      camera.position.set(...poi.camera.position);
       camera.lookAt(...poi.camera.target);
       camera.updateMatrixWorld();
       const point = new Vector3(...poi.markerPosition).project(camera);
@@ -111,7 +110,7 @@ test('1850 loads from the existing era picker and real mesh selection uses its o
     0.1,
     400,
   );
-  camera.position.set(...fitCameraPosition(poi.camera, camera.aspect));
+  camera.position.set(...poi.camera.position);
   camera.lookAt(...poi.camera.target);
   camera.updateMatrixWorld();
   const stall = pittsburgh1850.scene.primitives.find(
@@ -274,68 +273,4 @@ test('missing 1892 assets do not affect the blockout and a later 1892 visit reco
   await expect(
     page.getByText('Bird’s-eye overview', { exact: true }),
   ).toBeVisible();
-});
-
-test.describe('mobile second era', () => {
-  test.use({
-    viewport: { width: 390, height: 844 },
-    hasTouch: true,
-    isMobile: true,
-  });
-  test('blockout labeling and object controls survive immersive and orientation changes', async ({
-    page,
-  }, testInfo) => {
-    await page.addInitScript(() => {
-      Object.defineProperty(HTMLElement.prototype, 'requestFullscreen', {
-        configurable: true,
-        value: undefined,
-      });
-    });
-    await chooseLocation(page);
-    await expect(
-      page.getByRole('button', { name: /1850 · Blockout/ }),
-    ).toBeInViewport();
-    await chooseEra(page, '1850');
-    await expectBlockoutOverview(page);
-    await page.getByRole('button', { name: 'Enter immersive view' }).tap();
-    await expect(
-      page.getByRole('heading', { name: /Pittsburgh.*1850.*Blockout/ }),
-    ).toBeInViewport();
-    await selectPlace(page, 'Wharf / Blockout');
-    await page.getByRole('button', { name: 'Cargo Stack', exact: true }).tap();
-    for (const viewport of [
-      { width: 390, height: 844 },
-      { width: 844, height: 390 },
-    ]) {
-      await page.setViewportSize(viewport);
-      const heading = page.getByRole('heading', {
-        name: /Pittsburgh.*1850.*Blockout/,
-      });
-      await expect(heading).toBeInViewport();
-      await expect(
-        page.getByRole('button', { name: 'Exit immersive view' }),
-      ).toBeInViewport();
-      const close = page.getByRole('button', {
-        name: 'Close object information',
-      });
-      await close.scrollIntoViewIfNeeded();
-      await expect(close).toBeInViewport();
-      expect(
-        await page.evaluate(
-          () => document.documentElement.scrollWidth <= innerWidth,
-        ),
-      ).toBe(true);
-      await page.screenshot({
-        path: testInfo.outputPath(`1850-immersive-${viewport.width}.png`),
-      });
-    }
-    await page.getByRole('button', { name: 'Return to overview' }).tap();
-    await page.getByRole('button', { name: 'Exit immersive view' }).tap();
-    await page.getByRole('button', { name: 'Choose era' }).tap();
-    await chooseEra(page, '1892');
-    await expect(page.locator('[data-model-status="ready"]')).toHaveCount(1);
-    await expect(
-      page.getByRole('heading', { name: 'Pittsburgh / 1892' }),
-    ).toBeVisible();
-  });
 });

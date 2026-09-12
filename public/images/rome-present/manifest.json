@@ -9,13 +9,6 @@
       "bytes": 614250,
       "sha256": "cceacf7ebee4bdebcaf58fde5a348f5f8ea76cb221b130df733ab7dccb8b881c"
     },
-    "mobile": {
-      "url": "/images/rome-present/overview-mobile.webp?v=b4a190383bb7",
-      "width": 954,
-      "height": 1649,
-      "bytes": 631880,
-      "sha256": "b4a190383bb7dba32e9a6fa35098b0764f72443b5ca79e9e08f2a158fd25ab91"
-    },
     "fallback": {
       "url": "/images/rome-present/overview-fallback.webp?v=801d33f336d3",
       "width": 1586,

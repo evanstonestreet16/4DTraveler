@@ -28,7 +28,6 @@ const world: HistoricalWorld = {
       look: { minPitch: -1, maxPitch: 1 },
       panorama: {
         desktop: { url: `/${id}-desktop.webp`, width: 4096, height: 2048 },
-        mobile: { url: `/${id}-mobile.webp`, width: 2048, height: 1024 },
         fallback: { url: `/${id}-still.webp`, width: 1280, height: 720 },
         hotspots: [],
       },
@@ -41,18 +40,17 @@ afterEach(() => {
 });
 
 describe('encoded hero panorama prefetch', () => {
-  it('warms only the chosen hero variant once, without decoding an image', async () => {
+  it('warms the hero panorama once, without decoding an image', async () => {
     const fetch = vi
       .spyOn(globalThis, 'fetch')
       .mockImplementation(async () => new Response(new Uint8Array(12)));
     const image = vi.fn();
     vi.stubGlobal('Image', image);
     const session = createPanoramaPrefetchSession(world);
-    await session.run(true, new AbortController().signal);
-    await session.run(true, new AbortController().signal);
-    await session.run(false, new AbortController().signal);
+    await session.run(new AbortController().signal);
+    await session.run(new AbortController().signal);
+    await session.run(new AbortController().signal);
     expect(fetch.mock.calls.map(([url]) => url)).toEqual([
-      '/hero-mobile.webp',
       '/hero-desktop.webp',
     ]);
     expect(fetch.mock.calls[0][1]).toMatchObject({ cache: 'force-cache' });
@@ -76,12 +74,12 @@ describe('encoded hero panorama prefetch', () => {
       )
       .mockResolvedValueOnce(new Response(new Uint8Array(12)));
     const session = createPanoramaPrefetchSession(world);
-    const pending = session.run(false, controller.signal);
+    const pending = session.run(controller.signal);
     await vi.waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
     controller.abort();
     await pending;
     expect(cancel).toHaveBeenCalledTimes(1);
-    await session.run(false, new AbortController().signal);
+    await session.run(new AbortController().signal);
     expect(fetch).toHaveBeenCalledTimes(2);
     expect(fetch.mock.calls.map(([url]) => url)).toEqual([
       '/hero-desktop.webp',
@@ -110,10 +108,13 @@ describe('encoded hero panorama prefetch', () => {
           }),
         ),
       );
-    const session = createPanoramaPrefetchSession(world);
-    await session.run(false, new AbortController().signal);
-    await session.run(true, new AbortController().signal);
-    await session.run(true, new AbortController().signal);
+    // A session never refetches a URL it already declined, so the header and
+    // stream budgets need separate sessions to both be exercised.
+    const header = createPanoramaPrefetchSession(world);
+    await header.run(new AbortController().signal);
+    await header.run(new AbortController().signal);
+    const stream = createPanoramaPrefetchSession(world);
+    await stream.run(new AbortController().signal);
     expect(cancel).toHaveBeenCalledTimes(2);
     expect(fetch).toHaveBeenCalledTimes(2);
   });
