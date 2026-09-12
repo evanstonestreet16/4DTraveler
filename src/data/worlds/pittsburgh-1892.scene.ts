@@ -1,4 +1,9 @@
 import type { HistoricalWorld, PointOfInterest } from '../../types/world';
+import { composeSceneLayers } from './composeSceneLayers';
+import {
+  pittsburghGeography,
+  pittsburghWaterSurface,
+} from './pittsburgh.geography';
 
 /** Visual layout ownership: Workstream 1. Units are meters, +Y is up. */
 export const pittsburgh1892Scene = {
@@ -28,7 +33,7 @@ export const pittsburgh1892Scene = {
     fog: { color: '#dcd9cc', near: 42, far: 120 },
     exposure: 1.08,
     smokeSources: [[-8, 8.1, -6]],
-    water: { position: [0, 0.1, 9], size: [43.8, 6.8] },
+    water: pittsburghWaterSurface,
     ambientAudioZones: [
       {
         id: 'mill-yard-ambience',
@@ -44,21 +49,7 @@ export const pittsburgh1892Scene = {
       },
     ],
   },
-  primitives: [
-    {
-      id: 'ground',
-      shape: 'box',
-      position: [0, -0.3, 0],
-      scale: [44, 0.5, 34],
-      color: '#ada98c',
-    },
-    {
-      id: 'river',
-      shape: 'box',
-      position: [0, 0, 9],
-      scale: [44, 0.12, 7],
-      color: '#668e98',
-    },
+  primitives: composeSceneLayers(pittsburghGeography, [
     {
       id: 'mill-yard',
       shape: 'box',
@@ -171,7 +162,7 @@ export const pittsburgh1892Scene = {
       scale: [2, 0.9, 1],
       color: '#696e67',
     },
-  ],
+  ]),
 } satisfies Omit<
   HistoricalWorld['scene'],
   'narrationAudio' | 'narrationTranscript'
